@@ -593,7 +593,7 @@ the RCU grace-period state machine, as shown in
 Figure~\ref{fig:app:rcuimpl:rcu_try_flip() Implementation}.
 Line~6 attempts to acquire the global RCU state-machine lock,
 and returns if unsuccessful.
-Lines;~5 and 7 accumulate RCU-tracing statistics (again, if
+Lines~5 and 7 accumulate RCU-tracing statistics (again, if
 \co{CONFIG_RCU_TRACE} is enabled).
 Lines~10 through 26 execute the state machine,
 each invoking a function specific to that state.
