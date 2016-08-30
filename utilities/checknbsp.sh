@@ -47,6 +47,7 @@ cat $1 |
 	    -e 's/\([tT]hread\) \([0-9A-Z]\{1\} \)/\1~\2/g' \
 	    -e "s/and \([0-9]\+[,\.\']\?[[:space:]]\+\)/and~\1/g" \
 	    -e "s/and \([0-9]\+[,\.\']\?\)$/and~\1/g" \
+	    -e 's/and \(\\ref{[^}]*}\)/and~\1/g' \
 	    -e "s/through \([0-9]\+[,\.\']\?[[:space:]]\+\)/through~\1/g" \
 	    -e "s/through \([0-9]\+[,\.\']\?\)$/through~\1/g" \
 	    -e 's/Figure \(\\ref{.*}\)/Figure~\1/g' \
