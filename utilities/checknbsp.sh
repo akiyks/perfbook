@@ -48,12 +48,12 @@ cat $1 |
 	    -e "s/and \([0-9]\+[,\.\']\?[[:space:]]\+\)/and~\1/g" \
 	    -e "s/and \([0-9]\+[,\.\']\?\)$/and~\1/g" \
 	    -e 's/and \(\\ref{[^}]*}\)/and~\1/g' \
-	    -e "s/through \([0-9]\+[,\.\']\?[[:space:]]\+\)/through~\1/g" \
-	    -e "s/through \([0-9]\+[,\.\']\?\)$/through~\1/g" \
-	    -e 's/Figure \(\\ref{.*}\)/Figure~\1/g' \
-	    -e 's/Table \(\\ref{.*}\)/Table~\1/g' \
-	    -e 's/Chapter \(\\ref{.*}\)/Chapter~\1/g' \
-	    -e 's/Section \(\\ref{.*}\)/Section~\1/g' \
+	    -e "s/through \([0-9]\{1,3\}[,\.\']\?[[:space:]]\+\)/through~\1/g" \
+	    -e "s/through \([0-9]\{1,3\}[,\.\']\?\)$/through~\1/g" \
+	    -e 's/Figure \(\\ref{[^}]*}\)/Figure~\1/g' \
+	    -e 's/Table \(\\ref{[^}]*}\)/Table~\1/g' \
+	    -e 's/Chapter \(\\ref{[^}]*}\)/Chapter~\1/g' \
+	    -e 's/Section \(\\ref{[^}]*}\)/Section~\1/g' \
 	    -e 's/\\co{CPU~\([0-9]\+\)}/\\co{CPU \1}/g' \
 	    -e 'sX/\* Line~\([0-9]\+\)X/* Line \1Xg' \
 	    -e 'sX/\* Lines~\([0-9]\+\)X/* Lines \1Xg' \
