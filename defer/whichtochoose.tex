@@ -5,10 +5,10 @@
 \label{sec:defer:Which to Choose?}
 
 \begin{table*}
-\small
+\footnotesize
 \centering
-\begin{tabular}{p{1.5in}||p{1.5in}|p{0.8in}|p{0.8in}|p{1.0in}}
-	~ ~ ~ ~ ~ ~ ~ ~ ~
+\begin{tabular}{l||l|l|l|l}
+	~
 		& Reference Counting
 			& Hazard Pointers
 				& Sequence Locks
@@ -16,49 +16,48 @@
 	\hline
 %		  RC	  HP	  SL	  RCU \\
 	\hline
-	Existence Guarantees
+	\rrc{1in}{2pt}{Existence Guarantees}
 		& Complex
 			& Yes
 				& No
 					& Yes \\
 	\hline
-	Updates and Readers Progress Concurrently
+	\rrc{1in}{-5pt}{Updates and Readers Progress Concurrently}
 		& Yes
 			& Yes
 				& No
 					& Yes \\
 	\hline
-	Contention Among Readers
+	\rrc{1in}{2pt}{Contention Among Readers}
 		& High
 			& None
 				& None
 					& None \\
 	\hline
-	Reader Per-Critical-Section Overhead
+	\rrc{1in}{-5pt}{Reader Per-Critical-Section Overhead}
 		& N/A
 			& N/A
 				& Two \co{smp_mb()}
-					& Ranges from none to two
-					  \co{smp_mb()} \\
+					&  \rrc{1in}{-5pt}{Ranges from none to two \co{smp_mb()}} \\
 	\hline
-	Reader Per-Object Traversal Overhead
-		& Read-modify-write atomic operations, memory-barrier
-		  instructions, and cache misses
+	\rrc{1in}{2pt}{Reader Per-Object Traversal Overhead}
+		& \rrc{1.2in}{2pt}{Read-modify-write atomic operations, memory-barrier
+		  instructions, and cache misses}
 			& \co{smp_mb()}
 				& None, but unsafe
-					& None (volatile accesses) \\
+					& \rrc{1in}{2pt}{None (volatile accesses)} \\
 	\hline
-	Reader Forward Progress Guarantee
+	\rrc{1in}{2pt}{Reader Forward Progress Guarantee}
 		& Lock free
 			& Lock free
 				& Blocking
 					& Bounded wait free \\
 	\hline
-	Reader Reference Acquisition
-		& Can fail (conditional)
-			& Can fail (conditional)
+	\rrc{1in}{2pt}{Reader Reference Acquisition}
+		& \rrc{1.2in}{2pt}{Can fail (conditional)}
+			& \rrc{0.8in}{2pt}{Can fail (conditional)}
 				& Unsafe
-					& Cannot fail (unconditional) \\
+					& \rrc{1in}{2pt}{Cannot fail (unconditional)} \\
 	\hline
 	Memory Footprint
 		& Bounded
@@ -66,13 +65,13 @@
 				& Bounded
 					& Unbounded \\
 	\hline
-	Reclamation Forward Progress
+	\rrc{1in}{2pt}{Reclamation Forward Progress}
 		& Lock free
 			& Lock free
 				& N/A
 					& Blocking \\
 	\hline
-	Automatic Reclamation
+	\rrc{1in}{2pt}{Automatic Reclamation}
 		& Yes
 			& No
 				& N/A

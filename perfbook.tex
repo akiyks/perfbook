@@ -31,6 +31,7 @@
 \usepackage{verbatimbox} % for centering verbatim listing in figure environment
 \usepackage[bottom]{footmisc} % place footnotes under floating figures/tables
 \usepackage{tabulary}
+\usepackage{ragged2e}
 \usepackage[bookmarks=true,bookmarksnumbered=true,pdfborder={0 0 0}]{hyperref}
 \usepackage{footnotebackref} % to enable cross-ref of footnote
 \usepackage[all]{hypcap} % for going to the top of figure and table
@@ -68,6 +69,7 @@
 \newcommand{\co}[1]{\lstinline[breaklines=true,breakatwhitespace=true]{#1}}
 \newcommand{\nbco}[1]{\lstinline[breaklines=false,breakatwhitespace=false]{#1}}
 \newcommand{\Epigraph}[2]{\epigraphhead[65]{\epigraph{#1}{#2}}}
+\newcommand{\rrc}[3]{\begin{minipage}[t]{#1}{\RaggedRight #3 \vspace*{#2}}\end{minipage}}
 
 \title{Is Parallel Programming Hard, And, If So, What Can You Do About It?}
 \author{
