@@ -54,10 +54,18 @@ INKSCAPE := $(shell which inkscape 2>/dev/null)
 
 default = $(PERFBOOK_DEFAULT)
 
+endash = $(PERFBOOK_ENDASH)
+
 ifeq ($(default),)
 	targ = perfbook.pdf
 else
 	targ = $(default)
+endif
+
+ifeq ($(endash),)
+	autodate_opt =
+else
+	autodate_opt = --endash
 endif
 
 .PHONY: all touchsvg clean distclean neatfreak 2c ls-unused $(ABBREVTARGETS) mss perfbook-mss.pdf mssmsg help
@@ -83,7 +91,7 @@ $(PDFTARGETS:.pdf=.aux): $(LATEXGENERATED) $(LATEXSOURCES)
 	sh utilities/runfirstlatex.sh $(basename $@)
 
 autodate.tex: $(LATEXSOURCES) $(BIBSOURCES) $(SVGSOURCES) $(FIGSOURCES) $(DOTSOURCES)
-	sh utilities/autodate.sh >autodate.tex
+	sh utilities/autodate.sh $(autodate_opt) >autodate.tex
 
 perfbook_flat.tex: perfbook.tex $(LATEXSOURCES) $(PDFTARGETS_OF_EPS) $(PDFTARGETS_OF_SVG)
 	echo > qqz.tex
