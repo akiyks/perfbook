@@ -1492,13 +1492,13 @@ Therefore, CPU~2's assertion on line~9 is guaranteed \emph{not} to fire.
 \QuickQuiz{}
 	Suppose that lines~3-5 for CPUs~1 and 2 in
 	Table~\ref{tab:app:whymb:Memory Barrier Example 3}
-	are in an interrupt
-	handler, and that the CPU~2's line~9 runs at process level.
-	In other words, the code in all three columns of the table
-	runs on the same CPU, but the first two columns run in an
-	interrupt handler, and the third column runs at process
-	level, so that the code in third column can be interrupted
-	by the code in the first two columns.
+	are in interrupt
+	handlers, and that the CPU~2's line~9 runs at process level.
+	Also suppose that interrupt handlers can run on any CPU.
+	In other words, the above mentioned code can
+	run on the same CPU.
+	This means that the assertion in third column can be interrupted
+	by the code in the interrupt handlers.
 	What changes, if any, are required to enable the code to work
 	correctly, in other words, to prevent the assertion from firing?
 \QuickQuizAnswer{
@@ -1523,7 +1523,6 @@ assert(r1 == 0 || a == 1);
 	No changes are needed to the code in the first two columns,
 	because interrupt handlers run atomically from the perspective
 	of the interrupted code.
-
 } \QuickQuizEnd
 
 \QuickQuiz{}
