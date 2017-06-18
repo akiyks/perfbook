@@ -606,47 +606,47 @@ at the beginning of this chapter.
 	will not necessarily be exact.
 	Assume that the counter is being incremented at rate
 	$r$ counts per unit time, and that \co{read_count()}'s
-	execution consumes $\Delta$ units of time.
+	execution consumes $\delta$~units of time.
 	What is the expected error in the return value?
 \QuickQuizAnswer{
 	Let's do worst-case analysis first, followed by a less
 	conservative analysis.
 
 	In the worst case, the read operation completes immediately,
-	but is then delayed for $\Delta$ time units before returning,
-	in which case the worst-case error is simply $r \Delta$.
+	but is then delayed for $\delta$~time units before returning,
+	in which case the worst-case error is simply~$r \delta$.
 
 	This worst-case behavior is rather unlikely, so let us instead
 	consider the case where the reads from each of the $N$
-	counters is spaced equally over the time period $\Delta$.
-	There will be $N+1$ intervals of duration $\frac{\Delta}{N+1}$
-	between the $N$ reads.
+	counters is spaced equally over the time period~$\delta$.
+	There will be $N+1$ intervals of duration $\frac{\delta}{N+1}$
+	between the $N$~reads.
 	The error due to the delay after the read from the last thread's
-	counter will be given by $\frac{r \Delta}{N \left( N + 1 \right)}$,
+	counter will be given by $\frac{r \delta}{N \left( N + 1 \right)}$,
 	the second-to-last thread's counter by
-	$\frac{2 r \Delta}{N \left( N + 1 \right)}$,
+	$\frac{2 r \delta}{N \left( N + 1 \right)}$,
 	the third-to-last by
-	$\frac{3 r \Delta}{N \left( N + 1 \right)}$,
+	$\frac{3 r \delta}{N \left( N + 1 \right)}$,
 	and so on.
 	The total error is given by the sum of the errors due to the
 	reads from each thread's counter, which is:
 
 	\begin{equation}
-		\frac{r \Delta}{N \left( N + 1 \right)}
+		\frac{r \delta}{N \left( N + 1 \right)}
 			\sum_{i = 1}^N i
 	\end{equation}
 
 	Expressing the summation in closed form yields:
 
 	\begin{equation}
-		\frac{r \Delta}{N \left( N + 1 \right)}
+		\frac{r \delta}{N \left( N + 1 \right)}
 			\frac{N \left( N + 1 \right)}{2}
 	\end{equation}
 
 	Cancelling yields the intuitively expected result:
 
 	\begin{equation}
-		\frac{r \Delta}{2}
+		\frac{r \delta}{2}
 	\label{eq:count:CounterErrorAverage}
 	\end{equation}
 
@@ -655,12 +655,12 @@ at the beginning of this chapter.
 	by the read operation.
 	For example, if the caller spends time $t$ executing some
 	computation based on the result of the returned count, the
-	worst-case error will have increased to $r \left(\Delta + t\right)$.
+	worst-case error will have increased to $r \left(\delta + t\right)$.
 
 	The expected error will have similarly increased to:
 
 	\begin{equation}
-		r \left( \frac{\Delta}{2} + t \right)
+		r \left( \frac{\delta}{2} + t \right)
 	\end{equation}
 
 	Of course, it is sometimes unacceptable for the counter to
@@ -676,10 +676,10 @@ at the beginning of this chapter.
 	However, the worst case is unchanged because although the
 	counter \emph{could} move in either direction, the worst
 	case is when the read operation completes immediately,
-	but then is delayed for $\Delta$ time units, during which
+	but then is delayed for $\delta$~time units, during which
 	time all the changes in the counter's value move it in
 	the same direction, again giving us an absolute error
-	of $r \Delta$.
+	of~$r \delta$.
 
 	There are a number of ways to compute the average error,
 	based on a variety of assumptions about the patterns of
@@ -702,7 +702,7 @@ at the beginning of this chapter.
 	Equation~\ref{eq:count:CounterErrorAverage} yields:
 
 	\begin{equation}
-		\frac{\left( 1 - 2 f \right) r \Delta}{2}
+		\frac{\left( 1 - 2 f \right) r \delta}{2}
 	\end{equation}
 
 	All that aside, in most uses of statistical counters, the
