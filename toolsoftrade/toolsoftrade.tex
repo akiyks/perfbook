@@ -1874,10 +1874,10 @@ As a rough rule of thumb, use the simplest tool that will get the job done.
 If you can, simply program sequentially.
 If that is insufficient, try using a shell script to mediate parallelism.
 If the resulting shell-script \co{fork()}/\co{exec()} overhead
-(about 480 microseconds for a minimal C program on an Intel Core Duo
+(about 480\,\micro s for a minimal C program on an Intel Core Duo
 laptop) is too
 large, try using the C-language \co{fork()} and \co{wait()} primitives.
-If the overhead of these primitives (about 80 microseconds for a minimal
+If the overhead of these primitives (about 80\,\micro s for a minimal
 child process) is still too large, then you
 might need to use the POSIX threading primitives, choosing the appropriate
 locking and/or atomic-operation primitives.

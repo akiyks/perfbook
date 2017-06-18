@@ -583,12 +583,12 @@ their synchronization operations, in other words, $\mu$ can be roughly
 thought of as the synchronization overhead in absence of contention.
 For example, suppose that each synchronization operation involves an atomic
 increment instruction, and that a computer system is able to do
-an atomic increment every 25 nanoseconds on each CPU
+an atomic increment every 25\,ns on each CPU
 to a private variable.\footnote{
 	Of course, if there are 8 CPUs all incrementing the same
-	shared variable, then each CPU must wait at least 175 nanoseconds
+	shared variable, then each CPU must wait at least 175\,ns
 	for each of the other CPUs to do its increment before consuming
-	an additional 25 nanoseconds doing its own increment.
+	an additional 25\,ns doing its own increment.
 	In actual fact, the wait will be longer due to the need
 	to move the variable from one CPU to another.}
 The value of $\mu$ is therefore about 40,000,000 atomic increments
@@ -656,8 +656,8 @@ efficiency $e$ as a function of the number of CPUs/threads $n$ for
 a few values of the overhead ratio $f$.
 For example, again using the 25-nanosecond atomic increment, the
 $f=10$ line corresponds to each CPU attempting an atomic increment
-every 250 nanoseconds, and the $f=100$ line corresponds to each
-CPU attempting an atomic increment every 2.5 microseconds,
+every 250\,ns, and the $f=100$ line corresponds to each
+CPU attempting an atomic increment every 2.5\,\micro s,
 which in turn corresponds to several thousand instructions.
 Given that each trace drops off sharply with increasing numbers of
 CPUs or threads, we can conclude that

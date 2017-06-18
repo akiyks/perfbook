@@ -73,7 +73,7 @@ Of course, only one RCU reader may be in its read-side critical section
 at a time, which almost entirely defeats the purpose of RCU.
 In addition, the lock operations in \co{rcu_read_lock()} and
 \co{rcu_read_unlock()} are extremely heavyweight,
-with read-side overhead ranging from about 100~nanoseconds on a single Power5
+with read-side overhead ranging from about 100\,ns on a single Power5
 CPU up to more than 17~\emph{microseconds} on a 64-CPU system.
 Worse yet,
 these same lock operations permit \co{rcu_read_lock()}
@@ -213,9 +213,9 @@ when \co{synchronize_rcu()} starts must have completed before
 This implementation does have the virtue of permitting concurrent
 RCU readers, and does avoid the deadlock condition that can arise
 with a single global lock.
-Furthermore, the read-side overhead, though high at roughly 140 nanoseconds,
-remains at about 140 nanoseconds regardless of the number of CPUs.
-However, the update-side overhead ranges from about 600 nanoseconds
+Furthermore, the read-side overhead, though high at roughly 140\,ns,
+remains at about 140\,ns regardless of the number of CPUs.
+However, the update-side overhead ranges from about 600\,ns
 on a single Power5 CPU
 up to more than 100 \emph{microseconds} on 64 CPUs.
 
@@ -367,7 +367,7 @@ participate in deadlock cycles, as it never spins nor blocks.
 However, this implementations still has some serious shortcomings.
 First, the atomic operations in \co{rcu_read_lock()} and
 \co{rcu_read_unlock()} are still quite  heavyweight,
-with read-side overhead ranging from about 100~nanoseconds on
+with read-side overhead ranging from about 100\,ns on
 a single Power5 CPU up to almost 40~\emph{microseconds}
 on a 64-CPU system.
 This means that the RCU read-side critical sections
@@ -378,7 +378,7 @@ in about 40~\emph{nanoseconds}, many orders of magnitude faster
 than production-quality implementations in the Linux kernel.
 
 \QuickQuiz{}
-	How can the grace period possibly elapse in 40 nanoseconds when
+	How can the grace period possibly elapse in 40\,ns when
 	\co{synchronize_rcu()} contains a 10-millisecond delay?
 \QuickQuizAnswer{
 	The update-side test was run in absence of readers, so the
@@ -717,10 +717,10 @@ are still quite heavyweight.
 In fact, they are more complex than those
 of the single-counter variant shown in
 Figure~\ref{fig:app:toyrcu:RCU Implementation Using Single Global Reference Counter},
-with the read-side primitives consuming about 150~nanoseconds on a single
+with the read-side primitives consuming about 150\,ns on a single
 Power5 CPU and almost 40~\emph{microseconds} on a 64-CPU system.
 The update-side \co{synchronize_rcu()} primitive is more costly as
-well, ranging from about 200~nanoseconds on a single Power5 CPU to
+well, ranging from about 200\,ns on a single Power5 CPU to
 more than 40~\emph{microseconds} on a 64-CPU system.
 This means that the RCU read-side critical sections
 have to be extremely long in order to get any real
@@ -962,11 +962,11 @@ and for enumerating threads may be problematic in some software
 environments.
 
 That said, the read-side primitives scale very nicely, requiring about
-115~nanoseconds regardless of whether running on a single-CPU or a 64-CPU
+115\,ns regardless of whether running on a single-CPU or a 64-CPU
 Power5 system.
 As noted above, the \co{synchronize_rcu()} primitive does not scale,
-ranging in overhead from almost a microsecond on a single Power5 CPU
-up to almost 200~microseconds on a 64-CPU system.
+ranging in overhead from almost 1\,\micro s on a single Power5 CPU
+up to almost 200\,\micro s on a 64-CPU system.
 This implementation could conceivably form the basis for a
 production-quality user-level RCU implementation.
 
@@ -1156,8 +1156,8 @@ preempted long enough for the \co{rcu_idx}
 counter to overflow.
 This could cause such a thread to force an unnecessary
 pair of counter flips.
-However, even if each grace period took only one
-microsecond, the offending thread would need to be
+However, even if each grace period took only
+1\,\micro s, the offending thread would need to be
 preempted for more than an hour, in which case an
 extra pair of counter flips is likely the least of
 your worries.
@@ -1165,10 +1165,10 @@ your worries.
 As with the implementation described in
 Section~\ref{sec:app:toyrcu:Simple Counter-Based RCU},
 the read-side primitives scale extremely well, incurring roughly
-115~nanoseconds of overhead regardless of the number of CPUs.
+115\,ns of overhead regardless of the number of CPUs.
 The \co{synchronize_rcu()} primitive is still expensive,
-ranging from about one microsecond up to about 16~microseconds.
-This is nevertheless much cheaper than the roughly 200~microseconds
+ranging from about 1\,\micro s up to about 16\,\micro s.
+This is nevertheless much cheaper than the roughly 200\,\micro s
 incurred by the implementation in
 Section~\ref{sec:app:toyrcu:Scalable Counter-Based RCU}.
 So, despite its shortcomings, one could imagine this
@@ -1339,9 +1339,9 @@ destruction will not be reordered into the preceding loop.
 } \QuickQuizEnd
 
 This approach achieves much better read-side performance, incurring
-roughly 63~nanoseconds of overhead regardless of the number of
+roughly 63\,ns of overhead regardless of the number of
 Power5 CPUs.
-Updates incur more overhead, ranging from about 500~nanoseconds on
+Updates incur more overhead, ranging from about 500\,ns on
 a single Power5 CPU to more than 100~\emph{microseconds} on 64
 such CPUs.
 
@@ -1541,9 +1541,9 @@ the low-order bit.
 This approach achieves read-side performance almost equal to that
 shown in
 Section~\ref{sec:app:toyrcu:RCU Based on Free-Running Counter}, incurring
-roughly 65~nanoseconds of overhead regardless of the number of
+roughly 65\,ns of overhead regardless of the number of
 Power5 CPUs.
-Updates again incur more overhead, ranging from about 600~nanoseconds on
+Updates again incur more overhead, ranging from about 600\,ns on
 a single Power5 CPU to more than 100~\emph{microseconds} on 64
 such CPUs.
 
@@ -1865,15 +1865,15 @@ quite similar to that of the preceding sections.
 This implementation has blazingly fast read-side primitives, with
 an \co{rcu_read_lock()}-\co{rcu_read_unlock()} round trip incurring
 an overhead of roughly 50~\emph{picoseconds}.
-The \co{synchronize_rcu()} overhead ranges from about 600~nanoseconds
-on a single-CPU Power5 system up to more than 100~microseconds on
+The \co{synchronize_rcu()} overhead ranges from about 600\,ns
+on a single-CPU Power5 system up to more than 100\,\micro s on
 a 64-CPU system.
 
 \QuickQuiz{}
 	To be sure, the clock frequencies of Power
 	systems in 2008 were quite high, but even a 5\,GHz clock
 	frequency is insufficient to allow
-	loops to be executed in 50~picoseconds!
+	loops to be executed in 50\,ps!
 	What is going on here?
 \QuickQuizAnswer{
 	Since the measurement loop contains a pair of empty functions,
