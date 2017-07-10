@@ -57,6 +57,20 @@ __asm__ __volatile__("mfence" : : : "memory")
  * Generate 64-bit timestamp.
  */
 
+#include <time.h>
+#if _POSIX_C_SOURCE >= 199309L
+static __inline__ unsigned long long get_timestamp(void)
+{
+	unsigned long long thetime;
+	struct timespec tv;
+
+	if (clock_gettime(CLOCK_MONOTONIC_RAW, &tv) != 0)
+		return 0;
+	thetime = ((unsigned long long)tv.tv_sec) * 1000000000ULL +
+		  ((unsigned long long)tv.tv_nsec);
+	return thetime;
+}
+#else
 static __inline__ long long get_timestamp(void)
 {
 	unsigned int __a,__d;
@@ -64,3 +78,4 @@ static __inline__ long long get_timestamp(void)
 	__asm__ __volatile__("rdtsc" : "=a" (__a), "=d" (__d));
 	return ((long long)__a) | (((long long)__d)<<32);
 }
+#endif
