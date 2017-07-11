@@ -39,15 +39,29 @@
 #define smp_mb__after_atomic_inc()	do { } while (0)
 
 /* __sync_synchronize() is broken before gcc 4.4.1 on many ARM systems. */
-#define smp_mb()  __asm__ __volatile__("dmb" : : : "memory")
+#define smp_mb()  __asm__ __volatile__("dmb ish" : : : "memory")
 
 
 #include <stdlib.h>
-#include <sys/time.h>
 
 /*
  * Generate 64-bit timestamp.
  */
+#include <time.h>
+#if _POSIX_C_SOURCE >= 199309L
+static __inline__ unsigned long long get_timestamp(void)
+{
+	unsigned long long thetime;
+	struct timespec tv;
+
+	if (clock_gettime(CLOCK_MONOTONIC_RAW, &tv) != 0)
+		return 0;
+	thetime = ((unsigned long long)tv.tv_sec) * 1000000000ULL +
+		  ((unsigned long long)tv.tv_nsec);
+	return thetime;
+}
+#else
+#include <sys/time.h>
 static __inline__ unsigned long long get_timestamp(void)
 {
 	unsigned long long thetime;
@@ -59,3 +73,4 @@ static __inline__ unsigned long long get_timestamp(void)
 		  ((unsigned long long)tv.tv_usec);
 	return thetime;
 }
+#endif
