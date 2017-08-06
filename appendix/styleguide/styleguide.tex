@@ -294,18 +294,18 @@ centering layout.
 \begin{figure}[tbh]
 { \scriptsize
 \verbfilebox[{\makebox[5ex][r]{\arabic{VerbboxLineNo}:\hspace{2ex}}}]
-	{appendix/styleguide/samplecodesnippet.tex}
+	{appendix/styleguide/samplecodesnippetfig.tex}
 }
 \centering
 \theverbbox
-\caption{\LaTeX\ Source of Sample Code Snippet}
-\label{fig:app:styleguide:LaTeX Source of Sample Code Snippet}
+\caption{\LaTeX\ Source of Sample Code Snippet (Deprecated)}
+\label{fig:app:styleguide:LaTeX Source of Sample Code Snippet (Deprecated)}
 \end{figure}
 
-\input{appendix/styleguide/samplecodesnippet}
+\input{appendix/styleguide/samplecodesnippetfig}
 
 The \LaTeX\ source of a sample code snippet is shown in
-Figure~\ref{fig:app:styleguide:LaTeX Source of Sample Code Snippet}
+Figure~\ref{fig:app:styleguide:LaTeX Source of Sample Code Snippet (Deprecated)}
 and is typeset as show in
 Figure~\ref{fig:app:styleguide:Sample Code Snippet}.
 
@@ -314,15 +314,15 @@ This is to avoid a side effect of verbbox environment that interferes
 with the ``afterheading\-/ness'' of a section's first sentence
 when a verbbox is placed just below a heading.
 
-Line numbers are manually placed for ease of referencing them within
-\LaTeX\ sources.\footnote{
-  As a matter of fact, the verbatimbox package has its own line
-  number counter and the count can be displayed in the resulting
-  listing. Leftmost line numbers in
-  Figure~\ref{fig:app:styleguide:LaTeX Source of Sample Code Snippet}
-  are output by the feature. The litmus tests in
-  Section~\ref{sec:advsync:Memory Barriers}
-  have been converted to use the auto-numbering feature.}
+In Figure~\ref{fig:app:styleguide:LaTeX Source of Sample Code Snippet (Deprecated)},
+line numbers are manually placed for ease of referencing them within
+\LaTeX\ sources.
+
+This was how code snippets were coded until recently.
+Transition to the auto-numbering scheme of verbbox and
+``listing'' environment has started recently. See
+Section~\ref{sec:app:styleguide:Environment for Code Snippets}
+for a sample \LaTeX\ source of a code snippet using the new scheme.
 
 The verbatim environment is used for listings with too many lines
 to fit in a column. It is also used to avoid overwhelming
@@ -552,7 +552,7 @@ Example with a simple dash:
 
 \begin{quote}
   Lines~4\=/12 in
-  Figure~\ref{fig:app:styleguide:LaTeX Source of Sample Code Snippet}
+  Figure~\ref{fig:app:styleguide:LaTeX Source of Sample Code Snippet (Deprecated)}
   are the contents of the verbbox environment. The box is output
   by the \co{\\theverbbox} macro on line~16.
 \end{quote}
@@ -561,7 +561,7 @@ Example with an en dash:
 
 \begin{quote}
   Lines~4\==12 in
-  Figure~\ref{fig:app:styleguide:LaTeX Source of Sample Code Snippet}
+  Figure~\ref{fig:app:styleguide:LaTeX Source of Sample Code Snippet (Deprecated)}
   are the contents of the verbbox environment. The box is output
   by the \co{\\theverbbox} macro on line~16.
 \end{quote}
@@ -596,26 +596,38 @@ The ``float'' package would be of help.\footnote{
 Figure~\ref{fig:app:styleguide:Sample Code Snippet}
 can be typeset as in
 Listing~\ref{lst:app:styleguide:Sample Code Snippet}
-using an experimental environment ``listing''.
+using the ``listing'' environment.
 
-\begin{listing}
+\input{appendix/styleguide/samplecodesnippetlst}
+
+Its \LaTeX\ source is shown in
+Listing~\ref{lst:app:styleguide:LaTeX Source of Sample Code Snippet (Current)}.
+Here, the auto-numbering feature of verbbox is also enabled.
+The \verb|\LstLineNo| macro specified in the option to verbbox is
+defined in preamble of \path{perfbook.tex} as the following.
+
+\noindent\begin{minipage}{\columnwidth}
 { \scriptsize
-\begin{verbbox}[\LstLineNo]
-/*
- * Sample Code Snippet
- */
-#include <stdio.h>
-int main(void)
-{
-  printf("Hello world!\n");
-  return 0;
-}
+\begin{verbbox}
+\newcommand{\LstLineNo}
+  {\makebox[5ex][r]{\arabic{VerbboxLineNo}\hspace{2ex}}}
 \end{verbbox}
+}
+\vspace{10pt}
+\centering
+\theverbbox
+\vspace{10pt}
+\end{minipage}
+
+\begin{listing}[tbh]
+{ \scriptsize
+\verbfilebox[{\makebox[5ex][r]{\arabic{VerbboxLineNo}:\hspace{2ex}}}]
+	{appendix/styleguide/samplecodesnippetlst.tex}
 }
 \centering
 \theverbbox
-\caption{Sample Code Snippet}
-\label{lst:app:styleguide:Sample Code Snippet}
+\caption{\LaTeX\ Source of Sample Code Snippet (Current)}
+\label{lst:app:styleguide:LaTeX Source of Sample Code Snippet (Current)}
 \end{listing}
 
 \subsubsection{Position of Caption}
