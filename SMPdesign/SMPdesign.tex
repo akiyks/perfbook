@@ -573,7 +573,7 @@ $\lambda$ is an inverse measure of the overhead of each non-synchronization
 unit of work.
 For example, if each unit of work was a transaction, and if each transaction
 took one millisecond to process, excluding synchronization overhead,
-then $\lambda$ would be 1,000 transactions per second.
+then $\lambda$ would be \num{1 000} transactions per second.
 
 The service rate $\mu$ is defined similarly, but for the average
 number of synchronization operations per second that the system
@@ -591,7 +591,7 @@ to a private variable.\footnote{
 	an additional 25 nanoseconds doing its own increment.
 	In actual fact, the wait will be longer due to the need
 	to move the variable from one CPU to another.}
-The value of $\mu$ is therefore about 40,000,000 atomic increments
+The value of $\mu$ is therefore about \num{40 000 000} atomic increments
 per second.
 
 Of course, the value of $\lambda$ increases with increasing numbers of
@@ -657,7 +657,7 @@ a few values of the overhead ratio $f$.
 For example, again using the 25-nanosecond atomic increment, the
 $f=10$ line corresponds to each CPU attempting an atomic increment
 every 250 nanoseconds, and the $f=100$ line corresponds to each
-CPU attempting an atomic increment every 2.5 microseconds,
+CPU attempting an atomic increment every \num{2.5} microseconds,
 which in turn corresponds to several thousand instructions.
 Given that each trace drops off sharply with increasing numbers of
 CPUs or threads, we can conclude that
@@ -679,7 +679,7 @@ The threads can therefore operate entirely independently, with no
 synchronization overhead whatsoever, as is done in
 \path{matmul.c}.
 One might therefore expect a parallel matrix multiply to have a
-perfect efficiency of 1.0.
+perfect efficiency of \num{1.0}.
 
 \begin{figure}[tbp]
 \centering
@@ -694,7 +694,7 @@ tells a different story, especially for a 64-by-64 matrix multiply,
 which never gets above an efficiency of about 0.7, even when running
 single-threaded.
 The 512-by-512 matrix multiply's efficiency is measurably less
-than 1.0 on as few as 10 threads, and even the 1024-by-1024 matrix
+than \num{1.0} on as few as 10 threads, and even the 1024-by-1024 matrix
 multiply deviates noticeably from perfection at a few tens of threads.
 Nevertheless, this figure clearly demonstrates the performance and
 scalability benefits of batching: If you must incur synchronization
@@ -702,10 +702,10 @@ overhead, you may as well get your money's worth.
 
 \QuickQuiz{}
 	How can a single-threaded 64-by-64 matrix multiple possibly
-	have an efficiency of less than 1.0?
+	have an efficiency of less than \num{1.0}?
 	Shouldn't all of the traces in
 	Figure~\ref{fig:SMPdesign:Matrix Multiply Efficiency}
-	have efficiency of exactly 1.0 when running on only one thread?
+	have efficiency of exactly \num{1.0} when running on only one thread?
 \QuickQuizAnswer{
 	The \path{matmul.c} program creates the specified number of
 	worker threads, so even the single-worker-thread case incurs
@@ -1186,7 +1186,7 @@ which fortunately is usually quite easy to do in actual
 practice~\cite{McKenney01e}, especially given today's large memories.
 For example, in most systems, it is quite reasonable to set
 \co{TARGET_POOL_SIZE} to 100, in which case allocations and frees
-are guaranteed to be confined to per-thread pools at least 99\% of
+are guaranteed to be confined to per-thread pools at least 99\,\% of
 the time.
 
 As can be seen from the figure, the situations where the common-case
@@ -1346,16 +1346,19 @@ as shown in
 Table~\ref{fig:app:questions:Schematic of Real-World Parallel Allocator}.
 
 \begin{table}[tbp]
-\scriptsize
+\rowcolors{1}{}{lightgray}
+\renewcommand*{\arraystretch}{1.2}\footnotesize
 \centering
-\begin{tabulary}{0.95\columnwidth}{l|l|L}
+\begin{tabularx}{\columnwidth}{ll>{\RaggedRight\arraybackslash}X}
+\toprule
 Level	& Locking & Purpose \\
-\hline
+\midrule
 Per-thread pool	  & Data ownership & High-speed allocation \\
 Global block pool & Data locking   & Distributing blocks among threads \\
 Coalescing	  & Data locking   & Combining blocks into pages \\
 System memory	  & Code locking   & Memory from/to system \\
-\end{tabulary}
+\bottomrule
+\end{tabularx}
 \caption{Schematic of Real-World Parallel Allocator}
 \label{fig:app:questions:Schematic of Real-World Parallel Allocator}
 \end{table}
