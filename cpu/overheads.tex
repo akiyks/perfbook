@@ -123,31 +123,30 @@ optimization.
 \subsection{Costs of Operations}
 \label{sec:cpu:Costs of Operations}
 
+\definecolor{lightgray}{gray}{0.9}
 \begin{table}
-\small
-\centering
-\begin{tabular}{l||r|r}
-				& 	 	& Ratio \\
-	Operation		& Cost (ns) 	& (cost/clock) \\
-	\hline
-	\hline
-	Clock period		&           0.6	&           1.0 \\
-	\hline
-	Best-case CAS		&          37.9	&          63.2 \\
-	\hline
-	Best-case lock		&          65.6	&         109.3 \\
-	\hline
-	Single cache miss	&         139.5	&         232.5 \\
-	\hline
-	CAS cache miss		&         306.0	&         510.0 \\
-	\hline
-	Comms Fabric		&       5,000\textcolor{white}{.0}
-						&       8,330\textcolor{white}{.0}
-								\\
-	\hline
-	Global Comms		& 195,000,000\textcolor{white}{.0}
-						& 325,000,000\textcolor{white}{.0} \\
-								\\
+\rowcolors{1}{}{lightgray}
+\renewcommand*{\arraystretch}{1.1}
+\sisetup{group-minimum-digits=4}
+\centering\small
+\begin{tabular}
+  {
+    l
+    S[table-format = 9.1]
+    S[table-format = 9.1]
+  }
+\toprule
+	Operation		& \multicolumn{1}{r}{Cost (ns)}
+			& {\parbox[b]{.7in}{\raggedleft Ratio\\(cost/clock)}} \\
+\midrule
+	Clock period		&           0.6	&           1.0	\\
+	Best-case CAS		&          37.9	&          63.2	\\
+	Best-case lock		&          65.6	&         109.3	\\
+	Single cache miss	&         139.5	&         232.5	\\
+	CAS cache miss		&         306.0	&         510.0	\\
+	Comms Fabric		&       5 000	&       8 330	\\
+	Global Comms		& 195 000 000	& 325 000 000	\\
+\bottomrule
 \end{tabular}
 \caption{Performance of Synchronization Mechanisms on 4-CPU 1.8\,GHz AMD Opteron 844 System}
 \label{tab:cpu:Performance of Synchronization Mechanisms on 4-CPU 1.8GHz AMD Opteron 844 System}
@@ -156,7 +155,7 @@ optimization.
 The overheads of some common operations important to parallel programs are
 displayed in
 Table~\ref{tab:cpu:Performance of Synchronization Mechanisms on 4-CPU 1.8GHz AMD Opteron 844 System}.
-This system's clock period rounds to 0.6\,ns.
+This system's clock period rounds to \num{0.6}\,ns.
 Although it is not unusual for modern microprocessors to be able to
 retire multiple instructions per clock period, the operations's costs are
 nevertheless normalized to a clock period in the third column, labeled
@@ -211,40 +210,38 @@ global agreement.
 	\end{enumerate}
 
 \begin{table}
-\small
-\centering
-\begin{tabular}{l||r|r}
-				& 	 	& Ratio \\
-	Operation		& Cost (ns) 	& (cost/clock) \\
-	\hline
-	\hline
-	Clock period		&           0.4	&           1.0 \\
-	\hline
-	``Best-case'' CAS	&          12.2	&          33.8 \\
-	\hline
-	Best-case lock		&          25.6	&          71.2 \\
-	\hline
-	Single cache miss	&          12.9	&          35.8 \\
-	\hline
-	CAS cache miss		&           7.0	&          19.4 \\
-	\hline
-	Off-Core		&		&		\\
-	\hline
-	Single cache miss	&          31.2	&          86.6 \\
-	\hline
-	CAS cache miss		&          31.2	&          86.5 \\
-	\hline
-	Off-Socket		&		&		\\
-	\hline
-	Single cache miss	&          92.4	&         256.7 \\
-	\hline
-	CAS cache miss		&          95.9	&         266.4 \\
-	\hline
-	Comms Fabric		&       2,600\textcolor{white}{.0}
-						&	7,220\textcolor{white}{.0} \\
-	\hline
-	Global Comms		& 195,000,000\textcolor{white}{.0}
-						& 542,000,000\textcolor{white}{.0} \\
+\rowcolors{1}{}{lightgray}
+\renewcommand*{\arraystretch}{1.1}
+\sisetup{group-minimum-digits=4}
+\centering\small
+\begin{tabular}
+  {
+    l
+    S[table-format = 9.1]
+    S[table-format = 9.1]
+  }
+\toprule
+	Operation		& \multicolumn{1}{r}{Cost (ns)}
+			& {\parbox[b]{.7in}{\raggedleft Ratio\\(cost/clock)}} \\
+\midrule
+	Clock period		&           0.4	&           1.0	\\
+	``Best-case'' CAS	&          12.2	&          33.8	\\
+	Best-case lock		&          25.6	&          71.2	\\
+	Single cache miss	&          12.9	&          35.8	\\
+	CAS cache miss		&           7.0	&          19.4	\\
+\midrule
+	\multicolumn{3}{l}{\bf Off-Core}			\\
+\midrule
+	Single cache miss	&          31.2	&          86.6	\\
+	CAS cache miss		&          31.2	&          86.5	\\
+\midrule\hiderowcolors
+	\multicolumn{3}{l}{\bf Off-Socket}			\\
+\midrule\showrowcolors
+	Single cache miss	&          92.4	&         256.7	\\
+	CAS cache miss		&          95.9	&         266.4	\\
+	Comms Fabric		&       2 600	&       7 220	\\
+	Global Comms		& 195 000 000	& 542 000 000	\\
+\bottomrule
 \end{tabular}
 \caption{Performance of Synchronization Mechanisms on 16-CPU 2.8\,GHz Intel X5550 (Nehalem) System}
 \label{tab:cpu:Performance of Synchronization Mechanisms on 16-CPU 2.8GHz Intel X5550 (Nehalem) System}
