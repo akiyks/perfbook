@@ -55,7 +55,7 @@ counting.
 	whatever ``true value'' might mean in this context.
 	However, the value read out should maintain roughly the same
 	absolute error over time.
-	For example, a 1\% error might be just fine when the count
+	For example, a 1\,\% error might be just fine when the count
 	is on the order of a million or so, but might be absolutely
 	unacceptable once the count reaches a trillion.
 	See Section~\ref{sec:count:Statistical Counters}.
@@ -68,7 +68,7 @@ counting.
 	Suppose that you need to maintain a count of the number of
 	structures allocated in order to fail any allocations
 	once the number of structures in use exceeds a limit
-	(say, 10,000).
+	(say, \num{10 000}).
 	Suppose further that these structures are short-lived,
 	that the limit is rarely exceeded, and that a ``sloppy''
 	approximate limit is acceptable.
@@ -90,7 +90,7 @@ counting.
 	Suppose that you need to maintain a count of the number of
 	structures allocated in order to fail any allocations
 	once the number of structures in use exceeds an exact limit
-	(again, say 10,000).
+	(again, say \num{10 000}).
 	Suppose further that these structures are short-lived,
 	and that the limit is rarely exceeded, that there is almost
 	always at least one structure in use, and suppose further
@@ -201,10 +201,10 @@ systems, the performance is excellent.
 There is just one large fly in the ointment: this approach can lose
 counts.
 On my dual-core laptop, a short run invoked \co{inc_count()}
-100,014,000 times, but the final value of the counter was only
-52,909,118.
+\num{100 014 000} times, but the final value of the counter was only
+\num{52 909 118}.
 Although approximate values do have their place in computing,
-accuracies far greater than 50\% are almost always necessary.
+accuracies far greater than 50\,\% are almost always necessary.
 
 \QuickQuiz{}
 	But doesn't the \co{++} operator produce an x86 add-to-memory
@@ -687,11 +687,11 @@ at the beginning of this chapter.
 	For simplicity, let's assume that the $f$ fraction of
 	the operations are decrements, and that the error of interest
 	is the deviation from the counter's long-term trend line.
-	Under this assumption, if $f$ is less than or equal to 0.5,
+	Under this assumption, if $f$ is less than or equal to \num{0.5},
 	each decrement will be cancelled by an increment, so that
 	$2f$ of the operations will cancel each other, leaving
 	$1-2f$ of the operations being uncancelled increments.
-	On the other hand, if $f$ is greater than 0.5, $1-f$ of
+	On the other hand, if $f$ is greater than \num{0.5}, $1-f$ of
 	the decrements are cancelled by increments, so that the
 	counter moves in the negative direction by $-1+2\left(1-f\right)$,
 	which simplifies to $1-2f$, so that the counter moves an average
@@ -1292,7 +1292,7 @@ if you instead need the limit to be exact).
 
 \subsection{Design}
 
-One possible design for limit counters is to divide the limit of 10,000
+One possible design for limit counters is to divide the limit of \num{10 000}
 by the number of threads, and give each thread a fixed pool of structures.
 For example, given 100 threads, each thread would manage its own pool
 of 100 structures.
@@ -3123,7 +3123,7 @@ them both on the system that your application is to be deployed on.
 \QuickQuiz{}
 	Not only are POSIX signals slow, sending one to each thread
 	simply does not scale.
-	What would you do if you had (say) 10,000 threads and needed
+	What would you do if you had (say) \num{10 000} threads and needed
 	the read side to be fast?
 \QuickQuizAnswer{
 	One approach is to use the techniques shown in
@@ -3313,22 +3313,27 @@ will expand on these lessons.
 \label{sec:count:Parallel Counting Performance}
 
 \begin{table*}
+\rowcolors{2}{}{lightgray}
+\renewcommand*{\arraystretch}{1.1}
+\sisetup{group-minimum-digits=4}
 \small
 \centering
-\begin{tabular}{l|r|r|r|r}
-	& & & \multicolumn{2}{c}{Reads} \\
-	\cline{4-5}
-	Algorithm & Section & Updates & 1 Core & 32 Cores \\
-	\hline
-	\hline
+\begin{tabular}
+{lrS[table-format=2.1]S[table-format=3.0]S[table-format=5.0]}
+	\toprule
+	& & & \multicolumn{2}{c}{Reads (ns)} \\
+	\cmidrule{4-5}
+	Algorithm & Section & {Updates (ns)} & {1 Core} & {32 Cores} \\
+	\midrule
 	\path{count_stat.c} & \ref{sec:count:Array-Based Implementation} &
-		11.5 ns & 408 ns & 409 ns \\
+		11.5 & 408 & 409 \\
 	\path{count_stat_eventual.c} & \ref{sec:count:Eventually Consistent Implementation} &
-		11.6 ns & 1 ns & 1 ns \\
+		11.6 & 1 & 1 \\
 	\path{count_end.c} & \ref{sec:count:Per-Thread-Variable-Based Implementation} &
-		6.3 ns & 389 ns & 51,200 ns \\
+		6.3 & 389 & 51 200 \\
 	\path{count_end_rcu.c} & \ref{sec:together:RCU and Per-Thread-Variable-Based Statistical Counters} &
-		5.7 ns & 354 ns & 501 ns \\
+		5.7 & 354 & 501 \\
+	\bottomrule
 \end{tabular}
 \caption{Statistical Counter Performance on Power-6}
 \label{tab:count:Statistical Counter Performance on Power-6}
@@ -3393,22 +3398,26 @@ courtesy of eventual consistency.
 } \QuickQuizEnd
 
 \begin{table*}
+\rowcolors{2}{}{lightgray}
+\renewcommand*{\arraystretch}{1.1}
+\sisetup{group-minimum-digits=4}
 \small
 \centering
-\begin{tabular}{l|r|c|r|r|r}
-	& & & & \multicolumn{2}{c}{Reads} \\
-	\cline{5-6}
-	Algorithm & Section & Exact? & Updates & 1 Core & 64 Cores \\
-	\hline
-	\hline
+\begin{tabular}{lrcS[table-format=2.1]S[table-format=3.0]S[table-format=5.0]}
+	\toprule
+	& & & & \multicolumn{2}{c}{Reads (ns)} \\
+	\cmidrule{5-6}
+	Algorithm & Section & Exact? & {Updates (ns)} & {1 Core} & {64 Cores} \\
+	\midrule
 	\path{count_lim.c} & \ref{sec:count:Simple Limit Counter Implementation} &
-		N & 3.6 ns & 375 ns & 50,700 ns \\
+		N & 3.6 & 375 & 50 700 \\
 	\path{count_lim_app.c} & \ref{sec:count:Approximate Limit Counter Implementation} &
-		N & 11.7 ns & 369 ns & 51,000 ns \\
+		N & 11.7 & 369 & 51 000 \\
 	\path{count_lim_atomic.c} & \ref{sec:count:Atomic Limit Counter Implementation} &
-		Y & 51.4 ns & 427 ns & 49,400 ns \\
+		Y & 51.4 & 427 & 49 400 \\
 	\path{count_lim_sig.c} & \ref{sec:count:Signal-Theft Limit Counter Implementation} &
-		Y & 10.2 ns & 370 ns & 54,000 ns \\
+		Y & 10.2 & 370 & 54 000 \\
+	\bottomrule
 \end{tabular}
 \caption{Limit Counter Performance on Power-6}
 \label{tab:count:Limit Counter Performance on Power-6}
@@ -3417,7 +3426,7 @@ courtesy of eventual consistency.
 Figure~\ref{tab:count:Limit Counter Performance on Power-6}
 shows the performance of the parallel limit-counting algorithms.
 Exact enforcement of the limits incurs a substantial performance
-penalty, although on this 4.7\,GHz Power-6 system that penalty can be reduced
+penalty, although on this \num{4.7}\,GHz Power-6 system that penalty can be reduced
 by substituting signals for atomic operations.
 All of these implementations suffer from read-side lock contention
 in the face of concurrent readers.
@@ -3484,7 +3493,7 @@ If you need to deal with 1,000-digit decimal numbers, the C-language \co{++}
 operator will not work for you.
 
 \QuickQuiz{}
-	The \co{++} operator works just fine for 1,000-digit numbers!
+	The \co{++} operator works just fine for \num{1000}-digit numbers!
 	Haven't you heard of operator overloading???
 \QuickQuizAnswer{
 	In the C++ language, you might well be able to use \co{++}
