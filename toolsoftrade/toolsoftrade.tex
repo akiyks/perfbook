@@ -1052,7 +1052,7 @@ where $N$ is the number of threads,
 $L_N$ is the number of lock acquisitions by $N$ threads, and
 $L_1$ is the number of lock acquisitions by a single thread.
 Given ideal hardware and software scalability, this value will always
-be 1.0.
+be \num{1.0}.
 
 As can be seen in the figure, reader-writer locking scalability is
 decidedly non-ideal, especially for smaller sizes of critical
@@ -1077,7 +1077,7 @@ This situation will only get worse as you add CPUs.
 } \QuickQuizEnd
 
 \QuickQuiz{}
-	But 1,000 instructions is not a particularly small size for
+	But \num{1000} instructions is not a particularly small size for
 	a critical section.
 	What do I do if I need a much smaller critical section, for
 	example, one containing only a few tens of instructions?
