@@ -4,6 +4,8 @@
 # If invoked in non-clean git status, this script will abort.
 # If invoked with the "--force" option, this script will continue
 # regardless of git status.
+# If invoked with the "--untracked" option, this script will check
+# git status with untracked files ignored.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,22 +21,24 @@
 # along with this program; if not, you can access it online at
 # http://www.gnu.org/licenses/gpl-2.0.html.
 #
-# Copyright (C) Akira Yokosawa, 2016
+# Copyright (C) Akira Yokosawa, 2016, 2017
 #
 # Authors: Akira Yokosawa <akiyks@gmail.com>
 
 # parse option
-TEMP=`getopt -o f --long force -- "$@"`
+TEMP=`getopt -o fu --long force,untracked -- "$@"`
 
 if [ $? != 0 ] ; then echo "Error in parse option..." >&2 ; exit 1 ; fi
 
 eval set -- "$TEMP"
 
 forced=0
+untracked=0
 
 while true ; do
 	case "$1" in
 		-f|--force) forced=1 ; shift ;;
+		-u|--untracked) untracked=1 ; shift ;;
 		--) shift ; break ;;
 		*) echo "Unknown option!" ; exit 1 ;;
 	esac
@@ -51,8 +55,15 @@ then
 	echo "utilities/hyphen2endash.sh not found."
 	exit 1
 fi
+# prepare git status option
+if [ $untracked -eq 1 ]
+then
+	git_stat_option="--porcelain -uno"
+else
+	git_stat_option="--porcelain"
+fi
 # check if git status is clean
-gitstatus=`git status --porcelain | wc -l`
+gitstatus=`git status $git_stat_option | wc -l`
 if [ $forced -eq 0 -a $gitstatus != "0" ]
 then
 	echo "git status not clean --- aborting."
