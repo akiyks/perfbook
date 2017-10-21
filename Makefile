@@ -10,7 +10,7 @@ LATEXSOURCES = \
 
 LATEXGENERATED = autodate.tex qqz.tex contrib.tex origpub.tex
 
-ABBREVTARGETS := 1c hb msns mss mstx msr msn msnt 1csf
+ABBREVTARGETS := tct 1c hb msns mss mstx msr msn msnt 1csf
 
 PDFTARGETS := perfbook.pdf $(foreach v,$(ABBREVTARGETS),perfbook-$(v).pdf)
 
@@ -101,8 +101,13 @@ contrib.tex: perfbook_flat.tex qqz.tex
 origpub.tex: perfbook_flat.tex
 	sh utilities/extractorigpub.sh < $< > $@
 
+perfbook-tct.tex: perfbook.tex
+	sed -e 's/{tblcptop}{false}/{tblcptop}{true}/' < $< > $@
+
 perfbook-1c.tex: perfbook.tex
-	sed -e 's/,twocolumn//' -e 's/setboolean{twocolumn}{true}/setboolean{twocolumn}{false}/' < $< > $@
+	sed -e 's/,twocolumn//' \
+	    -e 's/setboolean{twocolumn}{true}/setboolean{twocolumn}{false}/' \
+	    -e 's/{tblcptop}{false}/{tblcptop}{true}/' < $< > $@
 
 perfbook-hb.tex: perfbook.tex
 	sed -e 's/,twocolumn/&,letterpaperhb/' -e 's/setboolean{hardcover}{false}/setboolean{hardcover}{true}/' < $< > $@
@@ -179,7 +184,8 @@ help:
 	@echo "Official targets (Latin Modern Typewriter for monospace font):"
 	@echo "  Full,              Abbr."
 	@echo "  perfbook.pdf,      2c:   (default) 2-column layout"
-	@echo "  perfbook-1c.pdf,   1c:   1-column layout"
+	@echo "  perfbook-tct,      tct:  2-column layout with table caption at top"
+	@echo "  perfbook-1c.pdf,   1c:   1-column layout with table caption at top"
 	@echo "  perfbook-hb.pdf,   hb:   For hardcover books (2-column)"
 	@echo
 	@echo "Experimental targets:"
