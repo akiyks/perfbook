@@ -1312,10 +1312,12 @@ or even milliseconds.
 \label{sec:locking:Beyond Reader-Writer Locks}
 
 \begin{table}
+\rowcolors{1}{}{lightgray}
+\renewcommand*{\arraystretch}{1.1}
 \small
 \centering
-\begin{tabular}{l||c|c|c|c|c|c}
-	~ ~ ~ ~ ~ ~ ~ ~ ~
+\begin{tabular}{lcccccc}
+	\toprule
 	& \begin{picture}(6,70)(0,0)
 		\rotatebox{90}{Null (Not Held)}
 	  \end{picture}
@@ -1335,20 +1337,15 @@ or even milliseconds.
 		\rotatebox{90}{Exclusive}
 	  \end{picture}
 	\\
-	\hline
 %				 NL  CR  CW  PR    PW  EX
-	\hline
+	\cmidrule(r){1-1} \cmidrule{2-7}
 	Null (Not Held)		& ~ & ~ & ~   & ~ & ~ & ~ \\
-	\hline
 	Concurrent Read		& ~ & ~ & ~   & ~ & ~ & X \\
-	\hline
 	Concurrent Write	& ~ & ~ & ~   & X & X & X \\
-	\hline
 	Protected Read		& ~ & ~ & X   & ~ & X & X \\
-	\hline
 	Protected Write		& ~ & ~ & X   & X & X & X \\
-	\hline
 	Exclusive		& ~ & X & X   & X & X & X \\
+	\bottomrule
 \end{tabular}
 \caption{VAX/VMS Distributed Lock Manager Policy}
 \label{tab:locking:VAX/VMS Distributed Lock Manager Policy}
