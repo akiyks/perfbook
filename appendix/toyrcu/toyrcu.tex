@@ -1223,7 +1223,7 @@ thread-local accesses to one, as is done in the next section.
  1 static void rcu_read_lock(void)
  2 {
  3   __get_thread_var(rcu_reader_gp) =
- 4     ACCESS_ONCE(rcu_gp_ctr) + 1;
+ 4     READ_ONCE(rcu_gp_ctr) + 1;
  5   smp_mb();
  6 }
  7 
@@ -1231,7 +1231,7 @@ thread-local accesses to one, as is done in the next section.
  9 {
 10   smp_mb();
 11   __get_thread_var(rcu_reader_gp) =
-12     ACCESS_ONCE(rcu_gp_ctr);
+12     READ_ONCE(rcu_gp_ctr);
 13 }
 14 
 15 void synchronize_rcu(void)
@@ -1240,12 +1240,12 @@ thread-local accesses to one, as is done in the next section.
 18 
 19   smp_mb();
 20   spin_lock(&rcu_gp_lock);
-21   ACCESS_ONCE(rcu_gp_ctr) += 2;
+21   WRITE_ONCE(rcu_gp_ctr, READ_ONCE(rcu_gp_ctr) + 2);
 22   smp_mb();
 23   for_each_thread(t) {
 24     while ((per_thread(rcu_reader_gp, t) & 0x1) &&
 25             ((per_thread(rcu_reader_gp, t) -
-26               ACCESS_ONCE(rcu_gp_ctr)) < 0)) {
+26               READ_ONCE(rcu_gp_ctr)) < 0)) {
 27       poll(NULL, 0, 10);
 28     }
 29   }
@@ -1420,7 +1420,7 @@ variables.
  6   rrgp = &__get_thread_var(rcu_reader_gp);
  7   tmp = *rrgp;
  8   if ((tmp & RCU_GP_CTR_NEST_MASK) == 0)
- 9     tmp = ACCESS_ONCE(rcu_gp_ctr);
+ 9     tmp = READ_ONCE(rcu_gp_ctr);
 10   tmp++;
 11   *rrgp = tmp;
 12   smp_mb();
@@ -1440,8 +1440,8 @@ variables.
 26 
 27   smp_mb();
 28   spin_lock(&rcu_gp_lock);
-29   ACCESS_ONCE(rcu_gp_ctr) +=
-30     RCU_GP_CTR_BOTTOM_BIT;
+29   WRITE_ONCE(rcu_gp_ctr,
+30     READ_ONCE(rcu_gp_ctr) + RCU_GP_CTR_BOTTOM_BIT);
 31   smp_mb();
 32   for_each_thread(t) {
 33     while (rcu_gp_ongoing(t) &&
@@ -1704,7 +1704,7 @@ overhead.
  10 {
  11   smp_mb();
  12   __get_thread_var(rcu_reader_qs_gp) =
- 13     ACCESS_ONCE(rcu_gp_ctr) + 1;
+ 13     READ_ONCE(rcu_gp_ctr) + 1;
  14   smp_mb();
  15 }
  16
@@ -1712,7 +1712,7 @@ overhead.
  18 {
  19   smp_mb();
  20   __get_thread_var(rcu_reader_qs_gp) =
- 21     ACCESS_ONCE(rcu_gp_ctr);
+ 21     READ_ONCE(rcu_gp_ctr);
  22   smp_mb();
  23 }
  24
@@ -1764,7 +1764,7 @@ to prevent any code prior to the quiescent state (including possible
 RCU read-side critical sections) from being reordered
 into the quiescent state.
 Lines~12-13 pick up a copy of the global \co{rcu_gp_ctr}, using
-\co{ACCESS_ONCE()} to ensure that the compiler does not employ any
+\co{READ_ONCE()} to ensure that the compiler does not employ any
 optimizations that would result in \co{rcu_gp_ctr} being fetched
 more than once,
 and then adds one to the value fetched and stores it into
