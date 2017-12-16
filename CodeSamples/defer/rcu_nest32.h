@@ -29,7 +29,7 @@ DEFINE_PER_THREAD(long, rcu_reader_gp);
 
 static inline int rcu_old_gp_ongoing(int t)
 {
-	int v = ACCESS_ONCE(per_thread(rcu_reader_gp, t));
+	int v = READ_ONCE(per_thread(rcu_reader_gp, t));
 
 	return (v & RCU_GP_CTR_NEST_MASK) &&
 	       ((v ^ rcu_gp_ctr) & ~RCU_GP_CTR_NEST_MASK);
@@ -54,7 +54,7 @@ static inline void rcu_read_lock(void)
 	rrgp = &__get_thread_var(rcu_reader_gp);
 	tmp = *rrgp;
 	if ((tmp & RCU_GP_CTR_NEST_MASK) == 0)
-		*rrgp = ACCESS_ONCE(rcu_gp_ctr);
+		*rrgp = READ_ONCE(rcu_gp_ctr);
 	else
 		*rrgp = tmp + 1;
 	smp_mb();

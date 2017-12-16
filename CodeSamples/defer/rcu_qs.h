@@ -59,14 +59,14 @@ static void rcu_read_unlock(void)
 static void rcu_quiescent_state(void)
 {
 	smp_mb();
-	__get_thread_var(rcu_reader_qs_gp) = ACCESS_ONCE(rcu_gp_ctr) + 1;
+	__get_thread_var(rcu_reader_qs_gp) = READ_ONCE(rcu_gp_ctr) + 1;
 	smp_mb();
 }
 
 static void rcu_thread_offline(void)
 {
 	smp_mb();
-	__get_thread_var(rcu_reader_qs_gp) = ACCESS_ONCE(rcu_gp_ctr);
+	__get_thread_var(rcu_reader_qs_gp) = READ_ONCE(rcu_gp_ctr);
 	smp_mb();
 }
 

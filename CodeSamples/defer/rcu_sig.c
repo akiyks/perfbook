@@ -27,7 +27,7 @@ static void urcu_sig_handler(int unused)
 	if (urcu_state.urcu_qs != URCU_QS_REQ)
 		return;
 	smp_mb();
-	if (ACCESS_ONCE(urcu_state.urcu_nesting) != 0)
+	if (READ_ONCE(urcu_state.urcu_nesting) != 0)
 		urcu_state.urcu_qs = URCU_QS_ACK;
 	else
 		urcu_state.urcu_qs = URCU_QS_DONE;
