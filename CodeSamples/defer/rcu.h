@@ -41,7 +41,7 @@ static inline void rcu_read_lock(void)
 	 * periodic per-thread processing.)
 	 */
 
-	__get_thread_var(rcu_reader_gp) = rcu_gp_ctr + 1;
+	__get_thread_var(rcu_reader_gp) = READ_ONCE(rcu_gp_ctr) + 1;
 	smp_mb();
 }
 
@@ -55,7 +55,7 @@ static inline void rcu_read_unlock(void)
 	 */
 
 	smp_mb();
-	__get_thread_var(rcu_reader_gp) = rcu_gp_ctr;
+	__get_thread_var(rcu_reader_gp) = READ_ONCE(rcu_gp_ctr);
 }
 
 extern void synchronize_rcu(void);
