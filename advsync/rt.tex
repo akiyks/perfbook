@@ -1172,7 +1172,7 @@ excessive real-time latencies.
 14     barrier();
 15     t->rcu_read_lock_nesting = INT_MIN;
 16     barrier();
-17     if (ACCESS_ONCE(t->rcu_read_unlock_special.s))
+17     if (READ_ONCE(t->rcu_read_unlock_special.s))
 18       rcu_read_unlock_special(t);
 19     barrier();
 20     t->rcu_read_lock_nesting = 0;
