@@ -736,7 +736,7 @@ static void wait_for_cbs(struct rcu_head *rhp)
 	struct cbs_wait *cwp = container_of(rhp, struct cbs_wait, rh);
 
 	smp_mb();
-	ACCESS_ONCE(cwp->rcu_done) = 1;
+	WRITE_ONCE(cwp->rcu_done, 1);
 }
 
 /*
@@ -748,7 +748,7 @@ void wait_for_my_rcu_cbs(struct cbs_wait *cwp)
 {
 	cwp->rcu_done = 0;
 	call_rcu(&cwp->rh, wait_for_cbs);
-	while (!ACCESS_ONCE(cwp->rcu_done))
+	while (!READ_ONCE(cwp->rcu_done))
 		poll(NULL, 0, 1);
 }
 
@@ -798,9 +798,9 @@ void *tree_stress_test_child(void *arg)
 	treenode_wire_call_rcu();
 	tracing_init(cp->me);
 	atomic_inc(&nthreads_running);
-	while (ACCESS_ONCE(goflag) == GOFLAG_INIT)
+	while (READ_ONCE(goflag) == GOFLAG_INIT)
 		poll(NULL, 0, 1);
-	while (ACCESS_ONCE(goflag) == GOFLAG_RUN) {
+	while (READ_ONCE(goflag) == GOFLAG_RUN) {
 		i = random() % cp->nel;
 		elp = &cp->elbase[i];
 		if (every && (elp->key % every))
@@ -1019,9 +1019,9 @@ void tree_stress_test(void)
 
 	/* Run the test. */
 	starttime = get_microseconds();
-	ACCESS_ONCE(goflag) = GOFLAG_RUN;
+	WRITE_ONCE(goflag, GOFLAG_RUN);
 	poll(NULL, 0, duration);
-	ACCESS_ONCE(goflag) = GOFLAG_STOP;
+	WRITE_ONCE(goflag, GOFLAG_STOP);
 	while (atomic_read(&nthreads_done) < nupdaters)
 		poll(NULL, 0, 1);
 	starttime = get_microseconds() - starttime;
@@ -1124,9 +1124,9 @@ void *tree_rcumalloc_child(void *arg)
 	set_thread_call_rcu_data(crdp);
 	tracing_init(cp->me);
 	atomic_inc(&nthreads_running);
-	while (ACCESS_ONCE(goflag) == GOFLAG_INIT)
+	while (READ_ONCE(goflag) == GOFLAG_INIT)
 		poll(NULL, 0, 1);
-	while (ACCESS_ONCE(goflag) == GOFLAG_RUN) {
+	while (READ_ONCE(goflag) == GOFLAG_RUN) {
 		cp->n_mallocs++;
 		rsp = malloc(sizeof(*rsp));
 		if (rsp == NULL) {
@@ -1181,9 +1181,9 @@ static void tree_rcumalloc(void)
 
 	/* Run the test. */
 	starttime = get_microseconds();
-	ACCESS_ONCE(goflag) = GOFLAG_RUN;
+	WRITE_ONCE(goflag, GOFLAG_RUN);
 	poll(NULL, 0, duration);
-	ACCESS_ONCE(goflag) = GOFLAG_STOP;
+	WRITE_ONCE(goflag, GOFLAG_STOP);
 	while (atomic_read(&nthreads_done) < nupdaters)
 		poll(NULL, 0, 1);
 	starttime = get_microseconds() - starttime;

@@ -120,7 +120,7 @@ retry:
 	htepp = &htep_head->hte_next;
 	do {
 		/* Pick up a pointer and check for end of list. */
-		htep = ACCESS_ONCE(*htepp);
+		htep = READ_ONCE(*htepp);
 		if (htep == htep_head)
 			return NULL;
 		if (htep == (struct ht_elem *)HAZPTR_POISON)
@@ -132,7 +132,7 @@ retry:
 		smp_mb(); /* Force pointer loads in order. */
 
 		/* Recheck the hazard pointer against the original. */
-		if (ACCESS_ONCE(*htepp) != htep)
+		if (READ_ONCE(*htepp) != htep)
 			goto retry;
 
 		/* Advance to next. */
@@ -155,7 +155,7 @@ void hashtab_add(struct hashtab *htp, unsigned long hash, struct ht_elem *htep)
 	htep->hte_prev = prev;
 	next->hte_prev = htep;
 	smp_mb(); /* Initialize element before publishing it. */
-	ACCESS_ONCE(prev->hte_next) = htep;
+	WRITE_ONCE(prev->hte_next, htep);
 }
 
 /*
@@ -171,7 +171,7 @@ void hashtab_add(struct hashtab *htp, unsigned long hash, struct ht_elem *htep)
 void hashtab_del(struct ht_elem *htep)
 {
 	htep->hte_next->hte_prev = htep->hte_prev;
-	ACCESS_ONCE(htep->hte_prev->hte_next) = htep->hte_next;
+	WRITE_ONCE(htep->hte_prev->hte_next, htep->hte_next);
 	smp_mb(); /* Ensure element is skipped before pointers are poisoned. */
 	htep->hte_prev = (struct ht_elem *)HAZPTR_POISON;
 	htep->hte_next = (struct ht_elem *)HAZPTR_POISON;

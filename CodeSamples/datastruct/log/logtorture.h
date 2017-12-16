@@ -171,7 +171,7 @@ void *stresstest_reader(void *arg)
 
 	/* Run the test code. */
 	for (;;) {
-		gf = ACCESS_ONCE(goflag);
+		gf = READ_ONCE(goflag);
 		if (gf != GOFLAG_RUN) {
 			if (gf == GOFLAG_STOP)
 				break;
@@ -213,7 +213,7 @@ void *stresstest_updater(void *arg)
 	atomic_inc(&nthreads_running);
 	i = 0;
 	while (i < valsperupdater) {
-		gf = ACCESS_ONCE(goflag);
+		gf = READ_ONCE(goflag);
 		if (gf != GOFLAG_RUN) {
 			if (gf == GOFLAG_STOP)
 				break;
@@ -231,7 +231,7 @@ void *stresstest_updater(void *arg)
 	}
 
 	/* If too much time, complain. */
-	if (ACCESS_ONCE(goflag) != GOFLAG_STOP)
+	if (READ_ONCE(goflag) != GOFLAG_STOP)
 		fprintf(stderr,
 			"Updater %d completed before test end, %lld adds.\n",
 			myid, nadds);
@@ -285,13 +285,13 @@ void stresstest(void)
 
 	/* Run the test. */
 	starttime = get_microseconds();
-	ACCESS_ONCE(goflag) = GOFLAG_RUN;
+	WRITE_ONCE(goflag, GOFLAG_RUN);
 	do {
 		poll(NULL, 0, duration);
 		endtime = get_microseconds();
 	} while (endtime - starttime < duration * 1000);
 	starttime = endtime - starttime;
-	ACCESS_ONCE(goflag) = GOFLAG_STOP;
+	WRITE_ONCE(goflag, GOFLAG_STOP);
 	wait_all_threads();
 
 	/* Don't need to lock anything here: No more updates happening. */

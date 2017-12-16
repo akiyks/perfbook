@@ -102,7 +102,7 @@ skiplist_start_reader(struct skiplist *head_slp)
 {
 	unsigned long ret;
 
-	ret = ACCESS_ONCE(head_slp->sl_seq) & ~0x1;
+	ret = READ_ONCE(head_slp->sl_seq) & ~0x1;
 	smp_mb();
 	return ret;
 }
@@ -118,7 +118,7 @@ static unsigned long __attribute__((unused))
 skiplist_retry_reader(struct skiplist *head_slp, unsigned long seq)
 {
 	smp_mb();
-	return ACCESS_ONCE(head_slp->sl_seq) != seq;
+	return READ_ONCE(head_slp->sl_seq) != seq;
 }
 
 /*
@@ -129,7 +129,7 @@ skiplist_retry_reader(struct skiplist *head_slp, unsigned long seq)
 static void __attribute__((unused))
 skiplist_start_writer(struct skiplist *head_slp)
 {
-	ACCESS_ONCE(head_slp->sl_seq) = head_slp->sl_seq + 1;
+	WRITE_ONCE(head_slp->sl_seq, head_slp->sl_seq + 1);
 	smp_mb();
 	BUG_ON(!(head_slp->sl_seq & 0x1));
 }
@@ -143,7 +143,7 @@ static void __attribute__((unused))
 skiplist_end_writer(struct skiplist *head_slp)
 {
 	smp_mb();
-	ACCESS_ONCE(head_slp->sl_seq) = head_slp->sl_seq + 1;
+	WRITE_ONCE(head_slp->sl_seq, head_slp->sl_seq + 1);
 	BUG_ON(head_slp->sl_seq & 0x1);
 }
 

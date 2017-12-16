@@ -125,7 +125,7 @@ static struct existence_group *existence_alloc_cache(void)
 
 	if (!egp_cache.tail)
 		existence_alloc_cache_init();
-	if (!egp_cache.free && ACCESS_ONCE(egp_cache.nffree)) {
+	if (!egp_cache.free && READ_ONCE(egp_cache.nffree)) {
 		spin_lock(&egp_cache.lock);
 		egp_cache.free = egp_cache.ffree;
 		egp_cache.tail = egp_cache.ftail;
@@ -219,7 +219,7 @@ void existence_free(struct existence_group *egp)
 void existence_switch(struct existence_group *egp)
 {
 	smp_mb();
-	ACCESS_ONCE(egp->existence_switch) = &existence_array[2];
+	WRITE_ONCE(egp->existence_switch, &existence_array[2]);
 	smp_mb();
 }
 
@@ -249,7 +249,7 @@ int _existence_exists_relaxed(struct existence *ep)
 	int offset;
 
 	offset = ep->offset;
-	asp = ACCESS_ONCE(*(ep->existence_switch));
+	asp = READ_ONCE(*(ep->existence_switch));
 	return asp[offset];
 }
 

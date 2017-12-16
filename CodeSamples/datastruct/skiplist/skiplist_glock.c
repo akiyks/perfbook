@@ -208,14 +208,14 @@ skiplist_ptriter_next(struct skiplist *head_slp, void *key,
 	slp = rcu_dereference(slip->hintp);
 	if (slp == NULL)
 		return NULL;
-	if (ACCESS_ONCE(slp->sl_deleted))
+	if (READ_ONCE(slp->sl_deleted))
 		goto regen_iter;
 	slp = rcu_dereference(slp->sl_next[0]);
 	if (slp == NULL) {
 		slip->hintp = NULL;
 		return NULL;
 	}
-	if (ACCESS_ONCE(slp->sl_deleted))
+	if (READ_ONCE(slp->sl_deleted))
 		goto regen_iter;
 	slip->hintp = slp;
 	if (!skiplist_retry_reader(head_slp, slip->iter_seq))

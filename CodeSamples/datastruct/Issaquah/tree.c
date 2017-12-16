@@ -265,7 +265,7 @@ static struct treenode *alloc_treenode_cache(void)
 	n_alloc_treenode_cache++;
 	if (!tnp_cache.tail)
 		treenode_alloc_cache_init();
-	if (!tnp_cache.free && ACCESS_ONCE(tnp_cache.nffree)) {
+	if (!tnp_cache.free && READ_ONCE(tnp_cache.nffree)) {
 		spin_lock(&tnp_cache.lock);
 		tnp_cache.free = tnp_cache.ffree;
 		tnp_cache.tail = tnp_cache.ftail;

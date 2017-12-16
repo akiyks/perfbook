@@ -63,7 +63,7 @@ static inline int existence_exists_relaxed(struct existence **epp)
  */
 static inline int existence_is_changing(struct existence **epp)
 {
-	return ACCESS_ONCE(*epp) != NULL;
+	return READ_ONCE(*epp) != NULL;
 }
 
 #endif /* #ifndef __EXISTENCE_H */

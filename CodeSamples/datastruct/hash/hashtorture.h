@@ -748,7 +748,7 @@ void *perftest_reader(void *arg)
 	/* Run the test code. */
 	i = 0;
 	for (;;) {
-		gf = ACCESS_ONCE(goflag);
+		gf = READ_ONCE(goflag);
 		if (gf != GOFLAG_RUN) {
 			if (gf == GOFLAG_STOP)
 				break;
@@ -806,7 +806,7 @@ void *perftest_updater(void *arg)
 	atomic_inc(&nthreads_running);
 	i = 0;
 	for (;;) {
-		gf = ACCESS_ONCE(goflag);
+		gf = READ_ONCE(goflag);
 		if (gf != GOFLAG_RUN) {
 			if (gf == GOFLAG_STOP)
 				break;
@@ -899,9 +899,9 @@ void perftest(void)
 
 	/* Run the test. */
 	starttime = get_microseconds();
-	ACCESS_ONCE(goflag) = GOFLAG_RUN;
+	WRITE_ONCE(goflag, GOFLAG_RUN);
 	poll(NULL, 0, duration);
-	ACCESS_ONCE(goflag) = GOFLAG_STOP;
+	WRITE_ONCE(goflag, GOFLAG_STOP);
 	starttime = get_microseconds() - starttime;
 	wait_all_threads();
 
@@ -1027,7 +1027,7 @@ void *zoo_reader(void *arg)
 	/* Run the test code. */
 	i = 0;
 	for (;;) {
-		gf = ACCESS_ONCE(goflag);
+		gf = READ_ONCE(goflag);
 		if (gf != GOFLAG_RUN) {
 			if (gf == GOFLAG_STOP)
 				break;
@@ -1097,7 +1097,7 @@ void *zoo_updater(void *arg)
 	atomic_inc(&nthreads_running);
 	i = 0;
 	for (;;) {
-		gf = ACCESS_ONCE(goflag);
+		gf = READ_ONCE(goflag);
 		if (gf != GOFLAG_RUN) {
 			if (gf == GOFLAG_STOP)
 				break;
@@ -1209,9 +1209,9 @@ void zoo_test(void)
 
 	/* Run the test. */
 	starttime = get_microseconds();
-	ACCESS_ONCE(goflag) = GOFLAG_RUN;
+	WRITE_ONCE(goflag, GOFLAG_RUN);
 	poll(NULL, 0, duration);
-	ACCESS_ONCE(goflag) = GOFLAG_STOP;
+	WRITE_ONCE(goflag, GOFLAG_STOP);
 	starttime = get_microseconds() - starttime;
 	wait_all_threads();
 
