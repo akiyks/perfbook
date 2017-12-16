@@ -720,7 +720,7 @@ void usage(char *progname, const char *format, ...)
 	fprintf(stderr, "\t\t(Intended for debugging purposes.)\n");
 	fprintf(stderr, "\t--nofig\n");
 	fprintf(stderr, "\t\tDo not output xfig info.\n");
-	fprintf(stderr, "Maze-generation options:\n", progname);
+	fprintf(stderr, "%s: Maze-generation options:\n", progname);
 	fprintf(stderr, "\t--generate [ rows [ cols ] ]\n");
 	fprintf(stderr, "\t\tRandomly generate maze of specified size.\n");
 	fprintf(stderr, "\t\tDefaults:  rows=41, cols=32.\n");
@@ -744,7 +744,7 @@ void usage(char *progname, const char *format, ...)
 	fprintf(stderr, "\t\tOnly one cell may be walled in per run.\n");
 	fprintf(stderr, "\t\tDefault:  No walling in.\n");
 	fprintf(stderr, "\tAlso uses --start from maze-solution section.\n");
-	fprintf(stderr, "Maze-solution options:\n", progname);
+	fprintf(stderr, "%s: Maze-solution options:\n", progname);
 	fprintf(stderr, "\t--solve\n");
 	fprintf(stderr, "\t\tAttempt to solve the current maze.\n");
 	fprintf(stderr, "\t\tDefault:  Attempt solution.\n");
