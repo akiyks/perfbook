@@ -47,7 +47,7 @@ void bakery_lock(bakerylock_t *blp, int me)
 	smp_mb();
 	max = label[0];
 	for (i = 1; i < blp->n; i++) {
-		maxv = ACCESS_ONCE(label[i]);
+		maxv = READ_ONCE(label[i]);
 		if (maxv > max)
 			max = maxv;
 	}
@@ -58,8 +58,8 @@ retry:
 	for (i = 0; i < blp->n; i++) {
 		if (i == me)
 			continue;
-		otherlabel = ACCESS_ONCE(label[i]);
-		if (ACCESS_ONCE(flag[i]) &&
+		otherlabel = READ_ONCE(label[i]);
+		if (READ_ONCE(flag[i]) &&
 		    (otherlabel < maxv ||
 		     otherlabel == maxv && i < me))
 		     	goto retry;
@@ -70,5 +70,5 @@ retry:
 void bakery_unlock(bakerylock_t *blp, int me)
 {
 	smp_mb();
-	ACCESS_ONCE(flag[me]) = 0;
+	WRITE_ONCE(flag[me], 0);
 }

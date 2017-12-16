@@ -57,9 +57,9 @@ void *test_xchg_lock(void *arg)
 
 	run_on(me);
 	atomic_inc(&nthreadsrunning);
-	while (ACCESS_ONCE(goflag) == GOFLAG_INIT)
+	while (READ_ONCE(goflag) == GOFLAG_INIT)
 		poll(NULL, 0, 1);
-	while (ACCESS_ONCE(goflag) == GOFLAG_RUN) {
+	while (READ_ONCE(goflag) == GOFLAG_RUN) {
 		xchg_lock(&testlock);
 		if (owner != -1)
 			lockerr++;
