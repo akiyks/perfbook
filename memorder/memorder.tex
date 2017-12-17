@@ -449,13 +449,13 @@ instances straighten things out in the end.
 	\cmidrule(r){1-1} \cmidrule{2-2} \cmidrule(l){3-6} \cmidrule(l){7-13}
 	Store, for example, \tco{WRITE_ONCE()} &  &
 		   Y &   &   &     &      &   &   &    &    &     &  Y \\
-	Load, for example, \tco{READ_ONCE()} &  &
+	Raw Load (without \tco{READ_ONCE()}) &  &
 		   Y &   &   &     &      &   &   &    &  Y &     &  Y \\
 	Unsuccessful RMW operation &  &
 		   Y &   &   &     &      &   &   &    &  Y &     &  Y \\
 	\tco{smp_read_barrier_depends()} &  &
 		     & Y &   &     &      &   &   &  Y &  Y &     &    \\
-	\tco{*_dereference()} &  &
+	\tco{READ_ONCE()} and \tco{*_dereference()} &  &
 		   Y &   &   &     &      &   &   &  Y &  Y &     &  Y \\
 	Successful \tco{*_acquire()} &   &
 		   R &   &   &     &      & Y & Y &  Y &  Y &   Y &  Y \\
@@ -546,7 +546,7 @@ are at most two threads involved.
 	Note that all other operations providing ordering against accesses
 	to multiple variables also provide this same-variable ordering.
 
-	The \co{READ_ONCE()} row captures the fact that (as of 2017) compilers
+	The ``Raw Load'' row captures the fact that (as of 2017) compilers
 	and CPUs do not indulge in user-visible speculative stores, so that
 	any store whose address, data, or execution depends on a prior load
 	will happen after that load completes.
@@ -557,16 +557,19 @@ are at most two threads involved.
 
 	The ``Unsuccessful RMW operation'' row captures the fact that
 	even an unsuccessful RMW has done a read, and that read is
-	every bit as good as a \co{READ_ONCE()}.
+	every bit as good as a raw load.
 
 	The \co{smp_read_barrier_depends()} row captures the fact that, with the
 	notable exception of DEC Alpha, compilers and CPUs do not indulge
 	in user-visible breakage of address dependencies, again assuming
 	that these dependencies have been constructed carefully as described in
 	Section~\ref{sec:memorder:Address- and Data-Dependency Difficulties}.
+	Note that as of Linux 4.15, \co{READ_ONCE()} implies
+	\co{smp_read_barrier_depends()}.
 
-	The \co{*_dereference()} row captures the address and data
-	dependency ordering provided by \co{lockless_dereference()},
+	The ``\co{READ_ONCE()} and
+        \co{*_dereference()}'' row captures the address and data
+	dependency ordering provided by \co{READ_ONCE()},
 	\co{rcu_dereference()}, and friends.
 
 	The ``Successful \co{*_acquire()}'' row captures the fact that many
@@ -2220,7 +2223,8 @@ exists (1:r1=1 /\ 2:r2=1 /\ 2:r3=0)
 
 Dependencies do not provide cumulativity,
 which is why the ``C'' column is blank for
-both the \co{READ_ONCE()} and the \co{smp_read_barrier_depends()} rows
+both the \co{smp_read_barrier_depends()} and
+the ``\co{READ_ONCE()} and \co{*_dereference()}'' rows
 of Table~\ref{tab:memorder:Linux-Kernel Memory-Ordering Cheat Sheet}.
 However, as indicated by the ``C'' in their ``C'' column,
 release operations do provide cumulativity.
@@ -3379,9 +3383,8 @@ your compiler from breaking your dependencies.
 
 \subsubsection{Give your dependency chain a good start}
 The load that heads your dependency chain must use proper
-ordering, for example, \co{lockless_dereference()},
-\co{rcu_dereference()}, or
-a \co{READ_ONCE()} followed by \co{smp_read_barrier_depends()}.
+ordering, for example, \co{rcu_dereference()} or
+a \co{READ_ONCE()} (with an implicit \co{smp_read_barrier_depends()}).
 Failure to follow this rule can have serious side effects:
 
 \begin{enumerate}
@@ -4342,7 +4345,7 @@ set of memory-ordering primitives, which are as follows:
 	that depend on prior operations to be ordered.
 	This primitive is a no-op on all platforms except Alpha, but
 	is normally not used directly, but rather as part of
-	something like \co{lockless_dereference()} or
+	something like \co{READ_ONCE()} or
 	\co{rcu_dereference()}.
 \item	[\tco{smp_mb__before_atomic()}] that forces ordering of accesses
 	preceding the \co{smp_mb__before_atomic()} against accesses following
@@ -4405,8 +4408,14 @@ It may seem strange to say much of anything about a CPU whose end of life
 has long since past, but Alpha is interesting because it is the only
 mainstream CPU that reorders dependent loads, and has thus had outsized
 influence on concurrency APIs, including within the Linux kernel.
-Understanding Alpha is therefore surprisingly important to the Linux kernel
-hacker.
+Therefore, understanding Alpha used to be surprisingly important to
+the Linux kernel hacker.
+
+As mentioned elsewhere, \co{READ_ONCE()} implies
+\co{smp_read_barrier_depends()} since Linux 4.15.
+So Linux kernel hackers are now free of Alpha's uniqueness.
+In this section, \co{READ_ONCE()} is assumed to behave as
+it did prior to Linux 4.15.
 
 The dependent-load difference between Alpha and the other CPUs is
 illustrated by the code shown in
@@ -4587,8 +4596,8 @@ an \co{smp_mb()} rather than a no-op.
 	Alpha ordered dependent stores, and thus \co{smp_mb()}
 	was therefore the safe choice.
 
-	By the time you read this, it is quite possible that the Linux
-	kernel will have added \co{smp_read_barrier_depends()}
+	As of Linux 4.15, the Linux
+	kernel has added \co{smp_read_barrier_depends()}
 	to \co{READ_ONCE()} and a few of Alpha's atomic
 	read-modify-write operations, thus making it unnecessary to use
 	\co{smp_read_barrier_depends()} anywhere else in the core kernel.
