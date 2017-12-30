@@ -21,12 +21,13 @@ sed	-e 's+Times-Roman+NimbusSanL-Regu+g' \
 	-e 's+Times+NimbusSanL-Regu+g' \
 	-e 's+Helvetica-BoldOblique+NimbusSanL-BoldItal+g' \
 	-e 's+Helvetica-Oblique+NimbusSanL-ReguItal+g' \
-	-e 's+Helvetica-Bold+NimbusSanL-Bold+g' \
 	-e 's+Helvetica-Bold-iso+NimbusSanL-Bold+g' \
-	-e 's+Helvetica+NimbusSanL-Regu+g' \
+	-e 's+Helvetica-Bold+NimbusSanL-Bold+g' \
 	-e 's+Helvetica-iso+NimbusSanL-Regu+g' \
+	-e 's+Helvetica+NimbusSanL-Regu+g' \
 	-e 's+Symbol+StandardSymL+g' \
-	-e 's+Courier+NimbusMonL-Regu+g' \
-	-e 's+Courier-Bold+NimbusMonL-Bold+g' \
+	-e 's+Courier-BoldOblique+NimbusMonL-BoldObli+g' \
 	-e 's+Courier-Oblique+NimbusMonL-ReguObli+g' \
-	-e 's+Courier-BoldOblique+NimbusMonL-BoldObli+g'
+	-e 's+Courier-Bold+NimbusMonL-Bold+g' \
+	-e 's+Courier+NimbusMonL-Regu+g' \
+	-e 's+StardardSymL-+Symbol-+g'
