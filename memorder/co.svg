@@ -81,7 +81,7 @@
      y="5.0488396" />
   <text
      xml:space="preserve"
-     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      x="129.34225"
      y="21.103939"
      id="text3901"
@@ -129,7 +129,7 @@
      inkscape:connector-curvature="0" />
   <text
      xml:space="preserve"
-     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      x="17.590509"
      y="21.413609"
      id="text3966"
@@ -140,7 +140,7 @@
        y="21.413609">CPU 0</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      x="17.839714"
      y="45.913658"
      id="text3966-1"
@@ -151,7 +151,7 @@
        y="45.913658">CPU 1</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      x="17.914944"
      y="70.944298"
      id="text3966-1-7"
@@ -162,7 +162,7 @@
        y="70.944298">CPU 2</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      x="17.722164"
      y="94.322853"
      id="text3966-1-7-9"
@@ -173,7 +173,7 @@
        y="94.322853">CPU 3</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      x="19.695454"
      y="93.395859"
      id="text4058"
@@ -186,7 +186,7 @@
        style="font-size:16.04923058px;font-weight:bold;fill:#646400;fill-opacity:1;-inkscape-font-specification:Sans Bold">X = 0</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      x="154.94604"
      y="166.62383"
      id="text4058-6"
@@ -199,7 +199,7 @@
        style="font-size:16.04923058px;font-weight:bold;fill:#646400;fill-opacity:1;-inkscape-font-specification:Sans Bold">X = 1</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      x="100.4537"
      y="94.180344"
      id="text3901-61"
@@ -210,7 +210,7 @@
        y="94.180344">WRITE_ONCE(x, 2);</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      x="203.64349"
      y="244.00201"
      id="text4058-6-0"
@@ -223,7 +223,7 @@
        style="font-size:16.04923058px;font-weight:bold;fill:#646400;fill-opacity:1;-inkscape-font-specification:Sans Bold">X = 2</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      x="233.92694"
      y="135.96877"
      id="text4659"
@@ -240,7 +240,7 @@
      inkscape:connector-curvature="0" />
   <text
      xml:space="preserve"
-     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:9.62953854px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      x="120.89"
      y="65.379677"
      id="text3969"

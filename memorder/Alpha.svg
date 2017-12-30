@@ -454,7 +454,7 @@
      id="text3307"
      y="124.1515"
      x="46.355312"
-     style="font-size:161.06666565px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:161.06666565px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      xml:space="preserve"><tspan
        style="font-size:107.3777771px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Liberation Mono;-inkscape-font-specification:Liberation Mono"
        y="124.1515"
@@ -476,7 +476,7 @@
      id="text3307-0"
      y="258.37375"
      x="2159.219"
-     style="font-size:161.06666565px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:161.06666565px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      xml:space="preserve"><tspan
        style="font-size:107.3777771px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Liberation Mono;-inkscape-font-specification:Liberation Mono"
        y="258.37375"
@@ -538,7 +538,7 @@
   </g>
   <text
      xml:space="preserve"
-     style="font-size:161.06666565px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:161.06666565px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      x="2237.8979"
      y="1477.1736"
      id="text3498"
@@ -550,7 +550,7 @@
        style="font-size:107.3777771px">head.next</tspan></text>
   <text
      xml:space="preserve"
-     style="font-size:161.06666565px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     style="font-size:161.06666565px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L"
      x="3328.4541"
      y="1456.3586"
      id="text3498-3"
@@ -559,15 +559,15 @@
        id="tspan3500-1"
        x="3328.4541"
        y="1456.3586"
-       style="font-size:107.3777771px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Sans;-inkscape-font-specification:Sans">p-&gt;key</tspan><tspan
+       style="font-size:107.3777771px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L">p-&gt;key</tspan><tspan
        sodipodi:role="line"
        x="3328.4541"
        y="1590.5808"
-       style="font-size:107.3777771px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Sans;-inkscape-font-specification:Sans"
+       style="font-size:107.3777771px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L"
        id="tspan3529">p-&gt;data</tspan><tspan
        sodipodi:role="line"
        x="3328.4541"
        y="1724.8031"
-       style="font-size:107.3777771px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Sans;-inkscape-font-specification:Sans"
+       style="font-size:107.3777771px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Nimbus Sans L;-inkscape-font-specification:Nimbus Sans L"
        id="tspan3531">p-&gt;next</tspan></text>
 </svg>

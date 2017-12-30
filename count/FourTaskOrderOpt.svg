@@ -213,7 +213,7 @@
        x="1800"
        y="645"
        fill="#000000"
-       font-family="Helvetica"
+       font-family="Nimbus Sans L"
        font-style="normal"
        font-weight="normal"
        font-size="108"
@@ -225,7 +225,7 @@
        x="1800"
        y="450"
        fill="#000000"
-       font-family="Helvetica"
+       font-family="Nimbus Sans L"
        font-style="normal"
        font-weight="normal"
        font-size="108"
@@ -237,7 +237,7 @@
        x="825"
        y="1245"
        fill="#000000"
-       font-family="Helvetica"
+       font-family="Nimbus Sans L"
        font-style="normal"
        font-weight="normal"
        font-size="108"
@@ -249,7 +249,7 @@
        x="825"
        y="1050"
        fill="#000000"
-       font-family="Helvetica"
+       font-family="Nimbus Sans L"
        font-style="normal"
        font-weight="normal"
        font-size="108"
@@ -261,7 +261,7 @@
        x="1800"
        y="1845"
        fill="#000000"
-       font-family="Helvetica"
+       font-family="Nimbus Sans L"
        font-style="normal"
        font-weight="normal"
        font-size="108"
@@ -273,7 +273,7 @@
        x="1800"
        y="1650"
        fill="#000000"
-       font-family="Helvetica"
+       font-family="Nimbus Sans L"
        font-style="normal"
        font-weight="normal"
        font-size="108"
@@ -288,7 +288,7 @@
        x="2775"
        y="975"
        fill="#000000"
-       font-family="Helvetica"
+       font-family="Nimbus Sans L"
        font-style="normal"
        font-weight="normal"
        font-size="108"
@@ -304,7 +304,7 @@
        font-size="108"
        id="text72"
        text-anchor="middle"
-       font-family="Helvetica"
+       font-family="Nimbus Sans L"
        fill="#000000">Partitioning and</text>
     <!-- Text -->
     <text
@@ -312,7 +312,7 @@
        x="2775"
        y="1275"
        fill="#000000"
-       font-family="Helvetica"
+       font-family="Nimbus Sans L"
        font-style="normal"
        font-weight="normal"
        font-size="108"
@@ -330,7 +330,7 @@
        id="polygon78" />
     <text
        xml:space="preserve"
-       style="font-size:9px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:9px;font-style:italic;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L, Bold Italic"
        x="221.82668"
        y="144.38997"
        id="text3104"
@@ -343,7 +343,7 @@
          style="font-style:italic">Partition</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:120.80000305px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:120.80000305px;font-style:italic;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L, Bold Italic"
        x="146.69788"
        y="1915.4342"
        id="text3104-3"
@@ -355,7 +355,7 @@
          style="font-style:italic">Weaken</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:120.80000305px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:120.80000305px;font-style:italic;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Nimbus Sans L, Bold Italic"
        x="2992.8018"
        y="176.79025"
        id="text3104-3-7"
@@ -411,17 +411,5 @@
          points="2775,1475 2805,1505 2805,1505 2775,1355 2745,1505 "
          transform="matrix(0.88302053,-0.46933436,0.46933436,0.88302053,-61.540385,1481.8163)" />
     </g>
-    <text
-       sodipodi:linespacing="125%"
-       id="text5398"
-       y="176.79025"
-       x="2992.8018"
-       style="font-size:120.80000305px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       xml:space="preserve"><tspan
-         style="font-style:italic"
-         y="176.79025"
-         x="2992.8018"
-         id="tspan5400"
-         sodipodi:role="line">Batch</tspan></text>
   </g>
 </svg>
