@@ -14,52 +14,54 @@ ABBREVTARGETS := tcb 1c hb msns mss mstx msr msn msnt 1csf
 
 PDFTARGETS := perfbook.pdf $(foreach v,$(ABBREVTARGETS),perfbook-$(v).pdf)
 
-EPSSOURCES_FROM_TEX := \
+EPS_FROM_TEX := \
 	SMPdesign/DiningPhilosopher5.eps \
 	SMPdesign/DiningPhilosopher5TB.eps \
 	SMPdesign/DiningPhilosopher4part-b.eps \
 	SMPdesign/DiningPhilosopher5PEM.eps
 
 DOTSOURCES := $(wildcard */*.dot)
-
-EPSSOURCES_FROM_DOT := $(DOTSOURCES:%.dot=%.eps)
+EPS_FROM_DOT := $(DOTSOURCES:%.dot=%.eps)
 
 FIGSOURCES := $(wildcard */*.fig) $(wildcard */*/*.fig)
-
-EPSSOURCES_FROM_FIG := $(FIGSOURCES:%.fig=%.eps)
-
+EPS_FROM_FIG := $(FIGSOURCES:%.fig=%.eps)
 PDFTARGETS_OF_FIG := $(FIGSOURCES:%.fig=%.pdf)
 
 EPSSOURCES_DUP := \
 	$(wildcard */*.eps) \
 	$(wildcard */*/*.eps) \
-	$(EPSSOURCES_FROM_TEX) \
-	$(EPSSOURCES_FROM_DOT) \
-	$(EPSSOURCES_FROM_FIG)
+	$(EPS_FROM_TEX) \
+	$(EPS_FROM_DOT) \
+	$(EPS_FROM_FIG)
 
 EPSSOURCES := $(sort $(EPSSOURCES_DUP))
 
 PDFTARGETS_OF_EPS := $(EPSSOURCES:%.eps=%.pdf)
 
-EPSORIGIN := $(filter-out $(EPSSOURCES_FROM_TEX) $(EPSSOURCES_FROM_DOT) $(EPSSOURCES_FROM_FIG),$(EPSSOURCES))
+EPSORIG := $(filter-out $(EPS_FROM_TEX) $(EPS_FROM_DOT) $(EPS_FROM_FIG),$(EPSSOURCES))
 
-PDFTARGETS_OF_EPSORIG := $(EPSORIGIN:%.eps=%.pdf)
+PDFTARGETS_OF_EPSORIG := $(EPSORIG:%.eps=%.pdf)
+EPS_FROM_GNUPLOT  := $(shell grep -l -i gnuplot $(EPSORIG))
+EPSI_FROM_GNUPLOT := $(EPS_FROM_GNUPLOT:%.eps=%.epsi)
+EPS_FROM_CAIRO    := $(shell grep -l -i cairo $(EPSORIG))
+EPSI_FROM_CAIRO   := $(EPS_FROM_CAIRO:%.eps=%.epsi)
+EPSI_FROM_DOT     := $(EPS_FROM_DOT:%.eps=%.epsi)
 
-PDFTARGETS_OF_EPSOTHER := $(filter-out $(PDFTARGETS_OF_EPSORIG) $(PDFTARGETS_OF_FIG),$(PDFTARGETS_OF_EPS))
+EPS_NEED_TRIM := $(EPS_FROM_GNUPLOT) $(EPS_FROM_CAIRO) $(EPS_FROM_DOT)
+PDFTARGETS_NEED_TRIM := $(EPS_NEED_TRIM:%.eps=%.pdf)
+
+PDFTARGETS_OF_EPSOTHER := $(filter-out $(PDFTARGETS_NEED_TRIM),$(PDFTARGETS_OF_EPS))
 
 BIBSOURCES := bib/*.bib alphapf.bst
 
 SVGSOURCES := $(wildcard */*.svg)
-
 PDFTARGETS_OF_SVG := $(SVGSOURCES:%.svg=%.pdf)
 
-DOT := $(shell which dot 2>/dev/null)
-
-FIG2EPS := $(shell which fig2eps 2>/dev/null)
-PS2EPSI := $(shell which ps2epsi 2>/dev/null)
-EPSTOOL := $(shell which epstool 2>/dev/null)
+DOT      := $(shell which dot      2>/dev/null)
+FIG2EPS  := $(shell which fig2eps  2>/dev/null)
+PS2EPSI  := $(shell which ps2epsi  2>/dev/null)
+EPSTOOL  := $(shell which epstool  2>/dev/null)
 EPSTOPDF := $(shell which epstopdf 2>/dev/null)
-
 INKSCAPE := $(shell which inkscape 2>/dev/null)
 
 URWPS := $(shell fc-list | grep "Nimbus Mono PS" | wc -l)
@@ -160,14 +162,14 @@ perfbook-1csf.tex: perfbook-1c.tex
 
 # Rules related to perfbook_html are removed as of May, 2016
 
-$(EPSSOURCES_FROM_TEX): %.eps: %.tex
+$(EPS_FROM_TEX): %.eps: %.tex
 	@echo "$< --> $@"
 	sh utilities/mpostcheck.sh
 	@latex -output-directory=$(shell dirname $<) $< > /dev/null 2>&1
 	@dvips -Pdownload35 -E $(patsubst %.tex,%.dvi,$<) -o $@ > /dev/null 2>&1
 	@sh $(FIXANEPSFONTS) $@
 
-$(EPSSOURCES_FROM_DOT): %.eps: %.dot
+$(EPS_FROM_DOT): %.eps: %.dot
 	@echo "$< --> $@"
 ifndef DOT
 	$(error "$< --> $@: dot not found. Please install graphviz")
@@ -175,7 +177,24 @@ endif
 	@dot -Tps -o $@ $<
 	@sh $(FIXANEPSFONTS) $@
 
-$(EPSSOURCES_FROM_FIG): %.eps: %.fig
+$(EPSI_FROM_DOT): %.epsi: %.eps
+	@echo "$< --> $@"
+ifndef PS2EPSI
+	$(error "$< --> $@: ps2epsi not found. Please install it")
+endif
+	@ps2epsi $< $@
+
+$(EPSI_FROM_GNUPLOT) $(EPSI_FROM_CAIRO): %.epsi: %.eps
+	@echo "$< --> $@"
+ifndef PS2EPSI
+	$(error "$< --> $@: ps2epsi not found. Please install it")
+endif
+	@cp $< $<j
+	@sh $(FIXANEPSFONTS) $<j
+	@ps2epsi $<j $@
+	@rm -f $<j
+
+$(EPS_FROM_FIG): %.eps: %.fig
 	@echo "$< --> $@"
 ifndef FIG2EPS
 	$(error "$< --> $@: fig2eps not found. Please install fig2ps")
@@ -183,46 +202,25 @@ endif
 	@fig2eps --nogv $< > /dev/null 2>&1
 	@sh $(FIXANEPSFONTS) $@
 
-$(PDFTARGETS_OF_EPSORIG): %.pdf: %.eps
+$(PDFTARGETS_NEED_TRIM): %.pdf: %.epsi
 	@echo "$< --> $@"
-ifndef PS2EPSI
-	$(error "$< --> $@: ps2epsi not found. Please install it")
-endif
 ifndef EPSTOOL
 	$(error "$< --> $@: epstool not found. Please install it")
 endif
 ifndef EPSTOPDF
 	$(error "$< --> $@: epstopdf not found. Please install it")
 endif
-	@cp $< $<i
-	@sh $(FIXANEPSFONTS) $<i
-	@ps2epsi $<i $<j
-	@epstool --copy --bbox --ignore-errors $<j $<i >/dev/null 2>&1
-	@cat $<i | epstopdf --filter --outfile=$@
-	@rm -f $<i $<j
+	@ps2epsi $< $<j
+	@epstool --copy --bbox --ignore-errors $<j $< >/dev/null 2>&1
+	@cat $< | epstopdf --filter --outfile=$@
+	@rm -f $<j
 
-$(PDFTARGETS_OF_FIG): %.pdf: %.eps
+$(PDFTARGETS_OF_EPSOTHER): %.pdf: %.eps
 	@echo "$< --> $@"
 ifndef EPSTOPDF
 	$(error "$< --> $@: epstopdf not found. Please install it")
 endif
 	@epstopdf $<
-
-$(PDFTARGETS_OF_EPSOTHER): %.pdf: %.eps
-	@echo "$< --> $@"
-ifndef PS2EPSI
-	$(error "$< --> $@: ps2epsi not found. Please install it")
-endif
-ifndef EPSTOOL
-	$(error "$< --> $@: epstool not found. Please install it")
-endif
-ifndef EPSTOPDF
-	$(error "$< --> $@: epstopdf not found. Please install it")
-endif
-	@ps2epsi $< $<i
-	@epstool --copy --bbox --ignore-errors $<i $<j >/dev/null 2>&1
-	@cat $<j | epstopdf --filter --outfile=$@
-	@rm -f $<i $<j
 
 $(PDFTARGETS_OF_SVG): %.pdf: %.svg
 	@echo "$< --> $@"
@@ -269,7 +267,10 @@ clean:
 
 distclean: clean
 	sh utilities/cleanpdf.sh
-	rm -f $(EPSSOURCES_FROM_DOT) $(EPSSOURCES_FROM_TEX) $(EPSSOURCES_FROM_FIG)
+	rm -f $(EPS_FROM_DOT) $(EPS_FROM_TEX) $(EPS_FROM_FIG)
+	rm -f $(EPSI_FROM_GNUPLOT) $(EPSI_FROM_GNUPLOT:%.epsi=%.epsj)
+	rm -f $(EPSI_FROM_CAIRO) $(EPSI_FROM_CAIRO:%.epsi=%.epsj)
+	rm -f $(EPSI_FROM_DOT) $(EPSI_FROM_DOT:%.epsi=%.epsj)
 
 touchsvg:
 	find . -name '*.svg' | xargs touch
