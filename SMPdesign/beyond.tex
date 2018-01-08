@@ -242,17 +242,17 @@ performance and scalability consequences.
  10     while (!maze_find_any_next_cell(mp, c, &n)) {
  11       if (visited[++vi].row < 0)
  12         return 0;
- 13       if (ACCESS_ONCE(mp->done))
+ 13       if (READ_ONCE(mp->done))
  14         return 1;
  15       c = visited[vi];
  16     }
  17     do {
- 18       if (ACCESS_ONCE(mp->done))
+ 18       if (READ_ONCE(mp->done))
  19         return 1;
  20       c = n;
  21     } while (maze_find_any_next_cell(mp, c, &n));
  22     c = visited[vi];
- 23   } while (!ACCESS_ONCE(mp->done));
+ 23   } while (!READ_ONCE(mp->done));
  24   return 1;
  25 }
 \end{verbbox}
@@ -281,7 +281,7 @@ When \co{maze_try_visit_cell()} detects this,
 it sets a \co{->done} field in the maze structure.
 Fourth, each child must therefore periodically check the \co{->done}
 field, as shown on lines~13, 18, and~23.
-The \co{ACCESS_ONCE()} primitive must disable any compiler
+The \co{READ_ONCE()} primitive must disable any compiler
 optimizations that might combine consecutive loads or that
 might reload the value.
 A C++1x volatile relaxed load suffices~\cite{PeteBecker2011N3242}.
@@ -304,7 +304,7 @@ thread creation and join.
   9     return 0;
  10   tp = celladdr(mp, t);
  11   do {
- 12     t = ACCESS_ONCE(*tp);
+ 12     t = READ_ONCE(*tp);
  13     if (t & VISITED) {
  14       if ((t & TID) != mytid)
  15         mp->done = 1;
