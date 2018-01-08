@@ -79,6 +79,8 @@ struct maze {
 };
 
 #define ACCESS_ONCE(x) (*(volatile typeof(x) *)&(x))
+#define READ_ONCE(x) ({ typeof(x) ___x = ACCESS_ONCE(x); ___x; })
+#define WRITE_ONCE(x, val) ({ ACCESS_ONCE(x) = (val); })
 
 /* CLOCK_MONOTONIC_RAW prefered, but the older CLOCK_MONOTONIC will do. */
 #ifdef CLOCK_MONOTONIC_RAW
@@ -145,8 +147,9 @@ static inline int maze_cells_connected(struct maze *mp,
 		maze_get_cell(mp, row1, col1)) == 0;
 }
 
+void usage(char *progname, const char *format, ...);
 unsigned long long current_time(void);
-int maze_raw_col_frac(int rc, int num, int den);
+int maze_row_col_frac(int rc, int num, int den);
 void maze_set_seg_weights(struct segment_weights *swp,
 			  int len, double straightfrac, double segbends);
 struct maze *new_empty_maze(int nrows, int ncols,
