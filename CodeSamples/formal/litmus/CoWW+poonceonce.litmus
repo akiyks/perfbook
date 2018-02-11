@@ -1,0 +1,22 @@
+C CoWW+poonceonce
+
+(*
+ * Result: Never
+ *
+ * Test of write-write coherence, that is, whether or not two successive
+ * writes to the same variable are ordered.
+ *)
+
+{}
+
+{
+#include "api.h"
+}
+
+P0(int *x)
+{
+	WRITE_ONCE(*x, 1);
+	WRITE_ONCE(*x, 2);
+}
+
+exists (x=1)
