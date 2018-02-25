@@ -14,6 +14,7 @@
 *.tgz
 *.bz2
 *.swp
+*.epsi
 perfbook_flat.tex
 qqz.tex
 contrib.tex
