@@ -1537,13 +1537,12 @@ count /OPCOUNT exch def
       (bbox-success\n) ..print
       quit
     } if
-    .callbeginpage
   }
+  [exch aload pop currentpagedevice /BeginPage get aload pop] cvx
 >> setpagedevice
 
 % vvv do these after our call to /setpagedevice
-.currentglobal true .setglobal
-systemdict begin
+currentglobal true setglobal
 /..paper.redef<< >>def
 /..print/print load def
 /setpageparams{pop pop pop pop (\nset-called-4==/setpageparams\n) ..print flush}def
@@ -1650,9 +1649,7 @@ dup/= exch def /print exch def
   } if } if
   pop
 }forall} forall
-end % systemdict
-.setglobal
-systemdict readonly pop
+setglobal
 
 (bbox-begin\n) ..print
 MAINFILE cvx exec
