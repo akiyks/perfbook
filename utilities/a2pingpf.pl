@@ -1538,7 +1538,6 @@ count /OPCOUNT exch def
       quit
     } if
   }
-  [exch aload pop currentpagedevice /BeginPage get aload pop] cvx
 >> setpagedevice
 
 % vvv do these after our call to /setpagedevice
@@ -1548,7 +1547,6 @@ currentglobal true setglobal
 /setpageparams{pop pop pop pop (\nset-called-4==/setpageparams\n) ..print flush}def
 /setpage{pop pop pop (\nset-called-3==/setpage\n) ..print flush}def
 /setpagesize{pop pop (\nset-called-2==/setpagesize\n) ..print flush}def
-/.setpagesize{pop pop (\nset-called-2==/.setpagesize\n) ..print flush}def
 /setpagemargin{pop (\nset-called-1==/setpagemargin\n) ..print flush}def
 {% anti-Windows-printer-driver `%%[ ProductName:` etc.
   dup type/stringtype eq{
@@ -1660,7 +1658,7 @@ showpage quit
       die unless close F;
       # vvv Imp: make it work on Win32 (no >&1 redirection)
       my $gs3=$CGS. # "-dPAGE1QUIT=".($FileFormat eq 'EPS' or $FileFormat eq 'markedEPS' ? 'quit' : '{}').
-        " -dWRITESYSTEMDICT -dNOPAUSE -sDEVICE=bbox -sFN=".fnq($InputFilename)." ".fnq($tfn)." 2>&1";
+        " -dNOPAUSE -sDEVICE=bbox -sFN=".fnq($InputFilename)." ".fnq($tfn)." 2>&1";
       debug "Ghostscript compute pipe: $gs3";
       my $res=`$gs3`;
       ## die $res;
