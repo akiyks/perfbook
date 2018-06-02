@@ -1,4 +1,6 @@
 digraph sequence15CPUs {
+	node [shape=ellipse,fontsize=14,fontname=Helvetica]
+
 	1 -> 6;
 	2 -> 15;
 	3 -> 9;
