@@ -65,17 +65,38 @@ int goflag __attribute__((__aligned__(CACHE_LINE_SIZE))) = GOFLAG_INIT;
 #endif /* #ifndef NEED_REGISTER_THREAD */
 
 #ifndef KEEP_GCC_THREAD_LOCAL
-#define _wait_all_threads() wait_all_threads()
-#define _count_unregister_thread(n) count_unregister_thread(n)
-#define final_wait_all_threads()
+static __inline__
+void _wait_all_threads(void)
+{
+	wait_all_threads();
+}
+static __inline__
+void _count_unregister_thread(int n)
+{
+	count_unregister_thread(n);
+}
+static __inline__
+void final_wait_all_threads()
+{
+}
 #else  /* #ifndef KEEP_GCC_THREAD_LOCAL */
-#define _wait_all_threads() { \
-	while (READ_ONCE(finalthreadcount) < nthreadsexpected) \
-		poll(NULL, 0, 1);}
-#define _count_unregister_thread(n) count_unregister_thread(n + 1)
-#define final_wait_all_threads() { \
-	WRITE_ONCE(finalthreadcount, nthreadsexpected + 1); \
-	wait_all_threads();}
+static __inline__
+void _wait_all_threads(void)
+{
+	while (READ_ONCE(finalthreadcount) < nthreadsexpected)
+		poll(NULL, 0, 1);
+}
+static __inline__
+void _count_unregister_thread(int n)
+{
+	count_unregister_thread(n + 1);
+}
+static __inline__
+void final_wait_all_threads()
+{
+	WRITE_ONCE(finalthreadcount, nthreadsexpected + 1);
+	wait_all_threads();
+}
 #endif /* #ifndef KEEP_GCC_THREAD_LOCAL */
 
 unsigned long garbage = 0; /* disable compiler optimizations. */
