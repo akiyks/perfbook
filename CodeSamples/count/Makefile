@@ -48,46 +48,46 @@ CC?=cc
 include $(top)/recipes.mk
 
 count_atomic: count_atomic.c ../api.h counttorture.h
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_atomic count_atomic.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_atomic count_atomic.c
 
 count_end: count_end.c ../api.h counttorture.h
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_end count_end.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_end count_end.c
 
 count_end_rcu: count_end_rcu.c ../api.h counttorture.h $(RCU_SRCS)
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_end_rcu count_end_rcu.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_end_rcu count_end_rcu.c
 
 count_lim: count_lim.c ../api.h limtorture.h
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_lim count_lim.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_lim count_lim.c
 
 count_lim_app: count_lim_app.c ../api.h limtorture.h
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_lim_app count_lim_app.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_lim_app count_lim_app.c
 
 count_lim_atomic: count_lim_atomic.c ../api.h limtorture.h
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_lim_atomic count_lim_atomic.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_lim_atomic count_lim_atomic.c
 
 count_lim_sig: count_lim_sig.c ../api.h limtorture.h
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_lim_sig count_lim_sig.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_lim_sig count_lim_sig.c
 
 count_limd: count_limd.c ../api.h limtorture.h
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_limd count_limd.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_limd count_limd.c
 
 count_nonatomic: count_nonatomic.c ../api.h counttorture.h
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_nonatomic count_nonatomic.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_nonatomic count_nonatomic.c
 
 count_stack: count_stack.c ../api.h counttorture.h
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_stack count_stack.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_stack count_stack.c
 
 count_stat: count_stat.c ../api.h counttorture.h
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_stat count_stat.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_stat count_stat.c
 
 count_stat_atomic: count_stat_atomic.c ../api.h counttorture.h
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_stat_atomic count_stat_atomic.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_stat_atomic count_stat_atomic.c
 
 count_stat_eventual: count_stat_eventual.c ../api.h counttorture.h
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_stat_eventual count_stat_eventual.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_stat_eventual count_stat_eventual.c
 
 count_tstat: count_tstat.c ../api.h counttorture.h
-	$(CC) $(GCC_ARGS) $(CFLAGS) -o count_tstat count_tstat.c -lpthread
+	$(CC) $(GCC_ARGS) $(CFLAGS) -pthread -o count_tstat count_tstat.c
 
 clean:
 	rm -f $(PROGS)

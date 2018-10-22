@@ -32,10 +32,10 @@ endif
 include $(top)/recipes.mk
 
 skiplist: skiplist.c ../../api.h skiplisttorture.h skiplist.h
-	cc $(GCC_ARGS) -DTEST_SKIPLIST -I $(LIB) -g -o skiplist skiplist.c $(LIB)/random.c -lpthread -lurcu -lurcu-signal
+	cc $(GCC_ARGS) -DTEST_SKIPLIST -I $(LIB) -g -pthread -o skiplist skiplist.c $(LIB)/random.c -lurcu -lurcu-signal
 
 skiplist_glock: skiplist_glock.c ../../api.h skiplisttorture.h skiplist.h
-	cc $(GCC_ARGS) -DTEST_SKIPLIST -I $(LIB) -g -o skiplist_glock skiplist_glock.c $(LIB)/random.c -lpthread -lurcu -lurcu-signal
+	cc $(GCC_ARGS) -DTEST_SKIPLIST -I $(LIB) -g -pthread -o skiplist_glock skiplist_glock.c $(LIB)/random.c -lurcu -lurcu-signal
 
 clean:
 	rm -f $(PROGS)

@@ -3,7 +3,7 @@ CFLAGS=-g
 all: time timelocked
 
 time: time.o
-	cc -g -o time time.o -lpthread
+	cc -g -pthread -o time time.o
 
 timelocked: timelocked.o
-	cc -g -o timelocked timelocked.o -lpthread
+	cc -g -pthread -o timelocked timelocked.o

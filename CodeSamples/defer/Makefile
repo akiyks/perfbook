@@ -61,88 +61,88 @@ include $(top)/recipes.mk
 
 # Note that bug_srcu_a is disabled until completed.
 bug_srcu_a: bug_srcu_a.c srcu.c ../api.h
-	cc $(GCC_ARGS) -o bug_srcu_a -DTEST bug_srcu_a.c -lurcu -lpthread
+	cc $(GCC_ARGS) -pthread -o bug_srcu_a -DTEST bug_srcu_a.c -lurcu
 
 bug_rcu_dp: bug_rcu_dp.c ../api.h
-	cc $(GCC_ARGS) -o bug_rcu_dp -DTEST bug_rcu_dp.c -lurcu -lpthread
+	cc $(GCC_ARGS) -pthread -o bug_rcu_dp -DTEST bug_rcu_dp.c -lurcu
 
 gettimestamp: gettimestamp.c ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o gettimestamp -DTEST gettimestamp.c -lpthread
+	cc $(GCC_ARGS) -pthread -o gettimestamp -DTEST gettimestamp.c
 
 gettimestampmp: gettimestampmp.c ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o gettimestampmp -DTEST gettimestampmp.c -lpthread
+	cc $(GCC_ARGS) -pthread -o gettimestampmp -DTEST gettimestampmp.c
 
 hazptr: hazptr.c hazptr.h ../api.h hazptrtorture.h
-	cc $(GCC_ARGS) -o hazptr -DTEST hazptr.c -lpthread
+	cc $(GCC_ARGS) -pthread -o hazptr -DTEST hazptr.c
 
 ptxroute: ptxroute.c ../api.h
-	cc $(GCC_ARGS) -o ptxroute ptxroute.c -lpthread -lurcu -lurcu-signal
+	cc $(GCC_ARGS) -pthread -o ptxroute ptxroute.c -lurcu -lurcu-signal
 
 rcu: rcu.c rcu.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu -DTEST rcu.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu -DTEST rcu.c
 
 rcu64: rcu64.c rcu64.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu64 -DTEST rcu64.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu64 -DTEST rcu64.c
 
 rcu64_atomicgp: rcu64_atomicgp.c rcu64_atomicgp.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu64_atomicgp -DTEST rcu64_atomicgp.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu64_atomicgp -DTEST rcu64_atomicgp.c
 
 rcu_lock: rcu_lock.c rcu_lock.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu_lock -DTEST rcu_lock.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu_lock -DTEST rcu_lock.c
 
 rcu_lock_percpu: rcu_lock_percpu.c rcu_lock_percpu.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu_lock_percpu -DTEST rcu_lock_percpu.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu_lock_percpu -DTEST rcu_lock_percpu.c
 
 rcu_nest: rcu_nest.c rcu_nest.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu_nest -DTEST rcu_nest.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu_nest -DTEST rcu_nest.c
 
 rcu_nest32: rcu_nest32.c rcu_nest32.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu_nest32 -DTEST rcu_nest32.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu_nest32 -DTEST rcu_nest32.c
 
 rcu_nest_qs: rcu_nest_qs.c rcu_nest_qs.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu_nest_qs -DTEST rcu_nest_qs.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu_nest_qs -DTEST rcu_nest_qs.c
 
 rcu_qs: rcu_qs.c rcu_qs.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu_qs -DTEST rcu_qs.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu_qs -DTEST rcu_qs.c
 
 rcu_rcg: rcu_rcg.c rcu_rcg.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu_rcg -DTEST rcu_rcg.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu_rcg -DTEST rcu_rcg.c
 
 rcu_rcpg: rcu_rcpg.c rcu_rcpg.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu_rcpg -DTEST rcu_rcpg.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu_rcpg -DTEST rcu_rcpg.c
 
 rcu_rcpl: rcu_rcpl.c rcu_rcpl.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu_rcpl -DTEST rcu_rcpl.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu_rcpl -DTEST rcu_rcpl.c
 
 rcu_rcpls: rcu_rcpls.c rcu_rcpls.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu_rcpls -DTEST rcu_rcpls.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu_rcpls -DTEST rcu_rcpls.c
 
 rcu_sig: rcu_sig.c rcu_sig.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu_sig -DTEST rcu_sig.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu_sig -DTEST rcu_sig.c
 
 rcu_ts: rcu_ts.c rcu_ts.h ../api.h rcutorture.h
-	cc $(GCC_ARGS) -o rcu_ts -DTEST rcu_ts.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rcu_ts -DTEST rcu_ts.c
 
 route_hazptr: route_hazptr.c ../api.h ../lib/random.h ../lib/random.c routetorture.h
-	cc $(GCC_ARGS) -o route_hazptr route_hazptr.c hazptr.c ../lib/random.c -lpthread
+	cc $(GCC_ARGS) -pthread -o route_hazptr route_hazptr.c hazptr.c ../lib/random.c
 
 route_rcu: route_rcu.c ../api.h ../lib/random.h ../lib/random.c routetorture.h
-	cc $(GCC_ARGS) -o route_rcu route_rcu.c ../lib/random.c -lpthread  -lurcu -lurcu-signal
+	cc $(GCC_ARGS) -pthread -o route_rcu route_rcu.c ../lib/random.c -lurcu -lurcu-signal
 
 route_rcu_qsbr: route_rcu.c ../api.h ../lib/random.h ../lib/random.c routetorture.h
-	cc $(GCC_ARGS) -o route_rcu_qsbr -DDO_QSBR route_rcu.c ../lib/random.c -lpthread  -lurcu-qsbr
+	cc $(GCC_ARGS) -pthread -o route_rcu_qsbr -DDO_QSBR route_rcu.c ../lib/random.c -lurcu-qsbr
 
 route_refcnt: route_refcnt.c ../api.h ../lib/random.h ../lib/random.c routetorture.h
-	cc $(GCC_ARGS) -o route_refcnt route_refcnt.c ../lib/random.c -lpthread
+	cc $(GCC_ARGS) -pthread -o route_refcnt route_refcnt.c ../lib/random.c
 
 route_seq: route_seq.c ../api.h ../lib/random.h ../lib/random.c routetorture.h
-	cc $(GCC_ARGS) -o route_seq route_seq.c ../lib/random.c -lpthread
+	cc $(GCC_ARGS) -pthread -o route_seq route_seq.c ../lib/random.c
 
 route_seqlock: route_seqlock.c ../api.h seqlock.h ../lib/random.h ../lib/random.c routetorture.h
-	cc $(GCC_ARGS) -o route_seqlock route_seqlock.c ../lib/random.c -lpthread
+	cc $(GCC_ARGS) -pthread -o route_seqlock route_seqlock.c ../lib/random.c
 
 seqlocktorture: seqlocktorture.c seqlock.h ../api.h
-	cc $(GCC_ARGS) -o seqlocktorture seqlocktorture.c -lpthread
+	cc $(GCC_ARGS) -pthread -o seqlocktorture seqlocktorture.c
 
 clean:
 	rm -f $(PROGS)

@@ -31,13 +31,13 @@ endif
 include $(top)/recipes.mk
 
 q: q.c q.h queuetorture.h ../api.h
-	cc $(GCC_ARGS) -o q -DTEST q.c -lpthread
+	cc $(GCC_ARGS) -pthread -o q -DTEST q.c
 
 singleq: singleq.c singleq.h queuetorture.h ../api.h
-	cc $(GCC_ARGS) -o singleq -DTEST singleq.c -lpthread
+	cc $(GCC_ARGS) -pthread -o singleq -DTEST singleq.c
 
 wfenqueue: wfenqueue.c q.h queuetorture.h ../api.h
-	cc $(GCC_ARGS) -o wfenqueue -DTEST wfenqueue.c -lpthread
+	cc $(GCC_ARGS) -pthread -o wfenqueue -DTEST wfenqueue.c
 
 clean:
 	rm -f $(PROGS)

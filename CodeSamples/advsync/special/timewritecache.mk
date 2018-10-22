@@ -1,2 +1,2 @@
-cc -g -O2 -o timewritecache timewritecache.c -lpthread
-cc -g -O2 -o writecacheflow writecacheflow.c -lpthread
+cc -g -O2 -pthread -o timewritecache timewritecache.c
+cc -g -O2 -pthread -o writecacheflow writecacheflow.c

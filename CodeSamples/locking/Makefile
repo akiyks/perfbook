@@ -18,7 +18,7 @@ locked_list: locked_list.c ../api.h
 	cc -g -Wall -o locked_list locked_list.c
 
 xchglock: xchglock.c ../api.h
-	cc -g -Wall -o xchglock xchglock.c -lpthread
+	cc -g -Wall -pthread -o xchglock xchglock.c
 
 clean:
 	rm -f $(PROGS)

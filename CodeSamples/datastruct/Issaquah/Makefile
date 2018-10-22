@@ -42,10 +42,10 @@ include $(top)/recipes.mk
 #	 Verify by using the nm command and searching output for malloc.
 
 existence_test: existence.c existence_test.c
-	cc $(GCC_ARGS) -o existence_test existence.c existence_test.c -lpthread -lurcu -lurcu-signal
+	cc $(GCC_ARGS) -pthread -o existence_test existence.c existence_test.c -lurcu -lurcu-signal
 
 treetorture: tree.c existence.c spinlockmult.c $(LIB)/random.c ../../api.h treetorture.h treetorturetrace.h $(LIB)/random.h existence.h tree.h
-	cc $(GCC_ARGS) -o treetorture tree.c existence.c spinlockmult.c $(LIB)/random.c -lpthread -lurcu -lurcu-signal
+	cc $(GCC_ARGS) -pthread -o treetorture tree.c existence.c spinlockmult.c $(LIB)/random.c -lurcu -lurcu-signal
 
 clean:
 	rm -f $(PROGS)

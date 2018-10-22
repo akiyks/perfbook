@@ -38,25 +38,25 @@ include $(top)/recipes.mk
 # GCC_ARGS=-g -O3 -m64 -mcpu=power5 -mtune=power5
 
 smpalloc: smpalloc.c ../api.h
-	cc $(GCC_ARGS) -g -o smpalloc -DTEST smpalloc.c -lpthread
+	cc $(GCC_ARGS) -g -pthread -o smpalloc -DTEST smpalloc.c
 
 lockdeq: lockdeq.c deqtorture.h ../api.h
-	cc $(GCC_ARGS) -g -o lockdeq -DTEST lockdeq.c -lpthread
+	cc $(GCC_ARGS) -g -pthread -o lockdeq -DTEST lockdeq.c
 
 lockhdeq: lockhdeq.c deqtorture.h ../api.h
-	cc $(GCC_ARGS) -g -o lockhdeq -DTEST lockhdeq.c -lpthread
+	cc $(GCC_ARGS) -g -pthread -o lockhdeq -DTEST lockhdeq.c
 
 locktdeq: locktdeq.c deqtorture.h ../api.h
-	cc $(GCC_ARGS) -g -o locktdeq -DTEST locktdeq.c -lpthread
+	cc $(GCC_ARGS) -g -pthread -o locktdeq -DTEST locktdeq.c
 
 lockrwdeq: lockrwdeq.c deqtorture.h ../api.h
-	cc $(GCC_ARGS) -g -o lockrwdeq -DTEST lockrwdeq.c -lpthread
+	cc $(GCC_ARGS) -g -pthread -o lockrwdeq -DTEST lockrwdeq.c
 
 matmul: matmul.c ../api.h
-	cc $(GCC_ARGS) -g -o matmul -DTEST matmul.c -lpthread
+	cc $(GCC_ARGS) -g -pthread -o matmul -DTEST matmul.c
 
 matmul_block: matmul_block.c ../api.h
-	cc $(GCC_ARGS) -g -o matmul_block -DTEST matmul_block.c -lpthread
+	cc $(GCC_ARGS) -g -pthread -o matmul_block -DTEST matmul_block.c
 
 clean:
 	rm $(PROGS)

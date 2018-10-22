@@ -40,16 +40,16 @@ forkjoinvar: forkjoinvar.c ../api.h
 	cc $(GCC_ARGS) -o forkjoinvar forkjoinvar.c
 
 lock: lock.c ../api.h
-	cc $(GCC_ARGS) -o lock lock.c -lpthread
+	cc $(GCC_ARGS) -pthread -o lock lock.c
 
 mytrue: mytrue.c
 	cc $(GCC_ARGS) -o mytrue mytrue.c
 
 pcreate: pcreate.c ../api.h
-	cc $(GCC_ARGS) -o pcreate pcreate.c -lpthread
+	cc $(GCC_ARGS) -pthread -o pcreate pcreate.c
 
 rwlockscale: rwlockscale.c ../api.h
-	cc $(GCC_ARGS) -o rwlockscale rwlockscale.c -lpthread
+	cc $(GCC_ARGS) -pthread -o rwlockscale rwlockscale.c
 
 clean:
 	rm -f $(PROGS) *.o
