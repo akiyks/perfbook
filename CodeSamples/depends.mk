@@ -12,7 +12,7 @@ else ifeq ($(arch),ppc64)
 target := ppc64
 subdir_ub :=
 else ifeq ($(arch),ppc64le)
-target := ppc64
+target := ppc64le
 subdir_ub := powerpc64le-linux-gnu
 else ifeq ($(arch),aarch64)
 target := arm64
@@ -33,6 +33,9 @@ arch_depend := $(top)/arch-x86/Makefile.arch
 else ifeq ($(target),ppc64)
 api_depend := $(top)/arch-ppc64/arch-ppc64.h
 arch_depend := $(top)/arch-ppc64/Makefile.arch
+else ifeq ($(target),ppc64le)
+api_depend := $(top)/arch-ppc64le/arch-ppc64le.h
+arch_depend := $(top)/arch-ppc64le/Makefile.arch
 else ifeq ($(target),arm)
 api_depend := $(top)/arch-arm/arch-arm.h
 arch_depend := $(top)/arch-arm/Makefile.arch
