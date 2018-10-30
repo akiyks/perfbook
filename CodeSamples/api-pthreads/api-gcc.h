@@ -21,6 +21,8 @@
  * Copyright (c) 2016 Paul E. McKenney, IBM.
  */
 
+#include <stdint.h> /* for intmax_t and uintmax_t */
+
 /*
  * Atomic data structure, initialization, and access.
  */
@@ -164,12 +166,38 @@ struct __xchg_dummy {
 };
 #define __xg(x) ((struct __xchg_dummy *)(x))
 
+/* is_signed_type() is borrowed from Linux kernel's include/linux/overflow.h */
+#define is_signed_type(type)       (((type)(-1)) < (type)1)
+
+#define __modify_anytype(x) \
+({						\
+	intmax_t  _____x;			\
+	uintmax_t _____ux;			\
+	if (is_signed_type(typeof(x))) {	\
+		_____x = (intmax_t)(x);		\
+		if (_____x > 0)			\
+			_____x--;		\
+		else				\
+			_____x++;		\
+	} else {				\
+		_____ux = (uintmax_t)(x);	\
+		if (_____ux > 0)		\
+			_____ux--;		\
+		else				\
+			_____ux++;		\
+	}					\
+	(typeof(x))(is_signed_type(typeof(x)) ? _____x : _____ux); \
+})
+
 #define cmpxchg(ptr, o, n) \
 ({ \
-	typeof(*ptr) _____actual = (o); \
+	typeof(*ptr) _____o   = (o);    \
+	typeof(*ptr) _____old = _____o; \
+	typeof(*ptr) _____new = (n);    \
 	\
-	__atomic_compare_exchange_n(ptr, (void *)&_____actual, (n), 1, \
-			__ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST) ? (o) : (o)+1; \
+	__atomic_compare_exchange_n(ptr, (void *)&_____old, _____new, 1, \
+			__ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST) ? \
+			_____old : __modify_anytype(_____o); \
 })
 
 static __inline__ int atomic_cmpxchg(atomic_t *v, int old, int new)
