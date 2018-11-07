@@ -421,17 +421,33 @@ Litmus tests, which are handled by \qco{herdtools7} commands such as
 \qco{litmus7} and \qco{herd7}, were problematic for this scheme.
 Those commands have particular rules of where comments can be
 placed and restriction on which characters and tokens can appear
-in comments. (Tokens in comments might sound strange, but it does
-have some restrictions).
+in comments. (Tokens in comments might sound strange, but they do
+have some restrictions.)
 
-As a workaround, meta commands are embedded in a litmus test
-as shown in Listing~\ref{lst:app:styleguide:Sample Source of Litmus Test}.
+For example, the first token in a litmus test must be one of
+\qco{C}, \qco{PPC}, \qco{X86}, or~\qco{LISA}, which indicates
+the flavour of the test. This means any comment is not allowed
+in the beginning of a litmus test.
 
-\begin{listing*}[tbh]
+Similarly, several tokens such as \qco{exists}, \qco{filter},
+and~\qco{locations} indicate the end of body of litmus test.
+Once one of them appears in a litmus test, any comment is not
+allowed to appear thereafter.  These tokens keep the same meaning
+even when they appear in comments!
+
+The pair of characters \qco{\{} and \qco{\}} also have special
+meaning in C flavour. They are used to seperate portions in a litmus test.
+First pair of \qco{\{} and \qco{\}} encloses initialization part.
+Comments in this part should be of the form \qco{(* ... *)}.
+
+You can't use \qco{\{} and \qco{\}} in comments in litmus test, either.
+
+\begin{listing*}[th]
 \begin{linelabel}[ln:app:styleguide:Sample Source of Litmus Test]
 \begin{VerbatimL}[tabsize=8]
 C C-SB+o-o+o-o
 //\begin[snippet][labelbase=ln:sample:labelbase,commandchars=\%\@\$]
+
 {
 1:r2=0			(*\lnlbl[initr2]*)
 }
@@ -464,13 +480,16 @@ exists (1:r2=0 /\ 0:r2=0)
 \label{lst:app:styleguide:Sample Source of Litmus Test}
 \end{listing*}
 
+As a workaround, special form of meta commands are embedded in a litmus test
+as shown in Listing~\ref{lst:app:styleguide:Sample Source of Litmus Test}.
+
 Listing~\ref{lst:app:styleguide:Sample Source of Litmus Test}
 is converted to
 Listing~\ref{lst:app:styleguide:Intermediate Source of Litmus Test}
 by a script \path{utilities/reorder_ltms.pl}. It can be handled
-by the script \path{utilities/fcvextract.pl}.
+by the common script \path{utilities/fcvextract.pl}.
 
-\begin{listing*}[tbh]
+\begin{listing*}[th]
 \begin{linelabel}[ln:app:styleguide:Intermediate Source of Litmus Test]
 \begin{VerbatimL}[tabsize=8]
 // Do not edit!
@@ -509,6 +528,8 @@ exists (1:r2=0 /\ 0:r2=0)\lnlbl{exists_}
 \caption{Intermediate Source of Litmus Test with Meta Commands}
 \label{lst:app:styleguide:Intermediate Source of Litmus Test}
 \end{listing*}
+
+\subsubsection{Code Snippet (Obsolescent)}
 
 Sample \LaTeX\ source of a code snippet coded using
 the \qco{verbatimbox} package is shown in
