@@ -354,7 +354,7 @@ by the \qco{verbatimbox} package. The new scheme employing
 the \co{fancyvrb} package enables us to embed labels on lines
 within the source of code snippets.
 And the source can be extracted from code samples under
-the \path{CodeSamples/} directory of the perfbook source tree.
+the \path{CodeSamples} directory of perfbook source tree.
 
 Conversion to the new scheme is currently underway.
 
@@ -414,8 +414,9 @@ and a script to generate dependencies (\path{utilities/gen_snippet_d.pl}).
 
 In Listing~\ref{lst:app:styleguide:Source of Code Sample}, meta commands
 are placed as comments of C (C++ style) and the source can be compiled
-as is.  The script \path{utilities/fcvextract.pl} distinguishes
-the type of source file by the suffix.
+as is.  \path{utilities/fcvextract.pl} distinguishes
+the type of source file by the suffix and handle the meta comands
+in comments accordingly.
 
 Litmus tests, which are handled by \qco{herdtools7} commands such as
 \qco{litmus7} and \qco{herd7}, were problematic for this scheme.
