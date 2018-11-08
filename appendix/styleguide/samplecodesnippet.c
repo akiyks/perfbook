@@ -1,4 +1,4 @@
-//\begin{snippet}[labelbase=ln:app:styleguide:samplecodesnippet:main,commandchars=\$\[\]]
+//\begin{snippet}[labelbase=ln:base1,commandchars=\$\[\]]
 /*
  * Sample Code Snippet
  */

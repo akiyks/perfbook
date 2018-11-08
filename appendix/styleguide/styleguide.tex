@@ -350,10 +350,15 @@ enabled. \qco{VerbatimU} is for inline snippets without line count.
 The above snippet uses the \co{VarbatimU} environment.
 
 We used to use the \qco{verbbox} environment provided
-by the \qco{verbatimbox} package. The new scheme employing
-the \co{fancyvrb} package enables us to embed labels on lines
-within the source of code snippets.
-And the source can be extracted from code samples under
+by the \qco{verbatimbox} package. As will be described later in
+Section~\ref{sec:app:styleguide:Code Snippet (Obsolesc)},
+\co{verbbox} has the capability of automatic
+line numbering. However, it is not possible to embed labels on lines
+in the snippet to refer from the text.
+
+The new scheme allows us to do that by the help of escaping feature
+of the \co{fancyvrb} package.
+And the sources of snippets can be extracted from code samples under
 the \path{CodeSamples} directory of perfbook source tree.
 
 Conversion to the new scheme is currently underway.
@@ -381,7 +386,7 @@ Labels to lines of \qco{printf} and \qco{return} can be referred
 to as follows:
 
 \begin{VerbatimU}
-\begin{lineref}[ln:app:styleguide:samplecodesnippet:main]
+\begin{lineref}[ln:base1]
 Lines~\lnref{printf} and~\lnref{return} can be referred
 to from text.
 \end{lineref}
@@ -390,7 +395,7 @@ to from text.
 Above code results in the following paragraph:
 
 \begin{quote}
-\begin{lineref}[ln:app:styleguide:samplecodesnippet:main]
+\begin{lineref}[ln:base1]
 Lines~\lnref{printf} and~\lnref{return} can be referred
 to from text.
 \end{lineref}
@@ -398,32 +403,32 @@ to from text.
 
 \LaTeX\ source shown in
 Listing~\ref{lst:app:styleguide:LaTeX Source of Sample Code Snippet (Current)}
-can be extracted from source of
+can be extracted from a code sample of
 Listing~\ref{lst:app:styleguide:Source of Code Sample} by a perl script
-\path{utilities/fcvextract.pl}. All the relevant rules to extract
-the \LaTeX\ source are described as recipes in the top level \path{Makefile}
-and a script to generate dependencies (\path{utilities/gen_snippet_d.pl}).
+\path{utilities/fcvextract.pl}. All the relevant rules of extraction
+are described as recipes in the top level \path{Makefile} and
+a script to generate dependencies (\path{utilities/gen_snippet_d.pl}).
 
-\begin{listing*}[tb]
+\begin{listing}[tb]
 \fvset{fontsize=\scriptsize,numbers=left,numbersep=5pt,xleftmargin=9pt,obeytabs=true,tabsize=8}
 \VerbatimInput{appendix/styleguide/samplecodesnippet.c}
 \vspace*{-9pt}
 \caption{Source of Code Sample with ``snippet'' meta command}
 \label{lst:app:styleguide:Source of Code Sample}
-\end{listing*}
+\end{listing}
 
 In Listing~\ref{lst:app:styleguide:Source of Code Sample}, meta commands
 are placed as comments of C (C++ style) and the source can be compiled
 as is.  \path{utilities/fcvextract.pl} distinguishes
-the type of source file by the suffix and handle the meta comands
+the type of source file by its suffix and handle the meta comands
 in comments accordingly.
 
 Litmus tests, which are handled by \qco{herdtools7} commands such as
 \qco{litmus7} and \qco{herd7}, were problematic for this scheme.
 Those commands have particular rules of where comments can be
-placed and restriction on which characters and tokens can appear
-in comments. (Tokens in comments might sound strange, but they do
-have some restrictions.)
+placed and restriction on characters in comments.
+It also forbids a couple of tokens to appear in comments.
+(Tokens in comments might sound strange, but they do have such restriction.)
 
 For example, the first token in a litmus test must be one of
 \qco{C}, \qco{PPC}, \qco{X86}, or~\qco{LISA}, which indicates
@@ -443,20 +448,42 @@ Comments in this part should be of the form \qco{(* ... *)}.
 
 You can't use \qco{\{} and \qco{\}} in comments in litmus test, either.
 
-\begin{listing*}[th]
+Example of disallowed comments in litmus test is shown below:
+
+\begin{linelabel}[ln:app:styleguide:Bad comments in Litmus Test]
+\begin{VerbatimN}[tabsize=8]
+// Comment at first
+C C-sample
+// Comment with { and } characters
+{
+x=2;  // C style comment in initialization
+}
+
+P0(int *x}
+{
+	int r1;
+
+	r1 = READ_ONCE(*x);  // Comment with "exists"
+}
+
+[...]
+
+exists (0:r1=0)  // comment after exists clause
+\end{VerbatimN}
+\end{linelabel}
+
+To avoid parse error, meta commands in litmus tests are embedded
+in the following way.
+
 \begin{linelabel}[ln:app:styleguide:Sample Source of Litmus Test]
-\begin{VerbatimL}[tabsize=8]
+\begin{VerbatimN}[tabsize=8]
 C C-SB+o-o+o-o
-//\begin[snippet][labelbase=ln:sample:labelbase,commandchars=\%\@\$]
+//\begin[snippet][labelbase=ln:base,commandchars=\%\@\$]
 
 {
 1:r2=0			(*\lnlbl[initr2]*)
 }
 
-{			//\fcvexclude
-#include "api.h"	//\fcvexclude
-}			//\fcvexclude
-			//\fcvexclude
 P0(int *x0, int *x1)		//\lnlbl[P0:b]
 {
 	int r2;
@@ -475,37 +502,24 @@ P1(int *x0, int *x1)
 
 //\end[snippet][existslabel=exists_]
 exists (1:r2=0 /\ 0:r2=0)
-\end{VerbatimL}
+\end{VerbatimN}
 \end{linelabel}
-\caption{Sample Source of Litmus Test with Meta Commands}
-\label{lst:app:styleguide:Sample Source of Litmus Test}
-\end{listing*}
 
-As a workaround, special form of meta commands are embedded in a litmus test
-as shown in Listing~\ref{lst:app:styleguide:Sample Source of Litmus Test}.
-
-Listing~\ref{lst:app:styleguide:Sample Source of Litmus Test}
-is converted to
-Listing~\ref{lst:app:styleguide:Intermediate Source of Litmus Test}
+Example above is converted to the following intermediate code
 by a script \path{utilities/reorder_ltms.pl}. It can be handled
 by the common script \path{utilities/fcvextract.pl}.
 
-\begin{listing*}[th]
 \begin{linelabel}[ln:app:styleguide:Intermediate Source of Litmus Test]
-\begin{VerbatimL}[tabsize=8]
+\begin{VerbatimN}[tabsize=8]
 // Do not edit!
 // Generated by utillities/reorder_ltms.pl
-//\begin{snippet}[labelbase=ln:sample:labelbase,commandchars=\%\@\$]
+//\begin{snippet}[labelbase=ln:base,commandchars=\%\@\$]
 C C-SB+o-o+o-o
 
 {
 1:r2=0			//\lnlbl{initr2}
 }
 
-{			//\fcvexclude
-#include "api.h"	//\fcvexclude
-}			//\fcvexclude
-			//\fcvexclude
 P0(int *x0, int *x1)		//\lnlbl{P0:b}
 {
 	int r2;
@@ -524,13 +538,11 @@ P1(int *x0, int *x1)
 
 exists (1:r2=0 /\ 0:r2=0)\lnlbl{exists_}
 //\end{snippet}[existslabel=exists_]
-\end{VerbatimL}
+\end{VerbatimN}
 \end{linelabel}
-\caption{Intermediate Source of Litmus Test with Meta Commands}
-\label{lst:app:styleguide:Intermediate Source of Litmus Test}
-\end{listing*}
 
 \subsubsection{Code Snippet (Obsolescent)}
+\label{sec:app:styleguide:Code Snippet (Obsolesc)}
 
 Sample \LaTeX\ source of a code snippet coded using
 the \qco{verbatimbox} package is shown in
@@ -1123,60 +1135,11 @@ from the actual number.
 \subsubsection{Table Layout Experiment}
 \label{sec:app:styleguide:Table Layout Experiment}
 
-This section presents some experimental tables
+This section presents a few experimental tables
 using booktabs, xcolors, and arydshln packages.
 The corresponding tables in the text have been converted using one of
 the format shown here. The source of this section can be regarded
 as a reference to be consulted when new tables are added in the text.
-
-\begin{table}[tb]
-\rowcolors{1}{}{lightgray}
-\renewcommand*{\arraystretch}{1.1}
-\sisetup{group-minimum-digits=4,group-separator={,}}
-\centering\small
-\begin{tabular}
-  {
-    l
-    S[table-format = 9.1]
-    S[table-format = 9.1]
-  }
-	\toprule
-	Operation		& \multicolumn{1}{r}{Cost (ns)}
-			& {\parbox[b]{.7in}{\raggedleft Ratio\\(cost/clock)}} \\
-	\midrule
-	Clock period		&           0.6	&           1.0 \\
-	Best-case CAS		&          37.9	&          63.2 \\
-	Best-case lock		&          65.6	&         109.3 \\
-	Single cache miss	&         139.5	&         232.5 \\
-	CAS cache miss		&         306.0	&         510.0 \\
-	Comms Fabric		&       5 000	&       8 330	\\
-	Global Comms		& 195 000 000	& 325 000 000   \\
-	\bottomrule
-\end{tabular}
-\caption{Performance of Synchronization Mechanisms of 4-CPU 1.8\,GHz AMD Opteron 844 System}
-\label{tab:app:styleguide:Performance of Synchronization Mechanisms of 4-CPU 1.8GHz AMD Opteron 844 System}
-\end{table}
-
-In
-Table~\ref{tab:app:styleguide:Performance of Synchronization Mechanisms of 4-CPU 1.8GHz AMD Opteron 844 System}
-(corresponding to
-Table~\ref{tab:cpu:Performance of Synchronization Mechanisms on 4-CPU 1.8GHz AMD Opteron 844 System}),
-the ``S'' column specifiers provided
-by the ``siunitx'' package are used to align numbers.
-
-Table~\ref{tab:app:styleguide:Reference Counting and Synchronization Mechanisms}
-(corresponding to
-Table~\ref{tab:together:Reference Counting and Synchronization Mechanisms})
-is an example of table with a complex header.
-In
-Table~\ref{tab:app:styleguide:Reference Counting and Synchronization Mechanisms},
-the gap in the mid-rule corresponds to the distinction
-which had been represented by double vertical rules before the conversion.
-The legends in the frame box appended here explain the abbreviations used
-in the matrix. Two types of memory barrier are denoted by subscripts here.
-The legends and subscripts are not present in
-Table~\ref{tab:together:Reference Counting and Synchronization Mechanisms}
-since they are redundant there.
 
 \begin{table}[tb]
 \small
@@ -1424,39 +1387,6 @@ Pointer update &
 \label{tab:app:styleguide:RCU Publish-Subscribe and Version Maintenance APIs (colortbl)}
 \end{table*}
 
-Table~\ref{tab:app:styleguide:Memory Misordering: Store-Buffering Sequence of Events}
-(corresponding to
-Table~\ref{tab:memorder:Memory Misordering: Store-Buffering Sequence of Events})
-is also a sequence diagram drawn as a tabular object.
-
-\begin{table*}[tbh]
-\rowcolors{6}{}{lightgray}
-\renewcommand*{\arraystretch}{1.1}
-\small
-\centering\OneColumnHSpace{-0.1in}
-\begin{tabular}{rllllll}
-	\toprule
-	& \multicolumn{3}{c}{CPU 0} & \multicolumn{3}{c}{CPU 1} \\
-	\cmidrule(l){2-4} \cmidrule(l){5-7}
-	& Instruction & Store Buffer & Cache &
-		Instruction & Store Buffer & Cache \\
-	\cmidrule{1-1} \cmidrule(l){2-4} \cmidrule(l){5-7}
-	1 & (Initial state) & & \tco{x1==0} &
-		(Initial state) & & \tco{x0==0} \\
-	2 & \tco{x0 = 2;} & \tco{x0==2} & \tco{x1==0} &
-		\tco{x1 = 2;} & \tco{x1==2} & \tco{x0==0} \\
-	3 & \tco{r2 = x1;} (0) & \tco{x0==2} & \tco{x1==0} &
-		\tco{r2 = x0;} (0) & \tco{x1==2} & \tco{x0==0} \\
-	4 & (Read-invalidate) & \tco{x0==2} & \tco{x0==0} &
-		(Read-invalidate) & \tco{x1==2} & \tco{x1==0} \\
-	5 & (Finish store) & & \tco{x0==2} &
-		(Finish store) & & \tco{x1==2} \\
-	\bottomrule
-\end{tabular}
-\caption{Memory Misordering: Store-Buffering Sequence of Events}
-\label{tab:app:styleguide:Memory Misordering: Store-Buffering Sequence of Events}
-\end{table*}
-
 Table~\ref{tab:app:styleguide:Refrigeration Power Consumption (arydshln)}
 shows another version of
 Table~\ref{tab:app:styleguide:Refrigeration Power Consumption}
@@ -1495,42 +1425,6 @@ IBM~Q	& $0.015$
 \end{tabular}
 \caption{Refrigeration Power Consumption}
 \label{tab:app:styleguide:Refrigeration Power Consumption (arydshln)}
-\end{table}
-
-In this case, the vertical dashed rules seems unnecessary.
-The one without the vertical rules is shown in
-Table~\ref{tab:app:styleguide:Refrigeration Power Consumption (arydshln-2)}.
-
-\begin{table}[H]
-\renewcommand*{\arraystretch}{1.2}\centering\small
-\begin{tabular}{lrrr}\toprule
-Situation
-	& $T$ (K)
-		& $\CPf$ & \parbox[b]{.75in}{\raggedleft Power per watt\par waste heat (W)} \\
-\midrule
-Dry Ice
-	& $195$
-		& $1.990$
-			& 0.5 \\ \hdashline
-Liquid N$_2$
-	& $77$
-		& $0.356$
-			& 2.8 \\ \hdashline
-Liquid H$_2$
-	& $20$
-		& $0.073$
-			& 13.7 \\ \hdashline
-Liquid He
-	& $4$
-		& $0.0138$
-			& 72.3 \\ \hdashline
-IBM~Q	& $0.015$
-		& $0.000051$
-			& 19,500.0 \\
-\bottomrule
-\end{tabular}
-\caption{Refrigeration Power Consumption}
-\label{tab:app:styleguide:Refrigeration Power Consumption (arydshln-2)}
 \end{table}
 
 \IfTblCpTop{}{
