@@ -178,6 +178,20 @@ static __inline__ int atomic_cmpxchg(atomic_t *v, int old, int new)
 	return cmpxchg(&v->counter, old, new);
 }
 
+#define cmpxchg_weak(ptr, o, n) \
+({ \
+	typeof(*ptr) _____actual = (o); \
+	typeof(*ptr) _____o = _____actual; \
+	\
+	__atomic_compare_exchange_n((ptr), (void *)&_____actual, (n), 1, \
+			__ATOMIC_SEQ_CST, __ATOMIC_RELAXED) ? _____o : _____o+1 ; \
+})
+
+static __inline__ int atomic_cmpxchg_weak(atomic_t *v, int old, int new)
+{
+	return cmpxchg_weak(&v->counter, old, new);
+}
+
 #define xchg(ptr, v) __atomic_exchange_n((ptr), (v), __ATOMIC_SEQ_CST)
 #define atomic_xchg(ptr, v) \
 	__atomic_exchange_n(&(ptr)->counter, (v), __ATOMIC_SEQ_CST)
