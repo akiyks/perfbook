@@ -758,16 +758,18 @@ Section~\ref{sec:defer:Maintain Multiple Versions of Recently Updated Objects}.
 \caption{RCU-Protected List APIs}
 \label{tab:defer:RCU-Protected List APIs}
 \footnotesize
-\begin{tabularx}{8.4in}{>{\raggedright\arraybackslash}X
-    >{\raggedright\arraybackslash}X
-    >{\raggedright\arraybackslash}X
+\newcommand{\bco}[1]{\parbox[t]{1.95in}{\renewcommand{\baselinestretch}{0.8}\selectfont\co{#1}\vspace{3pt}}}
+\newlength{\cw}
+\begin{tabular}{>{\raggedright\arraybackslash}p{1.8in}
+    >{\raggedright\arraybackslash}p{1.8in}
+    >{\raggedright\arraybackslash}p{1.9in}
     >{\raggedright\arraybackslash}p{1.7in}}
 \toprule
-{\bf \tco{list}}: Circular doubly linked list &
-    {\bf \tco{hlist}}: Linear doubly linked list &
-	{\bf \tco{hlist_nulls}}: Linear doubly linked list with marked
-	NULL pointer, with up to 31 bits of marking &
-	    {\bf \tco{hlist_bl}}: Linear doubly linked list with bit locking \\
+\pmb{\tco{list}}: Circular doubly linked list &
+    \pmb{\tco{hlist}}: Linear doubly linked list &
+	\pmb{\tco{hlist_nulls}}: Linear doubly linked list with marked
+	NULL pointer, with up to 31~bits of marking &
+	    \pmb{\tco{hlist_bl}}: Linear doubly linked list with bit locking \\
 \midrule
 \multicolumn{4}{l}{{\bf Initialization}} \\
 &
@@ -775,20 +777,20 @@ Section~\ref{sec:defer:Maintain Multiple Versions of Recently Updated Objects}.
 	&
 	    \\
 \multicolumn{4}{l}{{\bf Full traversal}} \\
-\tco{list_for_each_entry_rcu()}
-\tco{list_for_each_entry_lockless()} &
-    \tco{hlist_for_each_entry_rcu()}
-    \tco{hlist_for_each_entry_rcu_bh()}
-    \tco{hlist_for_each_entry_rcu_notrace()} &
-	\tco{hlist_nulls_for_each_entry_rcu()}
-	\tco{hlist_nulls_for_each_entry_safe()} &
-	    \tco{hlist_bl_for_each_entry_rcu()} \\
+\bco{list_for_each_entry_rcu()}
+\bco{list_for_each_entry_lockless()} &
+    \bco{hlist_for_each_entry_rcu()}
+    \bco{hlist_for_each_entry_rcu_bh()}
+    \bco{hlist_for_each_entry_rcu_notrace()} &
+	\bco{hlist_nulls_for_each_entry_rcu()}
+	\bco{hlist_nulls_for_each_entry_safe()} &
+	    \bco{hlist_bl_for_each_entry_rcu()} \\
 \multicolumn{4}{l}{{\bf Resume traversal}} \\
-\tco{list_for_each_entry_continue_rcu()}
-\tco{list_for_each_entry_from_rcu()} &
-    \tco{hlist_for_each_entry_continue_rcu()}
-    \tco{hlist_for_each_entry_continue_rcu_bh()}
-    \tco{hlist_for_each_entry_from_rcu()} &
+\bco{list_for_each_entry_continue_rcu()}
+\bco{list_for_each_entry_from_rcu()} &
+    \bco{hlist_for_each_entry_continue_rcu()}
+    \bco{hlist_for_each_entry_continue_rcu_bh()}
+    \bco{hlist_for_each_entry_from_rcu()} &
 	&
 	    \\
 \multicolumn{4}{l}{{\bf Stepwise traversal}} \\
@@ -832,7 +834,7 @@ Section~\ref{sec:defer:Maintain Multiple Versions of Recently Updated Objects}.
 	&
 	    \\
 \bottomrule
-\end{tabularx}
+\end{tabular}
 \end{sidewaystable*}
 
 The first pair of categories operate on Linux
