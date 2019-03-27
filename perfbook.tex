@@ -48,6 +48,7 @@
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily}
 \usepackage{examplep}
+\usepackage{mdframed}
 % \usepackage[strings]{underscore}
 % \usepackage{underscore}
 \usepackage{pifont} % special character for qqz reference point
@@ -139,9 +140,12 @@
 {numbers=left,numbersep=5pt,xleftmargin=9pt}
 \AfterEndEnvironment{VerbatimL}{\vspace*{-9pt}}
 \DefineVerbatimEnvironment{VerbatimN}{Verbatim}%
-{numbers=left,numbersep=3pt,xleftmargin=5pt,xrightmargin=5pt,frame=single}
+{numbers=left,numbersep=3pt,xleftmargin=5pt,xrightmargin=5pt}
 \DefineVerbatimEnvironment{VerbatimU}{Verbatim}%
-{numbers=none,xleftmargin=5pt,xrightmargin=5pt,samepage=true,frame=single}
+{numbers=none,xleftmargin=5pt,xrightmargin=5pt,samepage=true}
+
+\surroundwithmdframed[hidealllines=false,leftmargin=0pt,skipabove=5pt,skipbelow=5pt,innerleftmargin=5pt,innerrightmargin=5pt,innertopmargin=5pt,innerbottommargin=5pt,backgroundcolor=blue!15]{VerbatimN}
+\surroundwithmdframed[hidealllines=false,leftmargin=0pt,skipabove=5pt,skipbelow=5pt,innerleftmargin=5pt,innerrightmargin=5pt,innertopmargin=5pt,innerbottommargin=5pt,backgroundcolor=blue!15]{VerbatimU}
 
 \IfLmttForCode{
 \AtBeginEnvironment{verbatim}{\renewcommand{\ttdefault}{lmtt}}
@@ -251,7 +255,7 @@
 \newcommand{\lnlblbase}{}
 \newcommand{\lnlbl}[1]{\phantomsection\label{\lnlblbase:#1}}
 \AtBeginEnvironment{VerbatimN}{%
-\renewcommand{\lnlbl}[1]{\raisebox{6pt}{\phantomsection\label{\lnlblbase:#1}}}%
+\renewcommand{\lnlbl}[1]{\raisebox{0pt}{\phantomsection\label{\lnlblbase:#1}}}%
 }
 \newcommand{\lnrefbase}{}
 \newcommand{\lnref}[1]{\ref{\lnrefbase:#1}}
