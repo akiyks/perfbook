@@ -19,6 +19,7 @@
 # and nn-mm -> and~nn--mm
 # and~nn-mm -> and~nn--mm
 # Figures~\ref{foo}-\ref{bar} -> Figures~\ref{foo}--\ref{bar}
+# Sections~\ref{foo}-\ref{bar} -> Sectionss~\ref{foo}--\ref{bar}
 # \co{xxx}-\{yyy} -> \co{xxx}--\co{yyy}
 # yyyy-\commityear -> yyyy--\commityear (in Legal statement)
 # nn-mm~nanosecond -> nn--mm~nanosecond
@@ -44,7 +45,7 @@
 # along with this program; if not, you can access it online at
 # http://www.gnu.org/licenses/gpl-2.0.html.
 #
-# Copyright (C) Akira Yokosawa, 2016, 2017
+# Copyright (C) Akira Yokosawa, 2016, 2017, 2019
 #
 # Authors: Akira Yokosawa <akiyks@gmail.com>
 
@@ -53,6 +54,7 @@ cat $1 |
 	    -e 's/\([Ll]ines~\\lnref{[^}]*}\)-\(\\lnref{[^}]*}\)/\1--\2/g' \
 	    -e 's/Slides \([0-9]\+\)-\([0-9]\+\)/Slides~\1--\2/g' \
 	    -e 's/Figures~\(\\ref{[^}]*}\)-\(\\ref{[^}]*}\)/Figures~\1--\2/g' \
+	    -e 's/Sections~\(\\ref{[^}]*}\)-\(\\ref{[^}]*}\)/Sections~\1--\2/g' \
 	    -e 's/CPUs[ ~]\([0-9]\+\)-\([0-9]\+\)/CPUs~\1--\2/g' \
 	    -e 's/and[ ~]\([0-9]\+\)-\([0-9]\+\)/and~\1--\2/g' \
 	    -e 's/\(\\co{[^}]*}\)-\(\\co{[^}]*}\)/\1--\2/g' \
