@@ -336,6 +336,24 @@ cannot happen.
 	as an exercise for the reader.
 } \QuickQuizEnd
 
+\QuickQuiz{}
+	\begin{lineref}[ln:formal:PPCMEM Litmus Test]
+	Is the \co{lwsync} on line~\lnref{P0lwsync} in
+	Listing~\ref{lst:formal:PPCMEM Litmus Test} good enough?
+	\end{lineref}
+\QuickQuizAnswer{
+	It depends on the semantics you expect.
+	As is discussed in
+	Chapter~\ref{chp:Advanced Synchronization: Memory Ordering},
+	Linux kernel's momory consistency model requires
+	value-returning atomic RMW operations to be fully ordered
+	on both sides. \co{lwsync} is insufficient in this case and
+	should be \co{sync} instead. It has since been fixed
+	as a result of an email thread on a couple of other litmus
+	tests~\cite{Paulmck2015:powerpc:value-returning-atomics,
+	BoqunFeng2015:powerpc:value-returning-atomics}.
+} \QuickQuizEnd
+
 \subsection{PPCMEM Discussion}
 \label{sec:formal:PPCMEM Discussion}
 
