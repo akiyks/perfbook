@@ -2402,6 +2402,19 @@ for other accesses to that same variable:
 	thread.
 } \QuickQuizEnd
 
+\QuickQuiz{}
+	Is the above list a consensus among Linux-kernel developers?
+\QuickQuizAnswer{
+	As of August 2019, it can't be said a consensus. Especially,
+	the use of \co{WRITE_ONCE()} for a natural sizeed shared
+	variable is not regareded as necessary.
+	Compilers for Linux-supporting architectures are said to be
+	trusted that unnecessary store tearing, store merging, invented
+	stores, or store-to-load transformation can be reported
+	as a bug in optimization, and expected to be fixed.
+} \QuickQuizEnd
+
+
 In most other cases, loads from and stores to a shared variable must
 use \co{READ_ONCE()} and \co{WRITE_ONCE()} or stronger, respectively.
 But it bears repeating that neither \co{READ_ONCE()} nor \co{WRITE_ONCE()}
