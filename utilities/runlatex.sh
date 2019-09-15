@@ -51,7 +51,7 @@ identical_warnings () {
 }
 
 iterate_latex () {
-	pdflatex $basename > /dev/null 2>&1 < /dev/null || :
+	pdflatex --synctex=-1 $basename > /dev/null 2>&1 < /dev/null || :
 	if grep -q '! Emergency stop.' $basename.log
 	then
 		grep -B 15 -A 5 '! Emergency stop.' $basename.log
