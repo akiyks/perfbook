@@ -159,3 +159,24 @@
 
 	    2.	Install it by following instructions at:
 		https://help.ubuntu.com/community/LaTeX#Installing_packages_manually
+
+11.	Is it possible to generate SyncTeX file by "make"?
+
+	A.	Yes, it is.
+		Setting an environment variable as follows:
+
+		    export LATEX_OPT="-synctex=-1"
+
+		, and running "make" will generate perfbook.synctex.
+
+	    Notes:
+	      - To generate .synctex.gz, specify "-synctex=1".
+
+	      -	For an example of SyncTeX search (gedit with synctex plugin
+		& Document Viewer (evince)), see:
+
+		    https://help.gnome.org/users/evince/stable/synctex-search.html.en
+
+	      -	"Answers to Quick Quizzes" is not covered by SyncTeX.
+
+	      - Forward search (.tex -> .pdf) works only with perfbook.pdf.
