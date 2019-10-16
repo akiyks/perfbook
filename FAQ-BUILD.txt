@@ -159,3 +159,24 @@
 
 	    2.	Install it by following instructions at:
 		https://help.ubuntu.com/community/LaTeX#Installing_packages_manually
+
+11.	Running "make" generates perfbook.synctex.gz. What is it for?
+
+	A.	It enables SyncTeX-search mechanism supported by
+		some combinations of text editors and PDF viewers.
+		It helps you find out which .tex file is related to
+		a particlar line/page in PDF --- and vice versa.
+
+	    Notes:
+	      -	For an introduction of SyncTeX (gedit <-> evince), see:
+
+		    https://help.gnome.org/users/evince/stable/index.html.en#synctex
+
+	      - You need to open one of LaTeX sources (e.g. perfbook.tex)
+		in gedit first.
+
+	      - SyncTeX search works only for perfbook.pdf due to the
+		embedded pointers at the top of included .tex files.
+		The other .pdf targets don't generate .synctex.gz
+
+	      -	Appendix "Answers to Quick Quizzes" is not covered.

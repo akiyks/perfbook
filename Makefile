@@ -1,5 +1,7 @@
 SHELL = /bin/bash
 
+export LATEX_OPT
+
 LATEXSOURCES = \
 	perfbook.tex \
 	legal.tex \
@@ -137,6 +139,21 @@ perfbook-mslm.pdf: perfbook.pdf mslmmsg
 mslmmsg:
 	@echo "perfbook-mslm.pdf is promoted to default target,"
 	@echo "built as perfbook.pdf."
+
+# Enable SyncTeX
+perfbook.pdf: LATEX_OPT=-synctex=1
+
+# Disable SyncTeX for other targets
+perfbook-1c.pdf:   LATEX_OPT=
+perfbook-hb.pdf:   LATEX_OPT=
+perfbook-tcb.pdf:  LATEX_OPT=
+perfbook-msnt.pdf: LATEX_OPT=
+perfbook-mstx.pdf: LATEX_OPT=
+perfbook-msr.pdf:  LATEX_OPT=
+perfbook-msn.pdf:  LATEX_OPT=
+perfbook-1csf.pdf: LATEX_OPT=
+perfbook-msns.pdf: LATEX_OPT=
+perfbook-mss.pdf:  LATEX_OPT=
 
 $(PDFTARGETS): %.pdf: %.tex %.bbl
 	sh utilities/runlatex.sh $(basename $@)
