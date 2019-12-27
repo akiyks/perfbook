@@ -34,7 +34,7 @@ then
 else
 	date_str=`git show --format="%cD" | head -1`
 	# check if git status is clean
-	gitstatus=`git status --porcelain | wc -l`
+	gitstatus=`git status -uno --porcelain | wc -l`
 	if [ $gitstatus != "0" ]
 	then
 		modified="(m)"
