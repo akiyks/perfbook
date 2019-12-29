@@ -29,12 +29,12 @@
 #
 # Authors: Paul E. McKenney <paulmck@kernel.org>
 
-destdir="${1-/tmp}"
-tag="${2-`date +%Y.%m.%d`a}"
+destdir=${1-/tmp}
+tag=${2-`date +%Y.%m.%d`a}
 repo_url=${3-git@gitolite.kernel.org:pub/scm/linux/kernel/git/paulmck/perfbook.git}
 remote=${4-origin}
 
-if ! test -d "${destdir}" -o ! -w "${destdir}"
+if ! test -d ${destdir} -o ! -w ${destdir}
 then
 	echo Bogus destination directory, giving up.
 	exit 1
@@ -51,8 +51,8 @@ then
 	exit 3
 fi
 
-oldtag="`git describe --tags HEAD | sed -e 's/-[0-9]*-g[0-9a-f]*$//'`"
-case "${tag}" in
+oldtag=`git describe --tags HEAD | sed -e 's/-[0-9]*-g[0-9a-f]*$//'`
+case ${tag} in
 [0-9]*)
 	gittag=v${tag}
 	;;
@@ -65,28 +65,28 @@ then
 	echo Tag ${gittag} already exists, giving up.
 	exit 4
 fi
-if ! git tag "${gittag}"
+if ! git tag ${gittag}
 then
-	echo "Giving up."
+	echo Giving up.
 	exit 5
 fi
 touch perfbook.tex # Force re-run of "utilities/autodate.sh"
 
 if ! make
 then
-	git tag -d "${gittag}"
+	git tag -d ${gittag}
 	echo Double-column build failed, giving up.
 	exit 6
 fi
-cp perfbook.pdf "${destdir}/perfbook.${tag}.pdf"
+cp perfbook.pdf ${destdir}/perfbook.${tag}.pdf
 
 if ! make 1c
 then
-	git tag -d "${gittag}"
+	git tag -d ${gittag}
 	echo Single-column build failed, giving up.
 	exit 7
 fi
-cp perfbook-1c.pdf "${destdir}/perfbook-1c.${tag}.pdf"
+cp perfbook-1c.pdf ${destdir}/perfbook-1c.${tag}.pdf
 
 # Yes, this will ask for credentials for the remote repository...
 # If this becomes too irritating, a replacement script can be created.
@@ -98,6 +98,6 @@ then
 fi
 git request-pull ${oldtag} ${repo_url} ${gittag} | sed -n '/^--*$/,$p' | tail +2 > ${destdir}/Changes.${tag}.txt
 
-ls -l "${destdir}/perfbook.${tag}.pdf" "${destdir}/perfbook-1c.${tag}.pdf" "${destdir}/Changes.${tag}.txt"
+ls -l ${destdir}/perfbook.${tag}.pdf ${destdir}/perfbook-1c.${tag}.pdf ${destdir}/Changes.${tag}.txt
 echo Release v${tag} prepared in ${destdir}
 exit 0
