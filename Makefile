@@ -84,6 +84,9 @@ NEWTXSF := $(findstring newtxsf,$(FONTPACKAGES))
 INCONSOLATA := $(findstring inconsolata,$(FONTPACKAGES))
 MDSYMBOL := $(findstring mdsymbol,$(FONTPACKAGES))
 
+# Using monospace font in nimbus15 with fvextra requires fontools (target msn)
+FONTOOLS := $(findstring fontools,$(shell kpsewhich fontools_ts1.enc))
+
 # for line break in error text
 define n
 
@@ -247,6 +250,9 @@ endif
 perfbook-msn.tex: perfbook.tex
 ifeq ($(NIMBUSMONO),)
 	$(error Font package 'nimbus15' not found. See #9 in FAQ-BUILD.txt)
+endif
+ifeq ($(FONTOOLS),)
+	$(error TeX Live package 'fontools' not found. See #9 in FAQ-BUILD.txt)
 endif
 	sed -e 's/\\renewcommand\*\\ttdefault{lmtt}//' \
 	    -e 's/{lmttforcode}{true}/{lmttforcode}{false}/' \
