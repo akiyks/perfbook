@@ -134,6 +134,9 @@ LINEREF_ENV   := $(sort $(LINEREF_ENV_BEGIN) $(LINEREF_ENV_END))
 CREFPTN    := '\\[Cc](ln)?ref{[^{]+}\s*{[^}]+}'
 CREFPAIR   := $(shell grep -l -zo -E $(CREFPTN)   $(LATEXSOURCES))
 
+COMMALABELPTN  := '\\(label|ref|Q?ContributedBy{[^}]*}){[^}]*,[^}]*}'
+COMMAINLABEL   := $(shell grep -l -E $(COMMALABELPTN) $(LATEXSOURCES))
+
 SOURCES_OF_SNIPPET_ALL := $(shell grep -r -l -F '\begin{snippet}' CodeSamples)
 SOURCES_OF_LITMUS      := $(shell grep -r -l -F '\begin[snippet]' CodeSamples)
 SOURCES_OF_LTMS        := $(patsubst %.litmus,%.ltms,$(SOURCES_OF_LITMUS))
@@ -215,6 +218,13 @@ endif
 		fi ; \
 		echo "------" ; \
 		echo "Need to use \[Cc]refrange or \[Cc]lnrefrangein $(CREFPAIR)." ; \
+		exit 1 ; \
+	fi
+	@if [ ! -z "$(COMMAINLABEL)" -a "$(COMMAINLABEL)" != " " ]; then \
+		echo "------" ; \
+		grep -n -B 2 -A 2 -E $(COMMALABELPTN) $(COMMAINLABEL) ; \
+		echo "------" ; \
+		echo $(COMMAINLABEL) ; \
 		exit 1 ; \
 	fi
 	echo > qqz.tex
