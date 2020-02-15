@@ -369,11 +369,11 @@ This is of course easy to test by increasing the number of hash buckets.
 \centering
 \resizebox{2.5in}{!}{\includegraphics{datastruct/zoocpubktsizelin}}
 \caption{Read-Only Hash-Table Performance For Schr\"odinger's Zoo, Varying Buckets}
-\label{fig:datastruct:Read-Only Hash-Table Performance For Schroedinger's Zoo, Varying Buckets}
+\label{fig:datastruct:Read-Only Hash-Table Performance For Schroedinger's Zoo; Varying Buckets}
 \end{figure}
 
 However, as can be seen in
-Figure~\ref{fig:datastruct:Read-Only Hash-Table Performance For Schroedinger's Zoo, Varying Buckets},
+Figure~\ref{fig:datastruct:Read-Only Hash-Table Performance For Schroedinger's Zoo; Varying Buckets},
 although increasing the number of buckets does increase performance somewhat,
 scalability is still abysmal.
 In particular, we still see a sharp dropoff at nine CPUs and beyond.
@@ -595,10 +595,10 @@ readily visible in this log-scale plot.
 \centering
 \resizebox{2.5in}{!}{\includegraphics{datastruct/zoocpulin}}
 \caption{Read-Only RCU-Protected Hash-Table Performance For Schr\"odinger's Zoo, Linear Scale}
-\label{fig:datastruct:Read-Only RCU-Protected Hash-Table Performance For Schroedinger's Zoo, Linear Scale}
+\label{fig:datastruct:Read-Only RCU-Protected Hash-Table Performance For Schroedinger's Zoo; Linear Scale}
 \end{figure}
 
-Figure~\ref{fig:datastruct:Read-Only RCU-Protected Hash-Table Performance For Schroedinger's Zoo, Linear Scale}
+Figure~\ref{fig:datastruct:Read-Only RCU-Protected Hash-Table Performance For Schroedinger's Zoo; Linear Scale}
 shows the same data on a linear scale.
 This drops the global-locking trace into the x-axis, but allows the
 relative performance of RCU and hazard pointers to be more readily
