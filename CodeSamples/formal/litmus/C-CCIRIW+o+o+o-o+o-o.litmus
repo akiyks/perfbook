@@ -1,7 +1,6 @@
 C C-CCIRIW+o+o+o-o+o-o
 //\begin[snippet][labelbase=ln:formal:C-CCIRIW+o+o+o-o+o-o:whole,commandchars=\@\[\]]
 {
-int x = 0;
 }
 
 {				//\fcvexclude

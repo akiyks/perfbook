@@ -10,7 +10,6 @@ P0(uintptr_t *x0, uintptr_t *x1)
 	uintptr_t r2 = READ_ONCE(*x1);
 }
 
-
 P1(uintptr_t *x0, uintptr_t *x1)
 {
 	rcu_read_lock();

@@ -8,10 +8,8 @@ C C-MP+o-r+o-ctrl-o
 }				//\fcvexclude
 				//\fcvexclude
 P0(int* x0, int* x1) {
-
 	WRITE_ONCE(*x0, 2);
 	smp_store_release(x1, 2);
-
 }
 
 P1(int* x0, int* x1) {
@@ -21,7 +19,6 @@ P1(int* x0, int* x1) {
 	r2 = READ_ONCE(*x1);			//\lnlbl[ld1]
 	if (r2 >= 0)
 		r3 = READ_ONCE(*x0);		//\lnlbl[ld2]
-
 }
 
 //\end[snippet]

@@ -16,7 +16,6 @@ P0(int *x0, int *x1)
 	r2 = READ_ONCE(*x1);	//\lnlbl[P0:ld]
 }
 
-
 P1(int *x0, int *x1)
 {
 	int r2;

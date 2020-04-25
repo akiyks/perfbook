@@ -15,7 +15,6 @@ P0(int *x0, int *x1)
 	smp_store_release(x1, 2);
 }
 
-
 P1(int *x1, int *x2)
 {
 	int r2;
