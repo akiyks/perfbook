@@ -1,0 +1,14 @@
+--- a/klitmus/run.sh	2020-04-26 19:54:01.775239290 +0900
++++ b/klitmus/run.sh	2020-04-26 19:53:29.003516511 +0900
+@@ -10,6 +10,11 @@
+   ko=$2
+   if test -f  $ko
+   then
++    if test -f /var/lib/shim-signed/mok/MOK.priv
++    then
++      kmodsign sha512 /var/lib/shim-signed/mok/MOK.priv \
++        /var/lib/shim-signed/mok/MOK.der $ko
++    fi
+     insmod $ko $OPT
+     cat /proc/litmus
+     rmmod $ko
