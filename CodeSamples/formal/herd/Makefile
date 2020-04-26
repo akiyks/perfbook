@@ -103,6 +103,7 @@ cross-klitmus: klitmus.tar
 klitmus.tar: litmus2herd $(KLITMUS_TEST)
 	mkdir -p klitmus
 	klitmus7 -rcu yes -o klitmus $(LITMUS7_HERD_TEST) $(KLITMUS_TEST)
+	patch -p1 < sign-run.patch
 	tar cf klitmus.tar ./klitmus
 
 help:
