@@ -51,6 +51,12 @@ HERD7_TEST     := $(filter-out $(ABSPERF_TEST),$(HERD7_LITMUS))
 HERD7_OUT      := $(HERD7_TEST:%.litmus=%.out)
 KLITMUS_READY = C-Lock1 C-Lock2 C-RCU-remove C-RomanPenyaev-list-rcu-rr C-SB+o-rcusync-o+rl-o-o-rul
 KLITMUS_TEST   := $(addsuffix .litmus,$(KLITMUS_READY))
+ifneq ($(shell grep -i ubuntu /etc/os-release | wc -l),0)
+SIGN_RUN_PATCH := sign-run-ubuntu.patch
+endif
+ifneq ($(shell grep -i redhat /etc/os-release | wc -l),0)
+SIGN_RUN_PATCH := sign-run-fedora.patch
+endif
 
 .PHONY: all clean litmus2herd run-herd7 run-absperf run-absperf-all cross-klitmus
 .PHONY: help
@@ -103,7 +109,9 @@ cross-klitmus: klitmus.tar
 klitmus.tar: litmus2herd $(KLITMUS_TEST)
 	mkdir -p klitmus
 	klitmus7 -rcu yes -o klitmus $(LITMUS7_HERD_TEST) $(KLITMUS_TEST)
-	patch -p1 < sign-run.patch
+ifneq ($(SIGN_RUN_PATCH),)
+	patch -p1 < $(SIGN_RUN_PATCH)
+endif
 	tar cf klitmus.tar ./klitmus
 
 help:
