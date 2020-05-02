@@ -152,9 +152,8 @@ void hazptr_free_later(hazptr_head_t *n)	//\lnlbl{free:b}
 	rlist = n;				//\lnlbl{free:enq:e}
 	rcount++;				//\lnlbl{free:count}
 
-	if (rcount >= R) {			//\lnlbl{free:check}
+	if (rcount >= R)			//\lnlbl{free:check}
 		hazptr_scan();			//\lnlbl{free:scan}
-	}
 }						//\lnlbl{free:e}
 //\end{snippet}
 #ifdef TEST

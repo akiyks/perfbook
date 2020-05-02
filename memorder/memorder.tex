@@ -2710,9 +2710,8 @@ void reader(void)		\lnlbl[read:b]
 		return;			\lnlbl[read:nulret]
 	r1 = p->b;			\lnlbl[read:pb]
 	q = rcu_dereference(gp1);	\lnlbl[read:gp1]
-	if (p == q) {			\lnlbl[read:equ]
+	if (p == q)			\lnlbl[read:equ]
 		r2 = p->c;		\lnlbl[read:pc]
-	}
 	do_something_with(r1, r2);
 }				\lnlbl[read:e]
 \end{VerbatimL}
@@ -2872,11 +2871,10 @@ optimization levels:
 q = READ_ONCE(x);
 barrier();
 WRITE_ONCE(y, 1);  /* BUG: No ordering!!! */
-if (q) {
+if (q)
 	do_something();
-} else {
+else
 	do_something_else();
-}
 \end{VerbatimN}
 
 Now there is no conditional between the load from~\co{x} and the store
@@ -2982,11 +2980,10 @@ not necessarily apply to code following the if-statement:
 
 \begin{VerbatimN}
 q = READ_ONCE(x);
-if (q) {
+if (q)
 	WRITE_ONCE(y, 1);
-} else {
+else
 	WRITE_ONCE(y, 2);
-}
 WRITE_ONCE(z, 1);  /* BUG: No ordering. */
 \end{VerbatimN}
 
@@ -3977,9 +3974,8 @@ struct el *search(long key)
 	p = READ_ONCE(head.next);	\lnlbl[h:next]
 	while (p != &head) {
 		/* Prior to v4.15, BUG ON ALPHA!!! */ \lnlbl[BUG]
-		if (p->key == key) {	\lnlbl[key]
+		if (p->key == key)	\lnlbl[key]
 			return (p);
-		}
 		p = READ_ONCE(p->next);	\lnlbl[next]
 	};
 	return (NULL);
@@ -4100,9 +4096,8 @@ struct el *search(long key)
 	struct el *p;
 	p = rcu_dereference(head.next);		\lnlbl[deref1]
 	while (p != &head) {
-		if (p->key == key) {
+		if (p->key == key)
 			return (p);
-		}
 		p = rcu_dereference(p->next);	\lnlbl[deref2]
 	};
 	return (NULL);
