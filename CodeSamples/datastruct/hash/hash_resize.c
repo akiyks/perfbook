@@ -253,12 +253,16 @@ void hashtab_add(struct ht_elem *htep,			//\lnlbl{add:b}
 	htep->hte_hash[0] = lsp->hls_hash[0];
 #endif /* #ifndef FCV_SNIPPET */
 	cds_list_add_rcu(&htep->hte_next[i], &htbp->htb_head); //\lnlbl{add:add}
-	if ((htbp = lsp->hbp[1])) {			//\lnlbl{add:ifnew}
 #ifndef FCV_SNIPPET
+	if ((htbp = lsp->hbp[1])) {
 		htep->hte_hash[1] = lsp->hls_hash[1];
+#else
+	if ((htbp = lsp->hbp[1]))			//\lnlbl{add:ifnew}
 #endif /* #ifndef FCV_SNIPPET */
 		cds_list_add_rcu(&htep->hte_next[!i], &htbp->htb_head); //\lnlbl{add:addnew}
+#ifndef FCV_SNIPPET
 	}
+#endif /* #ifndef FCV_SNIPPET */
 }							//\lnlbl{add:e}
 
 /*
