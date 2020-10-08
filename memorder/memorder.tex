@@ -428,15 +428,13 @@ memory-ordering instructions at all.
 	Operation Providing Ordering & C &
 		Self & R & W & RMW & Self & R & W & DR & DW & RMW & SV \\
 	\cmidrule(r){1-1} \cmidrule{2-2} \cmidrule(l){3-6} \cmidrule(l){7-13}
-	Store, for example, \tco{WRITE_ONCE()} &  &
+	Relaxed Store &  &
 		   Y &   &   &     &      &   &   &    &    &     &  Y \\
-	Load, for example, \tco{READ_ONCE()} &  &
+	Relaxed Load &  &
 		   Y &   &   &     &      &   &   &  Y &  Y &     &  Y \\
-	\tco{_relaxed()} RMW operation &  &
+	Relaxed RMW operation &  &
 		   Y &   &   &     &      &   &   &  Y &  Y &     &  Y \\
-	\tco{smp_read_barrier_depends()} &  &
-		     & Y &   &     &      &   &   &  Y &  Y &     &    \\
-	\tco{*_dereference()} &  &
+	\tco{rcu_dereference()} &  &
 		   Y &   &   &     &      &   &   &  Y &  Y &     &  Y \\
 	Successful \tco{*_acquire()} &   &
 		   R &   &   &     &      & Y & Y &  Y &  Y &   Y &  Y \\
@@ -448,7 +446,7 @@ memory-ordering instructions at all.
 		     &   & Y &   W &      &   & Y &    &  Y &   W &    \\
 	\tco{smp_mb()} and \tco{synchronize_rcu()} & CP &
 		     & Y & Y &   Y &      & Y & Y &  Y &  Y &   Y &    \\
-	Successful full-strength non-\tco{void} RMW & CP &
+	Successful full non-\tco{void} RMW & CP &
 		   Y & Y & Y &   Y &    Y & Y & Y &  Y &  Y &   Y &  Y \\
 	\tco{smp_mb__before_atomic()} & CP &
 		     & Y & Y &   Y &      & a & a & a  & a  &   Y &    \\
@@ -460,21 +458,26 @@ memory-ordering instructions at all.
 \vspace{5pt}\hfill
 \framebox[\width]{\footnotesize\setlength{\tabcolsep}{3pt}
 \rowcolors{1}{}{}
-\begin{tabular}{lrl}
-	Key:	& C: & Ordering is cumulative \\
+\begin{tabularx}{4.5in}{lrX}
+	Key:	& Relaxed: & A relaxed operation is either \tco{READ_ONCE()}, \tco{WRITE_ONCE()},
+		  a \tco{*_relaxed()} RMW operation, an unsuccessful RMW
+		  operation, a non-value-returning RMW operation such
+		  as \tco{atomic_inc()}, or one of the \tco{atomic*_read()} and
+		  \tco{atomic*_set()} family of operations. \\
+		& C: & Ordering is cumulative \\
 		& P: & Ordering propagates \\
 		& R: & Read, for example, \tco{READ_ONCE()}, or read portion of RMW \\
 		& W: & Write, for example, \tco{WRITE_ONCE()}, or write portion of RMW \\
-		& Y: & Provides the specified ordering \\
-		& a: & Provides specified ordering given intervening RMW atomic operation \\
+		& Y: & Provides ordering \\
+		& a: & Provides ordering given intervening RMW atomic operation \\
 		& DR: & Dependent read (address dependency, \cref{sec:memorder:Address Dependencies}) \\
 		& DW: & Dependent write (address, data, or control dependency, \crefrange{sec:memorder:Address Dependencies}{sec:memorder:Control Dependencies}) \\
 		& RMW: & Atomic read-modify-write operation \\
 		& Self: & Orders self, as opposed to accesses both before
-			  and after \\
+			  and/or after \\
 		& SV: & Orders later accesses to the same variable \\
-	\multicolumn{3}{l}{\emph{Applies to Linux kernel v4.15 and later.}} \\
-\end{tabular}
+	\multicolumn{3}{r}{\emph{Applies to Linux kernel v5.9 and later.}} \\
+\end{tabularx}
 }\OneColumnHSpace{-0.9in}
 \caption{Linux-Kernel Memory-Ordering Cheat Sheet}
 \label{tab:memorder:Linux-Kernel Memory-Ordering Cheat Sheet}
