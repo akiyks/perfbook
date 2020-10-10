@@ -495,29 +495,29 @@ while other characters indicate that ordering is supplied only partially or
 conditionally.
 Blank cells indicate that no ordering is supplied.
 
-The ``Store'' row also covers the store portion of an atomic RMW operation.
-In addition, the ``Load'' row covers the load
+The ``Relaxed Store'' row also covers the store portion of an atomic RMW operation.
+In addition, the ``Relaxed Load'' row covers the load
 component of a successful value-returning \co{_relaxed()} RMW atomic
-operation, although the combined ``\co{_relaxed()} RMW operation''
+operation, although the combined ``Relaxed RMW operation''
 line provides a convenient combined reference in the value-returning case.
 A CPU executing unsuccessful value-returning atomic RMW operations must
 invalidate the corresponding variable from all other CPUs' caches.
 Therefore, oddly enough, unsuccessful value-returning atomic RMW
 operations have many of the properties of a store, which means that the
-``\co{_relaxed()} RMW operation'' line also applies to unsuccessful
+``Relaxed RMW operation'' line also applies to unsuccessful
 value-returning atomic RMW operations.
 
 The \co{*_acquire} row covers \co{smp_load_acquire()},
 \co{cmpxchg_acquire()}, \co{xchg_acquire()}, and so on;
 the \co{*_release} row covers \co{smp_store_release()},
 \co{cmpxchg_release()}, \co{xchg_release()}, and so on; and
-the ``Successful full-strength non-\co{void} RMW'' row covers
+the ``Successful full non-\co{void} RMW'' row covers
 \co{atomic_add_return()}, \co{atomic_add_unless()}, \co{atomic_dec_and_test()},
 \co{cmpxchg()}, \co{xchg()}, and so on.
 The ``Successful'' qualifiers apply to primitives such as
 \co{atomic_add_unless()}, \co{cmpxchg_acquire()}, and \co{cmpxchg_release()},
 which have no effect on either memory or on ordering when they indicate
-failure, as indicated by the earlier ``\co{_relaxed()} RMW operation'' row.
+failure, as indicated by the earlier ``Relaxed RMW operation'' row.
 
 Column ``C'' indicates cumulativity and propagation, as explained in
 \cref{sec:memorder:Cumulativity,sec:memorder:Propagation}.
@@ -534,13 +534,13 @@ are at most two threads involved.
 	The rows correspond roughly to hardware mechanisms of increasing
 	power and overhead.
 
-	The \co{WRITE_ONCE()} row captures the fact that accesses to
+	The ``Relaxed Store'' row captures the fact that accesses to
 	a single variable are always fully ordered, as indicated by
 	the ``SV''column.
 	Note that all other operations providing ordering against accesses
 	to multiple variables also provide this same-variable ordering.
 
-	The \co{READ_ONCE()} row captures the fact that (as of 2018) compilers
+	The ``Relaxed Load'' row captures the fact that (as of 2018) compilers
 	and CPUs do not indulge in user-visible speculative stores, so that
 	any store whose address, data, or execution depends on a prior load
 	is guaranteed to happen after that load completes.
@@ -549,22 +549,23 @@ are at most two threads involved.
 	\cref{sec:memorder:Address- and Data-Dependency Difficulties,%
 	sec:memorder:Control-Dependency Calamities}.
 
-	The ``\co{_relaxed()} RMW operation'' row captures the fact
+	The ``Relaxed RMW operation'' row captures the fact
 	that a value-returning \co{_relaxed()} RMW has done a load and a
 	store, which are every bit as good as a \co{READ_ONCE()} and a
 	\co{WRITE_ONCE()}, respectively.
 
-	The \co{smp_read_barrier_depends()} row captures the fact that, with the
-	notable exception of DEC Alpha, compilers and CPUs do not indulge
-	in user-visible breakage of address dependencies, again assuming
-	that these dependencies have been constructed carefully as described in
-	\cref{sec:memorder:Address- and Data-Dependency Difficulties}.
-	However, as of version v4.15 of the Linux kernel, the fact that
-	\co{READ_ONCE()} provides dependency ordering should mean that
-	there is little further need for \co{smp_read_barrier_depends()}.
+%%% smp_read_barrier_depends() was removed as kernel API in Linux v5.9. %%%
+%	The \co{smp_read_barrier_depends()} row captures the fact that, with the
+%	notable exception of DEC Alpha, compilers and CPUs do not indulge
+%	in user-visible breakage of address dependencies, again assuming
+%	that these dependencies have been constructed carefully as described in
+%	\cref{sec:memorder:Address- and Data-Dependency Difficulties}.
+%	However, as of version v4.15 of the Linux kernel, the fact that
+%	\co{READ_ONCE()} provides dependency ordering should mean that
+%	there is little further need for \co{smp_read_barrier_depends()}.
 
-	The \co{*_dereference()} row captures the address and data
-	dependency ordering provided by \co{rcu_dereference()} and friends.
+	The \co{rcu_dereference()} row captures the address and data
+	dependency ordering provided by \co{rcu_dereference()}.
 
 	The ``Successful \co{*_acquire()}'' row captures the fact that many
 	CPUs have special ``acquire'' forms of loads and of atomic RMW
@@ -605,7 +606,7 @@ are at most two threads involved.
 	with respect to \co{READ_ONCE()} and \co{WRITE_ONCE()},
 	as discussed in \cref{sec:memorder:Itanium}.
 
-	The ``Successful full-strength non-\co{void} RMW'' row captures
+	The ``Successful full non-\co{void} RMW'' row captures
 	the fact that on some platforms (such as x86) atomic RMW instructions
 	provide full ordering both before and after.
 	The Linux kernel therefore requires that full-strength non-\co{void}
@@ -614,7 +615,7 @@ are at most two threads involved.
 	(Full-strength atomic RMW operation's names do not end in
 	\co{_relaxed}, \co{_acquire}, or \co{_release}.)
 	As noted earlier, the case where these operations do not succeed
-	is covered by the ``\co{_relaxed()} RMW operation'' row.
+	is covered by the ``Relaxed RMW operation'' row.
 
 	However, the Linux kernel does not require that either \co{void}
 	or \co{_relaxed()} atomic RMW operations provide any ordering
@@ -1867,7 +1868,7 @@ same variable.
 
 Dependencies do not provide cumulativity,
 which is why the ``C'' column is blank for
-both the \co{READ_ONCE()} and the \co{smp_read_barrier_depends()} rows
+the ``Relaxed Loads'' row
 of \cref{tab:memorder:Linux-Kernel Memory-Ordering Cheat Sheet}.
 However, as indicated by the ``C'' in their ``C'' column,
 release operations do provide cumulativity.
