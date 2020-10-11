@@ -3942,10 +3942,10 @@ influence on concurrency APIs, including within the Linux kernel.
 Understanding Alpha is therefore surprisingly important to the Linux kernel
 hacker.
 
-\begin{fcvref}[ln:memorder:Insert and Lock-Free Search (No Ordering)]
+\begin{fcvref}[ln:memorder:Insert and Lock-Free Search (No Ordering Before v4.15)]
 The dependent-load difference between Alpha and the other CPUs is
 illustrated by the code shown in
-\cref{lst:memorder:Insert and Lock-Free Search (No Ordering)}.
+\cref{lst:memorder:Insert and Lock-Free Search (No Ordering Before v4.15)}.
 This \co{smp_wmb()} on \clnref{wmb} of this listing
 guarantees that the element initialization
 in \clnrefrange{init:b}{init:e} is executed before the element is added to the
@@ -3957,7 +3957,7 @@ That is, it makes this guarantee on all CPUs {\em except} Alpha.\footnote{
 \end{fcvref}
 
 \begin{listing}[tbp]
-\begin{fcvlabel}[ln:memorder:Insert and Lock-Free Search (No Ordering)]
+\begin{fcvlabel}[ln:memorder:Insert and Lock-Free Search (No Ordering Before v4.15)]
 \begin{VerbatimL}[commandchars=\\\[\]]
 struct el *insert(long key, long data)
 {
@@ -3987,30 +3987,30 @@ struct el *search(long key)
 }
 \end{VerbatimL}
 \end{fcvlabel}
-\caption{Insert and Lock-Free Search (No Ordering)}
-\label{lst:memorder:Insert and Lock-Free Search (No Ordering)}
+\caption{Insert and Lock-Free Search (No Ordering Before v4.15)}
+\label{lst:memorder:Insert and Lock-Free Search (No Ordering Before v4.15)}
 \end{listing}
 
-\begin{fcvref}[ln:memorder:Insert and Lock-Free Search (No Ordering)]
+\begin{fcvref}[ln:memorder:Insert and Lock-Free Search (No Ordering Before v4.15)]
 Alpha actually allows the code on \clnref{key} of
-\cref{lst:memorder:Insert and Lock-Free Search (No Ordering)}
+\cref{lst:memorder:Insert and Lock-Free Search (No Ordering Before v4.15)}
 could see the old
 garbage values that were present before the initialization on
 \clnrefrange{init:b}{init:e}.
 
-\Cref{fig:memorder:Why smp-read-barrier-depends() is Required}
+\Cref{fig:memorder:Why smp-read-barrier-depends() was Required (Before v4.15)}
 shows how this can happen on
 an aggressively parallel machine with partitioned caches, so that
 alternating cache lines are processed by the different partitions
 of the caches.
 For example, the load of \co{head.next} on \clnref{h:next} of
-\cref{lst:memorder:Insert and Lock-Free Search (No Ordering)}
+\cref{lst:memorder:Insert and Lock-Free Search (No Ordering Before v4.15)}
 might access cache bank~0,
 and the load of \co{p->key} on \clnref{key} and of \co{p->next} on \clnref{next}
 might access cache bank~1.
 On Alpha, the \co{smp_wmb()} will guarantee that the cache invalidations
 performed by \clnrefrange{init:b}{init:e} of
-\cref{lst:memorder:Insert and Lock-Free Search (No Ordering)}
+\cref{lst:memorder:Insert and Lock-Free Search (No Ordering Before v4.15)}
 (for \co{p->next}, \co{p->key}, and \co{p->data}) will reach
 the interconnect before that of \clnref{add} (for \co{head.next}), but
 makes absolutely no guarantee about the order of
@@ -4040,8 +4040,8 @@ in Alpha's heyday.
 \begin{figure}[tbp]
 \centering
 \resizebox{\twocolumnwidth}{!}{\includegraphics{memorder/Alpha}}
-\caption{Why \tco{smp_read_barrier_depends()} is Required}
-\label{fig:memorder:Why smp-read-barrier-depends() is Required}
+\caption{Why \tco{smp_read_barrier_depends()} was Required (Before v4.15)}
+\label{fig:memorder:Why smp-read-barrier-depends() was Required (Before v4.15)}
 \end{figure}
 
 One could place an \co{smp_rmb()} primitive
@@ -4049,19 +4049,21 @@ between the pointer fetch and dereference in order to force Alpha
 to order the pointer fetch with the later dependent load.
 However, this imposes unneeded overhead on systems (such as \ARM,
 Itanium, PPC, and SPARC) that respect data dependencies on the read side.
-A \co{smp_read_barrier_depends()} primitive has therefore been added to the
+A \co{smp_read_barrier_depends()} primitive had therefore been added to the
 Linux kernel to eliminate overhead on these systems, and was also added
 to \co{READ_ONCE()} in v4.15 of the Linux kernel so that core kernel
 code no longer needs to concern itself with this aspect of DEC Alpha.
-\begin{fcvref}[ln:memorder:Insert and Lock-Free Search (No Ordering)]
+\begin{fcvref}[ln:memorder:Insert and Lock-Free Search (No Ordering Before v4.15)]
 This \co{smp_read_barrier_depends()} primitive could be inserted in
 place of \clnref{BUG} of
-\cref{lst:memorder:Insert and Lock-Free Search (No Ordering)},
+\cref{lst:memorder:Insert and Lock-Free Search (No Ordering Before v4.15)},
 \end{fcvref}
 \begin{fcvref}[ln:memorder:Safe Insert and Lock-Free Search]
 but it is better to use the \co{rcu_dereference()} wrapper macro
 as shown on \clnref{deref1,deref2} of
-\cref{lst:memorder:Safe Insert and Lock-Free Search}.
+\cref{lst:memorder:Safe Insert and Lock-Free Search}.\footnote{
+	\co{smp_read_barrier_depends()} is no longer available
+	in Linux kernel versions v5.9 and later.}
 \end{fcvref}
 
 It is also possible to implement a software mechanism
@@ -4117,12 +4119,12 @@ struct el *search(long key)
 The Linux memory-barrier primitives took their names from the Alpha
 instructions, so \co{smp_mb()} is {\tt mb}, \co{smp_rmb()} is {\tt rmb},
 and \co{smp_wmb()} is {\tt wmb}.
-Alpha is the only CPU where \co{smp_read_barrier_depends()} is
+Alpha is the only CPU where \co{smp_read_barrier_depends()} was
 an \co{smp_mb()} rather than a no-op.
 
 \QuickQuizSeries{%
 \QuickQuizB{
-	Why is Alpha's \co{smp_read_barrier_depends()} an
+	Why was Alpha's \co{smp_read_barrier_depends()} an
 	\co{smp_mb()} rather than \co{smp_rmb()}?
 }\QuickQuizAnswerB{
 	Alpha has only \co{mb} and \co{wmb} instructions,
@@ -4137,8 +4139,13 @@ an \co{smp_mb()} rather than a no-op.
 	\co{smp_read_barrier_depends()} to \co{READ_ONCE()} and a few
 	of Alpha's atomic read-modify-write operations, thus making it
 	unnecessary to use \co{smp_read_barrier_depends()} anywhere else
-	in the core kernel.
-	This means that other than \co{READ_ONCE()}, no Linux-kernel
+	in the core kernel.\footnote{
+		\co{smp_read_barrier_depends()} is no longer available
+		in the Linux kernel since v5.9.
+		Alpha-specific code now uses its own memory-ordering
+		primitives instead.}
+	This means that other than the Alpha architecture-specific code,
+	no Linux-kernel
 	core code need concern itself with DEC Alpha, thus greatly reducing
 	Paul E.~McKenney's incentive to remove Alpha support from the
 	kernel.
