@@ -3881,11 +3881,6 @@ set of memory-ordering primitives, which are as follows:
 	following the memory barrier.
 \item	[\tco{smp_rmb()}] (read memory barrier) that orders only loads.
 \item	[\tco{smp_wmb()}] (write memory barrier) that orders only stores.
-\item	[\tco{smp_read_barrier_depends()}] that forces subsequent operations
-	that depend on prior operations to be ordered.
-	This primitive is a no-op on all platforms except Alpha, but
-	is normally not used directly, but rather as part of
-	something like \co{READ_ONCE()} or \co{rcu_dereference()}.
 \item	[\tco{smp_mb__before_atomic()}] that forces ordering of accesses
 	preceding the \co{smp_mb__before_atomic()} against accesses following
 	a later RMW atomic operation.
@@ -3902,12 +3897,9 @@ The \co{smp_mb()}, \co{smp_rmb()}, and \co{smp_wmb()}
 primitives also force
 the compiler to eschew any optimizations that would have the effect
 of reordering memory optimizations across the barriers.
-The \co{smp_read_barrier_depends()} primitive has a similar effect, but
-only on Alpha CPUs.
 
 These primitives generate code only in SMP kernels, however, several
-have UP versions ({\tt mb()}, {\tt rmb()}, {\tt wmb()},
-and \co{read_barrier_depends()},
+have UP versions ({\tt mb()}, {\tt rmb()}, and {\tt wmb()},
 respectively) that generate a memory barrier even in UP kernels. The \co{smp_}
 versions should be used in most cases. However, these latter primitives
 are useful when writing drivers, because MMIO accesses must remain
