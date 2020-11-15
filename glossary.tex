@@ -9,7 +9,8 @@
 	        David~Levary~et~al.}}
 
 \begin{description}
-\item[Associativity:]\index{associativity}
+\item[Associativity:]\index{cache geometry!associativity}
+  \index{associativity|see{cache geometry, associativity}}
 	The number of cache lines that can be held simultaneously in
 	a given cache, when all of these cache lines hash identically
 	in that cache.
@@ -24,7 +25,8 @@
 	fully associative caches are normally quite limited in size.
 	The associativity of the large caches found on modern microprocessors
 	typically range from two-way to eight-way.
-\item[Associativity Miss:]\index{associativity miss}
+\item[Associativity Miss:]\index{cache miss!associativity}
+  \index{associativity miss|see{cache miss, associativity}}
 	A cache miss incurred because the corresponding CPU has recently
 	accessed more data hashing to a given set of the cache than will
 	fit in that set.
@@ -65,7 +67,7 @@
 	variables will appear to occur.
 	See Section~\ref{sec:memorder:Cache Coherence}
 	for more information.
-\item[Cache Coherence Protocol:]\index{cache coherence protocol}
+\item[Cache-Coherence Protocol:]\index{cache-coherence protocol}
 	A communications protocol, normally implemented in hardware,
 	that enforces memory consistency and ordering, preventing
 	different CPUs from seeing inconsistent views of data held
@@ -80,7 +82,8 @@
 	columns (hence the name ``way''---a two-way set-associative
 	cache has two ``ways''), and the size of the cache is its
 	number of rows multiplied by its number of columns.
-\item[Cache Line:]\index{cache line}
+\item[Cache Line:]\index{cache geometry!line}
+  \index{cache line|see{cache geometry, line}}
 	(1) The unit of data that circulates among the CPUs and memory,
 	usually a moderate power of two in size.
 	Typical cache-line sizes range from 16 to 256 bytes. \\
@@ -113,10 +116,12 @@
 	(5) this CPU attempted to write to a cache line that is
 	currently read-only, possibly due to that line being replicated
 	in other CPUs' caches.
-\item[Capacity Miss:]\index{capacity miss}
+\item[Capacity Miss:]\index{cache miss!capacity}
+  \index{capacity miss|see{cache miss, capacity}}
 	A cache miss incurred because the corresponding CPU has recently
 	accessed more data than will fit into the cache.
-\item[Code Locking:]\index{code locking}
+\item[Code Locking:]\index{locking!code}
+  \index{code locking|see{locking, code}}
 	A simple locking design in which a ``global lock'' is used to protect
 	a set of critical sections, so that access by a given thread
 	to that set is
@@ -128,7 +133,8 @@
 	scalability (in fact, will typically \emph{decrease} scalability
 	by increasing ``lock contention'').
 	Contrast with ``data locking''.
-\item[Communication Miss:]\index{communication miss}
+\item[Communication Miss:]\index{cache miss!communication}
+  \index{communication miss|see{cache miss, communication}}
 	A cache miss incurred because some other CPU has written to
 	the cache line since the last time this CPU accessed it.
 \item[Critical Section:]\index{critical section}
@@ -140,7 +146,8 @@
 	If a thread is executing in one such critical section,
 	any other threads must wait until the first thread completes
 	before executing any of the critical sections in the set.
-\item[Data Locking:]\index{data locking}
+\item[Data Locking:]\index{locking!data}
+  \index{data locking|see{locking, data}}
 	A scalable locking design in which each instance of a given
 	data structure has its own lock.
 	If each thread is using a different instance of the
@@ -150,7 +157,8 @@
 	increasing numbers of CPUs as the number of instances of
 	data grows.
 	Contrast with ``code locking''.
-\item[Direct-Mapped Cache:]\index{direct-mapped cache}
+\item[Direct-Mapped Cache:]\index{cache!direct-mapped}
+  \index{direct-mapped cache|see{cache, direct-mapped}}
 	A cache with only one way, so that it may hold only one cache
 	line with a given hash value.
 \item[Embarrassingly Parallel:]\index{embarrassingly parellel}
@@ -158,7 +166,8 @@
 	increase the overall cost of the computation, resulting in
 	linear speedups as threads are added (assuming sufficient
 	CPUs are available).
-\item[Exclusive Lock:]\index{lock!exclusive}\index{exclusive lock|see{lock, exclusive}}
+\item[Exclusive Lock:]\index{lock!exclusive}
+  \index{exclusive lock|see{lock, exclusive}}
 	An exclusive lock is a mutual-exclusion mechanism that
 	permits only one thread at a time into the
 	set of critical sections guarded by that lock.
@@ -181,11 +190,13 @@
 	while internal fragmentation occurs when specific requests or
 	types of requests have been allotted more memory than they
 	actually requested.
-\item[Fully Associative Cache:]\index{fully associative cache}
+\item[Fully Associative Cache:]\index{cache!fully associative}
+  \index{fully associative cache|see{cache, fully associative}}
 	A fully associative cache contains only
 	one set, so that it can hold any subset of
 	memory that fits within its capacity.
-\item[Grace Period:]\index{grace period}
+\item[Grace Period:]\index{RCU!grace period}
+  \index{grace period|see{RCU, grace period}}
 	A grace period is any contiguous time interval such that
 	any RCU read-side critical section that began before the
 	start of that interval has
@@ -243,18 +254,19 @@
 	of a writer thread in any of a given reader-writer lock's
 	critical sections will prevent any reader from entering
 	any of that lock's critical sections and vice versa.)
-\item[Lock Contention:]\index{lock!contention}
+\item[Lock Contention:]\index{lock contention}
 	A lock is said to be suffering contention when it is being
 	used so heavily that there is often a CPU waiting on it.
 	Reducing lock contention is often a concern when designing
 	parallel algorithms and when implementing parallel programs.
-\item[Memory Consistency:]\index{memory consisitency}
+\item[Memory Consistency:]\index{memory consistency}
 	A set of properties that impose constraints on the order in
 	which accesses to groups of variables appear to occur.
 	Memory consistency models range from sequential consistency,
 	a very constraining model popular in academic circles, through
 	process consistency, release consistency, and weak consistency.
-\item[MESI Protocol:]\index{MESI protocol}
+\item[MESI Protocol:]\index{cache-coherence protocol!MESI}
+  \index{MESI protocol|see{cache-coherence protocol, MESI}}
 	The
 	cache-coherence protocol featuring
 	modified, exclusive, shared, and invalid (MESI) states,
@@ -310,7 +322,8 @@
 	In the 1960s through the early 1980s, pipelined CPUs were the
 	province of supercomputers, but started appearing in microprocessors
 	(such as the 80486) in the late 1980s.
-\item[Process Consistency:]\index{process consistency}
+\item[Process Consistency:]\index{memory consistency!process}
+  \index{process consistency|see{memory consistency, process}}
 	A memory-consistency model in which each CPU's stores appear to
 	occur in program order, but in which different CPUs might see
 	accesses from more than one CPU as occurring in different orders.
@@ -325,13 +338,15 @@
 	Moore's-Law-driven increases in CPU clock frequency.
 	Some claim that these beasts will roam the earth once again,
 	others vehemently disagree.)
-\item[Quiescent State:]\index{quiescent state}
+\item[Quiescent State:]\index{RCU!quiescent state}
+  \index{quiescent state|see{RCU, quiescent state}}
 	In RCU, a point in the code where there can be no references held
 	to RCU-protected data structures, which is normally any point
 	outside of an RCU read-side critical section.
 	Any interval of time during which all threads pass through at
 	least one quiescent state each is termed a ``grace period''.
-\item[Read-Copy Update (RCU):]\index{read-copy update (RCU)}
+\item[Read-Copy Update (RCU):]\index{RCU}
+  \index{read-copy update|see{RCU}}
 	A synchronization mechanism that can be thought of as a replacement
 	for reader-writer locking or reference counting.
 	RCU provides extremely low-overhead access for readers, while
@@ -343,7 +358,8 @@
 	RCU is thus best-suited for read-mostly situations where
 	stale data can either be tolerated (as in routing tables)
 	or avoided (as in the Linux kernel's System V IPC implementation).
-\item[Read-Side Critical Section:]\index{critical section!read-side}\index{read-side critical section|see{critical section, read-side}}
+\item[Read-Side Critical Section:]\index{critical section!read-side}
+  \index{read-side critical section|see{critical section, read-side}}
 	A section of code guarded by read-acquisition of
 	some reader-writer synchronization mechanism.
 	For example, if one set of critical sections are guarded by
@@ -355,7 +371,8 @@
 	Any number of threads may concurrently execute the read-side
 	critical sections, but only if no thread is executing one of
 	the write-side critical sections.
-\item[Reader-Writer Lock:]\index{lock!reader-writer}\index{reader-writer lock|see{lock, reader-writer}}
+\item[Reader-Writer Lock:]\index{lock!reader-writer}
+  \index{reader-writer lock|see{lock, reader-writer}}
 	A reader-writer lock is a mutual-exclusion mechanism that
 	permits any number of reading
 	threads, or but one writing thread, into the set of critical
@@ -366,7 +383,8 @@
 	wait for the writer to release the lock.
 	A key concern for reader-writer locks is ``fairness'':
 	can an unending stream of readers starve a writer or vice versa.
-\item[Sequential Consistency:]\index{sequential consistency}
+\item[Sequential Consistency:]\index{memory consistency!sequential}
+  \index{sequential consistency|see{memory consistency, sequential}}
 	A memory-consistency model where all memory references appear to occur
 	in an order consistent with
 	a single global order, and where each CPU's memory references
@@ -397,7 +415,8 @@
 \item[Teachable:]\index{teachable}
 	A topic, concept, method, or mechanism that the teacher understands
 	completely and is therefore comfortable teaching.
-\item[Transactional Memory (TM):]\index{transactional memory}\index{TM|see{transactional memory}}
+\item[Transactional Memory (TM):]\index{transactional memory}
+  \index{TM|see{transactional memory}}
 	Shared-memory synchronization scheme featuring ``transactions'',
 	each of which is an atomic sequence of operations
 	that offers atomicity, consistency, isolation, but differ from
@@ -416,11 +435,13 @@
 	In the 1960s through the 1980s, only supercomputers had vector
 	capabilities, but the advent of MMX in x86 CPUs and VMX in
 	PowerPC CPUs brought vector processing to the masses.
-\item[Write Miss:]\index{write miss}
+\item[Write Miss:]\index{cache miss!write}
+  \index{write miss|see{cache miss, write}}
 	A cache miss incurred because the corresponding CPU attempted
 	to write to a cache line that is read-only, most likely due
 	to its being replicated in other CPUs' caches.
-\item[Write-Side Critical Section:]\index{critical section!write-side}\index{write-side critical section|see{critical section, write-side}}
+\item[Write-Side Critical Section:]\index{critical section!write-side}
+  \index{write-side critical section|see{critical section, write-side}}
 	A section of code guarded by write-acquisition of
 	some reader-writer synchronization mechanism.
 	For example, if one set of critical sections are guarded by
