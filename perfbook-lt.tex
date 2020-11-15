@@ -72,6 +72,7 @@
 \SetWatermarkText{\texttt{\commitid}}
 \usepackage[breakable,skins]{tcolorbox}
 \usepackage{makeidx}
+\usepackage[nottoc,notlot,notlot]{tocbibind}
 \usepackage[bookmarks=true,bookmarksnumbered=true,pdfborder={0 0 0},linktoc=all]{hyperref}
 \usepackage{footnotebackref} % to enable cross-ref of footnote
 \usepackage[all]{hypcap} % for going to the top of figure and table
@@ -436,10 +437,8 @@
 
 \input{appendix/appendix.tex}
 
-% Index at some point...
-\IfIndexOn{
-\printindex
-}{}
+% Index is in appendix if enabled
+
 % page-layout dimensions
 % \cleardoublepage
 % ~ \\
