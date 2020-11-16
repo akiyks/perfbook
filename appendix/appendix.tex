@@ -34,7 +34,13 @@
 \IfIndexOn{
 \cleardoublepage
 \phantomsection
+\IfTwoColumn{}{
+\newgeometry{margin=0.9in,includeheadfoot}
+}
 \printindex
+\IfTwoColumn{}{
+\restoregeometry
+}
 }{}
 
 \setcounter{secnumdepth}{-1} % surpress section numbering in backmatter
