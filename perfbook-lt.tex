@@ -71,7 +71,9 @@
 \SetWatermarkVerCenter{.95\paperheight}
 \SetWatermarkText{\texttt{\commitid}}
 \usepackage[breakable,skins]{tcolorbox}
-\usepackage{makeidx}
+\usepackage[split,makeindex]{splitidx} % for a seperate Index of API
+\newindex[API Index]{api}
+\newcommand{\api}[2]{\co{#1}\sindex[api]{#2@\co{#1}}}
 \usepackage[nottoc]{tocbibind}
 \usepackage[columns=3,totoc,indentunit=12pt,justific=raggedright,font=small,columnsep=.15in,unbalanced]{idxlayout}
 \usepackage[bookmarks=true,bookmarksnumbered=true,pdfborder={0 0 0},linktoc=all]{hyperref}
@@ -318,8 +320,6 @@
 }{}
 
 \geometry{vcentering=true}
-
-\makeindex
 
 \begin{document}
 

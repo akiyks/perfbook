@@ -65,6 +65,7 @@ exerpt_warnings () {
 
 iterate_latex () {
 	makeindex -s pfidx $basename.idx > /dev/null 2>&1
+	makeindex -s pfidx $basename-api.idx > /dev/null 2>&1
 	pdflatex $LATEX_OPT $basename > /dev/null 2>&1 < /dev/null || :
 	if grep -q '! Emergency stop.' $basename.log
 	then

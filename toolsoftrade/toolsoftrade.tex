@@ -168,12 +168,12 @@ occasionally updated.
 \subsection{POSIX Process Creation and Destruction}
 \label{sec:toolsoftrade:POSIX Process Creation and Destruction}
 
-Processes are created using the \co{fork()} primitive, they may
-be destroyed using the \co{kill()} primitive, they may destroy
-themselves using the \co{exit()} primitive.
+Processes are created using the \api{fork()}{fork} primitive, they may
+be destroyed using the \api{kill()}{kill} primitive, they may destroy
+themselves using the \api{exit()}{exit} primitive.
 A process executing a \co{fork()} primitive is said to be the ``parent''
 of the newly created process.
-A parent may wait on its children using the \co{wait()} primitive.
+A parent may wait on its children using the \api{wait()}{wait} primitive.
 
 Please note that the examples in this section are quite simple.
 Real-world applications using these primitives might need to manipulate
@@ -238,7 +238,7 @@ However, use of this primitive is a bit more complicated than its shell-script
 counterpart, as each invocation of \co{wait()} waits for but one child
 process.
 It is therefore customary to wrap \co{wait()} into a function similar
-to the \co{waitall()} function shown in
+to the \api{waitall()}{waitall} function shown in
 Listing~\ref{lst:toolsoftrade:Using the wait() Primitive}
 (\path{api-pthreads.h}),
 with this \co{waitall()} function having semantics similar to the
@@ -333,7 +333,7 @@ than fork-join parallelism.
 
 \begin{fcvref}[ln:toolsoftrade:pcreate:mythread]
 To create a thread within an existing process, invoke the
-\co{pthread_create()} primitive, for example, as shown on
+\api{pthread_create()}{pthread create} primitive, for example, as shown on
 lines~\lnref{create:a} and~\lnref{create:b} of
 Listing~\ref{lst:toolsoftrade:Threads Created Via pthread-create() Share Memory}
 (\path{pcreate.c}).
@@ -352,7 +352,7 @@ is the argument that will be passed to \co{mythread}.
 \end{listing}
 
 In this example, \co{mythread()} simply returns, but it could instead
-call \co{pthread_exit()}.
+call \api{pthread_exit()}{pthread exit}.
 
 \QuickQuiz{
 	If the \co{mythread()} function in
@@ -368,7 +368,7 @@ call \co{pthread_exit()}.
 }\QuickQuizEnd
 
 \begin{fcvref}[ln:toolsoftrade:pcreate:mythread]
-The \co{pthread_join()} primitive, shown on line~\lnref{join},
+The \api{pthread_join()}{pthread join} primitive, shown on line~\lnref{join},
 is analogous to
 the fork-join \co{wait()} primitive.
 It blocks until the thread specified by the \co{tid} variable completes
