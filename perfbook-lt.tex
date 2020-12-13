@@ -142,6 +142,9 @@
 \newboolean{indexhl}
 \setboolean{indexhl}{false}
 \newcommand{\IfIndexHl}[2]{\ifthenelse{\boolean{indexhl}}{#1}{#2}}
+\newboolean{indexhier}
+\setboolean{indexhier}{true}
+\newcommand{\IfIndexHier}[2]{\ifthenelse{\boolean{indexhier}}{#1}{#2}}
 
 % Custom commands for index
 \newindex[API Index]{api} % index for API
@@ -152,8 +155,15 @@
 }{
 \newcommand{\hlindex}[1]{#1}
 }
+\IfIndexHier{
+\newcommand{\indexh}[2]{\index{#2}}
+}{
+\newcommand{\indexh}[2]{\index{#1}}
+}
 \newcommand{\IX}[1]{\hlindex{#1}\index{#1}} % put as is into general index
 \newcommand{\IXalt}[2]{\hlindex{#1}\index{#2}} % put alternative into general index
+\newcommand{\IXh}[2]{\hlindex{#1}\indexh{#1}{#2}}
+\newcommand{\IXalth}[3]{\hlindex{#1}\indexh{#2}{#3}}
 \newcommand{\apic}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{c}}}
 \newcommand{\apig}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{g}}}
 \newcommand{\apipx}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{px}}}
@@ -491,6 +501,9 @@
 
 % Index if enabled
 \IfIndexOn{
+\IfIndexHier{
+\include{indexsee}
+}{}
 \cleardoublepage
 \phantomsection
 \IfTwoColumn{}{

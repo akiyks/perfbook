@@ -9,7 +9,7 @@
 	        David~Levary~et~al.}}
 
 \begin{description}
-\item[Associativity:]\index{Associativity}
+\item[\IXalt{Associativity}{Cache associativity}:]
 	The number of cache lines that can be held simultaneously in
 	a given cache, when all of these cache lines hash identically
 	in that cache.
@@ -24,7 +24,7 @@
 	fully associative caches are normally quite limited in size.
 	The associativity of the large caches found on modern microprocessors
 	typically range from two-way to eight-way.
-\item[Associativity Miss:]\index{Associativity miss}
+\item[\IXalth{Associativity Miss}{Associativity miss}{Cache miss!associativity}:]
 	A cache miss incurred because the corresponding CPU has recently
 	accessed more data hashing to a given set of the cache than will
 	fit in that set.
@@ -113,10 +113,10 @@
 	(5) this CPU attempted to write to a cache line that is
 	currently read-only, possibly due to that line being replicated
 	in other CPUs' caches.
-\item[Capacity Miss:]\index{Capacity miss}
+\item[\IXalth{Capacity Miss}{Capacity miss}{Cache miss!capacity}:]
 	A cache miss incurred because the corresponding CPU has recently
 	accessed more data than will fit into the cache.
-\item[Code Locking:]\index{Code locking}
+\item[\IXalth{Code Locking}{Code locking}{Locking!code}:]
 	A simple locking design in which a ``global lock'' is used to protect
 	a set of critical sections, so that access by a given thread
 	to that set is
@@ -140,7 +140,7 @@
 	If a thread is executing in one such critical section,
 	any other threads must wait until the first thread completes
 	before executing any of the critical sections in the set.
-\item[Data Locking:]\index{Data locking}
+\item[\IXalth{Data Locking}{Data locking}{Locking!data}:]
 	A scalable locking design in which each instance of a given
 	data structure has its own lock.
 	If each thread is using a different instance of the
@@ -150,7 +150,7 @@
 	increasing numbers of CPUs as the number of instances of
 	data grows.
 	Contrast with ``code locking''.
-\item[Direct-Mapped Cache:]\index{Direct-mapped cache}
+\item[\IXalth{Direct-Mapped Cache}{Direct-mapped cache}{Cache!direct-mapped}:]
 	A cache with only one way, so that it may hold only one cache
 	line with a given hash value.
 \item[Embarrassingly Parallel:]\index{Embarrassingly parallel}
@@ -158,7 +158,7 @@
 	increase the overall cost of the computation, resulting in
 	linear speedups as threads are added (assuming sufficient
 	CPUs are available).
-\item[Exclusive Lock:]\index{Exclusive lock}
+\item[\IXalth{Exclusive Lock}{Exclusive lock}{Lock!exclusive}:]
 	An exclusive lock is a mutual-exclusion mechanism that
 	permits only one thread at a time into the
 	set of critical sections guarded by that lock.
@@ -181,7 +181,7 @@
 	while internal fragmentation occurs when specific requests or
 	types of requests have been allotted more memory than they
 	actually requested.
-\item[Fully Associative Cache:]\index{Fully associative cache}
+\item[\IXalth{Fully Associative Cache}{Fully associative cache}{Cache!fully associative}:]
 	A fully associative cache contains only
 	one set, so that it can hold any subset of
 	memory that fits within its capacity.
@@ -343,7 +343,7 @@
 	RCU is thus best-suited for read-mostly situations where
 	stale data can either be tolerated (as in routing tables)
 	or avoided (as in the Linux kernel's System V IPC implementation).
-\item[Read-Side Critical Section:]\index{Read-side critical section}
+\item[\IXalth{Read-Side Critical Section}{Read-side critical section}{Critical section!read-side}:]
 	A section of code guarded by read-acquisition of
 	some reader-writer synchronization mechanism.
 	For example, if one set of critical sections are guarded by
@@ -355,7 +355,7 @@
 	Any number of threads may concurrently execute the read-side
 	critical sections, but only if no thread is executing one of
 	the write-side critical sections.
-\item[Reader-Writer Lock:]\index{Reader-writer lock}
+\item[\IXalth{Reader-Writer Lock}{Reader-writer lock}{Lock!reader-writer}:]
 	A reader-writer lock is a mutual-exclusion mechanism that
 	permits any number of reading
 	threads, or but one writing thread, into the set of critical
@@ -416,11 +416,11 @@
 	In the 1960s through the 1980s, only supercomputers had vector
 	capabilities, but the advent of MMX in x86 CPUs and VMX in
 	PowerPC CPUs brought vector processing to the masses.
-\item[Write Miss:]\index{Write miss}
+\item[\IXalth{Write Miss}{Write miss}{Cache miss!write}:]
 	A cache miss incurred because the corresponding CPU attempted
 	to write to a cache line that is read-only, most likely due
 	to its being replicated in other CPUs' caches.
-\item[Write-Side Critical Section:]\index{Write-side critical section}
+\item[\IXalth{Write-Side Critical Section}{Write-side critical section}{Critical section!write-side}:]
 	A section of code guarded by write-acquisition of
 	some reader-writer synchronization mechanism.
 	For example, if one set of critical sections are guarded by
