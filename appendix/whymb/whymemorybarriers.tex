@@ -75,7 +75,9 @@ at full speed.
 After some time, the CPU's cache will fill, and subsequent
 misses will likely need to eject an item from the cache in order
 to make room for the newly fetched item.
-Such a cache miss is termed a ``capacity miss'', because it is caused
+Such a cache miss is termed
+a ``\IXalth{capacity miss}{Capacity miss}{Cache miss!capacity}'',
+because it is caused
 by the cache's limited capacity.
 However, most caches can be forced to eject an old item to make room
 for a new item even when they are not yet full.
@@ -93,8 +95,10 @@ In hardware parlance, this is a two-way set-associative cache, and
 is analogous to a software hash table with
 sixteen buckets, where each bucket's hash chain is limited to
 at most two elements.
-The size (32 cache lines in this case) and the associativity (two in
-this case) are collectively called the cache's ``geometry''.
+The size (32 cache lines in this case) and the
+\IXalt{associativity}{Cache associativity} (two in this case) are
+collectively called the cache's
+``\IXalt{geometry}{Cache geometry}''.
 Since this cache is implemented in hardware, the hash function is
 extremely simple: extract four bits from the memory address.
 
@@ -192,7 +196,8 @@ However, if the program were to access location 0x1233E00, which hashes
 to line 0xE, one of the existing lines must be ejected from the cache
 to make room for the new cache line.
 If this ejected line were accessed later, a cache miss would result.
-Such a cache miss is termed an ``associativity miss''.
+Such a cache miss is termed an
+``\IXalth{associativity miss}{Associativity miss}{Cache miss!associativity}''.
 
 Thus far, we have been considering only cases where a CPU reads
 a data item.
@@ -539,7 +544,8 @@ The transition arcs in this figure are as follows:
 
 Let's now look at this from the perspective of a cache line's worth
 of data, initially residing in memory at address~0,
-as it travels through the various single-line direct-mapped caches
+as it travels through the various single-line
+\IXalth{direct-mapped caches}{Direct-mapped cache}{Cache!direct-mapped}
 in a four-CPU system.
 \Cref{tab:app:whymb:Cache Coherence Example}
 shows this flow of data, with the first column showing the sequence
