@@ -115,12 +115,15 @@ It is critically important that formal-verification tools correctly
 model their environment.
 One all-too-common omission is the memory model, where a great
 many formal-verification tools, including Promela/spin, are
-restricted to sequential consistency.
+restricted to
+\IXalth{sequential consistency}{Sequential consistency}{Memory consistency!sequential}.
 The QRCU experience related in
 \cref{sec:formal:Is QRCU Really Correct?}
 is an important cautionary tale.
 
-Promela and \co{spin} assume sequential consistency, which is not a
+Promela and \co{spin} assume
+\IXalth{sequential consistency}{Sequential consistency}{Memory consistency!sequential},
+which is not a
 good match for modern computer systems, as was seen in
 \cref{chp:Advanced Synchronization: Memory Ordering}.
 In contrast, one of the great strengths of PPCMEM and \co{herd}
@@ -145,7 +148,7 @@ be useful.
 For example, a great many concurrency bugs would still be bugs on
 a mythical sequentially consistent system, and these bugs could
 be located by a tool that over-approximated the system's memory model
-with sequential consistency.
+with \IXalth{sequential consistency}{Sequential consistency}{Memory consistency!sequential}.
 Nevertheless, these tools will fail to find bugs involving missing
 memory-ordering directives, as noted in the aforementioned
 cautionary tale of
