@@ -7,7 +7,7 @@ LATEXSOURCES = \
 	legal.tex \
 	ack.tex \
 	glossary.tex \
-	indexsee.tex \
+	indexsee.tex indexseehier.tex \
 	qqz.sty origpub.sty \
 	noindentafter.sty \
 	pfbook.cls \
