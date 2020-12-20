@@ -166,6 +166,7 @@ On the other hand, if you are not in this happy situation, read on!
 \subsection{Code Locking}
 \label{sec:SMPdesign:Code Locking}
 
+\IXalth{}{Code locking|(}{Locking!code|(}%
 Code locking is quite simple due to the fact that is uses only
 global locks.\footnote{
 	If your program instead has locks in data structures,
@@ -265,10 +266,12 @@ in the next section.
 \caption{Lock Contention}
 \ContributedBy{Figure}{fig:SMPdesign:Lock Contention}{Melissa Broussard}
 \end{figure}
+\IXalth{}{Code locking|)}{Locking!code|)}
 
 \subsection{Data Locking}
 \label{sec:SMPdesign:Data Locking}
 
+\IXalth{}{Data locking|(}{Locking!data|(}%
 Many data structures may be partitioned,
 with each partition of the data structure having its own lock.
 Then the critical sections for each part of the data structure
@@ -473,6 +476,7 @@ bucket from being freed during the time that its lock was being acquired.
 	For more on providing existence guarantees, see
 	Chapters~\ref{chp:Locking} and \ref{chp:Deferred Processing}.
 }\QuickQuizEnd
+\IXalth{}{Data locking|)}{Locking!data|)}
 
 \subsection{Data Ownership}
 \label{sec:SMPdesign:Data Ownership}

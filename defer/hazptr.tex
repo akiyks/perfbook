@@ -7,6 +7,7 @@
 %
 \epigraph{If in doubt, turn it inside out.}{\emph{Zara Carpenter}}
 
+\index{Hazard pointers|(}
 One way of avoiding problems with concurrent reference counting
 is to implement the reference counters
 inside out, that is, rather than incrementing an integer stored in the
@@ -401,3 +402,4 @@ and in other publications~\cite{ThomasEHart2007a,McKenney:2013:SDS:2483852.24838
 The next section attempts to improve on hazard pointers by using
 sequence locks, which avoid both read-side writes and per-object memory
 barriers.
+\index{Hazard pointers|)}
