@@ -7,6 +7,7 @@
 \epigraph{Everything should be as simple as it can be, but not simpler.}
 	 {\emph{Albert Einstein, by way of Louis Zukofsky}}
 
+\index{Transactional memory (TM)|(}
 The idea of using transactions outside of databases goes back many
 decades~\cite{DBLomet1977SIGSOFT,Knight:1986:AMF:319838.319854,Herlihy93a},
 with the key difference between
@@ -19,8 +20,10 @@ The idea of supporting memory-based transactions, or ``transactional memory''
 is more recent~\cite{Herlihy93a}, but unfortunately, support for such
 transactions in commodity hardware was not immediately forthcoming,
 despite other somewhat similar proposals being put forward~\cite{JMStone93}.
-Not long after, Shavit and Touitou proposed a software-only implementation
-of transactional memory (STM) that was capable of running on commodity
+Not long after, Shavit and Touitou proposed a
+\IXalth{software-only implementation of transactional memory (STM)}
+{Software transactional memory (STM)}{Transactional memory (TM)!software (STM)}
+that was capable of running on commodity
 hardware, give or take memory-ordering issues~\cite{Shavit95}.
 This proposal languished for many years, perhaps due to the fact that
 the research community's attention was absorbed by non-blocking
@@ -1073,3 +1076,4 @@ available~\cite{JoeDuffy2010RetroTM,JoeDuffy2010RetroTM2}.
 
 Recent advances in commercially available hardware have opened the door
 for variants of HTM, which are addressed in the following section.
+\index{Transactional memory (TM)|)}

@@ -12,6 +12,7 @@
 % If at first you do succeed---try to hide your astonishment.
 % Harry F.~Banks
 
+\IXalth{}{Hardware transactional memory (HTM)|(}{Transactional memory (TM)!hardware (HTM)|(}%
 As of 2017, hardware transactional memory (HTM) is available on several
 types of commercially available commodity computer
 systems~\cite{Yoo:2013:PEI:2503210.2503232,RickMerrit2011PowerTM,ChristianJacobi2012MainframeTM}.
@@ -250,7 +251,8 @@ The data itself can be written to memory or shadowed by other caches,
 while the address itself is sufficient to detect a conflicting
 write~\cite{RaviRajwar2012TSX}.
 
-\emph{Unbounded transactional memory} (UTM)
+\IXalth{\emph{Unbounded transactional memory} (UTM)}
+{Unbounded transactional memory (UTM)}{Transactional memory (TM)!unbounded (UTM)}
 schemes~\cite{CScottAnanian2006,KevinEMoore2006}
 use DRAM as an extremely large victim cache, but integrating such schemes
 into a production-quality cache-coherence mechanism is still an unsolved
@@ -1237,3 +1239,4 @@ and challenging work is required to make use of them.
 However, they cannot be
 considered to be a magic wand with which to wave away all parallel-programming
 problems.
+\IXalth{}{Hardware transactional memory (HTM)|)}{Transactional memory (TM)!hardware (HTM)|)}
