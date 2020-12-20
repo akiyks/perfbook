@@ -178,7 +178,8 @@ variable, all the copies of that variable must have the same value.
 This works extremely well for concurrent loads, but not so well for
 concurrent stores:  Each store must do something about all
 copies of the old value (another cache miss!), which, given the finite
-speed of light and the atomic nature of matter, will be slower
+\IXalt{speed of light}{Speed of light}
+and the atomic nature of matter, will be slower
 than impatient software hackers would like.
 
 \begin{figure}[tb]
@@ -1963,7 +1964,8 @@ This means that the \co{exists} clause on \clnref{exists} really can trigger.
 \end{figure}
 
 This situation might seem completely counter-intuitive, but keep
-in mind that the speed of light is finite and computers are of
+in mind that the \IXalt{speed of light}{Speed of light}
+is finite and computers are of
 non-zero size.
 It therefore takes time for the effect of the \co{P2()}'s store to
 \co{z} to propagate to \co{P1()}, which in turn means that it is possible
@@ -2121,7 +2123,8 @@ But sometimes time really is on our side.  Read on!
 As shown in
 \cref{fig:memorder:Store-to-Load is Temporal},
 on platforms without user-visible speculation, if a load returns the value
-from a particular store, then, courtesy of the finite speed of light and
+from a particular store, then, courtesy of the finite
+\IXalt{speed of light}{Speed of light} and
 the non-zero size of modern computing systems, the store absolutely has
 to have executed at an earlier time than did the load.
 This means that carefully constructed programs can rely on the
