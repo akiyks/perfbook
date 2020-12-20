@@ -41,7 +41,8 @@ memory, it must also load the cacheline containing that variable into
 its cache, but must also ensure that no other CPU has a copy of that
 cacheline.
 
-For example, if CPU~0 were to perform a compare-and-swap (CAS) operation on a
+For example, if CPU~0 were to perform a
+\IXalt{compare-and-swap (CAS)}{CAS} operation on a
 variable whose cacheline resided in CPU~7's cache, the following
 over-simplified sequence of events might ensue:
 
@@ -178,6 +179,7 @@ nevertheless normalized to a clock period in the third column, labeled
 The first thing to note about this table is the large values of many of
 the ratios.
 
+\IXalt{}{CAS|(}%
 The same-CPU compare-and-swap (CAS) operation consumes about seven
 nanoseconds, a duration more than ten times that of the clock period.
 Here, ``same-CPU'' means that the same CPU now performing the CAS operation
@@ -284,6 +286,7 @@ In this case, a blind CAS operation consumes more than three hundred
 nanoseconds, or more than seven hundred clock cycles.
 A CAS operation consumes almost a full microsecond, or almost two
 thousand clock cycles.
+\IXalt{}{CAS|)}
 
 \QuickQuiz{
 	Surely the hardware designers could be persuaded to improve
@@ -524,7 +527,8 @@ Although large caches can degrade energy efficiency and cache-miss
 latency, the ever-growing cache sizes on production microprocessors
 attests to the power of this optimization.
 
-A final hardware optimization is read-mostly replication, in which
+A final hardware optimization is
+\IXalt{read-mostly replication}{Read-mostly replication}, in which
 data that is frequently read but rarely updated is present in all
 CPUs' caches.
 This optimization allows the read-mostly data to be accessed

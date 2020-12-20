@@ -210,7 +210,7 @@ and the local variable \co{vi} must be shared among the various threads.
 \end{fcvref}
 \begin{fcvref}[ln:SMPdesign:SEQ Helper Pseudocode:try]
 \Clnref{chk:not:visited,mark:visited} of Listing~\ref{lst:SMPdesign:SEQ Helper Pseudocode} must be
-combined into a CAS loop, with CAS failure indicating a loop in the
+combined into a \IX{CAS} loop, with CAS failure indicating a loop in the
 maze.
 \Clnrefrange{recordnext}{next:visited} of this listing must use
 fetch-and-add to arbitrate concurrent

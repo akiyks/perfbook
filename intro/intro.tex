@@ -1057,7 +1057,8 @@ for more information on transactional memory.)
 The most effective parallel algorithms and systems exploit resource
 parallelism, so much so that it is
 usually wise to begin parallelization by partitioning your write-intensive
-resources and replicating frequently accessed read-mostly resources.
+resources and \IXalt{replicating frequently accessed read-mostly resources}
+{Read-mostly replication}.
 The resource in question is most frequently data, which might be
 partitioned over computer systems, mass-storage devices, NUMA nodes,
 CPU cores (or dies or hardware threads), pages, cache lines, instances
