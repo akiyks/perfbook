@@ -66,7 +66,7 @@ mechanism---by hand.
 As with Promela and \co{spin}, both PPCMEM and \co{herd} are
 extremely useful, but they are not well-suited for regression suites.
 
-In contrast, \co{cbmc} and Nidhugg can input C programs of reasonable
+In contrast, \co{cbmc} and \IX{Nidhugg} can input C programs of reasonable
 (though still quite limited) size, and if their capabilities continue
 to grow, could well become excellent additions to regression suites.
 
@@ -133,7 +133,7 @@ even a Linux-kernel memory model~\cite{Alglave:2018:FSC:3173162.3177156},
 which has been accepted into version 4.17 of
 the Linux kernel.
 
-The \co{cbmc} and Nidhugg tools provide some ability to select
+The \co{cbmc} and \IX{Nidhugg} tools provide some ability to select
 memory models, but do not provide the variety that PPCMEM and
 \co{herd} do.
 However, it is likely that the larger-scale tools will adopt
@@ -170,11 +170,11 @@ faster than PPCMEM.
 Nevertheless, both PPCMEM and \co{herd} target very small litmus tests
 rather than larger bodies of code.
 
-In contrast, Promela/\co{spin}, \co{cbmc}, and Nidhugg are designed for
+In contrast, Promela/\co{spin}, \co{cbmc}, and \IX{Nidhugg} are designed for
 (somewhat) larger bodies of code.
 Promela/\co{spin} was used to verify the Curiosity rover's
 filesystem~\cite{DBLP:journals/amai/GroceHHJX14} and, as noted earlier,
-both \co{cbmc} and Nidhugg were appled to Linux-kernel RCU.
+both \co{cbmc} and \IX{Nidhugg} were appled to Linux-kernel RCU.
 
 If advances in heuristics continue at the rate of the past quarter
 century, we can look forward to large reductions in overhead for
@@ -315,7 +315,7 @@ What is needed is a tool that gives at least \emph{some} information
 as to where the bug is located and the nature of that bug.
 
 The \co{cbmc} output includes a traceback mapping back to the source
-code, similar to Promela/spin's, as does Nidhugg.
+code, similar to Promela/spin's, as does \IX{Nidhugg}.
 Of course, these tracebacks can be quite long, and analyzing them
 can be quite tedious.
 However, doing so is usually quite a bit faster
@@ -376,7 +376,7 @@ of real-world software and hardware artifacts, but it turns out that there is
 quite a bit that can be done.
 For example, design and coding rules can act as a partial specification,
 as can assertions contained in the code.
-And in fact formal-verification tools such as \co{cbmc} and Nidhugg
+And in fact formal-verification tools such as \co{cbmc} and \IX{Nidhugg}
 both check for assertions that can be triggered, implicitly treating
 these assertions as part of the specification.
 However, the assertions are also part of the code, which makes it less
@@ -602,7 +602,7 @@ perhaps SAT-solver performance will continue improving.
 It provides a traceback, so its fourth cell is green.
 It takes assertions directly from the C code, so its fifth cell is blue.
 
-Nidhugg also inputs C code directly, so its first cell is also blue.
+\IX{Nidhugg} also inputs C code directly, so its first cell is also blue.
 It supports only a couple of memory models, so its second cell is orange.
 Its overhead is quite low (for formal-verification), so its
 third cell is green.
