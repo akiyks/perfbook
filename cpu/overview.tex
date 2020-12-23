@@ -149,6 +149,7 @@ The next section covers the hazards of referencing memory.
 \subsection{Memory References}
 \label{sec:cpu:Memory References}
 
+\IXalt{}{Memory reference cost|(}%
 In the 1980s, it often took less time for a microprocessor to load a value
 from memory than it did to execute an instruction.
 In 2006, a microprocessor might be capable of executing hundreds or even
@@ -189,10 +190,12 @@ Thus far, we have only been considering obstacles that can arise during
 a given CPU's execution of single-threaded code.
 Multi-threading presents additional obstacles to the CPU, as
 described in the following sections.
+\IXalt{}{Memory reference cost|)}
 
 \subsection{Atomic Operations}
 \label{sec:cpu:Atomic Operations}
 
+\IXalt{}{Atomic operation|(}%
 One such obstacle is atomic operations.
 The problem here is that the whole idea of an atomic operation conflicts with
 the piece-at-a-time assembly-line operation of a CPU pipeline.
@@ -234,6 +237,7 @@ be maintained between updates of multiple data elements, most CPUs
 provide memory barriers.
 These memory barriers also serve as performance-sapping obstacles,
 as described in the next section.
+\IXalt{}{Atomic operation|)}
 
 \QuickQuiz{
 	What types of machines would allow atomic operations on

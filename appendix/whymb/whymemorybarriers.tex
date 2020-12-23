@@ -11,10 +11,12 @@
 So what possessed CPU designers to cause them to inflict memory barriers
 on poor unsuspecting SMP software designers?
 
-In short, because reordering memory references allows much better performance,
+In short, because reordering
+\IXalt{memory references}{Memory reference (re)ordering}
+allows much better performance,
 and so memory barriers are needed to force ordering in things like
 synchronization primitives whose correct operation depends on ordered
-memory references.
+\IXalt{memory references}{Memory reference (re)ordering}.
 
 Getting a more detailed answer to this question requires a good understanding
 of how CPU caches work, and especially what is required to make
@@ -1578,7 +1580,7 @@ similar to that shown in this example.
 There have been a number of recent systems that are significantly less
 aggressive about \IXalt{out-of-order execution}{Out-of-order execution}
 in general and re-ordering
-memory references in particular.
+\IXalt{memory references}{Memory reference (re)ordering} in particular.
 Will this trend continue to the point where memory barriers are a thing
 of the past?
 
