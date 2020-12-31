@@ -273,3 +273,14 @@
 
 		    sudo updmap-sys --syncwithtrees --force
 		    sudo updmap-sys
+
+14.	Clean build of perfbook stopped saying:
+
+		Conflicting versions of GhostScript and pstricks detected.
+
+	What can I do?
+
+	A.	GhostScript 9.53.x is not compatible with pstricks 3.01.
+		A workaround is to use GhostScript 9.52 you can download from:
+
+		https://github.com/ArtifexSoftware/ghostpdl-downloads/releases

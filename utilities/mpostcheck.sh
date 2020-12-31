@@ -130,6 +130,26 @@ dogrep() {
 	fi
 }
 
+## GhostScript vs pstricks-base compatibility test
+check_gs_pstricks() {
+	gs_version=`gs --version`
+	pstricks_tex=`kpsewhich pstricks.tex`
+	if [ "x$pstricks_tex" = "x" ] ; then
+		echo "pstricks.tex not found. Install pstricks."
+		exit 1
+	fi
+	pstricks_ver=`cat $pstricks_tex | grep '\\\def\\\fileversion' | sed -E 's/.*\{(.*)\}/\1/'`
+	if echo $gs_version | fgrep -q "9.53." && \
+		echo $pstricks_ver | fgrep -q "3.01"
+	then
+		echo "gs: $gs_version"
+		echo "pstricks: $pstricks_ver"
+		echo "Conflicting versions of GhostScript and pstricks detected."
+		echo "See #14 in FAQ-BUILD.txt"
+		exit 1
+	fi
+}
+
 if which kpsewhich >/dev/null
 then
 	command_list_orig=`kpsewhich -var-value=shell_escape_commands`
@@ -143,9 +163,11 @@ then
 		echo "WARNING: Refer to utilities/mpostcheck.sh for texmf config fix."
 		dogrep
 	else
+		check_gs_pstricks
 		exit 0
 	fi
 else
 	dogrep
+	check_gs_pstricks
 	exit 0
 fi
