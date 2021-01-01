@@ -48,8 +48,7 @@ techniques; \emph{out-of-order} instruction and data handling;
 more~\cite{Hennessy2011}
 in order to optimize the flow of instructions and data through the CPU.
 Some cores have more than one hardware thread, which is variously called
-\emph{simultaneous multithreading} (SMT) or \emph{hyperthreading}
-(HT)~\cite{JFennel1973SMT},
+\IXacr{smt} or \IXacr{ht}~\cite{JFennel1973SMT},
 each of which appears as
 an independent CPU to software, at least from a functional viewpoint.
 These modern hardware features can greatly improve performance, as
@@ -99,8 +98,8 @@ Figure~\ref{fig:cpu:CPU Meets a Pipeline Flush}.
 \label{fig:cpu:Rough View of Modern Micro-Architecture}
 \end{figure}
 
-This gets even worse in the increasingly common case of hyperthreading
-(or SMT, if you prefer), especially on pipelined superscalar out-of-order
+This gets even worse in the increasingly common case of \IXacr{ht}
+(or \IXacr{smt}, if you prefer), especially on pipelined superscalar out-of-order
 CPU featuring speculative execution.
 In this increasingly common case, all the hardware threads sharing
 a core also share that core's resources, including registers, cache,
