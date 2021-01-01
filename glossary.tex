@@ -248,7 +248,7 @@
 	used so heavily that there is often a CPU waiting on it.
 	Reducing lock contention is often a concern when designing
 	parallel algorithms and when implementing parallel programs.
-\item[Memory Consistency:]\index{Memory consistency}
+\item[\IX{Memory Consistency}:]
 	A set of properties that impose constraints on the order in
 	which accesses to groups of variables appear to occur.
 	Memory consistency models range from sequential consistency,
@@ -310,7 +310,7 @@
 	In the 1960s through the early 1980s, pipelined CPUs were the
 	province of supercomputers, but started appearing in microprocessors
 	(such as the 80486) in the late 1980s.
-\item[Process Consistency:]\index{Process consistency}
+\item[\IXh{Process Consistency}{memory consistency}{process}:]
 	A memory-consistency model in which each CPU's stores appear to
 	occur in program order, but in which different CPUs might see
 	accesses from more than one CPU as occurring in different orders.
@@ -366,7 +366,7 @@
 	wait for the writer to release the lock.
 	A key concern for reader-writer locks is ``fairness'':
 	can an unending stream of readers starve a writer or vice versa.
-\item[Sequential Consistency:]\index{Sequential consistency}
+\item[\IXh{Sequential Consistency}{memory consistency}{sequential}:]
 	A memory-consistency model where all memory references appear to occur
 	in an order consistent with
 	a single global order, and where each CPU's memory references

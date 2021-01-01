@@ -3822,7 +3822,7 @@ v4.15 and later Linux kernels.
 
 The next row, ``Non-Sequentially Consistent'', indicates whether
 the CPU's normal load and store instructions are constrained by
-sequential consistency.
+\IXh{sequential consistency}{memory consistency}{sequential}.
 Almost all are not constrained in this way for performance reasons.
 
 The next two rows cover multicopy atomicity, which was defined in
@@ -4271,7 +4271,8 @@ defined its memory ordering with an executable formal model~\cite{ARMv8A:2017}.
 \subsection{Itanium}
 \label{sec:memorder:Itanium}
 
-Itanium offers a weak consistency model, so that in absence of explicit
+Itanium offers a \IXh{weak consistency}{memory consistency}{weak}
+model, so that in absence of explicit
 memory-barrier instructions, Itanium is within its rights to arbitrarily
 reorder memory references~\cite{IntelItanium02v2}.
 Itanium has a memory-fence instruction named {\tt mf}, but also has
