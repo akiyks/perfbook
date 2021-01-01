@@ -5,7 +5,9 @@ GITREFSTAGS := $(shell ls -d .git/refs/tags 2>/dev/null)
 LATEXSOURCES = \
 	perfbook-lt.tex \
 	legal.tex \
+	ack.tex \
 	glossary.tex \
+	indexsee.tex \
 	qqz.sty origpub.sty \
 	glsdict.tex \
 	noindentafter.sty \
