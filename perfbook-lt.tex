@@ -199,12 +199,20 @@
 \newcommand{\IXalth}[4]{\hlindex{#1}\indexh{#2}{#3}{#4}}
 \newcommand{\IXalthr}[4]{\hlindex{#1}\indexhr{#2}{#3}{#4}}
 \newcommand{\IXalthx}[5]{\hlindex{#1}\indexhx{#2}{#3}{#4}{#5}}
-\newcommand{\IXacr}[1]{\gls{#1}\glsuseri{#1}} % put index via acronym dictionary
+
+\IfIndexOn{
+  \newcommand{\IXacr}[1]{\gls{#1}\glsuseri{#1}} % put index via acronym dictionary
+  \newcommand{\IXAcr}[1]{\Gls{#1}\glsuseri{#1}} % put index via acronym dictionary (upper case)
+  \newcommand{\acr}[1]{\gls{#1}}
+  \newcommand{\Acr}[1]{\Gls{#1}}
+}{
+  \newcommand{\IXacr}[1]{\gls*{#1}\glsuseri{#1}} % put index via acronym dictionary
+  \newcommand{\IXAcr}[1]{\Gls*{#1}\glsuseri{#1}} % put index via acronym dictionary (upper case)
+  \newcommand{\acr}[1]{\gls*{#1}}
+  \newcommand{\Acr}[1]{\Gls*{#1}}
+}
 \newcommand{\IXacrb}[1]{\glsuserii{#1}}
 \newcommand{\IXacre}[1]{\glsuseriii{#1}}
-\newcommand{\IXAcr}[1]{\Gls{#1}\glsuseri{#1}} % put index via acronym dictionary (upper case)
-\newcommand{\acr}[1]{\gls{#1}}
-\newcommand{\Acr}[1]{\Gls{#1}}
 \newcommand{\apic}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{c}}}
 \newcommand{\apig}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{g}}}
 \newcommand{\apipx}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{px}}}
