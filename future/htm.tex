@@ -227,7 +227,7 @@ However, hardware caches do not chain their buckets (which are normally
 called \emph{sets}), but rather
 provide a fixed number of cachelines per set.
 The number of elements provided for each set in a given cache
-is termed that cache's \emph{associativity}.
+is termed that cache's \emph{\IXalt{associativity}{Cache associativity}}.
 
 Although cache associativity varies, the eight-way associativity of
 the level-0 cache on the laptop I am typing this on is not unusual.
@@ -240,7 +240,8 @@ the probability of that transaction being able to commit is quite
 high, but there can be no guarantee.
 
 There has been some research work to alleviate this limitation.
-Fully associative \emph{victim caches} would alleviate the associativity
+\IXalth{Fully associative \emph{victim caches}}{fully associative cache}
+{cache}{fully associative} would alleviate the associativity
 constraints, but there are currently stringent performance and
 energy-efficiency constraints on the sizes of victim caches.
 That said, \IXacr{htm} victim caches for unmodified cache lines can be quite
