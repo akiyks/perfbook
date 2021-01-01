@@ -585,7 +585,9 @@ summarized in the following list (as of Linux v3.3).
 	Atomically decrements the referenced variable, returning
 	\co{true} (non-zero) if the result is zero.
 	Issues a memory barrier and disables compiler optimizations that
-	might otherwise move memory references across this primitive.
+	might otherwise move
+        \IXalt{memory references}{Memory reference (re)ordering}
+	across this primitive.
 \item	[\tco{void atomic_inc(atomic_t *var);}]
 	Atomically increments the referenced variable without necessarily
 	issuing a memory barrier or disabling compiler optimizations.
@@ -594,7 +596,9 @@ summarized in the following list (as of Linux v3.3).
 	value is non-zero, and returning \co{true} (non-zero) if the
 	increment occurred.
 	Issues a memory barrier and disables compiler optimizations that
-	might otherwise move memory references across this primitive.
+	might otherwise move
+	\IXalt{memory references}{Memory reference (re)ordering}
+	across this primitive.
 \item	[\tco{int atomic_read(atomic_t *var);}]
 	Returns the integer value of the referenced variable.
 	This need not be an atomic operation, and it need not issue any

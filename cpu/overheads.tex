@@ -187,7 +187,7 @@ Similarly, the same-CPU lock operation (a ``round trip'' pair consisting
 of a lock acquisition followed by a lock release) consumes more than
 fifteen nanoseconds, or more than thirty clock cycles.
 The lock operation is more expensive than \IXacr{cas} because it requires two
-atomic operations on the lock data structure, one for acquisition and
+\IXpl{atomic operation} on the lock data structure, one for acquisition and
 the other for release.
 
 In-core operations involving interactions between the hardware threads
