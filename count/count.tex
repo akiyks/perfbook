@@ -422,6 +422,7 @@ avoids the delays inherent in such circulation.
 \epigraph{Facts are stubborn things, but statistics are pliable.}
 	 {\emph{Mark Twain}}
 
+\IXaltx{}{Statistical counters}{|(}%
 This section covers the common special case of statistical counters, where
 the count is updated extremely frequently and the value is read out
 rarely, if ever.
@@ -1165,6 +1166,7 @@ variables vanish when that thread exits.
 These three implementations show that it is possible to obtain uniprocessor
 performance for statistical counters, despite running on a parallel
 machine.
+\IXaltx{}{Statistical counters}{|)}
 
 \QuickQuizSeries{%
 \QuickQuizB{
@@ -1232,6 +1234,7 @@ near the beginning of this chapter.
 	  more than an exact answer to an approximate problem.}
 	 {\emph{John Tukey}}
 
+\IXalthx{}{Approximate limit counters}{|(}{Limit counters}{approximate|(}%
 Another special case of counting involves limit-checking.
 For example, as noted in the approximate structure-allocation limit
 problem in \QuickQuizRef{\QcountQapproxcnt},
@@ -1841,12 +1844,14 @@ As the number of threads increase, non-fastpath execution will become both
 a performance and a scalability problem.
 However, we will defer this problem and turn instead to counters
 with exact limits.
+\IXalthx{}{Approximate limit counters}{|)}{Limit counters}{approximate|)}
 
 \section{Exact Limit Counters}
 \label{sec:count:Exact Limit Counters}
 %
 \epigraph{Exactitude can be expensive.  Spend wisely.}{\emph{Unknown}}
 
+\IXalthx{}{Exact limit counters}{|(}{Limit counters}{exact|(}%
 To solve the exact structure-allocation limit problem noted in
 \QuickQuizRef{\QcountQexactcnt},
 we need a limit counter that can tell exactly when its limits are
@@ -2792,6 +2797,7 @@ Line~\lnref{note} notes that the device is being removed, and the loop spanning
 Finally, line~\lnref{remove} does any additional processing needed to prepare for
 device removal.
 \end{fcvref}
+\IXalthx{}{Exact limit counters}{|)}{Limit counters}{exact|)}
 
 \QuickQuiz{
 	What other issues would need to be accounted for in a real system?
