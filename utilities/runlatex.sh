@@ -71,6 +71,20 @@ iterate_latex () {
 		echo "----- Warning in makeindex, see .ilg log files. -----"
 		exit 1
 	fi
+	if grep -q '0 rejected' $basename.ilg
+	then
+		echo -n ;
+	else
+		echo "----- There were rejected index, see $basename.ilg. -----"
+		exit 1
+	fi
+	if grep -q '0 rejected' $basename-api.ilg
+	then
+		echo -n ;
+	else
+		echo "----- There were rejected index, see $basename-api.ilg. -----"
+		exit 1
+	fi
 	makeglossaries $basename > /dev/null 2>&1
 	pdflatex $LATEX_OPT $basename > /dev/null 2>&1 < /dev/null || :
 	if grep -q '! Emergency stop.' $basename.log
