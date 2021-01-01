@@ -331,7 +331,7 @@ performance on the same read-only workload as for
 Figure~\ref{fig:defer:Pre-BSD Routing Table Protected by Reference Counting}.
 Although hazard pointers scale far better than does reference counting,
 hazard pointers still require readers to do writes to shared
-memory (albeit with much improved locality of reference),
+memory (albeit with much improved \IX{locality of reference}),
 and also require a full memory barrier and retry check for each
 object traversed.
 Therefore, hazard-pointers performance is still far short of ideal.
