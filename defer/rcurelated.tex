@@ -119,7 +119,8 @@ experimenting with alternative \acr{rcu} implementations.
 \subsubsection{RCU Implementations}
 \label{sec:defer:RCU Implementations}
 
-\ppl{Mathieu}{Desnoyers} created a user-space \acr{rcu} for use in
+\ppl{Mathieu}{Desnoyers} created a
+\IXalthacrrcu{user-space \acr{rcu}}{User-space RCU}{user-space} for use in
 tracing~\cite{MathieuDesnoyers2009URCU,MathieuDesnoyersPhD,MathieuDesnoyers2012URCU},
 which has seen use in a number of projects~\cite{MikeDay2013RCUqemu}.
 
@@ -233,16 +234,17 @@ variant of userspace
 (both also Oxford)~\cite{LihaoLiang2016VerifyTreeRCU}
 used the \IXacr{cbmc}~\cite{EdmundClarke2004CBMC}
 to produce a mechanical proof of correctness of a significant portion
-of Linux-kernel Tree \acr{rcu}.
+of Linux-kernel \IXalthacrrcu{Tree \acr{rcu}}{Tree RCU}{tree}.
 \ppl{Lance}{Roy}~\cite{LanceRoy2017CBMC-SRCU} used \acr{cbmc} to produce a similar
 proof of correctness for a significant portion of Linux-kernel
-\IXacr{srcu}~\cite{PaulEMcKenney2006c}.
+\IXalthacrrcu{\acr{srcu}}{Sleepable RCU (SRCU)}%
+{sleepable (SRCU)}~\cite{PaulEMcKenney2006c}.
 Finally, \ppl{Michalis}{Kokologiannakis} and \ppl{Konstantinos}{Sagonas}
 (National Technical University of
 Athens)~\cite{MichalisKokologiannakis2017NidhuggRCU}
 used the Nighugg tool~\cite{CarlLeonardsson2014Nidhugg}
 to produce a mechanical proof of correctness of a somewhat larger
-portion of Linux-kernel Tree \acr{rcu}.
+portion of Linux-kernel \IXalthacrrcu{Tree \acr{rcu}}{Tree RCU}{tree}.
 
 None of these efforts located any bugs other than bugs injected into
 \acr{rcu} specifically to test the verification tools.
@@ -253,7 +255,8 @@ In contrast,
 automatically mutated Linux-kernel \acr{rcu}'s source code to test the
 coverage of the \co{rcutorture} test suite.
 The effort found several holes in this suite's coverage, one of which
-was hiding a real bug (since fixed) in Tiny \acr{rcu}.
+was hiding a real bug (since fixed) in
+\IXalthacrrcu{Tiny \acr{rcu}}{Tiny RCU}{tiny}.
 
 With some luck, all of this validation work will eventually result in
 more and better tools for validating concurrent code.
