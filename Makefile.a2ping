@@ -410,7 +410,7 @@ ifeq ($(A2PING_GSCNFL),1)
 	$(error a2ping version conflict. See #7 in FAQ-BUILD.txt)
 endif
 ifeq ($(A2PING_GSCNFL),2)
-	@ps2pdf -dALLOWPSTRANSPARENCY -dNOSAFER $< - | pdfcrop -hires - $@
+	@a2ping --below --hires --bboxfrom=compute-gs --gsextra=-dALLOWPSTRANSPARENCY $< $@ > /dev/null 2>&1
 else
 	@a2ping --below --hires --bboxfrom=compute-gs $< $@ > /dev/null 2>&1
 endif
