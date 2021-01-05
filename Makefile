@@ -380,11 +380,17 @@ endif
 
 $(PDFTARGETS_OF_TEX): %.pdf: %.eps
 	@echo "$(basename $<).(eps --> pdf)"
-ifeq ($(GS_953_OR_LATER),1)
-	@ps2pdf -dALLOWPSTRANSPARENCY $< - 2> /dev/null | pdfcrop --hires - $@ > /dev/null
-else
-	@ps2pdf -dNOSAFER $< - | pdfcrop --hires - $@ > /dev/null
+ifndef EPSTOPDF
+	$(error $< --> $@: epstopdf not found. Please install epstopdf of TeX Live)
 endif
+ifeq ($(GS_953_OR_LATER),1)
+	@epstopdf --gsopt=-dALLOWPSTRANSPARENCY $< > /dev/null
+else
+	@epstopdf --nosafer $<
+endif
+	@mv $@ $(basename $@)__.pdf
+	@pdfcrop --hires $(basename $@)__.pdf $@ > /dev/null
+	@rm -f $(basename $@)__.pdf
 
 $(PDFTARGETS_OF_FIG): %.pdf: %.eps
 	@echo "$(basename $<).(eps --> pdf)"
