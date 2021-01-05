@@ -346,14 +346,14 @@ perfbook-a4.tex:
 # Rules related to perfbook_html are removed as of May, 2016
 
 $(EPSSOURCES_FROM_TEX): %.eps: %.tex
-	@echo "$< --> $@"
+	@echo "$(basename $<).(tex --> eps)"
 	sh utilities/mpostcheck.sh
 	@latex -output-directory=$(shell dirname $<) $< > /dev/null 2>&1
 	@dvips -Pdownload35 -E $(patsubst %.tex,%.dvi,$<) -o $@ > /dev/null 2>&1
 	@sh $(FIXANEPSFONTS) $@
 
 $(EPSSOURCES_FROM_DOT): %.eps: %.dot
-	@echo "$< --> $@"
+	@echo "$(basename $<).(dot --> eps)"
 ifndef DOT
 	$(error $< --> $@: dot not found. Please install graphviz)
 endif
@@ -361,7 +361,7 @@ endif
 	@sh $(FIXANEPSFONTS) $@
 
 $(EPSSOURCES_FROM_FIG): %.eps: %.fig
-	@echo "$< --> $@"
+	@echo "$(basename $<).(fig --> eps)"
 ifndef FIG2EPS
 	$(error $< --> $@: fig2eps not found. Please install fig2ps)
 endif
@@ -369,7 +369,7 @@ endif
 	@sh $(FIXANEPSFONTS) $@
 
 $(PDFTARGETS_OF_EPSORIG): %.pdf: %.eps
-	@echo "$< --> $@"
+	@echo "$(basename $<).(eps --> pdf)"
 ifndef EPSTOPDF
 	$(error $< --> $@: epstopdf not found. Please install epstopdf of TeX Live)
 endif
@@ -379,7 +379,7 @@ endif
 	@rm -f $(basename $<)__.*
 
 $(PDFTARGETS_OF_TEX): %.pdf: %.eps
-	@echo "$< --> $@"
+	@echo "$(basename $<).(eps --> pdf)"
 ifeq ($(GS_953_OR_LATER),1)
 	@ps2pdf -dALLOWPSTRANSPARENCY $< - 2> /dev/null | pdfcrop --hires - $@ > /dev/null
 else
@@ -387,21 +387,21 @@ else
 endif
 
 $(PDFTARGETS_OF_FIG): %.pdf: %.eps
-	@echo "$< --> $@"
+	@echo "$(basename $<).(eps --> pdf)"
 ifndef EPSTOPDF
 	$(error $< --> $@: epstopdf not found. Please install epstopdf of TeX Live)
 endif
 	@epstopdf $<
 
 $(PDFTARGETS_OF_EPSOTHER): %.pdf: %.eps
-	@echo "$< --> $@"
+	@echo "$(basename $<).(eps --> pdf)"
 ifndef EPSTOPDF
 	$(error $< --> $@: epstopdf not found. Please install epstopdf of TeX Live)
 endif
 	@epstopdf $<
 
 $(PDFTARGETS_OF_SVG): %.pdf: %.svg
-	@echo "$< --> $@"
+	@echo "$(basename $<).(svg --> pdf)"
 ifeq ($(STEELFONT),0)
 	$(error "Steel City Comic" font not found. See #1 in FAQ.txt)
 endif
@@ -437,17 +437,17 @@ CodeSamples/snippets.d: $(SOURCES_OF_SNIPPET) $(GEN_SNIPPET_D)
 	sh ./utilities/gen_snippet_d.sh
 
 $(FCVSNIPPETS):
-	@echo "$< --> $@"
+	@echo "$< --> $(notdir $@)"
 	@utilities/fcvextract.pl $< $(subst +,\\+,$(subst @,:,$(basename $(notdir $@)))) > $@
 	@utilities/checkfcv.pl $@
 
 $(FCVSNIPPETS_VIA_LTMS):
-	@echo "$< --> $@"
+	@echo "$< --> $(notdir $@)"
 	@utilities/fcvextract.pl $< $(subst +,\\+,$(subst @,:,$(basename $(notdir $@)))) > $@
 	@utilities/checkfcv.pl $@
 
 $(FCVSNIPPETS_LTMS):
-	@echo "$< --> $@"
+	@echo "$< --> $(notdir $@)"
 	@utilities/reorder_ltms.pl $< > $@
 
 help-official:
