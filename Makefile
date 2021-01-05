@@ -47,6 +47,7 @@ EPSSOURCES_FROM_DOT := $(DOTSOURCES:%.dot=%.eps)
 FIGSOURCES := $(wildcard */*.fig) $(wildcard */*/*.fig)
 
 EPSSOURCES_FROM_FIG := $(FIGSOURCES:%.fig=%.eps)
+PDFTARGETS_OF_FIG := $(FIGSOURCES:%.fig=%.pdf)
 
 SVGSOURCES := $(wildcard */*.svg)
 FAKE_EPS_FROM_SVG := $(SVGSOURCES:%.svg=%.eps)
@@ -72,14 +73,14 @@ EPSORIGIN := $(filter-out $(EPSSOURCES_FROM_TEX) $(EPSSOURCES_FROM_DOT) $(EPSSOU
 
 PDFTARGETS_OF_EPSORIG := $(EPSORIGIN:%.eps=%.pdf)
 
-PDFTARGETS_OF_EPSOTHER := $(filter-out $(PDFTARGETS_OF_EPSORIG) $(PDFTARGETS_OF_TEX),$(PDFTARGETS_OF_EPS))
+PDFTARGETS_OF_EPSOTHER := $(filter-out $(PDFTARGETS_OF_EPSORIG) $(PDFTARGETS_OF_TEX) $(PDFTARGETS_OF_FIG),$(PDFTARGETS_OF_EPS))
 
 BIBSOURCES := bib/*.bib alphapf.bst
 
 # required commands
 DOT := $(shell which dot 2>/dev/null)
 FIG2EPS := $(shell which fig2eps 2>/dev/null)
-A2PING := $(shell which a2ping 2>/dev/null)
+EPSTOPDF := $(shell which epstopdf 2>/dev/null)
 INKSCAPE := $(shell which inkscape 2>/dev/null)
 ifdef INKSCAPE
   INKSCAPE_ONE := $(shell inkscape --version 2>/dev/null | grep -c "Inkscape 1")
@@ -122,28 +123,7 @@ endif
 
 STEELFONTID := $(shell fc-list | grep -i steel | grep -c Steel)
 
-ifdef A2PING
-  GS_950_OR_LATER := $(shell gs --version | grep -c -E "9\.[5-9].?")
-  A2PING_277P := $(shell a2ping --help 2>&1 | grep -c "2.77p,")
-  A2PING_283P := $(shell a2ping --help 2>&1 | grep -c "2.83p,")
-  GS_953_OR_LATER := $(shell gs --version | grep -c -E "9\.5[3-9].?")
-  ifeq ($(A2PING_277P),1)
-    A2PING_GSCNFL = 1
-  else
-    ifeq ($(A2PING_283P),1)
-      ifeq ($(GS_950_OR_LATER),1)
-        A2PING_GSCNFL = 1
-      else
-        A2PING_GSCNFL = 0
-      endif
-    else
-      A2PING_GSCNFL = 0
-    endif
-  endif
-  ifeq ($(GS_953_OR_LATER),1)
-    A2PING_GSCNFL = 2
-  endif
-endif
+GS_953_OR_LATER := $(shell gs --version | grep -c -E "9\.5[3-9].?")
 
 LINELABEL_ENV_BEGIN := $(shell grep -l -F '\begin{linelabel}' $(LATEXSOURCES))
 LINELABEL_ENV_END   := $(shell grep -l -F '\end{linelabel}'   $(LATEXSOURCES))
@@ -390,40 +370,35 @@ endif
 
 $(PDFTARGETS_OF_EPSORIG): %.pdf: %.eps
 	@echo "$< --> $@"
-ifndef A2PING
-	$(error $< --> $@: a2ping not found. Please install it)
+ifndef EPSTOPDF
+	$(error $< --> $@: epstopdf not found. Please install epstopdf of TeX Live)
 endif
-ifeq ($(A2PING_GSCNFL),1)
-	$(error You need to update a2ping. See #7 in FAQ-BUILD.txt)
-endif
-	@cp $< $<i
-	@sh $(FIXANEPSFONTS) $<i
-	@a2ping --below --hires --bboxfrom=compute-gs $<i $@ > /dev/null 2>&1
-	@rm -f $<i
+	@cp $< $(basename $<)__.eps
+	@sh $(FIXANEPSFONTS) $(basename $<)__.eps
+	@epstopdf $(basename $<)__.eps; pdfcrop --hires $(basename $<)__.pdf $@ > /dev/null
+	@rm -f $(basename $<)__.*
 
 $(PDFTARGETS_OF_TEX): %.pdf: %.eps
 	@echo "$< --> $@"
-ifndef A2PING
-	$(error $< --> $@: a2ping not found. Please install it)
-endif
-ifeq ($(A2PING_GSCNFL),1)
-	$(error a2ping version conflict. See #7 in FAQ-BUILD.txt)
-endif
-ifeq ($(A2PING_GSCNFL),2)
-	@ps2pdf -dALLOWPSTRANSPARENCY -dNOSAFER $< - | pdfcrop -hires - $@
+ifeq ($(GS_953_OR_LATER),1)
+	@ps2pdf -dALLOWPSTRANSPARENCY $< - 2> /dev/null | pdfcrop --hires - $@ > /dev/null
 else
-	@a2ping --below --hires --bboxfrom=compute-gs $< $@ > /dev/null 2>&1
+	@ps2pdf -dNOSAFER $< - | pdfcrop --hires - $@ > /dev/null
 endif
+
+$(PDFTARGETS_OF_FIG): %.pdf: %.eps
+	@echo "$< --> $@"
+ifndef EPSTOPDF
+	$(error $< --> $@: epstopdf not found. Please install epstopdf of TeX Live)
+endif
+	@epstopdf $<
 
 $(PDFTARGETS_OF_EPSOTHER): %.pdf: %.eps
 	@echo "$< --> $@"
-ifndef A2PING
-	$(error $< --> $@: a2ping not found. Please install it)
+ifndef EPSTOPDF
+	$(error $< --> $@: epstopdf not found. Please install epstopdf of TeX Live)
 endif
-ifeq ($(A2PING_GSCNFL),1)
-	$(error a2ping version conflict. See #7 in FAQ-BUILD.txt)
-endif
-	@a2ping --below --hires --bboxfrom=compute-gs $< $@ > /dev/null 2>&1
+	@epstopdf $<
 
 $(PDFTARGETS_OF_SVG): %.pdf: %.svg
 	@echo "$< --> $@"
