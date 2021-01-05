@@ -86,45 +86,46 @@ which is described in the following section.
 	  it's supposed to do.}
 	 {\emph{Robert A. Heinlein}}
 
-The term \emph{non-blocking synchronization} (NBS)~\cite{Herlihy90}
+\IXacrb{nbs}
+The term \acr{nbs}~\cite{Herlihy90}
 describes seven classes of linearizable algorithms with differing
-\emph{forward-progress guarantees}~\cite{DanAlitarh2013PracticalProgress},
+\emph{\IXpl{forward-progress guarantee}}~\cite{DanAlitarh2013PracticalProgress},
 which are as follows:
 
 \begin{enumerate}
-\item	\emph{Bounded wait-free synchronization}: Every thread
+\item	\emph{\IX{Bounded wait-free synchronization}}: Every thread
 	will make progress within
 	a specific finite period of time~\cite{Herlihy91}.
 	(Note that this level is
 	widely considered to be unachievable, which might be why
 	Alitarh et al.~\cite{DanAlitarh2013PracticalProgress}
 	omitted it.)
-\item	\emph{Wait-free synchronization}: Every thread will make progress
+\item	\emph{\IX{Wait-free synchronization}}: Every thread will make progress
 	in finite time~\cite{Herlihy93}.
-\item	\emph{Lock-free synchronization}: At least one thread will
+\item	\emph{\IX{Lock-free synchronization}}: At least one thread will
 	make progress in finite time~\cite{Herlihy93}.
-\item	\emph{Obstruction-free synchronization}: Every thread will
+\item	\emph{\IX{Obstruction-free synchronization}}: Every thread will
 	make progress in finite time in the absence of
 	contention~\cite{HerlihyLM03}.
-\item	\emph{Clash-free synchronization}: At least one thread will
+\item	\emph{\IX{Clash-free synchronization}}: At least one thread will
 	make progress in finite time in the absence of
 	contention~\cite{DanAlitarh2013PracticalProgress}.
-\item	\emph{Starvation-free synchronization}: Every thread will
+\item	\emph{\IX{Starvation-free synchronization}}: Every thread will
 	make progress in finite time in the absence of
 	failures~\cite{DanAlitarh2013PracticalProgress}.
-\item	\emph{Deadlock-free synchronization}: At least one thread will
+\item	\emph{\IX{Deadlock-free synchronization}}: At least one thread will
 	make progress in finite time in the absence of
 	failures~\cite{DanAlitarh2013PracticalProgress}.
 \end{enumerate}
 
-NBS classes~1, 2 and~3 were first formulated in the early 1990s,
+\Acr{nbs} classes~1, 2 and~3 were first formulated in the early 1990s,
 class~4 was first formulated in the early 2000s,
 and class~5 was first formulated in 2013.
 The final two classes have seen informal use for a great many decades,
 but were reformulated in 2013.
 
 In theory, any parallel algorithm can be cast into wait-free form,
-but there are a relatively small subset of NBS algorithms that are
+but there are a relatively small subset of \acr{nbs} algorithms that are
 in common use.
 A few of these are listed in the following section.
 
@@ -453,6 +454,7 @@ However, once an appropriate body of theory becomes available,\footnote{
 	Admittedly often much later than the first \emph{proposed}
 	body of theory.}
 it is wise to make use of it.
+\IXacre{nbs}
 
 \input{advsync/rt}
 
