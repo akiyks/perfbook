@@ -65,7 +65,10 @@ EPSSOURCES_DUP := \
 	$(EPSSOURCES_FROM_DOT) \
 	$(EPSSOURCES_FROM_FIG)
 
-EPSSOURCES := $(sort $(filter-out $(OBSOLETE_FILES),$(EPSSOURCES_DUP)))
+# Get EX_EPS (list of unused .eps files)
+include unused-eps.mk
+
+EPSSOURCES := $(sort $(filter-out $(OBSOLETE_FILES) $(EX_EPS),$(EPSSOURCES_DUP)))
 
 PDFTARGETS_OF_EPS := $(EPSSOURCES:%.eps=%.pdf)
 
