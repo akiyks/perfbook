@@ -498,7 +498,8 @@ re-entering dynticks-idle mode (for example, that same task blocking).
 	Why isn't the memory barrier in \co{rcu_exit_nohz()}
 	and \co{rcu_enter_nohz()} modeled in Promela?
 }\QuickQuizAnswerB{
-	Promela assumes sequential consistency, so
+	Promela assumes \IXh{sequential consistency}{memory consistency}
+	{sequential}, so
 	it is not necessary to model memory barriers.
 	In fact, one must instead explicitly model lack of memory barriers,
 	for example, as shown in

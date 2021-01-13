@@ -387,7 +387,7 @@ socket~1's CPU~28 incur the overhead of passing data across
 socket boundaries.
 This can severely degrade performance, as was discussed in
 Section~\ref{sec:cpu:Hardware System Architecture}.
-In short, large multi-socket systems require good locality of reference
+In short, large multi-socket systems require good \IX{locality of reference}
 in addition to full partitioning.
 
 \QuickQuiz{
@@ -2092,7 +2092,7 @@ paper~\cite{BenjaminGamsa95a}.\footnote{
 	A number of these rules are paraphrased and expanded on here
 	with permission from Orran Krieger.}
 The first group of rules involve rearranging structures to accommodate
-cache geometry:
+\IX{cache geometry}:
 
 \begin{enumerate}
 \item	Separate read-mostly data from data that is frequently updated.

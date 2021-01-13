@@ -73,10 +73,14 @@
 \usepackage[breakable,skins]{tcolorbox}
 \usepackage[split,makeindex]{splitidx}
 \usepackage[nottoc]{tocbibind}
-\usepackage[columns=3,totoc,indentunit=12pt,justific=raggedright,font=small,columnsep=.15in,unbalanced]{idxlayout}
+\usepackage[columns=3,totoc,indentunit=12pt,justific=raggedright,font=small,columnsep=.15in]{idxlayout}
 \usepackage[bookmarks=true,bookmarksnumbered=true,pdfborder={0 0 0},linktoc=all]{hyperref}
 \usepackage{footnotebackref} % to enable cross-ref of footnote
 \usepackage[all]{hypcap} % for going to the top of figure and table
+\usepackage[acronym]{glossaries-extra}
+\usepackage[longragged]{glossaries-extra-stylemods}
+\makeglossaries
+\setabbreviationstyle[acronym]{long-short}
 \usepackage{epigraph}[2020/01/02] % latest version prevents orphaned epigraph
 \setlength{\epigraphwidth}{2.6in}
 \usepackage[xspace]{ellipsis}
@@ -142,6 +146,9 @@
 \newboolean{indexhl}
 \setboolean{indexhl}{false}
 \newcommand{\IfIndexHl}[2]{\ifthenelse{\boolean{indexhl}}{#1}{#2}}
+\newboolean{indexhier}
+\setboolean{indexhier}{true}
+\newcommand{\IfIndexHier}[2]{\ifthenelse{\boolean{indexhier}}{#1}{#2}}
 
 % Custom commands for index
 \newindex[API Index]{api} % index for API
@@ -152,8 +159,60 @@
 }{
 \newcommand{\hlindex}[1]{#1}
 }
-\newcommand{\IX}[1]{\hlindex{#1}\index{#1}} % put as is into general index
-\newcommand{\IXalt}[2]{\hlindex{#1}\index{#2}} % put alternative into general index
+% For consistent index entries of capitalization of "Index entry"
+\newcommand{\ucindex}[1]{%
+  \lowercase{\def\temp{#1}}%
+  \expandafter\index\expandafter{\temp@\makefirstuc{\temp}}%
+}
+\newcommand{\ucindexh}[2]{%
+  \lowercase{\def\temp{#1}}%
+  \expandafter\index\expandafter{\temp@\makefirstuc{\temp}!#2}%
+}
+\newcommand{\indexhraw}[2]{%
+  \expandafter\index\expandafter{#1!#2}%
+}
+\newcommand{\ucxindex}[2]{%
+  \lowercase{\def\temp{#1}}%
+  \expandafter\index\expandafter{\temp@\makefirstuc{\temp}#2}%
+}
+
+\IfIndexHier{
+\newcommand{\indexh}[3]{\ucindexh{#2}{#3}}
+\newcommand{\indexhr}[3]{\indexhraw{#2}{#3}}
+\newcommand{\indexhx}[4]{\ucindexh{#3}{#4}}
+}{
+\newcommand{\indexh}[3]{\ucindex{#1}}
+\newcommand{\indexhr}[3]{\index{#1}}
+\newcommand{\indexhx}[4]{\ucxindex{#1}{#2}}
+}
+
+\newcommand{\IX}[1]{\hlindex{#1}\ucindex{#1}} % put with first letter capitalized into general index
+\newcommand{\IXr}[1]{\hlindex{#1}\index{#1}} % put as is into general index
+\newcommand{\IXpl}[1]{\hlindex{#1s}\ucindex{#1}} % put with first letter capitalized into general index for plural
+\newcommand{\IXplr}[1]{\hlindex{#1s}\index{#1}} % put as is into general index for plural
+\newcommand{\IXalt}[2]{\hlindex{#1}\ucindex{#2}} % put alternative with first letter capitalized into general index
+\newcommand{\IXaltr}[2]{\hlindex{#1}\index{#2}} % put alternative as is into general index
+\newcommand{\IXaltx}[3]{\hlindex{#1}\ucxindex{#2}{#3}} % for putting annotations for index ranges
+\newcommand{\IXh}[3]{\hlindex{#1}\indexh{#1}{#2}{#3}}
+\newcommand{\IXhr}[3]{\hlindex{#1}\indexhr{#1}{#2}{#3}}
+\newcommand{\IXplh}[3]{\hlindex{#1s}\indexh{#1}{#2}{#3}}
+\newcommand{\IXalth}[4]{\hlindex{#1}\indexh{#2}{#3}{#4}}
+\newcommand{\IXalthr}[4]{\hlindex{#1}\indexhr{#2}{#3}{#4}}
+\newcommand{\IXalthx}[5]{\hlindex{#1}\indexhx{#2}{#3}{#4}{#5}}
+
+\IfIndexOn{
+  \newcommand{\IXacr}[1]{\gls{#1}\glsuseri{#1}} % put index via acronym dictionary
+  \newcommand{\IXAcr}[1]{\Gls{#1}\glsuseri{#1}} % put index via acronym dictionary (upper case)
+  \newcommand{\acr}[1]{\gls{#1}}
+  \newcommand{\Acr}[1]{\Gls{#1}}
+}{
+  \newcommand{\IXacr}[1]{\gls*{#1}\glsuseri{#1}} % put index via acronym dictionary
+  \newcommand{\IXAcr}[1]{\Gls*{#1}\glsuseri{#1}} % put index via acronym dictionary (upper case)
+  \newcommand{\acr}[1]{\gls*{#1}}
+  \newcommand{\Acr}[1]{\Gls*{#1}}
+}
+\newcommand{\IXacrb}[1]{\glsuserii{#1}}
+\newcommand{\IXacre}[1]{\glsuseriii{#1}}
 \newcommand{\apic}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{c}}}
 \newcommand{\apig}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{g}}}
 \newcommand{\apipx}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{px}}}
@@ -352,6 +411,9 @@
 \SetWatermarkVerCenter{.95\paperheight}
 }{}
 
+% Glossaries dictionary and custom settings
+\input{glsdict}
+
 \begin{document}
 
 %%HTMLSKIP
@@ -491,13 +553,17 @@
 
 % Index if enabled
 \IfIndexOn{
-\cleardoublepage
+\include{indexsee}
+\IfIndexHier{
+\include{indexseehier}
+}{}
 \phantomsection
 \IfTwoColumn{}{
-\newgeometry{body={6.5in,8.25in},centering=true,columnsep=0.25in}
+\newgeometry{body={6.5in,8.25in},centering=true,onecolumn}
 }
+\printglossaries
+\phantomsection
 \printindex
-\cleardoublepage
 \phantomsection
 \printindex[api]
 \IfTwoColumn{}{

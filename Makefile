@@ -5,8 +5,11 @@ GITREFSTAGS := $(shell ls -d .git/refs/tags 2>/dev/null)
 LATEXSOURCES = \
 	perfbook-lt.tex \
 	legal.tex \
+	ack.tex \
 	glossary.tex \
+	indexsee.tex indexseehier.tex \
 	qqz.sty origpub.sty \
+	glsdict.tex \
 	noindentafter.sty \
 	pfbook.cls \
 	ushyphex.tex pfhyphex.tex \
@@ -542,7 +545,9 @@ clean:
 	rm -f perfbook_flat.tex perfbook*.out $(GENERATED_MAIN)
 	rm -f $(LATEXGENERATED)
 	rm -f qqz*.tex
-	rm -f perfbook*.idx perfbook*.ind perfbook*.ilg
+	rm -f perfbook*.idx perfbook*.ind perfbook*.ilg perfbook*.ist
+	rm -f perfbook*.acn perfbook*.acr perfbook*.alg
+	rm -f perfbook*.glg perfbook*.glo perfbook*.gls perfbook*.glsdefs
 	rm -f CodeSamples/snippets.d
 	rm -f *.synctex*
 	@rm -f $(OBSOLETE_FILES)

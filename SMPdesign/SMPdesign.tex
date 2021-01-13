@@ -67,7 +67,7 @@ has no interactions with other processes, threads, or interrupt
 handlers, you should
 remove the synchronization primitives and spare yourself their
 overhead and complexity.
-Some years back, there were those who would argue that \IX{Moore's Law}
+Some years back, there were those who would argue that \IXr{Moore's Law}
 would eventually force all programs into this category.
 However, as can be seen in
 Figure~\ref{fig:SMPdesign:Clock-Frequency Trend for Intel CPUs},
@@ -166,6 +166,7 @@ On the other hand, if you are not in this happy situation, read on!
 \subsection{Code Locking}
 \label{sec:SMPdesign:Code Locking}
 
+\IXalthx{}{Code locking}{|(}{Locking}{code|(}%
 Code locking is quite simple due to the fact that is uses only
 global locks.\footnote{
 	If your program instead has locks in data structures,
@@ -258,6 +259,7 @@ as illustrated in Figure~\ref{fig:SMPdesign:Lock Contention}.
 
 One solution to this problem, named ``data locking'', is described
 in the next section.
+\IXalthx{}{Code locking}{|)}{Locking}{code|)}
 
 \begin{figure}[tbh]
 \centering
@@ -269,6 +271,7 @@ in the next section.
 \subsection{Data Locking}
 \label{sec:SMPdesign:Data Locking}
 
+\IXalthx{}{Data locking}{|(}{Locking}{data|(}%
 Many data structures may be partitioned,
 with each partition of the data structure having its own lock.
 Then the critical sections for each part of the data structure
@@ -401,6 +404,7 @@ However, this trick would not work if the hash table were resizeable,
 so that the locks were now dynamically allocated.
 In this case, there would need to be some means to prevent the hash
 bucket from being freed during the time that its lock was being acquired.
+\IXalthx{}{Data locking}{|)}{Locking}{data|)}
 
 \QuickQuiz{
 	What are some ways of preventing a structure from being freed while

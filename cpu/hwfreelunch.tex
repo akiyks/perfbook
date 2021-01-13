@@ -12,10 +12,11 @@
 	 {\emph{Henry Ford, updated}}
 
 The major reason that concurrency has been receiving so much focus over
-the past few years is the end of \IXalt{Moore's-Law}{Moore's Law}
+the past few years is the end of \IXaltr{Moore's-Law}{Moore's Law}
 induced single-threaded
 performance increases
-(or ``free lunch''~\cite{HerbSutter2008EffectiveConcurrency}),
+(or ``\IXalthr{free lunch}{Moore's Law free lunch}%
+{Moore's Law}{free lunch of}''~\cite{HerbSutter2008EffectiveConcurrency}),
 as shown in
 Figure~\ref{fig:intro:Clock-Frequency Trend for Intel CPUs} on
 page~\pageref{fig:intro:Clock-Frequency Trend for Intel CPUs}.
@@ -38,7 +39,8 @@ of a modern computer system.
 To make matters even worse, electric waves in silicon move from three to
 thirty times more slowly than does light in a vacuum, and common
 clocked logic constructs run still more slowly, for example, a
-memory reference may need to wait for a local cache lookup to complete
+\IXalt{memory reference}{Memory reference cost}
+may need to wait for a local cache lookup to complete
 before the request may be passed on to the rest of the system.
 Furthermore, relatively low speed and high power drivers are required
 to move electrical signals from one silicon die to another, for example,
@@ -126,7 +128,8 @@ Each of these is described in one of the following sections.
 \subsection{3D Integration}
 \label{sec:cpu:3D Integration}
 
-3-dimensional integration (3DI) is the practice of bonding
+\IXacrb{3di}%
+\Acr{3di} is the practice of bonding
 very thin silicon dies to each other in a vertical stack.
 This practice provides potential benefits, but also poses
 significant fabrication challenges~\cite{JohnKnickerbocker2008:3DI}.
@@ -138,7 +141,7 @@ significant fabrication challenges~\cite{JohnKnickerbocker2008:3DI}.
 \label{fig:cpu:Latency Benefit of 3D Integration}
 \end{figure}
 
-Perhaps the most important benefit of 3DI is decreased path length through
+Perhaps the most important benefit of \acr{3di} is decreased path length through
 the system, as shown in
 Figure~\ref{fig:cpu:Latency Benefit of 3D Integration}.
 A 3-centimeter silicon die is replaced with a stack of four 1.5-centimeter
@@ -162,6 +165,7 @@ In addition, it seems unlikely that any of these technologies will be able to
 deliver the exponential increases to which some people have become accustomed.
 That said, they may be necessary steps on the path to the late Jim Gray's
 ``smoking hairy golf balls''~\cite{JimGray2002SmokingHairyGolfBalls}.
+\IXacre{3di}
 
 \subsection{Novel Materials and Processes}
 \label{sec:cpu:Novel Materials and Processes}
@@ -198,6 +202,7 @@ excellent bragging rights, if nothing else!
 \subsection{Light, Not Electrons}
 \label{sec:cpu:Light, Not Electrons}
 
+\IXaltx{}{Speed of light}{|(}%
 Although the speed of light would be a hard limit, the fact is that
 semiconductor devices are limited by the speed of electricity rather
 than that of light, given that electric waves in semiconductor materials
@@ -216,6 +221,7 @@ power-consumption and heat-dissipation problems.
 That said, absent some fundamental advances in the field of physics,
 any exponential increases in the speed of data flow
 will be sharply limited by the actual speed of light in a vacuum.
+\IXaltx{}{Speed of light}{|)}
 
 \subsection{Special-Purpose Accelerators}
 \label{sec:cpu:Special-Purpose Accelerators}
@@ -254,6 +260,7 @@ hardware has thus far appeared only for a few application areas,
 including graphics processing (GPUs), vector processors (MMX, SSE,
 and VMX instructions), and, to a lesser extent, encryption.
 
+\IXaltx{}{Accelerator}{|(}%
 Unlike the server and PC arena, smartphones have long used a wide
 variety of hardware accelerators.
 These hardware accelerators are often used for media decoding,
@@ -264,8 +271,9 @@ and thus extend battery life: special purpose hardware can often
 compute more efficiently than can a general-purpose CPU.
 This is another example of the principle called out in
 Section~\ref{sec:intro:Generality}: Generality is almost never free.
+\IXaltx{}{Accelerator}{|)}
 
-Nevertheless, given the end of \IXalt{Moore's-Law}{Moore's Law}-induced
+Nevertheless, given the end of \IXaltr{Moore's-Law}{Moore's Law}-induced
 single-threaded performance increases, it seems safe to assume that
 increasing varieties of special-purpose hardware will appear.
 

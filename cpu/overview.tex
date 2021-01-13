@@ -25,7 +25,7 @@ shown in Figure~\ref{fig:cpu:CPU Performance at its Best},
 the typical program more closely resembles an obstacle course than
 a race track.
 This is because the internal architecture of CPUs has changed dramatically
-over the past few decades, courtesy of \IX{Moore's Law}.
+over the past few decades, courtesy of \IXr{Moore's Law}.
 These changes are described in the following sections.
 
 \subsection{Pipelined CPUs}
@@ -38,18 +38,20 @@ These changes are described in the following sections.
 \ContributedBy{Figure}{fig:cpu:CPUs Old and New}{Melissa Broussard}
 \end{figure}
 
+\IXalthr{}{Pipelined CPU|(}{CPU}{pipelined|(}%
 In the 1980s, the typical microprocessor fetched an instruction, decoded
 it, and executed it, typically taking \emph{at least} three clock cycles
 to complete one instruction before even starting the next.
 In contrast, the CPU of the late 1990s and of the 2000s execute many
-instructions simultaneously, using \emph{pipelines}; \emph{superscalar}
-techniques; \emph{out-of-order} instruction and data handling;
-\emph{speculative execution}, and
+instructions simultaneously, using \emph{pipelines};
+\emph{\IXalthr{superscalar}{Superscalar CPU}{CPU}{superscalar}} techniques;
+\emph{\IXalt{out-of-order}{out-of-order execution}}
+instruction and data handling;
+\emph{\IX{speculative execution}}, and
 more~\cite{Hennessy2011}
 in order to optimize the flow of instructions and data through the CPU.
-Some cores have more than one hardware thread, which is variously called
-\emph{simultaneous multithreading} (SMT) or \emph{hyperthreading}
-(HT)~\cite{JFennel1973SMT},
+Some cores have more than one \IX{hardware thread}, which is variously called
+\IXacr{smt} or \IXacr{ht}~\cite{JFennel1973SMT},
 each of which appears as
 an independent CPU to software, at least from a functional viewpoint.
 These modern hardware features can greatly improve performance, as
@@ -81,7 +83,7 @@ In these cases, it is difficult or even
 impossible for the CPU to predict where the next branch might lead.
 Then either the CPU must stall waiting for execution to proceed far
 enough to be certain where that branch leads, or it must guess and
-then proceed using speculative execution.
+then proceed using \IX{speculative execution}.
 Although guessing works extremely well for programs with predictable
 control flow, for unpredictable branches (such as those in binary search)
 the guesses will frequently be wrong.
@@ -99,13 +101,15 @@ Figure~\ref{fig:cpu:CPU Meets a Pipeline Flush}.
 \label{fig:cpu:Rough View of Modern Micro-Architecture}
 \end{figure}
 
-This gets even worse in the increasingly common case of hyperthreading
-(or SMT, if you prefer), especially on pipelined superscalar out-of-order
-CPU featuring speculative execution.
-In this increasingly common case, all the hardware threads sharing
+This gets even worse in the increasingly common case of \IXacr{ht}
+(or \IXacr{smt}, if you prefer), especially on pipelined
+\IXalthr{superscalar}{Superscalar CPU}{CPU}{superscalar}
+\IXalt{out-of-order}{out-of-order execution}
+CPU featuring \IX{speculative execution}.
+In this increasingly common case, all the \IXpl{hardware thread} sharing
 a core also share that core's resources, including registers, cache,
 execution units, and so on.
-The instructions are often decoded into micro-operations, and use of the
+The instructions are often decoded into \IXpl{micro-operation}, and use of the
 shared execution units and the hundreds of hardware registers is often
 coordinated by a micro-operation scheduler.
 A rough diagram of such a two-threaded core is shown in
@@ -117,7 +121,7 @@ textbooks and scholarly papers.\footnote{
 Therefore, the execution of one hardware thread can and often is perturbed
 by the actions of other hardware threads sharing that core.
 
-Even if only one hardware thread is active (for example, in old-school
+Even if only one \IX{hardware thread} is active (for example, in old-school
 CPU designs where there is only one thread), counterintuitive results
 are quite common.
 Execution units often have overlapping capabilities, so that a CPU's
@@ -131,15 +135,17 @@ actually cause execution to \emph{speed up}.
 Unfortunately, pipeline flushes and shared-resource contention are not
 the only hazards in the obstacle course that modern CPUs must run.
 The next section covers the hazards of referencing memory.
+\IXalthr{}{Pipelined CPU|)}{CPU}{pipelined|)}
 
 \subsection{Memory References}
 \label{sec:cpu:Memory References}
 
+\IXaltx{}{Memory reference cost}{|(}%
 In the 1980s, it often took less time for a microprocessor to load a value
 from memory than it did to execute an instruction.
 More recently, microprocessors might execute hundreds or even thousands
 of instructions in the time required to access memory.
-This disparity is due to the fact that \IX{Moore's Law} has increased CPU
+This disparity is due to the fact that \IXr{Moore's Law} has increased CPU
 performance at a much greater rate than it has decreased memory latency,
 in part due to the rate at which memory sizes have grown.
 For example, a typical 1970s minicomputer might have 4\,KB (yes, kilobytes,
@@ -175,10 +181,12 @@ Thus far, we have only been considering obstacles that can arise during
 a given CPU's execution of single-threaded code.
 Multi-threading presents additional obstacles to the CPU, as
 described in the following sections.
+\IXaltx{}{Memory reference cost}{|)}
 
 \subsection{Atomic Operations}
 \label{sec:cpu:Atomic Operations}
 
+\IXaltx{}{Atomic operation}{|(}%
 One such obstacle is atomic operations.
 The problem here is that the whole idea of an atomic operation conflicts with
 the piece-at-a-time assembly-line operation of a CPU pipeline.
@@ -220,6 +228,7 @@ be maintained between updates of multiple data elements, most CPUs
 provide memory barriers.
 These memory barriers also serve as performance-sapping obstacles,
 as described in the next section.
+\IXaltx{}{Atomic operation}{|)}
 
 \QuickQuiz{
 	What types of machines would allow atomic operations on

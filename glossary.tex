@@ -9,7 +9,7 @@
 	        David~Levary~et~al.}}
 
 \begin{description}
-\item[Associativity:]\index{Associativity}
+\item[\IXalt{Associativity}{Cache associativity}:]
 	The number of cache lines that can be held simultaneously in
 	a given cache, when all of these cache lines hash identically
 	in that cache.
@@ -24,21 +24,21 @@
 	fully associative caches are normally quite limited in size.
 	The associativity of the large caches found on modern microprocessors
 	typically range from two-way to eight-way.
-\item[Associativity Miss:]\index{Associativity miss}
+\item[\IXh{Associativity Miss}{Cache miss}{associativity}:]
 	A cache miss incurred because the corresponding CPU has recently
 	accessed more data hashing to a given set of the cache than will
 	fit in that set.
 	Fully associative caches are not subject to associativity misses
 	(or, equivalently, in fully associative caches, associativity
 	and capacity misses are identical).
-\item[Atomic:]\index{Atomic}
+\item[\IXalt{Atomic}{Atomic operation}:]
 	An operation is considered ``atomic'' if it is not possible to
 	observe any intermediate state.
 	For example, on most CPUs, a store to a properly aligned pointer
 	is atomic, because other CPUs will see either the old value or
 	the new value, but are guaranteed not to see some mixed value
 	containing some pieces of the new and old values.
-\item[Cache:]\index{Cache}
+\item[\IX{Cache}:]
 	In modern computer systems, CPUs have caches in which to hold
 	frequently used data.
 	These caches can be thought of as hardware hash tables with very
@@ -70,7 +70,7 @@
 	that enforces memory consistency and ordering, preventing
 	different CPUs from seeing inconsistent views of data held
 	in their caches.
-\item[Cache Geometry:]\index{Cache geometry}
+\item[\IX{Cache Geometry}:]
 	The size and associativity of a cache is termed its geometry.
 	Each cache may be thought of as a two-dimensional array,
 	with rows of cache lines (``sets'') that have the same hash
@@ -91,7 +91,7 @@
 	on a cache-line boundary.
 	For example, the address of the first word of a cache line
 	in memory will end in 0x00 on systems with 256-byte cache lines.
-\item[Cache Miss:]\index{Cache miss}
+\item[\IX{Cache Miss}:]
 	A cache miss occurs when data needed by the CPU is not in
 	that CPU's cache.
 	The data might be missing because of a number of reasons,
@@ -113,10 +113,10 @@
 	(5) this CPU attempted to write to a cache line that is
 	currently read-only, possibly due to that line being replicated
 	in other CPUs' caches.
-\item[Capacity Miss:]\index{Capacity miss}
+\item[\IXh{Capacity Miss}{Cache miss}{capacity}:]
 	A cache miss incurred because the corresponding CPU has recently
 	accessed more data than will fit into the cache.
-\item[Code Locking:]\index{Code locking}
+\item[\IXh{Code Locking}{Locking}{code}:]
 	A simple locking design in which a ``global lock'' is used to protect
 	a set of critical sections, so that access by a given thread
 	to that set is
@@ -128,10 +128,10 @@
 	scalability (in fact, will typically \emph{decrease} scalability
 	by increasing ``lock contention'').
 	Contrast with ``data locking''.
-\item[Communication Miss:]\index{Communication miss}
+\item[\IXh{Communication Miss}{Cache miss}{communication}:]
 	A cache miss incurred because some other CPU has written to
 	the cache line since the last time this CPU accessed it.
-\item[Critical Section:]\index{Critical section}
+\item[\IX{Critical Section}:]
 	A section of code guarded by some synchronization mechanism,
 	so that its execution constrained by that primitive.
 	For example, if a set of critical sections are guarded by
@@ -140,7 +140,7 @@
 	If a thread is executing in one such critical section,
 	any other threads must wait until the first thread completes
 	before executing any of the critical sections in the set.
-\item[Data Locking:]\index{Data locking}
+\item[\IXh{Data Locking}{Locking}{data}:]
 	A scalable locking design in which each instance of a given
 	data structure has its own lock.
 	If each thread is using a different instance of the
@@ -150,7 +150,7 @@
 	increasing numbers of CPUs as the number of instances of
 	data grows.
 	Contrast with ``code locking''.
-\item[Direct-Mapped Cache:]\index{Direct-mapped cache}
+\item[\IXh{Direct-Mapped Cache}{Cache}{direct-mapped}:]
 	A cache with only one way, so that it may hold only one cache
 	line with a given hash value.
 \item[Embarrassingly Parallel:]\index{Embarrassingly parallel}
@@ -158,7 +158,7 @@
 	increase the overall cost of the computation, resulting in
 	linear speedups as threads are added (assuming sufficient
 	CPUs are available).
-\item[Exclusive Lock:]\index{Exclusive lock}
+\item[\IXh{Exclusive Lock}{Lock}{exclusive}:]
 	An exclusive lock is a mutual-exclusion mechanism that
 	permits only one thread at a time into the
 	set of critical sections guarded by that lock.
@@ -181,7 +181,7 @@
 	while internal fragmentation occurs when specific requests or
 	types of requests have been allotted more memory than they
 	actually requested.
-\item[Fully Associative Cache:]\index{Fully associative cache}
+\item[\IXh{Fully Associative Cache}{Cache}{fully associative}:]
 	A fully associative cache contains only
 	one set, so that it can hold any subset of
 	memory that fits within its capacity.
@@ -216,13 +216,13 @@
 	If necessary, the item is removed from the other CPUs' caches
 	via ``invalidation'' messages from the writing CPUs to any
 	CPUs having a copy in their caches.
-\item[IPI:]\index{IPI}
+\item[IPI:]\glsuseri{ipi}
 	Inter-processor interrupt, which is an
 	interrupt sent from one CPU to another.
 	IPIs are used heavily in the Linux kernel, for example, within
 	the scheduler to alert CPUs that a high-priority process is now
 	runnable.
-\item[IRQ:]\index{IRQ}
+\item[IRQ:]\glsuseri{irq}
 	Interrupt request, often used as an abbreviation for ``interrupt''
 	within the Linux kernel community, as in ``irq handler''.
 \item[Linearizable:]\index{Linearizable}
@@ -232,7 +232,7 @@
 	Linearizability is much prized by many researchers, but less
 	useful in practice than one might
 	expect~\cite{AndreasHaas2012FIFOisnt}.
-\item[Lock:]\index{Lock}
+\item[\IX{Lock}:]
 	A software abstraction that can be used to guard critical sections,
 	as such, an example of a ``mutual exclusion mechanism''.
 	An ``exclusive lock'' permits only one thread at a time into the
@@ -248,7 +248,7 @@
 	used so heavily that there is often a CPU waiting on it.
 	Reducing lock contention is often a concern when designing
 	parallel algorithms and when implementing parallel programs.
-\item[Memory Consistency:]\index{Memory consistency}
+\item[\IX{Memory Consistency}:]
 	A set of properties that impose constraints on the order in
 	which accesses to groups of variables appear to occur.
 	Memory consistency models range from sequential consistency,
@@ -276,21 +276,21 @@
 \item[Mutual-Exclusion Mechanism:]\index{Mutual-exclusion mechanism}
 	A software abstraction that regulates threads' access to
 	``critical sections'' and corresponding data.
-\item[NMI:]\index{NMI}
+\item[NMI:]\glsuseri{nmi}
 	Non-maskable interrupt.
 	As the name indicates, this is an extremely high-priority
 	interrupt that cannot be masked.
 	These are used for hardware-specific purposes such as profiling.
 	The advantage of using NMIs for profiling is that it allows you
 	to profile code that runs with interrupts disabled.
-\item[NUCA:]\index{NUCA}
+\item[NUCA:]\glsuseri{nuca}
 	Non-uniform cache architecture, where groups of CPUs share
 	caches and/or store buffers.
 	CPUs in a group can therefore exchange cache lines with each
 	other much more quickly than they can with CPUs in other groups.
 	Systems comprised of CPUs with hardware threads will generally
 	have a NUCA architecture.
-\item[NUMA:]\index{NUMA}
+\item[NUMA:]\glsuseri{numa}
 	Non-uniform memory architecture, where memory is split into
 	banks and each such bank is ``close'' to a group of CPUs,
 	the group being termed a ``NUMA node''.
@@ -302,7 +302,7 @@
 	A group of closely placed CPUs and associated memory within
 	a larger NUMA machines.
 	Note that a NUMA node might well have a NUCA architecture.
-\item[Pipelined CPU:]\index{Pipelined CPU}
+\item[\IXhr{Pipelined CPU}{CPU}{pipelined}:]
 	A CPU with a pipeline, which is
 	an internal flow of instructions internal to the CPU that
 	is in some way similar to an assembly line, with many of
@@ -310,7 +310,7 @@
 	In the 1960s through the early 1980s, pipelined CPUs were the
 	province of supercomputers, but started appearing in microprocessors
 	(such as the 80486) in the late 1980s.
-\item[Process Consistency:]\index{Process consistency}
+\item[\IXh{Process Consistency}{memory consistency}{process}:]
 	A memory-consistency model in which each CPU's stores appear to
 	occur in program order, but in which different CPUs might see
 	accesses from more than one CPU as occurring in different orders.
@@ -322,7 +322,7 @@
 	(The reason such CPUs are now the stuff of ancient myths
 	and legends is that they were extremely slow.
 	These dinosaurs were one of the many victims of
-	\IXalt{Moore's-Law}{Moore's Law}-driven increases in CPU clock frequency.
+	\IXaltr{Moore's-Law}{Moore's Law}-driven increases in CPU clock frequency.
 	Some claim that these beasts will roam the earth once again,
 	others vehemently disagree.)
 \item[Quiescent State:]\index{Quiescent state}
@@ -331,7 +331,7 @@
 	outside of an RCU read-side critical section.
 	Any interval of time during which all threads pass through at
 	least one quiescent state each is termed a ``grace period''.
-\item[Read-Copy Update (RCU):]\index{Read-copy update (RCU)}
+\item[Read-Copy Update (RCU):]\glsuseri{rcu}
 	A synchronization mechanism that can be thought of as a replacement
 	for reader-writer locking or reference counting.
 	RCU provides extremely low-overhead access for readers, while
@@ -343,7 +343,7 @@
 	RCU is thus best-suited for read-mostly situations where
 	stale data can either be tolerated (as in routing tables)
 	or avoided (as in the Linux kernel's System V IPC implementation).
-\item[Read-Side Critical Section:]\index{Read-side critical section}
+\item[\IXh{Read-Side Critical Section}{Critical section}{read-side}:]
 	A section of code guarded by read-acquisition of
 	some reader-writer synchronization mechanism.
 	For example, if one set of critical sections are guarded by
@@ -355,7 +355,7 @@
 	Any number of threads may concurrently execute the read-side
 	critical sections, but only if no thread is executing one of
 	the write-side critical sections.
-\item[Reader-Writer Lock:]\index{Reader-writer lock}
+\item[\IXh{Reader-Writer Lock}{Lock}{reader-writer}:]
 	A reader-writer lock is a mutual-exclusion mechanism that
 	permits any number of reading
 	threads, or but one writing thread, into the set of critical
@@ -366,7 +366,7 @@
 	wait for the writer to release the lock.
 	A key concern for reader-writer locks is ``fairness'':
 	can an unending stream of readers starve a writer or vice versa.
-\item[Sequential Consistency:]\index{Sequential consistency}
+\item[\IXh{Sequential Consistency}{memory consistency}{sequential}:]
 	A memory-consistency model where all memory references appear to occur
 	in an order consistent with
 	a single global order, and where each CPU's memory references
@@ -382,7 +382,7 @@
 	as well as its cache so as to ensure that the software sees
 	the memory operations performed by this CPU as if they
 	were carried out in program order.
-\item[Superscalar CPU:]\index{Superscalar CPU}
+\item[\IXhr{Superscalar CPU}{CPU}{superscalar}:]
 	A scalar (non-vector) CPU capable of executing multiple instructions
 	concurrently.
 	This is a step up from a pipelined CPU that executes multiple
@@ -397,30 +397,30 @@
 \item[Teachable:]\index{Teachable}
 	A topic, concept, method, or mechanism that the teacher understands
 	completely and is therefore comfortable teaching.
-\item[Transactional Memory (TM):]\index{Transactional memory (TM)}
+\item[Transactional Memory (TM):]\glsuseri{tm}
 	Shared-memory synchronization scheme featuring ``transactions'',
 	each of which is an atomic sequence of operations
 	that offers atomicity, consistency, isolation, but differ from
 	classic transactions in that they do not offer
 	durability.
 	Transactional memory may be implemented either in hardware
-	(hardware transactional memory, or HTM), in software (software
-	transactional memory, or STM), or in a combination of hardware
-	and software (``unbounded'' transactional memory, or UTM).
+	(hardware transactional memory, or HTM\glsuseri{htm}), in software (software
+	transactional memory, or STM\glsuseri{stm}), or in a combination of hardware
+	and software (``unbounded'' transactional memory, or UTM\glsuseri{utm}).
 \item[Unteachable:]\index{Unteachable}
 	A topic, concept, method, or mechanism that the teacher does
 	not understand well is therefore uncomfortable teaching.
-\item[Vector CPU:]\index{Vector CPU}
+\item[\IXhr{Vector CPU}{CPU}{vector}:]
 	A CPU that can apply a single instruction to multiple items of
 	data concurrently.
 	In the 1960s through the 1980s, only supercomputers had vector
 	capabilities, but the advent of MMX in x86 CPUs and VMX in
 	PowerPC CPUs brought vector processing to the masses.
-\item[Write Miss:]\index{Write miss}
+\item[\IXh{Write Miss}{Cache miss}{write}:]
 	A cache miss incurred because the corresponding CPU attempted
 	to write to a cache line that is read-only, most likely due
 	to its being replicated in other CPUs' caches.
-\item[Write-Side Critical Section:]\index{Write-side critical section}
+\item[\IXh{Write-Side Critical Section}{Critical section}{write-side}:]
 	A section of code guarded by write-acquisition of
 	some reader-writer synchronization mechanism.
 	For example, if one set of critical sections are guarded by

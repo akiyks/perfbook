@@ -1,0 +1,47 @@
+\renewcommand*{\CustomAcronymFields}{%
+  name={\the\glsshorttok},%
+  symbol={\the\glsshorttok},%
+  text={\the\glsshorttok},%
+  plural={\the\glsshorttok\noexpand\acrpluralsuffix},%
+  first={\emph{\the\glslongtok}\space(\the\glsshorttok)},%
+  firstplural={\emph{\the\glslongtok\noexpand\acrpluralsuffix}\space(\the\glsshorttok)},%
+  description={\the\glslongtok},%
+  user1={\protect\index{\the\glslongtok\space(\the\glsshorttok)%
+         @\makefirstuc{\the\glslongtok}\space(\the\glsshorttok)}},%
+  user2={\protect\index{\the\glslongtok\space(\the\glsshorttok)%
+         @\makefirstuc{\the\glslongtok}\space(\the\glsshorttok)|(}},%
+  user3={\protect\index{\the\glslongtok\space(\the\glsshorttok)%
+         @\makefirstuc{\the\glslongtok}\space(\the\glsshorttok)|)}}%
+}
+
+\renewcommand{\glsxtrprelocation}{,\space}
+
+\SetCustomStyle
+
+\newacronym{3di}{3DI}{3-dimensional integration}
+\newacronym{cas}{CAS}{compare-and-swap}
+\newacronym{cbmc}{CBMC}{C bounded model checker}
+\newacronym{ht}{HT}{hyperthreading}
+\newacronym{htm}{HTM}{hardware transactional memory}
+\newacronym{irq}{IRQ}{interrupt request}
+\newacronym{ipi}{IPI}{inter-processor interrupt}
+\newacronym{nbs}{NBS}{non-blocking synchronization}
+\newacronym{nmi}{NMI}{non-maskable interrupt}
+\newacronym{nuca}{NUCA}{non-uniform cache architecture}
+\newacronym{numa}{NUMA}{non-uniform memory architecture}
+\newacronym{qsbr}{QSBR}{quiescent-state-based reclamation}
+\newacronym{rcu}{RCU}{read-copy update}
+\newacronym{smt}{SMT}{simultaneous multithreading}
+\newacronym{srcu}{SRCU}{sleepable RCU}
+\newacronym{stm}{STM}{software transactional memory}
+\newacronym{tm}{TM}{transactional memory}
+\newacronym{utm}{UTM}{unbounded transactional memory}
+
+% For hierarchical indexes using acronym dictinary entries
+% Need to define a specific macro for each of such dict entry
+
+\IfIndexHier{
+  \newcommand{\IXalthacrrcu}[3]{\hlindex{#1}\index{read-copy update (RCU)@\makefirstuc {read-copy update} (RCU)!#3}}
+}{
+  \newcommand{\IXalthacrrcu}[3]{\hlindex{#1}\index{#2}}
+}

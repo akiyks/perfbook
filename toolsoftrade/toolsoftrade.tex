@@ -957,6 +957,7 @@ Chapters~\ref{chp:Counting} and \ref{chp:Deferred Processing}.
 \subsection{Atomic Operations (\GCC\ Classic)}
 \label{sec:toolsoftrade:Atomic Operations (gcc Classic)}
 
+\IXaltx{}{Atomic operation}{|(}%
 Figure~\ref{fig:toolsoftrade:Reader-Writer Lock Scalability vs. Microseconds in Critical Section}
 shows that the overhead of reader-writer locking is most severe for the
 smallest critical sections, so it would be nice to have some other way
@@ -1065,6 +1066,7 @@ the \GCC\  intrinsic
 \apialtg{__atomic_load_n(&x, __ATOMIC_RELAXED)}{__atomic_load_n()}
 and \apik{WRITE_ONCE()} has much in common with the \GCC\ 
 intrinsic \apialtg{__atomic_store_n(&x, v, __ATOMIC_RELAXED)}{__atomic_store_n()}.
+\IXaltx{}{Atomic operation}{|)}
 
 \begin{listing}[tb]
 \input{CodeSamples/api-pthreads/api-pthreads@compiler_barrier.fcv}
@@ -1095,6 +1097,7 @@ intrinsic \apialtg{__atomic_store_n(&x, v, __ATOMIC_RELAXED)}{__atomic_store_n()
 \subsection{Atomic Operations (C11)}
 \label{sec:toolsoftrade:Atomic Operations (C11)}
 
+\IXaltx{}{Atomic operation}{|(}%
 The C11 standard added atomic operations,
 including loads (\apic{atomic_load()}),
 stores (\apic{atomic_store()}),
@@ -1121,10 +1124,12 @@ is vaguely similar to the Linux kernel's ``\apik{READ_ONCE()}''.\footnote{
 	Memory ordering is described in more detail in
 	Chapter~\ref{chp:Advanced Synchronization: Memory Ordering} and
 	Appendix~\ref{chp:app:whymb:Why Memory Barriers?}.}
+\IXaltx{}{Atomic operation}{|)}
 
 \subsection{Atomic Operations (Modern \GCC)}
 \label{sec:toolsoftrade:Atomic Operations (Modern gcc)}
 
+\IXaltx{}{Atomic operation}{|(}%
 One restriction of the C11 atomics is that they apply only to special
 atomic types, which can be problematic.
 The \GNUC\ compiler therefore provides atomic intrinsics, including
@@ -1143,6 +1148,7 @@ this list:
 \apig{__ATOMIC_RELEASE},
 \apig{__ATOMIC_ACQ_REL}, and
 \apig{__ATOMIC_SEQ_CST}.
+\IXaltx{}{Atomic operation}{|)}
 
 \subsection{Per-Thread Variables}
 \label{sec:toolsoftrade:Per-Thread Variables}
@@ -2237,7 +2243,8 @@ directive, the \co{__volatile__} prevents the compiler from optimizing
 the asm away, the empty string specifies that no actual instructions
 are to be emitted, and the final \co{"memory"} tells the compiler that
 this do-nothing asm can arbitrarily change memory.
-In response, the compiler will avoid moving any memory references across
+In response, the compiler will avoid moving any
+\IXalt{memory references}{Memory reference (re)ordering} across
 the \apik{barrier()} macro.
 This means that the real-time-destroying loop unrolling shown in
 Listing~\ref{lst:toolsoftrade:C Compilers Can Fuse Loads}
@@ -2421,6 +2428,7 @@ Chapter~\ref{chp:Counting}.
 \subsection{Atomic Operations}
 \label{sec:toolsoftrade:Atomic Operations}
 
+\IXaltx{}{Atomic operation}{|(}%
 The Linux kernel provides a wide variety of atomic operations, but
 those defined on type \apik{atomic_t} provide a good start.
 Normal non-tearing reads and stores are provided by
@@ -2450,6 +2458,7 @@ see the \co{Documentation/core-api/atomic_ops.rst} file in the Linux-kernel
 source tree.
 
 This book's CodeSamples API closely follows that of the Linux kernel.
+\IXaltx{}{Atomic operation}{|)}
 
 \subsection{Per-CPU Variables}
 \label{sec:toolsoftrade:Per-CPU Variables}

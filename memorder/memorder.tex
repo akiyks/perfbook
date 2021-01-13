@@ -26,7 +26,8 @@ sufficient to implement synchronization primitives and
 performance-critical code.
 
 \Cref{sec:memorder:Ordering: Why and How?}
-will demonstrate that real computer systems can reorder memory references,
+will demonstrate that real computer systems can reorder
+\IXalt{memory references}{Memory reference (re)ordering},
 give some reasons why they do so, and provide some information on how
 to prevent undesired reordering.
 \Cref{sec:memorder:Tricks and Traps,%
@@ -205,7 +206,8 @@ residing in other CPUs' caches.
 \end{figure}
 
 Although store buffers can greatly increase performance,
-they can cause instructions and memory references to execute out
+they can cause instructions and
+\IXalt{memory references}{Memory reference (re)ordering} to execute out
 of order, which can in turn cause serious confusion, as illustrated in
 \cref{fig:memorder:CPUs Can Do Things Out of Order}.
 In particular, these store buffers cause the memory misordering
@@ -307,8 +309,8 @@ In summary, store buffers are needed to allow CPUs to handle
 store instructions efficiently, but they can result in
 counter-intuitive memory misordering.
 
-But what do you do if your algorithm really needs its memory
-references to be ordered?
+But what do you do if your algorithm really needs its
+\IXalt{memory references}{Memory reference (re)ordering} to be ordered?
 For example, suppose that you are communicating with a driver using
 a pair of flags, one that says whether or not the driver is running
 and the other that says whether there is a request pending for that
@@ -998,17 +1000,20 @@ not if performance and scalability are at all important to you.
 Unfortunately, memory ordering has many other ways of insulting your
 intuition, and not all of these ways conflict with performance and
 scalability.
-The next section overviews reordering of unrelated memory reference.
+The next section overviews reordering of unrelated
+\IXalt{memory reference}{Memory reference (re)ordering}.
 
 \subsection{Memory-Reference Reordering}
 \label{sec:memorder:Memory-Reference Reordering}
 
+\IXaltx{}{Memory reference (re)ordering}{|(}%
 \Cref{sec:memorder:Why Hardware Misordering?}
 showed that even relatively strongly ordered systems like x86
 can reorder prior stores with later loads, at least when the
 store and load are to different variables.
 This section builds on that result, looking at the other combinations of
 loads and stores.
+\IXaltx{}{Memory reference (re)ordering}{|)}
 
 \begin{listing}[tbp]
 \input{CodeSamples/formal/litmus/C-MP+o-wmb-o+o-o@whole.fcv}
@@ -1278,7 +1283,8 @@ in pre-v4.15 Linux kernels.
 	(3)~DEC Alpha.
 
 	\begin{fcvref}[ln:memorder:Enforced Ordering of Message-Passing Address-Dependency Litmus Test (Before v4.15)]
-	The TSO platforms order all pairs of memory references except for
+	The TSO platforms order all pairs of
+	\IXalt{memory references}{Memory reference (re)ordering} except for
 	prior stores against later loads.
 	Because the address dependency on \clnref{deref,read} of
 	\cref{lst:memorder:Enforced Ordering of Message-Passing Address-Dependency Litmus Test (Before v4.15)}
@@ -2306,7 +2312,8 @@ As a results, unless explicitly told otherwise, these languages assume
 that the current CPU is the only thing that is reading or writing memory.
 This in turn means that these languages' compilers' optimizers
 are ready, willing, and oh so able to make dramatic changes to the
-order, number, and sizes of memory references that your program
+order, number, and sizes of
+\IXalt{memory references}{Memory reference (re)ordering} that your program
 executes.
 In fact, the reordering carried out by hardware can seem quite tame
 by comparison.
@@ -3822,7 +3829,7 @@ v4.15 and later Linux kernels.
 
 The next row, ``Non-Sequentially Consistent'', indicates whether
 the CPU's normal load and store instructions are constrained by
-sequential consistency.
+\IXh{sequential consistency}{memory consistency}{sequential}.
 Almost all are not constrained in this way for performance reasons.
 
 The next two rows cover multicopy atomicity, which was defined in
@@ -4271,7 +4278,8 @@ defined its memory ordering with an executable formal model~\cite{ARMv8A:2017}.
 \subsection{Itanium}
 \label{sec:memorder:Itanium}
 
-Itanium offers a weak consistency model, so that in absence of explicit
+Itanium offers a \IXh{weak consistency}{memory consistency}{weak}
+model, so that in absence of explicit
 memory-barrier instructions, Itanium is within its rights to arbitrarily
 reorder memory references~\cite{IntelItanium02v2}.
 Itanium has a memory-fence instruction named {\tt mf}, but also has
