@@ -5,6 +5,7 @@ GITREFSTAGS := $(shell ls -d .git/refs/tags 2>/dev/null)
 LATEXSOURCES = \
 	perfbook-lt.tex \
 	legal.tex \
+	ack.tex \
 	glossary.tex \
 	qqz.sty origpub.sty \
 	noindentafter.sty \
@@ -82,7 +83,7 @@ BIBSOURCES := bib/*.bib alphapf.bst
 # required commands
 DOT := $(shell which dot 2>/dev/null)
 FIG2EPS := $(shell which fig2eps 2>/dev/null)
-A2PING := $(shell which a2ping 2>/dev/null)
+EPSTOPDF := $(shell which epstopdf 2>/dev/null)
 INKSCAPE := $(shell which inkscape 2>/dev/null)
 ifdef INKSCAPE
   INKSCAPE_ONE := $(shell inkscape --version 2>/dev/null | grep -c "Inkscape 1")
@@ -125,28 +126,7 @@ endif
 
 STEELFONTID := $(shell fc-list | grep -i steel | grep -c Steel)
 
-ifdef A2PING
-  GS_950_OR_LATER := $(shell gs --version | grep -c -E "9\.[5-9].?")
-  A2PING_277P := $(shell a2ping --help 2>&1 | grep -c "2.77p,")
-  A2PING_283P := $(shell a2ping --help 2>&1 | grep -c "2.83p,")
-  GS_953_OR_LATER := $(shell gs --version | grep -c -E "9\.5[3-9].?")
-  ifeq ($(A2PING_277P),1)
-    A2PING_GSCNFL = 1
-  else
-    ifeq ($(A2PING_283P),1)
-      ifeq ($(GS_950_OR_LATER),1)
-        A2PING_GSCNFL = 1
-      else
-        A2PING_GSCNFL = 0
-      endif
-    else
-      A2PING_GSCNFL = 0
-    endif
-  endif
-  ifeq ($(GS_953_OR_LATER),1)
-    A2PING_GSCNFL = 2
-  endif
-endif
+GS_953_OR_LATER := $(shell gs --version | grep -c -E "9\.5[3-9].?")
 
 LINELABEL_ENV_BEGIN := $(shell grep -l -F '\begin{linelabel}' $(LATEXSOURCES))
 LINELABEL_ENV_END   := $(shell grep -l -F '\end{linelabel}'   $(LATEXSOURCES))
@@ -369,14 +349,14 @@ perfbook-a4.tex:
 # Rules related to perfbook_html are removed as of May, 2016
 
 $(EPSSOURCES_FROM_TEX): %.eps: %.tex
-	@echo "$< --> $@"
+	@echo "$(basename $<).(tex --> eps)"
 	sh utilities/mpostcheck.sh
 	@latex -output-directory=$(shell dirname $<) $< > /dev/null 2>&1
 	@dvips -Pdownload35 -E $(patsubst %.tex,%.dvi,$<) -o $@ > /dev/null 2>&1
 	@sh $(FIXANEPSFONTS) $@
 
 $(EPSSOURCES_FROM_DOT): %.eps: %.dot
-	@echo "$< --> $@"
+	@echo "$(basename $<).(dot -> eps)"
 ifndef DOT
 	$(error $< --> $@: dot not found. Please install graphviz)
 endif
@@ -384,7 +364,7 @@ endif
 	@sh $(FIXANEPSFONTS) $@
 
 $(EPSSOURCES_FROM_FIG): %.eps: %.fig
-	@echo "$< --> $@"
+	@echo "$(basename $<).(fig --> eps)"
 ifndef FIG2EPS
 	$(error $< --> $@: fig2eps not found. Please install fig2ps)
 endif
@@ -392,46 +372,38 @@ endif
 	@sh $(FIXANEPSFONTS) $@
 
 $(PDFTARGETS_OF_EPSORIG): %.pdf: %.eps
-	@echo "$< --> $@"
-ifndef A2PING
-	$(error $< --> $@: a2ping not found. Please install it)
+	@echo "$(basename $<).(eps --> pdf)"
+ifndef EPSTOPDF
+	$(error $< --> $@: epstopdf not found. Please install it)
 endif
-ifeq ($(A2PING_GSCNFL),1)
-	$(error You need to update a2ping. See #7 in FAQ-BUILD.txt)
-endif
-	@cp $< $<i
-	@sh $(FIXANEPSFONTS) $<i
-	@a2ping --below --hires --bboxfrom=compute-gs $<i $@ > /dev/null 2>&1
-	@rm -f $<i
+	@cp $< $(basename $<)__.eps
+	@sh $(FIXANEPSFONTS) $(basename $<)__.eps
+	@epstopdf --gsopt='-dPDFSETTINGS=/ebook' $(basename $<)__.eps; pdfcrop --hires $(basename $<)__.pdf $@ > /dev/null
+	@rm -f $(basename $<)__.*
 
 $(PDFTARGETS_OF_TEX): %.pdf: %.eps
-	@echo "$< --> $@"
-ifndef A2PING
-	$(error $< --> $@: a2ping not found. Please install it)
+	@echo "$(basename $<).(eps --> pdf)"
+ifndef EPSTOPDF
+	$(error $< --> $@: epstopdf not found. Please install it)
 endif
-ifeq ($(A2PING_GSCNFL),1)
-	$(error a2ping version conflict. See #7 in FAQ-BUILD.txt)
-endif
-ifeq ($(A2PING_GSCNFL),2)
-	@a2ping --below --gsextra=-dALLOWPSTRANSPARENCY $< $(basename $@)__.pdf > /dev/null 2>&1
-	@pdfcrop --hires $(basename $@)__.pdf $@ > /dev/null
-	@rm -f $(basename $@)__.pdf
+	@cp $< $(basename $<)__.eps
+ifeq ($(GS_953_OR_LATER),1)
+	@epstopdf --gsopts='-dALLOWPSTRANSPARENCY -dPDFSETTINGS=/ebook' $(basename $<)__.eps > /dev/null
 else
-	@a2ping --below --hires --bboxfrom=compute-gs $< $@ > /dev/null 2>&1
+	@epstopdf --nosafer --gsopt='-dPDFSETTINGS=/ebook' $(basename $<)__.eps > /dev/null
 endif
+	@pdfcrop $(basename $<)__.pdf $@ > /dev/null
+	@rm -f $(basename $<)__.*
 
 $(PDFTARGETS_OF_EPSOTHER): %.pdf: %.eps
-	@echo "$< --> $@"
-ifndef A2PING
-	$(error $< --> $@: a2ping not found. Please install it)
+	@echo "$(basename $<).(eps --> pdf)"
+ifndef EPSTOPDF
+	$(error $< --> $@: epstopdf not found. Please install it)
 endif
-ifeq ($(A2PING_GSCNFL),1)
-	$(error a2ping version conflict. See #7 in FAQ-BUILD.txt)
-endif
-	@a2ping --below --hires --bboxfrom=compute-gs $< $@ > /dev/null 2>&1
+	@epstopdf --gsopt='-dPDFSETTINGS=/ebook' $<
 
 $(PDFTARGETS_OF_SVG): %.pdf: %.svg
-	@echo "$< --> $@"
+	@echo "$(basename $<).(svg --> pdf)"
 ifeq ($(STEELFONT),0)
 	$(error "Steel City Comic" font not found. See #1 in FAQ.txt)
 endif
@@ -467,17 +439,17 @@ CodeSamples/snippets.d: $(SOURCES_OF_SNIPPET) $(GEN_SNIPPET_D)
 	sh ./utilities/gen_snippet_d.sh
 
 $(FCVSNIPPETS):
-	@echo "$< --> $@"
+	@echo "$< --> $(notdir $@)"
 	@utilities/fcvextract.pl $< $(subst +,\\+,$(subst @,:,$(basename $(notdir $@)))) > $@
 	@utilities/checkfcv.pl $@
 
 $(FCVSNIPPETS_VIA_LTMS):
-	@echo "$< --> $@"
+	@echo "$< --> $(notdir $@)"
 	@utilities/fcvextract.pl $< $(subst +,\\+,$(subst @,:,$(basename $(notdir $@)))) > $@
 	@utilities/checkfcv.pl $@
 
 $(FCVSNIPPETS_LTMS):
-	@echo "$< --> $@"
+	@echo "$< --> $(notdir $@)"
 	@utilities/reorder_ltms.pl $< > $@
 
 help-official:
