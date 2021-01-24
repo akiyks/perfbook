@@ -381,7 +381,7 @@ ifndef EPSTOPDF
 endif
 	@cp $< $(basename $<)__.eps
 	@sh $(FIXANEPSFONTS) $(basename $<)__.eps
-	@epstopdf $(basename $<)__.eps; pdfcrop --hires $(basename $<)__.pdf $@ > /dev/null
+	@epstopdf --gsopt='-dPDFSETTINGS=/ebook' $(basename $<)__.eps; pdfcrop --hires $(basename $<)__.pdf $@ > /dev/null
 	@rm -f $(basename $<)__.*
 
 $(PDFTARGETS_OF_TEX): %.pdf: %.eps
@@ -391,9 +391,9 @@ ifndef EPSTOPDF
 endif
 	@cp $< $(basename $<)__.eps
 ifeq ($(GS_953_OR_LATER),1)
-	@epstopdf --gsopt=-dALLOWPSTRANSPARENCY $(basename $<)__.eps > /dev/null
+	@epstopdf --gsopts='-dALLOWPSTRANSPARENCY -dPDFSETTINGS=/ebook' $(basename $<)__.eps > /dev/null
 else
-	@epstopdf --nosafer $(basename $<)__.eps > /dev/null
+	@epstopdf --nosafer --gsopt='-dPDFSETTINGS=/ebook' $(basename $<)__.eps > /dev/null
 endif
 	@pdfcrop $(basename $<)__.pdf $@ > /dev/null
 	@rm -f $(basename $<)__.*
@@ -403,7 +403,7 @@ $(PDFTARGETS_OF_EPSOTHER): %.pdf: %.eps
 ifndef EPSTOPDF
 	$(error $< --> $@: epstopdf not found. Please install it)
 endif
-	@epstopdf $<
+	@epstopdf --gsopt='-dPDFSETTINGS=/ebook' $<
 
 $(PDFTARGETS_OF_SVG): %.pdf: %.svg
 	@echo "$< --> $@"
