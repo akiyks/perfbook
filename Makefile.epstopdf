@@ -1,3 +1,4 @@
+# Contingency Makefile independent of a2ping
 SHELL = /bin/bash
 
 GITREFSTAGS := $(shell ls -d .git/refs/tags 2>/dev/null)
