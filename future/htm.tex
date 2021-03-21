@@ -12,13 +12,13 @@
 % If at first you do succeed---try to hide your astonishment.
 % Harry F.~Banks
 
-As of 2021, hardware transactional memory (HTM) has been available for many
+As of 2021, \IXacr{htm} has been available for many
 years on several types of commercially available commodity computer
 systems~\cite{Yoo:2013:PEI:2503210.2503232,RickMerrit2011PowerTM,ChristianJacobi2012MainframeTM,TimothyHayes2020ARM-HTM}.
-This section makes an attempt to identify HTM's place in the parallel
+This section makes an attempt to identify \acr{htm}'s place in the parallel
 programmer's toolbox.
 
-From a conceptual viewpoint, HTM uses processor caches and speculative
+From a conceptual viewpoint, \IXacr{htm} uses processor caches and speculative
 execution to make a designated group of statements (a ``transaction'')
 take effect atomically
 from the viewpoint of any other transactions running on other processors.
@@ -34,15 +34,15 @@ begin-transaction instruction, either as an explicit failure-handler
 address or via a condition code set by the instruction itself.
 Each transaction executes atomically with respect to all other transactions.
 
-HTM has a number of important benefits, including automatic
+\IXAcr{htm} has a number of important benefits, including automatic
 dynamic partitioning of data structures, reducing synchronization-primitive
 cache misses, and supporting a fair number of practical applications.
 
-However, it always pays to read the fine print, and HTM is no exception.
-A major point of this section is determining under what conditions HTM's
+However, it always pays to read the fine print, and \IXacr{htm} is no exception.
+A major point of this section is determining under what conditions \acr{htm}'s
 benefits outweigh the complications hidden in its fine print.
 To this end, \cref{sec:future:HTM Benefits WRT Locking}
-describes HTM's benefits and
+describes \acr{htm}'s benefits and
 \cref{sec:future:HTM Weaknesses WRT Locking} describes its weaknesses.
 This is the same approach used in earlier
 papers~\cite{McKenney2007PLOSTM,PaulEMcKenney2010OSRGrassGreener}
@@ -52,28 +52,28 @@ and also in the previous section.\footnote{
 	and Jonathan Walpole, as well as with Andi Kleen.}
 
 \Cref{sec:future:HTM Weaknesses WRT Locking When Augmented} then describes
-HTM's weaknesses with respect to the combination of synchronization
+\IXacr{htm}'s weaknesses with respect to the combination of synchronization
 primitives used in the Linux kernel (and in many user-space applications).
-\Cref{sec:future:Where Does HTM Best Fit In?} looks at where HTM
+\Cref{sec:future:Where Does HTM Best Fit In?} looks at where \acr{htm}
 might best fit into the parallel programmer's toolbox, and
 \cref{sec:future:Potential Game Changers} lists some events that might
-greatly increase HTM's scope and appeal.
+greatly increase \acr{htm}'s scope and appeal.
 Finally, \cref{sec:future:Conclusions}
 presents concluding remarks.
 
 \subsection{HTM Benefits WRT Locking}
 \label{sec:future:HTM Benefits WRT Locking}
 
-The primary benefits of HTM are
+The primary benefits of \IXacr{htm} are
 (1)~its avoidance of the cache misses that are often incurred by
 other synchronization primitives,
 (2)~its ability to dynamically partition
 data structures,
 and (3)~the fact that it has
 a fair number of practical applications.
-I break from TM tradition by not listing ease of use separately
+I break from \acr{tm} tradition by not listing ease of use separately
 for two reasons.
-First, ease of use should stem from HTM's primary benefits,
+First, ease of use should stem from \acr{htm}'s primary benefits,
 which this section focuses on.
 Second, there has been considerable controversy surrounding attempts to
 test for raw programming
@@ -99,11 +99,11 @@ These communications cache misses severely degrade both the performance and
 scalability of conventional synchronization
 mechanisms~\cite[Section 4.2.3]{Anderson97}.
 
-In contrast, HTM synchronizes by using the CPU's cache, avoiding the need
+In contrast, \IXacr{htm} synchronizes by using the CPU's cache, avoiding the need
 for a separate synchronization data structure and resultant cache misses.
-HTM's advantage is greatest in cases where a lock data structure is
+\Acr{htm}'s advantage is greatest in cases where a lock data structure is
 placed in a separate cache line, in which case, converting a given
-critical section to an HTM transaction can reduce that critical section's
+critical section to an \acr{htm} transaction can reduce that critical section's
 overhead by a full cache miss.
 These savings can be quite significant for the common case of short
 critical sections, at least for those situations where the elided lock
@@ -146,11 +146,11 @@ have proven preferable~\cite{DavidSMiller2006HashedLocking},
 as will be discussed in
 \cref{sec:future:HTM Weaknesses WRT Locking When Augmented}.
 Given its avoidance of synchronization cache misses,
-HTM is therefore a very real possibility for large non-partitionable
+\IXacr{htm} is therefore a very real possibility for large non-partitionable
 data structures, at least assuming relatively small updates.
 
 \QuickQuiz{
-	Why are relatively small updates important to HTM performance
+	Why are relatively small updates important to \IXacr{htm} performance
 	and scalability?
 }\QuickQuizAnswer{
 	The larger the updates, the greater the probability of conflict,
@@ -161,7 +161,7 @@ data structures, at least assuming relatively small updates.
 \subsubsection{Practical Value}
 \label{sec:future:Practical Value}
 
-Some evidence of HTM's practical value has been demonstrated in a number
+Some evidence of \IXacr{htm}'s practical value has been demonstrated in a number
 of hardware platforms, including
 Sun Rock~\cite{DaveDice2009ASPLOSRockHTM},
 Azul Vega~\cite{CliffClick2009AzulHTM},
@@ -178,13 +178,13 @@ Expected practical benefits include:
 	data structures.
 \end{enumerate}
 
-However, HTM also has some very real shortcomings, which will be discussed
+However, \IXacr{htm} also has some very real shortcomings, which will be discussed
 in the next section.
 
 \subsection{HTM Weaknesses WRT Locking}
 \label{sec:future:HTM Weaknesses WRT Locking}
 
-The concept of HTM is quite simple: A group of accesses and updates to
+The concept of \IXacr{htm} is quite simple: A group of accesses and updates to
 memory occurs atomically.
 However, as is the case with many simple ideas, complications arise
 when you apply it to real systems in the real world.
@@ -205,7 +205,7 @@ followed by a summary.
 \subsubsection{Transaction-Size Limitations}
 \label{sec:future:Transaction-Size Limitations}
 
-The transaction-size limitations of current HTM implementations
+The transaction-size limitations of current \IXacr{htm} implementations
 stem from the use of the processor caches to hold the data
 affected by the transaction.
 Although this allows a given CPU to make the transaction appear atomic to
@@ -242,13 +242,13 @@ There has been some research work to alleviate this limitation.
 Fully associative \emph{victim caches} would alleviate the associativity
 constraints, but there are currently stringent performance and
 energy-efficiency constraints on the sizes of victim caches.
-That said, HTM victim caches for unmodified cache lines can be quite
+That said, \IXacr{htm} victim caches for unmodified cache lines can be quite
 small, as they need to retain only the address:
 The data itself can be written to memory or shadowed by other caches,
 while the address itself is sufficient to detect a conflicting
 write~\cite{RaviRajwar2012TSX}.
 
-\emph{Unbounded transactional memory} (UTM)
+\emph{\IXAcr{utm}}
 schemes~\cite{CScottAnanian2006,KevinEMoore2006}
 use DRAM as an extremely large victim cache, but integrating such schemes
 into a production-quality cache-coherence mechanism is still an unsolved
@@ -256,16 +256,16 @@ problem.
 In addition, use of DRAM as a victim cache may have unfortunate
 performance and energy-efficiency consequences, particularly
 if the victim cache is to be fully associative.
-Finally, the ``unbounded'' aspect of UTM assumes that all of DRAM
+Finally, the ``unbounded'' aspect of \acr{utm} assumes that all of DRAM
 could be used as a victim cache, while in reality
 the large but still fixed amount of DRAM assigned to a given CPU
 would limit the size of that CPU's transactions.
 Other schemes use a combination of hardware and software transactional
-memory~\cite{SanjeevKumar2006} and one could imagine using STM as a
-fallback mechanism for HTM\@.
+memory~\cite{SanjeevKumar2006} and one could imagine using \IXacr{stm} as a
+fallback mechanism for \IXacr{htm}\@.
 
 However, to the best of my knowledge, with the exception of abbreviating
-representation of TM read sets, currently available systems do not
+representation of \IXacr{tm} read sets, currently available systems do not
 implement any of these research ideas, and perhaps for good reason.
 
 \subsubsection{Conflict Handling}
@@ -318,7 +318,7 @@ optimizing this process will likely also retain the ability to generate
 Ph.D. dissertations for quite some time.
 However this section assumes a very simple conflict-detection strategy.
 
-However, for HTM to work effectively, the probability of conflict must
+However, for \IXacr{htm} to work effectively, the probability of conflict must
 be quite low, which in turn requires that the data structures
 be organized so as to maintain a sufficiently low probability of conflict.
 For example, a red-black tree with simple insertion, deletion, and search
@@ -332,11 +332,11 @@ For another example, a red-black tree that enumerates all elements in
 the tree in a single transaction will have high conflict probabilities,
 degrading performance and scalability.
 As a result, many serial programs will require some restructuring before
-HTM can work effectively.
+\acr{htm} can work effectively.
 In some cases, practitioners will prefer to take the extra steps
 (in the red-black-tree case, perhaps switching to a partitionable
 data structure such as a radix tree or a hash table), and just
-use locking, particularly until such time as HTM is readily available
+use locking, particularly until such time as \acr{htm} is readily available
 on all relevant
 architectures~\cite{CliffClick2009AzulHTM}.
 
@@ -346,7 +346,7 @@ architectures~\cite{CliffClick2009AzulHTM}.
 	mechanism???
 }\QuickQuizAnswer{
 	In many cases, the enumeration need not be exact.
-	In these cases, hazard pointers or RCU may be used to protect
+	In these cases, hazard pointers or \IXacr{rcu} may be used to protect
 	readers, which provides low probability of conflict with any
 	given insertion or deletion.
 }\QuickQuizEnd
@@ -361,7 +361,7 @@ Handling such failure is discussed in the next section.
 Because any transaction might be aborted at any time, it is important
 that transactions contain no statements that cannot be rolled back.
 This means that transactions cannot do I/O, system calls, or debugging
-breakpoints (no single stepping in the debugger for HTM transactions!!!).
+breakpoints (no single stepping in the debugger for \gls{htm} transactions!!!).
 Instead, transactions must confine themselves to accessing normal
 cached memory.
 Furthermore, on some systems, interrupts, exceptions, traps,
@@ -408,19 +408,19 @@ end_trans();
 	This is \emph{not} what I call an easy-to-use debugger.
 }\QuickQuizEnd
 
-Of course, aborts and rollbacks raise the question of whether HTM can
+Of course, aborts and rollbacks raise the question of whether \IXacr{htm} can
 be useful for hard real-time systems.
-Do the performance benefits of HTM outweigh the costs of the aborts
+Do the performance benefits of \acr{htm} outweigh the costs of the aborts
 and rollbacks, and if so under what conditions?
 Can transactions use priority boosting?
 Or should transactions for high-priority threads instead preferentially
 abort those of low-priority threads?
 If so, how is the hardware efficiently informed of priorities?
-The literature on real-time use of HTM is quite sparse, perhaps
-because there are more than enough problems in making HTM work well in
+The literature on real-time use of \acr{htm} is quite sparse, perhaps
+because there are more than enough problems in making \acr{htm} work well in
 non-real-time environments.
 
-Because current HTM implementations might deterministically abort a
+Because current \IXacr{htm} implementations might deterministically abort a
 given transaction, software must provide fallback code.
 This fallback code must use some other form of synchronization, for
 example, locking.
@@ -448,11 +448,11 @@ Finally, dealing with the possibility of aborts and rollbacks seems to
 put an additional burden on the developer, who must correctly handle
 all combinations of possible error conditions.
 
-It is clear that users of HTM must put considerable validation effort
+It is clear that users of \IXacr{htm} must put considerable validation effort
 into testing both the fallback code paths and transition from fallback
 code back to transactional code.
 Nor is there any reason to believe that the validation requirements of
-HTM hardware are any less daunting.
+\acr{htm} hardware are any less daunting.
 
 \subsubsection{Lack of Forward-Progress Guarantees}
 \label{sec:future:Lack of Forward-Progress Guarantees}
@@ -467,13 +467,13 @@ instructions to implement atomic operations.
 
 Unfortunately, other than low-clock-rate academic research
 prototypes~\cite{MartinSchoeberl2010realtimeTM},
-currently available HTM implementations refuse to make any
+currently available \acr{htm} implementations refuse to make any
 sort of forward-progress guarantee.
-As noted earlier, HTM therefore cannot be used to avoid deadlock on
+As noted earlier, \acr{htm} therefore cannot be used to avoid deadlock on
 those systems.
-Hopefully future implementations of HTM will provide some sort of
+Hopefully future implementations of \acr{htm} will provide some sort of
 forward-progress guarantees.
-Until that time, HTM must be used with extreme caution in real-time
+Until that time, \acr{htm} must be used with extreme caution in real-time
 applications.
 
 The one exception to this gloomy picture as of 2021 is
@@ -481,20 +481,20 @@ the IBM mainframe, which provides
 \emph{constrained transactions}~\cite{ChristianJacobi2012MainframeTM}.
 The constraints are quite severe, and are presented in
 \cref{sec:future:Forward-Progress Guarantees}.
-It will be interesting to see if HTM forward-progress guarantees migrate
+It will be interesting to see if \acr{htm} forward-progress guarantees migrate
 from the mainframe to commodity CPU families.
 
 \subsubsection{Irrevocable Operations}
 \label{sec:future:Irrevocable Operations}
 
-Another consequence of aborts and rollbacks is that HTM transactions
+Another consequence of aborts and rollbacks is that \IXacr{htm} transactions
 cannot accommodate irrevocable operations.
-Current HTM implementations typically enforce this limitation by
+Current \acr{htm} implementations typically enforce this limitation by
 requiring that all of the accesses in the transaction be to cacheable
 memory (thus prohibiting MMIO accesses) and aborting transactions on
 interrupts, traps, and exceptions (thus prohibiting system calls).
 
-Note that buffered I/O can be accommodated by HTM transactions as
+Note that buffered I/O can be accommodated by \IXacr{htm} transactions as
 long as the buffer fill/flush operations occur extra-transactionally.
 The reason that this works is that adding data to and removing data
 from the buffer is revocable: Only the actual buffer fill/flush
@@ -506,7 +506,7 @@ and thus increasing the probability of failure.
 \subsubsection{Semantic Differences}
 \label{sec:future:Semantic Differences}
 
-Although HTM can in many cases be used as a drop-in replacement for locking
+Although \IXacr{htm} can in many cases be used as a drop-in replacement for locking
 (hence the name transactional lock
 elision~\cite{DaveDice2008TransactLockElision}),
 there are subtle differences in semantics.
@@ -535,14 +535,14 @@ semantics of locking, but loses locking's time-based messaging semantics.
 	See the answer to \QuickQuizARef{\QlockingQemptycriticalsection} in
 	\cref{sec:locking:Exclusive Locks}.
 
-	However, it is claimed that given a strongly atomic HTM
+	However, it is claimed that given a strongly atomic \IXacr{htm}
 	implementation without forward-progress guarantees, any
 	memory-based locking design based on empty critical sections
 	will operate correctly in the presence of transactional
 	lock elision.
 	Although I have not seen a proof of this statement, there
 	is a straightforward rationale for this claim.
-	The main idea is that in a strongly atomic HTM implementation,
+	The main idea is that in a strongly atomic \acr{htm} implementation,
 	the results of a given transaction are not visible until
 	after the transaction completes successfully.
 	Therefore, if you can see that a transaction has started,
@@ -552,7 +552,7 @@ semantics of locking, but loses locking's time-based messaging semantics.
 	required.
 
 	This line of reasoning does not apply to weakly atomic
-	systems (including many STM implementation), and it also
+	systems (including many \IXacr{stm} implementation), and it also
 	does not apply to lock-based programs that use means other
 	than memory to communicate.
 	One such means is the passage of time (for example, in
@@ -807,9 +807,9 @@ transactional memory's rollback-and-retry semantics.
 \end{fcvref}
 
 Given that experience will likely uncover additional subtle semantic
-differences, application of HTM-based lock elision to large programs
+differences, application of \IXacr{htm}-based lock elision to large programs
 should be undertaken with caution.
-That said, where it does apply, HTM-based lock elision can eliminate
+That said, where it does apply, \acr{htm}-based lock elision can eliminate
 the cache misses associated with the lock variable, which has resulted
 in tens of percent performance increases in large real-world software
 systems as of early 2015.
@@ -821,7 +821,7 @@ hardware providing reliable support for it.
 	mostly end up just optimizing locking???
 }\QuickQuizAnswer{
 	At least they accomplished something useful!
-	And perhaps there will continue to be additional HTM progress
+	And perhaps there will continue to be additional \IXacr{htm} progress
 	over time~\cite{Siakavaras2017CombiningHA,DimitriosSiakavaras2020RCU-HTM-B+Trees,ChristinaGiannoula2018HTM-RCU-graphcoloring,SeongJaePark2020HTMRCUlock}.
 }\QuickQuizEnd
 
@@ -830,13 +830,13 @@ hardware providing reliable support for it.
 
 \input{future/HTMtable}
 
-Although it seems likely that HTM will have compelling use cases,
+Although it seems likely that \IXacr{htm} will have compelling use cases,
 current implementations have serious transaction-size limitations,
 conflict-handling complications, abort-and-rollback issues, and
 semantic differences that will require careful handling.
-HTM's current situation relative to locking is summarized in
+\Acr{htm}'s current situation relative to locking is summarized in
 \cref{tab:future:Comparison of Locking and HTM}.
-As can be seen, although the current state of HTM alleviates some
+As can be seen, although the current state of \acr{htm} alleviates some
 serious shortcomings of locking,\footnote{
 	In fairness, it is important to emphasize that locking's shortcomings
 	do have well-known and heavily used engineering solutions, including
@@ -850,7 +850,7 @@ serious shortcomings of locking,\footnote{
 	FOSS and proprietary) come from, anyway?}
 it does so by introducing a significant
 number of shortcomings of its own.
-These shortcomings are acknowledged by leaders in the TM
+These shortcomings are acknowledged by leaders in the \acr{tm}
 community~\cite{AlexanderMatveev2012PessimisticTM}.\footnote{
 	In addition, in early 2011, I was invited to deliver a critique of
 	some of the assumptions underlying transactional
@@ -864,7 +864,7 @@ Locking is not normally used by itself, but is instead typically
 augmented by other synchronization mechanisms,
 including reference counting, atomic operations, non-blocking data structures,
 hazard pointers~\cite{MagedMichael04a,HerlihyLM02},
-and RCU~\cite{McKenney98,McKenney01a,ThomasEHart2007a,PaulEMcKenney2012ELCbattery}.
+and \IXacr{rcu}~\cite{McKenney98,McKenney01a,ThomasEHart2007a,PaulEMcKenney2012ELCbattery}.
 The next section looks at how such augmentation changes the equation.
 
 \subsection{HTM Weaknesses WRT Locking When Augmented}
@@ -873,35 +873,35 @@ The next section looks at how such augmentation changes the equation.
 \input{future/HTMtableRCU}
 
 Practitioners have long used reference counting, atomic operations,
-non-blocking data structures, hazard pointers, and RCU to avoid some
+non-blocking data structures, hazard pointers, and \IXacr{rcu} to avoid some
 of the shortcomings of locking.
 For example, deadlock can be avoided in many cases by using reference
-counts, hazard pointers, or RCU to protect data structures,
+counts, hazard pointers, or \acr{rcu} to protect data structures,
 particularly for read-only critical
 sections~\cite{MagedMichael04a,HerlihyLM02,MathieuDesnoyers2012URCU,DinakarGuniguntala2008IBMSysJ,ThomasEHart2007a}.
 These approaches also reduce the need to partition data
 structures, as was seen in \cref{chp:Data Structures}.
-RCU further provides contention-free bounded wait-free read-side
+\Acr{rcu} further provides contention-free bounded wait-free read-side
 primitives~\cite{McKenney98,MathieuDesnoyers2012URCU}, while hazard pointers
 provides lock-free read-side
 primitives~\cite{Michael02a,HerlihyLM02,MagedMichael04a}.
 Adding these considerations to
 \cref{tab:future:Comparison of Locking and HTM}
-results in the updated comparison between augmented locking and HTM
+results in the updated comparison between augmented locking and \IXacr{htm}
 shown in
 \cref{tab:future:Comparison of Locking (Augmented by RCU or Hazard Pointers) and HTM}.
 A summary of the differences between the two tables is as follows:
 
 \begin{enumerate}
 \item	Use of non-blocking read-side mechanisms alleviates deadlock issues.
-\item	Read-side mechanisms such as hazard pointers and RCU can operate
+\item	Read-side mechanisms such as hazard pointers and \IXacr{rcu} can operate
 	efficiently on non-partitionable data.
-\item	Hazard pointers and RCU do not contend with each other or with
+\item	Hazard pointers and \acr{rcu} do not contend with each other or with
 	updaters, allowing excellent performance and scalability for
 	read-mostly workloads.
-\item	Hazard pointers and RCU provide forward-progress guarantees
+\item	Hazard pointers and \acr{rcu} provide forward-progress guarantees
 	(lock freedom and bounded wait-freedom, respectively).
-\item	Privatization operations for hazard pointers and RCU are
+\item	Privatization operations for hazard pointers and \acr{rcu} are
 	straightforward.
 \end{enumerate}
 
@@ -913,70 +913,70 @@ combines
 \cref{tab:future:Comparison of Locking and HTM,%
 tab:future:Comparison of Locking (Augmented by RCU or Hazard Pointers) and HTM}.
 
-Of course, it is also possible to augment HTM,
+Of course, it is also possible to augment \IXacr{htm},
 as discussed in the next section.
 
 \subsection{Where Does HTM Best Fit In?}
 \label{sec:future:Where Does HTM Best Fit In?}
 
-Although it will likely be some time before HTM's area of applicability
-can be as crisply delineated as that shown for RCU in
+Although it will likely be some time before \IXacr{htm}'s area of applicability
+can be as crisply delineated as that shown for \IXacr{rcu} in
 \cref{fig:defer:RCU Areas of Applicability} on
 page~\pageref{fig:defer:RCU Areas of Applicability}, that is no reason not to
 start moving in that direction.
 
-HTM seems best suited to update-heavy workloads involving relatively
+\IXAcr{htm} seems best suited to update-heavy workloads involving relatively
 small changes to disparate portions of relatively large in-memory
 data structures running on large multiprocessors,
-as this meets the size restrictions of current HTM implementations while
+as this meets the size restrictions of current \acr{htm} implementations while
 minimizing the probability of conflicts and attendant aborts and
 rollbacks.
 This scenario is also one that is relatively difficult to handle given
 current synchronization primitives.
 
-Use of locking in conjunction with HTM seems likely to overcome HTM's
-difficulties with irrevocable operations, while use of RCU or
-hazard pointers might alleviate HTM's transaction-size limitations
+Use of locking in conjunction with \IXacr{htm} seems likely to overcome \acr{htm}'s
+difficulties with irrevocable operations, while use of \IXacr{rcu} or
+hazard pointers might alleviate \acr{htm}'s transaction-size limitations
 for read-only operations that traverse large fractions of the data
 structure~\cite{SeongJaePark2020HTMRCUlock}.
-Current HTM implementations unconditionally abort an update transaction
-that conflicts with an RCU or hazard-pointer reader, but perhaps future
-HTM implementations will interoperate more smoothly with these
+Current \acr{htm} implementations unconditionally abort an update transaction
+that conflicts with an \acr{rcu} or hazard-pointer reader, but perhaps future
+\acr{htm} implementations will interoperate more smoothly with these
 synchronization mechanisms.
 In the meantime, the probability of an update conflicting with a
-large RCU or hazard-pointer read-side critical section should be
+large \acr{rcu} or hazard-pointer read-side critical section should be
 much smaller than the probability of conflicting with the equivalent
 read-only transaction.\footnote{
 	It is quite ironic that strictly transactional mechanisms are
 	appearing in shared-memory systems at just about the time
 	that NoSQL databases are relaxing the traditional
 	database-application reliance on strict transactions.
-	Nevertheless, HTM has in fact realized the ease-of-use promise
-	of TM, albeit for black-hat attacks on the Linux kernel's
+	Nevertheless, \acr{htm} has in fact realized the ease-of-use promise
+	of \acr{tm}, albeit for black-hat attacks on the Linux kernel's
 	address-space randomization defense
 	mechanism~\cite{YeongjinJang2016TSXbreakKASLR,Jang:2016:BKA:2976749.2978321}.}
-Nevertheless, it is quite possible that a steady stream of RCU or
+Nevertheless, it is quite possible that a steady stream of \acr{rcu} or
 hazard-pointer readers might starve updaters due to a corresponding
 steady stream of conflicts.
 This vulnerability could be eliminated (at significant
 hardware cost and complexity) by giving extra-transactional
 reads the pre-transaction copy of the memory location being loaded.
 
-The fact that HTM transactions must have fallbacks might in some cases
-force static partitionability of data structures back onto HTM\@.
-This limitation might be alleviated if future HTM implementations
+The fact that \acr{htm} transactions must have fallbacks might in some cases
+force static partitionability of data structures back onto \acr{htm}\@.
+This limitation might be alleviated if future \acr{htm} implementations
 provide forward-progress guarantees, which might eliminate the need
-for fallback code in some cases, which in turn might allow HTM to
+for fallback code in some cases, which in turn might allow \acr{htm} to
 be used efficiently in situations with higher conflict probabilities.
 
-In short, although HTM is likely to have important uses and applications,
+In short, although \IXacr{htm} is likely to have important uses and applications,
 it is another tool in the parallel programmer's toolbox, not a replacement
 for the toolbox in its entirety.
 
 \subsection{Potential Game Changers}
 \label{sec:future:Potential Game Changers}
 
-Game changers that could greatly increase the need for HTM include
+Game changers that could greatly increase the need for \IXacr{htm} include
 the following:
 
 \begin{enumerate}
@@ -993,20 +993,20 @@ These are expanded upon in the following sections.
 
 As was discussed in
 \cref{sec:future:Lack of Forward-Progress Guarantees},
-current HTM implementations lack forward-progress guarantees, which requires
-that fallback software is available to handle HTM failures.
+current \IXacr{htm} implementations lack forward-progress guarantees, which requires
+that fallback software is available to handle \acr{htm} failures.
 Of course, it is easy to demand guarantees, but not always easy
 to provide them.
-In the case of HTM, obstacles to guarantees can include cache size and
+In the case of \acr{htm}, obstacles to guarantees can include cache size and
 associativity, TLB size and associativity, transaction duration and
 interrupt frequency, and scheduler implementation.
 
 Cache size and associativity was discussed in
 \cref{sec:future:Transaction-Size Limitations},
 along with some research intended to work around current limitations.
-However, HTM forward-progress guarantees would
+However, \IXacr{htm} forward-progress guarantees would
 come with size limits, large though these limits might one day be.
-So why don't current HTM implementations provide forward-progress
+So why don't current \acr{htm} implementations provide forward-progress
 guarantees for small transactions, for example, limited to the
 associativity of the cache?
 One potential reason might be the need to deal with hardware failure.
@@ -1030,7 +1030,7 @@ Any forward-progress guarantees must therefore also take TLB size
 and associativity into account.
 
 Given that interrupts, traps, and exceptions abort transactions in current
-HTM implementations, it is necessary that the execution duration of
+\IXacr{htm} implementations, it is necessary that the execution duration of
 a given transaction be shorter than the expected interval between
 interrupts.
 No matter how little data a given transaction touches, if it runs too
@@ -1044,7 +1044,7 @@ It is all too easy to imagine an endless series of transactions, each
 aborting an earlier transaction only to itself be aborted by a later
 transactions, so that none of the transactions actually commit.
 The complexity of conflict handling is
-evidenced by the large number of HTM conflict-resolution policies
+evidenced by the large number of \IXacr{htm} conflict-resolution policies
 that have been proposed~\cite{EgeAkpinar2011HTM2TLE,YujieLiu2011ToxicTransactions}.
 Additional complications are introduced by extra-transactional accesses,
 as noted by Blundell~\cite{Blundell2006TMdeadlock}.
@@ -1059,16 +1059,16 @@ Finally, any forward-progress guarantees for transactions also
 depend on the scheduler, which must let the thread executing the
 transaction run long enough to successfully commit.
 
-So there are significant obstacles to HTM vendors offering forward-progress
+So there are significant obstacles to \IXacr{htm} vendors offering forward-progress
 guarantees.
 However, the impact of any of them doing so would be enormous.
-It would mean that HTM transactions would no longer need software
-fallbacks, which would mean that HTM could finally deliver on the
-TM promise of deadlock elimination.
+It would mean that \acr{htm} transactions would no longer need software
+fallbacks, which would mean that \acr{htm} could finally deliver on the
+\IXacr{tm} promise of deadlock elimination.
 
-However, in late 2012, the IBM Mainframe announced an HTM implementation
+However, in late 2012, the IBM Mainframe announced an \acr{htm} implementation
 that includes \emph{constrained transactions} in addition to the usual
-best-effort HTM
+best-effort \acr{htm}
 implementation~\cite{ChristianJacobi2012MainframeTM}.
 A constrained transaction starts with the \co{tbeginc} instruction
 instead of the \co{tbegin} instruction that is used for best-effort
@@ -1106,15 +1106,15 @@ As the name implies, constrained transactions are in fact severely constrained:
 
 Nevertheless, these constraints support a number of important data structures,
 including linked lists, stacks, queues, and arrays.
-Constrained HTM therefore seems likely to become an important tool in
+Constrained \IXacr{htm} therefore seems likely to become an important tool in
 the parallel programmer's toolbox.
 
 Note that these forward-progress guarantees need not be absolute.
-For example, suppose that a use of HTM uses a global lock as fallback.
+For example, suppose that a use of \IXacr{htm} uses a global lock as fallback.
 Assuming that the fallback mechanism has been carefully designed to
 avoid the ``lemming effect'' discussed in
 \cref{sec:future:Aborts and Rollbacks},
-then if HTM rollbacks are sufficiently infrequent, the global lock
+then if \acr{htm} rollbacks are sufficiently infrequent, the global lock
 will not be a bottleneck.
 That said, the larger the system, the longer the critical sections,
 and the longer the time required to recover from the ``lemming effect'',
@@ -1126,9 +1126,9 @@ the more rare ``sufficiently infrequent'' needs to be.
 Forward-progress guarantees are important, but as we saw, they will
 be conditional guarantees based on transaction size and duration.
 There has been some progress, for example, some commercially available
-HTM implementations use approximation techniques to support extremely
-large HTM read sets~\cite{RaviRajwar2012TSX}.
-For another example, \Power{8} HTM supports suspended transations, which
+\IXacr{htm} implementations use approximation techniques to support extremely
+large \acr{htm} read sets~\cite{RaviRajwar2012TSX}.
+For another example, \Power{8} \acr{htm} supports suspended transations, which
 avoid adding irrelevant accesses to the suspended transation's read and
 write sets~\cite{Le:2015:TMS:3266491.3266500}.
 This capability has been used to produce a high performance
@@ -1142,7 +1142,7 @@ However, larger data structures require larger guarantees, for example,
 traversing a tree in order requires a guarantee equal to the number
 of nodes in the tree.
 Therefore, even modest increases in the size of the guarantee also
-increases the usefulness of HTM, thereby increasing the need for CPUs
+increases the usefulness of \acr{htm}, thereby increasing the need for CPUs
 to either provide it or provide good-and-sufficient workarounds.
 
 \subsubsection{Improved Debugging Support}
@@ -1152,35 +1152,35 @@ Another inhibitor to transaction size is the need to debug the transactions.
 The problem with current mechanisms is that a single-step exception
 aborts the enclosing transaction.
 There are a number of workarounds for this issue, including emulating
-the processor (slow!), substituting STM for HTM (slow and slightly
+the processor (slow!), substituting \IXacr{stm} for \IXacr{htm} (slow and slightly
 different semantics!),
 playback techniques using repeated retries to emulate forward
 progress (strange failure modes!), and
-full support of debugging HTM transactions (complex!).
+full support of debugging \acr{htm} transactions (complex!).
 
-Should one of the HTM vendors produce an HTM system that allows
+Should one of the \IXacr{htm} vendors produce an \acr{htm} system that allows
 straightforward use of classical debugging techniques within
 transactions, including breakpoints, single stepping, and
-print statements, this will make HTM much more compelling.
+print statements, this will make \acr{htm} much more compelling.
 Some transactional-memory researchers started to recognize this
 problem in 2013, with at least one proposal involving hardware-assisted
 debugging facilities~\cite{JustinGottschlich2013TMdebug}.
 Of course, this proposal depends on readily available hardware gaining such
 facilities~\cite{TimothyHayes2020ARM-HTM,Intel2020TSXdevguide}.
 Worse yet, some cutting-edge debugging facilities are incompatible
-with HTM~\cite{RobertOCallahan2020DebuggingHTM}.
+with \acr{htm}~\cite{RobertOCallahan2020DebuggingHTM}.
 
 \subsubsection{Weak Atomicity}
 \label{sec:future:Weak Atomicity}
 
-Given that HTM is likely to face some sort of size limitations for the
-foreseeable future, it will be necessary for HTM to interoperate
+Given that \IXacr{htm} is likely to face some sort of size limitations for the
+foreseeable future, it will be necessary for \acr{htm} to interoperate
 smoothly with other mechanisms.
-HTM's interoperability with read-mostly mechanisms such as hazard pointers
-and RCU would be improved if extra-transactional reads did not
+\Acr{htm}'s interoperability with read-mostly mechanisms such as hazard pointers
+and \IXacr{rcu} would be improved if extra-transactional reads did not
 unconditionally abort transactions with conflicting writes---instead,
 the read could simply be provided with the pre-transaction value.
-In this way, hazard pointers and RCU could be used to allow HTM to handle
+In this way, hazard pointers and \acr{rcu} could be used to allow \acr{htm} to handle
 larger data structures and to reduce conflict probabilities.
 
 This is not necessarily simple, however.
@@ -1192,12 +1192,12 @@ large-footprint readers without the risk of starving updaters due
 to continual conflicts.
 An alternative approach, applied to great effect to binary search trees
 by Siakavaras et al.~\cite{Siakavaras2017CombiningHA},
-is to use RCU for read-only traversals and HTM
+is to use \IXacr{rcu} for read-only traversals and \IXacr{htm}
 only for the actual updates themselves.
 This combination outperformed other transactional-memory techniques by
 up to 220\,\%, a speedup similar to that observed by
 Howard and Walpole~\cite{PhilHoward2011RCUTMRBTree}
-when they combined RCU with STM\@.
+when they combined \acr{rcu} with \IXacr{stm}\@.
 In both cases, the weak atomicity is implemented in software rather than
 in hardware.
 It would nevertheless be interesting to see what additional speedups
@@ -1207,7 +1207,7 @@ software.
 \subsection{Conclusions}
 \label{sec:future:Conclusions}
 
-Although current HTM implementations have delivered real performance
+Although current \IXacr{htm} implementations have delivered real performance
 benefits in some situations, they also have significant shortcomings.
 The most significant shortcomings appear to be
 limited transaction sizes,
@@ -1219,14 +1219,14 @@ from locking.
 
 Some of these shortcomings might be alleviated in future implementations,
 but it appears that there will continue to be a strong need to make
-HTM work well with the many other types of synchronization mechanisms,
+\IXacr{htm} work well with the many other types of synchronization mechanisms,
 as noted earlier~\cite{McKenney2007PLOSTM,PaulEMcKenney2010OSRGrassGreener}.
-Although there has been some work using HTM with
-RCU~\cite{Siakavaras2017CombiningHA,DimitriosSiakavaras2020RCU-HTM-B+Trees,ChristinaGiannoula2018HTM-RCU-graphcoloring,SeongJaePark2020HTMRCUlock},
-there has been little evidence of progress towards HTM work better with
-RCU and with other deferred-reclamation mechanisms.
+Although there has been some work using \acr{htm} with
+\IXacr{rcu}~\cite{Siakavaras2017CombiningHA,DimitriosSiakavaras2020RCU-HTM-B+Trees,ChristinaGiannoula2018HTM-RCU-graphcoloring,SeongJaePark2020HTMRCUlock},
+there has been little evidence of progress towards \acr{htm} work better with
+\acr{rcu} and with other deferred-reclamation mechanisms.
 
-In short, current HTM implementations appear to be welcome and useful
+In short, current \IXacr{htm} implementations appear to be welcome and useful
 additions to the parallel programmer's toolbox, and much interesting
 and challenging work is required to make use of them.
 However, they cannot be
