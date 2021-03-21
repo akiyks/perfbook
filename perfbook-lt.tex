@@ -178,8 +178,12 @@
 \newcommand{\IXaltr}[2]{\hlindex{#1}\index{#2}} % put alternative as is into general index
 \newcommand{\IXacr}[1]{\gls{#1}\glsuseri{#1}} % put index via acronym dictionary
 \newcommand{\IXAcr}[1]{\Gls{#1}\glsuseri{#1}} % put index via acronym dictionary (upper case)
-\newcommand{\acr}[1]{\gls{#1}}
-\newcommand{\Acr}[1]{\Gls{#1}}
+\newcommand{\acr}[1]{\gls{#1}} % print acronym via dictionary
+\newcommand{\Acr}[1]{\Gls{#1}} % print acronym via dictionary (upper case)
+\newcommand{\IXacrl}[1]{\glsxtrlong{#1}\glsuseri{#1}} % put index via acronym dictionary (long form)
+\newcommand{\IXAcrl}[1]{\Glsxtrlong{#1}\glsuseri{#1}} % put index via acronym dictionary (long form, upper case)
+\newcommand{\acrl}[1]{\glsxtrlong{#1}} % print acronym via dictionary (long form)
+\newcommand{\Acrl}[1]{\Glsxtrlong{#1}} % print acronym via dictionary (long form, upper case)
 \newcommand{\apic}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{c}}}
 \newcommand{\apig}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{g}}}
 \newcommand{\apipx}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{px}}}

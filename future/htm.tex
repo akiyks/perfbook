@@ -507,8 +507,7 @@ and thus increasing the probability of failure.
 \label{sec:future:Semantic Differences}
 
 Although \IXacr{htm} can in many cases be used as a drop-in replacement for locking
-(hence the name transactional lock
-elision~\cite{DaveDice2008TransactLockElision}),
+(hence the name \IXacr{tle}~\cite{DaveDice2008TransactLockElision}),
 there are subtle differences in semantics.
 A particularly nasty example involving coordinated lock-based critical
 sections that results in deadlock or livelock when executed transactionally
@@ -524,7 +523,7 @@ But if this empty critical section is translated to a transaction,
 the result is a no-op.
 The guarantee that all prior critical sections have terminated is
 lost.
-In other words, transactional lock elision preserves the data-protection
+In other words, \acrl{tle} preserves the data-protection
 semantics of locking, but loses locking's time-based messaging semantics.
 
 \QuickQuizSeries{%
@@ -538,8 +537,7 @@ semantics of locking, but loses locking's time-based messaging semantics.
 	However, it is claimed that given a strongly atomic \IXacr{htm}
 	implementation without forward-progress guarantees, any
 	memory-based locking design based on empty critical sections
-	will operate correctly in the presence of transactional
-	lock elision.
+	will operate correctly in the presence of \IXacrl{tle}.
 	Although I have not seen a proof of this statement, there
 	is a straightforward rationale for this claim.
 	The main idea is that in a strongly atomic \acr{htm} implementation,
@@ -564,7 +562,7 @@ semantics of locking, but loses locking's time-based messaging semantics.
 }\QuickQuizEndB
 %
 \QuickQuizM{
-	Can't transactional lock elision trivially handle locking's
+	Can't \IXacrl{tle} handle locking's
 	time-based messaging semantics
 	by simply choosing not to elide empty lock-based critical sections?
 }\QuickQuizAnswerM{
@@ -582,7 +580,7 @@ semantics of locking, but loses locking's time-based messaging semantics.
 	On the other hand, it is possible for a non-empty lock-based
 	critical section to be relying on both the data-protection
 	and time-based and messaging semantics of locking.
-	Using transactional lock elision in such a case would be
+	Using \acrl{tle} in such a case would be
 	incorrect, and would result in bugs.
 }\QuickQuizEndM
 %
@@ -786,8 +784,8 @@ This arrangement requires that \co{boostee()} acquire its first
 lock on \clnref{1stacq} before the system becomes busy, but this is easily
 arranged, even on modern hardware.
 
-Unfortunately, this arrangement can break down in presence of transactional
-lock elision.
+Unfortunately, this arrangement can break down in presence of
+\IXacrl{tle}.
 The \co{boostee()} function's overlapping critical sections become
 one infinite transaction, which will sooner or later abort,
 for example, on the first time that the thread running
