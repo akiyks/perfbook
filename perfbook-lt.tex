@@ -78,6 +78,10 @@
 \usepackage[bookmarks=true,bookmarksnumbered=true,pdfborder={0 0 0},linktoc=all]{hyperref}
 \usepackage{footnotebackref} % to enable cross-ref of footnote
 \usepackage[all]{hypcap} % for going to the top of figure and table
+\usepackage[acronym]{glossaries-extra}
+\usepackage[longragged]{glossaries-extra-stylemods}
+\makeglossaries
+\setabbreviationstyle[acronym]{long-short}
 \usepackage{epigraph}[2020/01/02] % latest version prevents orphaned epigraph
 \setlength{\epigraphwidth}{2.6in}
 \usepackage[xspace]{ellipsis}
@@ -400,6 +404,8 @@
 \newcommand\ebFloatBarrier{}
 }
 
+% Glossaries dictionary and custom settings
+\input{glsdict}
 
 \begin{document}
 
@@ -542,14 +548,14 @@
 
 % Index if enabled
 \IfIndexOn{
-\cleardoublepage
 \phantomsection
 \IfTwoColumn{}{
 \IfEbookSize{\idxlayout{columns=2}}{
 \newgeometry{body={6.5in,8.25in},centering=true,columnsep=0.25in}
 }}
+\printglossaries
+\phantomsection
 \printindex
-\cleardoublepage
 \phantomsection
 \printindex[api]
 \IfTwoColumn{}{

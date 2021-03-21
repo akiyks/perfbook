@@ -1,0 +1,27 @@
+\renewcommand*{\CustomAcronymFields}{%
+  name={\the\glsshorttok},%
+  symbol={\the\glsshorttok},%
+  text={\the\glsshorttok},%
+  plural={\the\glsshorttok\noexpand\acrpluralsuffix},%
+  first={\the\glslongtok\space(\the\glsshorttok)},%
+  firstplural={\the\glslongtok\noexpand\acrpluralsuffix\space(\the\glsshorttok)},%
+  description={\the\glslongtok},%
+  user1={\protect\index{\the\glslongtok\space(\the\glsshorttok)%
+         @\makefirstuc{\the\glslongtok}\space(\the\glsshorttok)}}%
+}
+
+\renewcommand{\glsxtrprelocation}{,\space}
+
+\SetCustomStyle
+
+\newacronym{irq}{IRQ}{interrupt request}
+\newacronym{ipi}{IPI}{inter-processor interrupt}
+\newacronym{nmi}{NMI}{non-maskable interrupt}
+\newacronym{nuca}{NUCA}{non-uniform cache architecture}
+\newacronym{numa}{NUMA}{non-uniform memory architecture}
+\newacronym{rcu}{RCU}{read-copy update}
+\newacronym{tle}{TLE}{transactional lock elision}
+\newacronym{tm}{TM}{transactional memory}
+\newacronym{htm}{HTM}{hardware transactional memory}
+\newacronym{stm}{STM}{software transactional memory}
+\newacronym{utm}{UTM}{unbounded transactional memory}

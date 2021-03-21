@@ -259,13 +259,13 @@
 	If necessary, the item is removed from the other CPUs' caches
 	via ``invalidation'' messages from the writing CPUs to any
 	CPUs having a copy in their caches.
-\item[IPI:]\index{IPI}
+\item[IPI:]\glsuseri{ipi}
 	Inter-processor interrupt, which is an
 	interrupt sent from one CPU to another.
 	IPIs are used heavily in the Linux kernel, for example, within
 	the scheduler to alert CPUs that a high-priority process is now
 	runnable.
-\item[IRQ:]\index{IRQ}
+\item[IRQ:]\glsuseri{irq}
 	Interrupt request, often used as an abbreviation for ``interrupt''
 	within the Linux kernel community, as in ``irq handler''.
 \item[Latency:]\index{Latency}
@@ -341,21 +341,21 @@
 \item[Mutual-Exclusion Mechanism:]\index{Mutual-exclusion mechanism}
 	A software abstraction that regulates threads' access to
 	``critical sections'' and corresponding data.
-\item[NMI:]\index{NMI}
+\item[NMI:]\glsuseri{nmi}
 	Non-maskable interrupt.
 	As the name indicates, this is an extremely high-priority
 	interrupt that cannot be masked.
 	These are used for hardware-specific purposes such as profiling.
 	The advantage of using NMIs for profiling is that it allows you
 	to profile code that runs with interrupts disabled.
-\item[NUCA:]\index{NUCA}
+\item[NUCA:]\glsuseri{nuca}
 	Non-uniform cache architecture, where groups of CPUs share
 	caches and/or store buffers.
 	CPUs in a group can therefore exchange cache lines with each
 	other much more quickly than they can with CPUs in other groups.
 	Systems comprised of CPUs with hardware threads will generally
 	have a NUCA architecture.
-\item[NUMA:]\index{NUMA}
+\item[NUMA:]\glsuseri{numa}
 	Non-uniform memory architecture, where memory is split into
 	banks and each such bank is ``close'' to a group of CPUs,
 	the group being termed a ``NUMA node''.
@@ -414,7 +414,7 @@
 	outside of an RCU read-side critical section.
 	Any interval of time during which all threads pass through at
 	least one quiescent state each is termed a ``grace period''.
-\item[Read-Copy Update (RCU):]\index{Read-copy update (RCU)}
+\item[Read-Copy Update (RCU):]\glsuseri{rcu}
 	A synchronization mechanism that can be thought of as a replacement
 	for reader-writer locking or reference counting.
 	RCU provides extremely low-overhead access for readers, while
@@ -504,14 +504,14 @@
 	they understand completely and are therefore comfortable teaching.
 \item[Throughput:]\index{Throughput}
 	A performance metric featuring work items completed per unit time.
-\item[Transactional Lock Elision (TLE):]\index{Transactional lock elision (TLE)}
+\item[Transactional Lock Elision (TLE):]\glsuseri{tle}
 	The use of transactional memory to emulate locking.
 	Synchronization is instead carried out by conflicting accesses
 	to the data to be protected by the lock.
 	In some cases, this can increase performance because TLE
 	avoids contention on the lock
 	word~\cite{MartinPohlack2011HTM2TLE,Kleen:2014:SEL:2566590.2576793,PascalFelber2016rwlockElision,SeongJaePark2020HTMRCUlock}.
-\item[Transactional Memory (TM):]\index{Transactional memory (TM)}
+\item[Transactional Memory (TM):]\glsuseri{tm}
 	A synchronization mechanism that gathers groups of memory
 	accesses so as to execute them atomically from the viewpoint
 	of transactions on other CPUs or threads.
