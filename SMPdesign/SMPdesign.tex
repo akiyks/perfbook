@@ -577,7 +577,7 @@ ignoring the fact that CPUs must wait on each other to complete
 their synchronization operations, in other words, $\mu$ can be roughly
 thought of as the synchronization overhead in absence of contention.
 For example, suppose that each transaction's synchronization operation
-involves an atomic increment instruction, and that a computer system is
+involves an \IX{atomic} increment instruction, and that a computer system is
 able to do a private-variable atomic increment every 5~nanoseconds on
 each CPU
 (see \cref{fig:count:Atomic Increment Scalability on x86}).\footnote{

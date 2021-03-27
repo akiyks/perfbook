@@ -1051,7 +1051,7 @@ shuttle between CPUs~0 and~1, bypassing CPUs~2--7.
 \subsection{Inefficiency}
 \label{sec:locking:Inefficiency}
 
-Locks are implemented using atomic instructions and memory barriers,
+Locks are implemented using \IX{atomic} instructions and memory barriers,
 and often involve cache misses.
 As we saw in Chapter~\ref{chp:Hardware and its Habits},
 these instructions are quite expensive, roughly two
@@ -1812,7 +1812,7 @@ mechanisms have been used extensively as pure spinlocks in production.
 \label{sec:locking:Other Exclusive-Locking Implementations}
 
 There are a great many other possible implementations of locking based
-on atomic instructions, many of which are reviewed in the classic paper
+on \IX{atomic} instructions, many of which are reviewed in the classic paper
 by Mellor-Crummey and Scott~\cite{MellorCrummey91a}.
 These implementations represent different points in a multi-dimensional
 design tradeoff~\cite{Guerraoui:2019:LPA:3319851.3301501,HugoGuirouxPhD,McKenney96a}.

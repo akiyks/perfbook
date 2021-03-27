@@ -1077,7 +1077,7 @@ The \co{hashtab} structure shown on
 \clnrefrange{hashtab:b}{hashtab:e} contains only a
 pointer to the current \co{ht} structure along with a spinlock that
 is used to serialize concurrent attempts to resize the hash table.
-If we were to use a traditional lock- or atomic-operation-based
+If we were to use a traditional lock- or \IX{atomic}-operation-based
 implementation, this \co{hashtab} structure could become a severe bottleneck
 from both performance and scalability viewpoints.
 However, because resize operations should be relatively infrequent,

@@ -261,7 +261,7 @@ Although approximation does have a large place in computing, loss of
 \label{fig:count:Atomic Increment Scalability on x86}
 \end{figure}
 
-The straightforward way to count accurately is to use atomic operations,
+The straightforward way to count accurately is to use \IX{atomic} operations,
 as shown in
 Listing~\ref{lst:count:Just Count Atomically!} (\path{count_atomic.c}).
 \begin{fcvref}[ln:count:count_atomic:inc-read]
@@ -1233,7 +1233,7 @@ of structures, while the threads doing most of the freeing have lots
 of credits that they cannot use.
 On the other hand, if freed structures are credited to the CPU that
 allocated them, it will be necessary for CPUs to manipulate each
-others' counters, which will require expensive atomic instructions
+others' counters, which will require expensive \IX{atomic} instructions
 or other means of communicating between threads.\footnote{
 	That said, if each structure will always be freed
 	by the same CPU (or thread) that allocated it, then
@@ -1837,7 +1837,7 @@ we need a limit counter that can tell exactly when its limits are
 exceeded.
 One way of implementing such a limit counter is to
 cause threads that have reserved counts to give them up.
-One way to do this is to use atomic instructions.
+One way to do this is to use \IX{atomic} instructions.
 Of course, atomic instructions will slow down the fastpath, but on the
 other hand, it would be silly not to at least give them a try.
 
@@ -2250,7 +2250,7 @@ The next section qualitatively evaluates this design.
 
 This is the first implementation that actually allows the counter to
 be run all the way to either of its limits, but it does so at the
-expense of adding atomic operations to the fastpaths, which slow down
+expense of adding \IX{atomic} operations to the fastpaths, which slow down
 the fastpaths significantly on some systems.
 Although some workloads might tolerate this slowdown, it is worthwhile
 looking for algorithms with better read-side performance.
@@ -2816,7 +2816,7 @@ device removal.
 This chapter has presented the reliability, performance, and
 scalability problems with traditional counting primitives.
 The C-language \co{++} operator is not guaranteed to function reliably in
-multithreaded code, and atomic operations to a single variable neither
+multithreaded code, and \IX{atomic} operations to a single variable neither
 perform nor scale well.
 This chapter therefore presented a number of counting algorithms that
 perform and scale extremely well in certain special cases.
