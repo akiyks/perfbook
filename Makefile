@@ -7,6 +7,7 @@ LATEXSOURCES = \
 	legal.tex \
 	summary.tex \
 	glossary.tex \
+	indexsee.tex \
 	qqz.sty origpub.sty \
 	glsdict.tex \
 	noindentafter.sty \

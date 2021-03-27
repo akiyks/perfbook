@@ -9,7 +9,7 @@
 	        David~Levary~et~al.}}
 
 \begin{description}
-\item[Associativity:]\index{Associativity}
+\item[\IXalt{Associativity}{Cache associativity}:]
 	The number of cache lines that can be held simultaneously in
 	a given cache, when all of these cache lines hash identically
 	in that cache.
@@ -24,14 +24,14 @@
 	fully associative caches are normally quite limited in size.
 	The associativity of the large caches found on modern microprocessors
 	typically range from two-way to eight-way.
-\item[Associativity Miss:]\index{Associativity miss}
+\item[\IXalth{Associativity Miss}{associativity}{cache miss}:]
 	A cache miss incurred because the corresponding CPU has recently
 	accessed more data hashing to a given set of the cache than will
 	fit in that set.
 	Fully associative caches are not subject to associativity misses
 	(or, equivalently, in fully associative caches, associativity
 	and capacity misses are identical).
-\item[Atomic:]\index{Atomic}
+\item[\IX{Atomic}:]
 	An operation is considered ``atomic'' if it is not possible to
 	observe any intermediate state.
 	For example, on most CPUs, a store to a properly aligned pointer
@@ -48,7 +48,7 @@
 	A forward-progress guarantee in which every thread makes
 	progress within a specific finite period of time, the specific
 	time being the bound.
-\item[Cache:]\index{Cache}
+\item[\IX{Cache}:]
 	In modern computer systems, CPUs have caches in which to hold
 	frequently used data.
 	These caches can be thought of as hardware hash tables with very
@@ -101,7 +101,7 @@
 	on a cache-line boundary.
 	For example, the address of the first word of a cache line
 	in memory will end in 0x00 on systems with 256-byte cache lines.
-\item[Cache Miss:]\index{Cache miss}
+\item[\IX{Cache Miss}:]
 	A cache miss occurs when data needed by the CPU is not in
 	that CPU's cache.
 	The data might be missing because of a number of reasons,
@@ -123,14 +123,14 @@
 	(5) this CPU attempted to write to a cache line that is
 	currently read-only, possibly due to that line being replicated
 	in other CPUs' caches.
-\item[Capacity Miss:]\index{Capacity miss}
+\item[\IXalth{Capacity Miss}{capacity}{cache miss}:]
 	A cache miss incurred because the corresponding CPU has recently
 	accessed more data than will fit into the cache.
 \item[Clash Free:]\index{Clash free}
 	A forward-progress guarantee in which, in the absence of
 	contention, at least one thread makes progress within a finite
 	period of time.
-\item[Code Locking:]\index{Code locking}
+\item[\IXh{Code}{Locking}:]
 	A simple locking design in which a ``global lock'' is used to protect
 	a set of critical sections, so that access by a given thread
 	to that set is
@@ -142,7 +142,7 @@
 	scalability (in fact, will typically \emph{decrease} scalability
 	by increasing ``lock contention'').
 	Contrast with ``data locking''.
-\item[Communication Miss:]\index{Communication miss}
+\item[\IXalth{Communication Miss}{communication}{cache miss}:]
 	A cache miss incurred because some other CPU has written to
 	the cache line since the last time this CPU accessed it.
 \item[Concurrent:]\index{Concurrent}
@@ -151,7 +151,7 @@
 	on \cpageref{sec:app:questions:What is the Difference Between ``Concurrent'' and ``Parallel''?}
 	for a discussion of the recent distinction between these two
 	terms.
-\item[Critical Section:]\index{Critical section}
+\item[\IX{Critical Section}:]
 	A section of code guarded by some synchronization mechanism,
 	so that its execution constrained by that primitive.
 	For example, if a set of critical sections are guarded by
@@ -160,7 +160,7 @@
 	If a thread is executing in one such critical section,
 	any other threads must wait until the first thread completes
 	before executing any of the critical sections in the set.
-\item[Data Locking:]\index{Data locking}
+\item[\IXh{Data}{Locking}:]
 	A scalable locking design in which each instance of a given
 	data structure has its own lock.
 	If each thread is using a different instance of the
@@ -183,7 +183,7 @@
 	A forward-progress guarantee in which, in the absence of
 	failures, at least one thread makes progress within a finite
 	period of time.
-\item[Direct-Mapped Cache:]\index{Direct-mapped cache}
+\item[\IXh{Direct-Mapped}{Cache}:]
 	A cache with only one way, so that it may hold only one cache
 	line with a given hash value.
 \item[Efficiency:]\index{Efficiency}
@@ -197,7 +197,7 @@
 	increase the overall cost of the computation, resulting in
 	linear speedups as threads are added (assuming sufficient
 	CPUs are available).
-\item[Exclusive Lock:]\index{Exclusive lock}
+\item[\IXh{Exclusive}{Lock}:]
 	An exclusive lock is a mutual-exclusion mechanism that
 	permits only one thread at a time into the
 	set of critical sections guarded by that lock.
@@ -220,7 +220,7 @@
 	while internal fragmentation occurs when specific requests or
 	types of requests have been allotted more memory than they
 	actually requested.
-\item[Fully Associative Cache:]\index{Fully associative cache}
+\item[\IXh{Fully Associative}{Cache}:]
 	A fully associative cache contains only
 	one set, so that it can hold any subset of
 	memory that fits within its capacity.
@@ -426,7 +426,7 @@
 	RCU is thus best-suited for read-mostly situations where
 	stale data can either be tolerated (as in routing tables)
 	or avoided (as in the Linux kernel's System V IPC implementation).
-\item[Read-Side Critical Section:]\index{Read-side critical section}
+\item[\IXh{Read-Side}{Critical Section}:]
 	A section of code guarded by read-acquisition of
 	some reader-writer synchronization mechanism.
 	For example, if one set of critical sections are guarded by
@@ -438,7 +438,7 @@
 	Any number of threads may concurrently execute the read-side
 	critical sections, but only if no thread is executing one of
 	the write-side critical sections.
-\item[Reader-Writer Lock:]\index{Reader-writer lock}
+\item[\IXh{Reader-Writer}{Lock}:]
 	A reader-writer lock is a mutual-exclusion mechanism that
 	permits any number of reading
 	threads, or but one writing thread, into the set of critical
@@ -527,11 +527,11 @@
 \item[Wait Free:]\index{Wait free}
 	A forward-progress guarantee in which every thread makes
 	progress within a finite period of time.
-\item[Write Miss:]\index{Write miss}
+\item[\IXalth{Write Miss}{write}{cache miss}:]
 	A cache miss incurred because the corresponding CPU attempted
 	to write to a cache line that is read-only, most likely due
 	to its being replicated in other CPUs' caches.
-\item[Write-Side Critical Section:]\index{Write-side critical section}
+\item[\IXh{Write-Side}{Critical Section}:]
 	A section of code guarded by write-acquisition of
 	some reader-writer synchronization mechanism.
 	For example, if one set of critical sections are guarded by
