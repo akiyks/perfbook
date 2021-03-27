@@ -1512,7 +1512,7 @@ column of the cheat sheet shown in
 Unfortunately, this property is so popular that it has been named
 multiple times, with ``single-variable SC'',\footnote{
 	Recall that SC stands for sequentially consistent.}
-``single-copy atomic''~\cite{Stone:1995:SP:623262.623912},
+``\IX{single-copy atomic}''~\cite{Stone:1995:SP:623262.623912},
 and just plain ``coherence''~\cite{JadeAlglave2011ppcmem}
 having seen use.
 Rather than further compound the confusion by inventing yet another term
@@ -1582,7 +1582,7 @@ and other counter-intuitive behavior, as discussed in the next section.
 \end{figure}
 
 Threads running on a fully
-\emph{multicopy atomic}~\cite{Stone:1995:SP:623262.623912}
+\emph{\IX{multicopy atomic}}~\cite{Stone:1995:SP:623262.623912}
 platform are guaranteed
 to agree on the order of stores, even to different variables.
 A useful mental model of such a system is the single-bus architecture
@@ -1595,25 +1595,27 @@ Unfortunately, building a computer system as shown in the figure, without
 store buffers or even caches, would result in glacially slow computation.
 Most CPU vendors interested in providing multicopy atomicity therefore
 instead provide the slightly weaker
-\emph{other-multicopy atomicity}~\cite[Section B2.3]{ARMv8A:2017},
+\emph{\IXalt{other-multicopy atomicity}{other-multicopy atomic}}~\cite[Section B2.3]{ARMv8A:2017},
 which excludes the CPU doing a given store from the requirement that all
 CPUs agree on the order of all stores.\footnote{
-	As of early 2021, \ARMv8 and x86 provide other-multicopy atomicity,
-	IBM mainframe provides full multicopy atomicity, and PPC
+	As of early 2021, \ARMv8 and x86 provide
+        \IXalt{other-multicopy atomicity}{other-multicopy atomic},
+	IBM mainframe provides full \IXalt{multicopy atomicity}{multicopy atomic}, and PPC
 	provides no multicopy atomicity at all.
 	More detail is shown in
 	\cref{tab:memorder:Summary of Memory Ordering}.}
 This means that if only a subset of CPUs are doing stores, the
 other CPUs will agree on the order of stores, hence the ``other''
 in ``other-multicopy atomicity''.
-Unlike multicopy-atomic platforms, within other-multicopy-atomic platforms,
+Unlike multicopy-atomic platforms, within
+\IXalt{other-multicopy-atomic}{other-multicopy atomic} platforms,
 the CPU doing the store is permitted to observe its
 store early, which allows its later loads to obtain the newly stored
 value directly from the store buffer, which improves performance.
 
 \QuickQuiz{
 	Can you give a specific example showing different behavior for
-	multicopy atomic on the one hand and other-multicopy atomic
+	\IX{multicopy atomic} on the one hand and \IX{other-multicopy atomic}
 	on the other?
 }\QuickQuizAnswer{
 \begin{listing}[tbp]
@@ -1662,9 +1664,10 @@ must deal with them.
 \begin{fcvref}[ln:formal:C-WRC+o+o-data-o+o-rmb-o:whole]
 \Cref{lst:memorder:WRC Litmus Test With Dependencies (No Ordering)}
 (\path{C-WRC+o+o-data-o+o-rmb-o.litmus})
-demonstrates multicopy atomicity, that is, on a multicopy-atomic platform,
+demonstrates \IXalt{multicopy atomicity}{multicopy atomic},
+that is, on a multicopy-atomic platform,
 the \co{exists} clause on \clnref{exists} cannot trigger.
-In contrast, on a non-multicopy-atomic
+In contrast, on a \IXalt{non-multicopy-atomic}{non-multicopy atomic}
 platform this \co{exists} clause can trigger, despite
 \co{P1()}'s accesses being ordered by a data dependency and \co{P2()}'s
 accesses being ordered by an \co{smp_rmb()}.
@@ -1915,7 +1918,7 @@ be ordered before the load on \clnref{P2:x}, though only if both \co{r1} and
 \end{fcvref}
 
 In short, use of cumulative ordering operations can suppress
-non-multicopy-atomic behaviors in some situations.
+\IXalt{non-multicopy-atomic}{non-multicopy atomic} behaviors in some situations.
 Cumulativity nevertheless has limits, which are examined in the next section.
 
 \subsubsection{Propagation}
@@ -3887,10 +3890,11 @@ the CPU's normal load and store instructions are constrained by
 sequential consistency.
 Almost all are not constrained in this way for performance reasons.
 
-The next two rows cover multicopy atomicity, which was defined in
+The next two rows cover \IXalt{multicopy atomicity}{multicopy atomic},
+which was defined in
 \cref{sec:memorder:Multicopy Atomicity}.
 The first is full-up (and rare) multicopy atomicity, and the second is the
-weaker other-multicopy atomicity.
+weaker \IXalt{other-multicopy atomicity}{other-multicopy atomic}.
 
 The next row, ``Non-Cache Coherent'', covers accesses from multiple
 threads to a single variable, which was discussed in
@@ -4590,7 +4594,7 @@ instructions~\cite{PowerPC94,MichaelLyons05a}:
 	order of these stores.
 	Not so on PowerPC, even with an \co{lwsync} instruction between each
 	pair of memory-reference instructions, because PowerPC is
-	non-multicopy atomic.
+	\IX{non-multicopy atomic}.
 \item	[\tco{eieio}] (enforce in-order execution of I/O, in case you
 	were wondering) causes all preceding cacheable stores to appear
 	to have completed before all subsequent stores.
@@ -4749,7 +4753,8 @@ own stores as having happened earlier than this total global order
 would indicate.
 This exception to the total ordering is needed to allow important
 hardware optimizations involving store buffers.
-In addition, x86 provides other-multicopy atomicity, for example,
+In addition, x86 provides
+\IXalt{other-multicopy atomicity}{other-multicopy atomic}, for example,
 so that if CPU~0 sees a store by CPU~1, then CPU~0 is guaranteed to see
 all stores that CPU~1 saw prior to its store.
 Software may use atomic operations to override these hardware optimizations,
@@ -4791,8 +4796,8 @@ but compiler constraints suffices for both the
 It also has strong memory-ordering semantics, as shown in
 \cref{tab:memorder:Summary of Memory Ordering}.
 In particular, all CPUs will agree on the order of unrelated stores from
-different CPUs, that is, the z~Systems CPU family is fully multicopy
-atomic, and is the only commercially available system with this property.
+different CPUs, that is, the z~Systems CPU family is fully \IX{multicopy
+atomic}, and is the only commercially available system with this property.
 
 As with most CPUs, the z~Systems architecture does not guarantee a
 cache-coherent instruction stream, hence,
