@@ -12,7 +12,7 @@ comes with locking is to parcel the data out among the threads (or,
 in the case of kernels, CPUs)
 so that a given piece of data is accessed and modified by only one
 of the threads.
-Interestingly enough, data ownership covers each of the ``big three''
+Interestingly enough, \IX{data ownership} covers each of the ``big three''
 parallel design techniques:
 It partitions over threads (or CPUs, as the case may be),
 it batches all local operations,
@@ -24,7 +24,7 @@ In fact, it is so heavily used that this chapter will not introduce any
 new examples, but will instead refer back to those of previous chapters.
 
 \QuickQuiz{
-	What form of data ownership is extremely difficult
+	What form of \IX{data ownership} is extremely difficult
 	to avoid when creating shared-memory parallel programs
 	(for example, using pthreads) in C or C++?
 }\QuickQuizAnswer{
@@ -155,7 +155,7 @@ parallel programs.
 \epigraph{Give thy mind more to what thou hast than to what thou hast not.}
 	 {\emph{Marcus Aurelius Antoninus}}
 
-Concurrent counting (see \cref{chp:Counting}) uses data ownership heavily,
+Concurrent counting (see \cref{chp:Counting}) uses \IX{data ownership} heavily,
 but adds a twist.
 Threads are not allowed to modify data owned by other threads,
 but they are permitted to read it.
@@ -198,7 +198,7 @@ This arrangement can be thought of as a reader-writer lock that allows
 each CPU very low-overhead access to its own set of per-CPU variables.
 There are a great many variations on this theme.
 
-For its own part, pure data ownership is also both common and useful,
+For its own part, pure \IX{data ownership} is also both common and useful,
 for example, the per-thread memory-allocator caches discussed in
 Section~\ref{sec:SMPdesign:Resource Allocator Caches}
 starting on

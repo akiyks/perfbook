@@ -487,7 +487,8 @@ lock~\cite{Hoare74}.
 \end{listing}
 
 \begin{fcvref}[ln:toolsoftrade:lock:reader_writer]
-This exclusive-locking property is demonstrated using the code shown in
+This \IXalth{exclusive-locking}{exclusive}{lock}
+property is demonstrated using the code shown in
 Listing~\ref{lst:toolsoftrade:Demonstration of Exclusive Locks}
 (\path{lock.c}).
 Line~\lnref{lock_a} defines and initializes a POSIX lock named \co{lock_a}, while
@@ -717,7 +718,8 @@ values of \co{x} stored by \co{lock_writer()}.
 }\QuickQuizEndE
 }
 
-Although there is quite a bit more to POSIX exclusive locking, these
+Although there is quite a bit more to POSIX
+\IXalth{exclusive locking}{exclusive}{lock}, these
 primitives provide a good start and are in fact sufficient in a great
 many situations.
 The next section takes a brief look at POSIX reader-writer locking.
@@ -725,7 +727,7 @@ The next section takes a brief look at POSIX reader-writer locking.
 \subsection{POSIX Reader-Writer Locking}
 \label{sec:toolsoftrade:POSIX Reader-Writer Locking}
 
-The POSIX API provides a reader-writer lock, which is represented by
+The POSIX API provides a \IXh{reader-writer}{lock}, which is represented by
 a \apipx{pthread_rwlock_t}.
 As with \apipx{pthread_mutex_t}, \co{pthread_rwlock_t} may be statically
 initialized via \apipx{PTHREAD_RWLOCK_INITIALIZER} or dynamically
@@ -742,7 +744,7 @@ currently write-holding it.
 As you might expect, reader-writer locks are designed for read-mostly
 situations.
 In these situations, a reader-writer lock can provide greater scalability
-than can an exclusive lock because the exclusive lock is by definition
+than can an \IXh{exclusive}{lock} because the exclusive lock is by definition
 limited to a single thread holding the lock at any given time, while
 the reader-writer lock permits
 an arbitrarily large number of readers to concurrently hold the lock.
@@ -758,7 +760,7 @@ provided by reader-writer locks.
 \begin{fcvref}[ln:toolsoftrade:rwlockscale:reader]
 Listing~\ref{lst:toolsoftrade:Measuring Reader-Writer Lock Scalability}
 (\path{rwlockscale.c})
-shows one way of measuring reader-writer lock scalability.
+shows one way of measuring \IXh{reader-writer}{lock} scalability.
 Line~\lnref{rwlock} shows the definition and initialization of the reader-writer
 lock, line~\lnref{holdtm} shows the \co{holdtime} argument controlling the
 time each thread holds the reader-writer lock,
@@ -895,7 +897,9 @@ $L_1$ is the number of lock acquisitions by a single thread.
 Given ideal hardware and software scalability, this value will always
 be 1.0.
 
-As can be seen in the figure, reader-writer locking scalability is
+As can be seen in the figure,
+\IXalth{reader-writer locking}{reader-writer}{lock}
+scalability is
 decidedly non-ideal, especially for smaller sizes of critical
 sections.
 To see why read-acquisition can be so slow, consider
@@ -935,7 +939,7 @@ in fact degraded by about 10\,\% from ideal.
 
 	Another approach is to keep a single exclusive lock per
 	thread, so that a thread read-acquires the larger aggregate
-	reader-writer lock by acquiring its own lock, and write-acquires
+	\IXh{reader-writer}{lock} by acquiring its own lock, and write-acquires
 	by acquiring all the per-thread locks~\cite{WilsonCHsieh92a}.
 	This can work quite well for readers, but causes writers
 	to incur increasingly large overheads as the number of threads
@@ -948,7 +952,7 @@ in fact degraded by about 10\,\% from ideal.
 \QuickQuizM{
 	The system used is a few years old, and new hardware should
 	be faster.
-	So why should anyone worry about reader-writer locks being slow?
+	So why should anyone worry about \IXhpl{reader-writer}{lock} being slow?
 }\QuickQuizAnswerE{
 	In general, newer hardware is improving.
 	However, it will need to improve several orders of magnitude

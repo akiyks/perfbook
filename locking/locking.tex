@@ -1113,7 +1113,7 @@ and scoped locking (Section~\ref{sec:locking:Scoped Locking}).
 \subsection{Exclusive Locks}
 \label{sec:locking:Exclusive Locks}
 
-Exclusive locks are what they say they are: only one thread may hold
+\IXhpl{Exclusive}{lock} are what they say they are: only one thread may hold
 the lock at a time.
 The holder of such a lock thus has exclusive access to all data protected
 by that lock, hence the name.
@@ -1272,8 +1272,8 @@ when needed rests with the developer.
 
 \QuickQuizLabel{\QlockingQemptycriticalsection}
 
-It is important to note that unconditionally acquiring an exclusive lock
-has two effects:
+It is important to note that unconditionally acquiring an
+\IXh{exclusive}{lock} has two effects:
 (1)~Waiting for all prior holders of that lock to release it, and
 (2)~Blocking any other acquisition attempts until the lock is released.
 As a result, at lock acquisition time, any concurrent acquisitions of
@@ -1324,7 +1324,8 @@ implementation.
 The classic reader-writer lock implementation involves a set of
 counters and flags that are manipulated atomically.
 This type of implementation suffers from the same problem as does
-exclusive locking for short critical sections: The overhead of acquiring
+\IXalth{exclusive locking}{exclusive}{lock}
+for short critical sections: The overhead of acquiring
 and releasing the lock
 is about two orders of magnitude greater than the overhead
 of a simple instruction.
@@ -1335,8 +1336,8 @@ one thread at a time can be manipulating the lock, the required
 critical-section size increases with the number of CPUs.
 
 It is possible to design a reader-writer lock that is much more
-favorable to readers through use of per-thread exclusive
-locks~\cite{WilsonCHsieh92a}.
+favorable to readers through use of per-thread
+\IXhpl{exclusive}{lock}~\cite{WilsonCHsieh92a}.
 To read, a thread acquires only its own lock.
 To write, a thread acquires all locks.
 In the absence of writers, each reader incurs only atomic-instruction
@@ -1351,7 +1352,7 @@ The canonical use case for reader-writer locking involves very long
 read-side critical sections, preferably measured in hundreds of microseconds
 or even milliseconds.
 
-As with exclusive locks, a reader-writer lock acquisition cannot complete
+As with exclusive locks, a \IXh{reader-writer}{lock} acquisition cannot complete
 until all prior conflicting holders of that lock have released it.
 If a lock is read-held, then read acquisitions can complete immediately,
 but write acquisitions must wait until there are no longer any readers
