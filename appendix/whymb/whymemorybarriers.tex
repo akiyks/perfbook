@@ -96,7 +96,7 @@ sixteen buckets, where each bucket's hash chain is limited to
 at most two elements.
 The size (32 cache lines in this case) and the
 \IXalt{associativity}{cache associativity} (two in
-this case) are collectively called the cache's ``geometry''.
+this case) are collectively called the cache's ``\IXalt{geometry}{cache geometry}''.
 Since this cache is implemented in hardware, the hash function is
 extremely simple: extract four bits from the memory address.
 
@@ -203,10 +203,10 @@ What happens when it does a write?
 Because it is important that all CPUs agree on the value of a given
 data item, before a given CPU writes to that data item, it must first
 cause it to be removed, or ``invalidated'', from other CPUs' caches.
-Once this invalidation has completed, the CPU may safely modify the
+Once this \IX{invalidation} has completed, the CPU may safely modify the
 data item.
 If the data item was present in this CPU's cache, but was read-only,
-this process is termed a ``write miss''.
+this process is termed a ``\IXalth{write miss}{write}{cache miss}''.
 Once a given CPU has completed invalidating a given data item from other
 CPUs' caches, that CPU may repeatedly write (and read) that data item.
 
