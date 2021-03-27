@@ -289,7 +289,7 @@ reduce memory-barrier overhead, and have made substantial progress.
 \end{figure}
 
 An additional multi-threading obstacle to CPU performance is
-the ``cache miss''.
+the ``\IX{cache miss}''.
 As noted earlier, modern CPUs sport large caches in order to reduce the
 performance penalty that would otherwise be incurred due to high memory
 latencies.
@@ -305,7 +305,7 @@ in Figure~\ref{fig:cpu:CPU Meets a Cache Miss}.
 
 \QuickQuiz{
 	So have CPU designers also greatly reduced the overhead of
-	cache misses?
+	\IXalt{cache misses}{cache miss}?
 }\QuickQuizAnswer{
 	Unfortunately, not so much.
 	There has been some reduction given constant numbers of CPUs,
@@ -326,7 +326,7 @@ in Figure~\ref{fig:cpu:CPU Meets a Cache Miss}.
 \ContributedBy{Figure}{fig:cpu:CPU Waits for I/O Completion}{Melissa Broussard}
 \end{figure}
 
-A cache miss can be thought of as a CPU-to-CPU I/O operation, and as
+A \IX{cache miss} can be thought of as a CPU-to-CPU I/O operation, and as
 such is one of the cheapest I/O operations available.
 I/O operations involving networking, mass storage, or (worse yet) human
 beings pose much greater obstacles than the internal obstacles called

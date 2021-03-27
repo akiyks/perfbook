@@ -262,7 +262,7 @@ CAS and lock, respectively.
 A blind CAS involving CPUs in different cores but on the same socket
 consumes almost fifty nanoseconds, or almost one hundred clock cycles.
 The code used for this cache-miss measurement passes the cache line
-back and forth between a pair of CPUs, so this cache miss is satisfied
+back and forth between a pair of CPUs, so this \IX{cache miss} is satisfied
 not from memory, but rather from the other CPU's cache.
 A non-blind CAS operation, which as noted earlier must look at the old
 value of the variable as well as store a new value, consumes over one

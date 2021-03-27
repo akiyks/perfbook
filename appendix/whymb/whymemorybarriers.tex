@@ -75,7 +75,8 @@ at full speed.
 After some time, the CPU's cache will fill, and subsequent
 misses will likely need to eject an item from the cache in order
 to make room for the newly fetched item.
-Such a cache miss is termed a ``capacity miss'', because it is caused
+Such a \IX{cache miss} is termed a
+``\IXalth{capacity miss}{capacity}{cache miss}'', because it is caused
 by the cache's limited capacity.
 However, most caches can be forced to eject an old item to make room
 for a new item even when they are not yet full.
@@ -193,7 +194,8 @@ However, if the program were to access location 0x1233E00, which hashes
 to line 0xE, one of the existing lines must be ejected from the cache
 to make room for the new cache line.
 If this ejected line were accessed later, a cache miss would result.
-Such a cache miss is termed an ``associativity miss''.
+Such a cache miss is termed an
+``\IXalth{associativity miss}{associativity}{cache miss}''.
 
 Thus far, we have been considering only cases where a CPU reads
 a data item.
@@ -211,7 +213,8 @@ CPUs' caches, that CPU may repeatedly write (and read) that data item.
 Later, if one of the other CPUs attempts to access the data item, it
 will incur a cache miss, this time because the first CPU invalidated
 the item in order to write to it.
-This type of cache miss is termed a ``communication miss'', since it
+This type of cache miss is termed a
+``\IXalth{communication miss}{communication}{cache miss}'', since it
 is usually due to several CPUs using the data items to communicate
 (for example, a lock is a data item that is used to communicate among
 CPUs using a mutual-exclusion algorithm).
