@@ -4130,9 +4130,9 @@ which works safely and efficiently for all recent kernel versions.
 It is also possible to implement a software mechanism
 that could be used in place of \co{smp_store_release()} to force
 all reading CPUs to see the writing CPU's writes in order.
-This software barrier could be implemented by sending inter-processor
-interrupts (IPIs) to all other CPUs.
-Upon receipt of such an IPI, a CPU would execute a memory-barrier
+This software barrier could be implemented by sending \IXacrpl{ipi}
+to all other CPUs.
+Upon receipt of such an \acr{ipi}, a CPU would execute a memory-barrier
 instruction, implementing a system-wide memory barrier similar to that
 provided by the Linux kernel's \co{sys_membarrier()} system call.
 Additional logic is required to avoid deadlocks.

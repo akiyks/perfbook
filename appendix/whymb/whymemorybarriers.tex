@@ -1659,9 +1659,9 @@ future such problems:
 	By the time the system gets around to dumping the offending
 	input buffer, the DMA will most likely have completed.
 
-\item	Inter-processor interrupts (IPIs) that ignore cache coherence.
+\item	\IXAcrpl{ipi} that ignore cache coherence.
 
-	This can be problematic if the IPI reaches its destination
+	This can be problematic if the \acr{ipi} reaches its destination
 	before all of the cache lines in the corresponding message
 	buffer have been committed to memory.
 
