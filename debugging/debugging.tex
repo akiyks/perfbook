@@ -2255,7 +2255,8 @@ The remainder of this section looks at ways of resolving this conflict.
 	Changes in memory layout can indeed result in unrealistic
 	decreases in execution time.
 	For example, suppose that a given microbenchmark almost
-	always overflows the L0 cache's associativity, but with just the right
+	always overflows the L0 cache's
+	\IXalt{associativity}{cache associativity}, but with just the right
 	memory layout, it all fits.
 	If this is a real concern, consider running your microbenchmark
 	using huge pages (or within the kernel or on bare metal) in

@@ -228,7 +228,7 @@ provide a fixed number of cachelines per set.
 The number of elements provided for each set in a given cache
 is termed that cache's \emph{associativity}.
 
-Although cache associativity varies, the eight-way associativity of
+Although \IX{cache associativity} varies, the eight-way associativity of
 the level-0 cache on the laptop I am typing this on is not unusual.
 What this means is that if a given transaction needed to touch
 nine cache lines, and if all nine cache lines mapped to the same
@@ -999,7 +999,7 @@ In the case of \acr{htm}, obstacles to guarantees can include cache size and
 associativity, TLB size and associativity, transaction duration and
 interrupt frequency, and scheduler implementation.
 
-Cache size and associativity was discussed in
+Cache size and \IXalt{associativity}{cache associativity} was discussed in
 \cref{sec:future:Transaction-Size Limitations},
 along with some research intended to work around current limitations.
 However, \IXacr{htm} forward-progress guarantees would

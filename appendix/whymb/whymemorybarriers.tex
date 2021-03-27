@@ -93,7 +93,8 @@ In hardware parlance, this is a two-way set-associative cache, and
 is analogous to a software hash table with
 sixteen buckets, where each bucket's hash chain is limited to
 at most two elements.
-The size (32 cache lines in this case) and the associativity (two in
+The size (32 cache lines in this case) and the
+\IXalt{associativity}{cache associativity} (two in
 this case) are collectively called the cache's ``geometry''.
 Since this cache is implemented in hardware, the hash function is
 extremely simple: extract four bits from the memory address.
