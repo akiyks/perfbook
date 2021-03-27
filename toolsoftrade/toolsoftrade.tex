@@ -1111,8 +1111,8 @@ The C11 standard added atomic operations,
 including loads (\apic{atomic_load()}),
 stores (\apic{atomic_store()}),
 memory barriers (\apic{atomic_thread_fence()} and
-\apic{atomic_signal_fence()}), and read-modify-write atomics.
-The read-modify-write atomics include
+\apic{atomic_signal_fence()}), and atomic read-modify-write operations.
+The \IXpl{atomic read-modify-write operation} include
 \apic{atomic_fetch_add()},
 \apic{atomic_fetch_sub()},
 \apic{atomic_fetch_and()},
@@ -2338,8 +2338,8 @@ on x86 or \co{"sync"} on PowerPC.
 	will suffice.
 }\QuickQuizEnd
 
-Ordering is also provided by some read-modify-write atomic
-operations, some of which are presented in
+Ordering is also provided by some \IXpl{atomic read-modify-write operation},
+some of which are presented in
 Section~\ref{sec:toolsoftrade:Atomic Operations}.
 In the general case, memory ordering can be quite subtle, as
 discussed in

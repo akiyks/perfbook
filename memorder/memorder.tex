@@ -471,10 +471,10 @@ memory-ordering instructions at all.
 		& R: & Read, for example, \tco{READ_ONCE()}, or read portion of RMW \\
 		& W: & Write, for example, \tco{WRITE_ONCE()}, or write portion of RMW \\
 		& Y: & Provides the specified ordering \\
-		& a: & Provides specified ordering given intervening RMW atomic operation \\
+		& a: & Provides specified ordering given intervening atomic RMW operation \\
 		& DR: & Dependent read (address dependency, \cref{sec:memorder:Address Dependencies}) \\
 		& DW: & Dependent write (address, data, or control dependency, \crefrange{sec:memorder:Address Dependencies}{sec:memorder:Control Dependencies}) \\
-		& RMW: & Atomic read-modify-write operation \\
+		& RMW: & \IX{Atomic read-modify-write operation} \\
 		& Self: & Orders self, as opposed to accesses both before
 			  and after \\
 		& SV: & Orders later accesses to the same variable \\
@@ -497,7 +497,8 @@ while other characters indicate that ordering is supplied only partially or
 conditionally.
 Blank cells indicate that no ordering is supplied.
 
-The ``Store'' row also covers the store portion of an atomic RMW operation.
+The ``Store'' row also covers the store portion of an
+\IXalt{atomic RMW operation}{atomic read-modify-write operation}.
 In addition, the ``Load'' row covers the load
 component of a successful value-returning \co{_relaxed()} RMW atomic
 operation, although the combined ``\co{_relaxed()} RMW operation''
@@ -605,7 +606,8 @@ are at most two threads involved.
 	the fact that on some platforms (such as x86) atomic RMW instructions
 	provide full ordering both before and after.
 	The Linux kernel therefore requires that full-strength non-\co{void}
-	atomic RMW operations provide full ordering in cases where these
+	\IXalt{atomic RMW operations}{atomic read-modify-write operation}
+	provide full ordering in cases where these
 	operations succeed.
 	(Full-strength atomic RMW operation's names do not end in
 	\co{_relaxed}, \co{_acquire}, or \co{_release}.)
@@ -3923,7 +3925,7 @@ set of memory-ordering primitives, which are as follows:
 \item	[\tco{smp_wmb()}] (write memory barrier) that orders only stores.
 \item	[\tco{smp_mb__before_atomic()}] that forces ordering of accesses
 	preceding the \co{smp_mb__before_atomic()} against accesses following
-	a later RMW atomic operation.
+	a later \IXalt{atomic RMW operation}{atomic read-modify-write operation}.
 	This is a noop on systems that fully order atomic RMW operations.
 \item	[\tco{smp_mb__after_atomic()}] that forces ordering of accesses
 	preceding an earlier RMW atomic operation against accesses
@@ -4196,7 +4198,7 @@ Alpha is the only CPU whose \co{READ_ONCE()} includes an \co{smp_mb()}.
 	stores, and thus \co{smp_mb()} was therefore the safe choice.
 
 	However, given the aforementioned v5.9 changes to \co{READ_ONCE()}
-	and a few of Alpha's atomic read-modify-write operations,
+	and a few of Alpha's \IXpl{atomic read-modify-write operation},
 	no Linux-kernel core code need concern itself with DEC Alpha,
 	thus greatly reducing Paul E.~McKenney's incentive to remove
 	Alpha support from the kernel.
@@ -4892,7 +4894,8 @@ non-store-to-load links in that cycle, as illustrated by
 as well as in the answer to
 \QuickQuizARef{\MemorderQQLitmusTestR}.
 Full barriers include \co{smp_mb()}, successful full-strength non-\co{void}
-atomic RMW operations, and other atomic RMW operations in conjunction with
+\IXalt{atomic RMW operations}{atomic read-modify-write operation},
+and other atomic RMW operations in conjunction with
 either \co{smp_mb__before_atomic()} or \co{smp_mb__after_atomic()}.
 Any of RCU's grace-period-wait primitives (\co{synchronize_rcu()} and
 friends) also act as full barriers, but at far greater expense than

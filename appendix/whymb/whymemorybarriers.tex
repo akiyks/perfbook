@@ -455,7 +455,7 @@ The transition arcs in this figure are as follows:
 	both sending the data to the requesting CPU and indicating
 	that it no longer has a local copy.
 \item	[Transition (d):]
-	The CPU does an atomic read-modify-write operation on a data item
+	The CPU does an \IX{atomic read-modify-write operation} on a data item
 	that was not present in its cache.
 	It transmits a ``read invalidate'', receiving the data via
 	a ``read response''.
@@ -491,7 +491,7 @@ The transition arcs in this figure are as follows:
 	for other cache lines),
 	so that this CPU is the last CPU caching it.
 \item	[Transition (i):]
-	Some other CPU does an atomic read-modify-write operation on
+	Some other CPU does an \IX{atomic read-modify-write operation} on
 	a data item in a cache line held only in this CPU's cache,
 	so this CPU invalidates it from its cache.
 	This transition is initiated by the reception of a ``read invalidate''

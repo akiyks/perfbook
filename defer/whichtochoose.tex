@@ -207,7 +207,7 @@ But those wishing more detail should continue on to the next section.
 					& Ranges from none to two
 					  \tco{smp_mb()} \\
 	Reader Per-Object Traversal Overhead
-		& Read-modify-write atomic operations, memory\-/barrier
+		& Atomic read-modify-write operations, memory\-/barrier
 		  instructions, and cache misses
 			& \tco{smp_mb()}
 				& None, but unsafe
@@ -275,8 +275,9 @@ The ``Contention Among Readers'', ``Reader Per-Critical-Section Overhead'',
 and ``Reader Per-Object Traversal Overhead'' rows give a rough sense of
 the read-side overhead of these techniques.
 The overhead of reference counting can be quite large, with
-contention among readers along with a fully ordered read-modify-write
-atomic operation required for each and every object traversed.
+contention among readers along with a fully ordered
+\IX{atomic read-modify-write operation}
+required for each and every object traversed.
 Hazard pointers incur the overhead of a memory barrier for each data element
 traversed, and sequence locks incur the overhead of a pair of memory barriers
 for each attempt to execute the critical section.
