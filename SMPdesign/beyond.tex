@@ -210,7 +210,7 @@ and the local variable \co{vi} must be shared among the various threads.
 \end{fcvref}
 \begin{fcvref}[ln:SMPdesign:SEQ Helper Pseudocode:try]
 \Clnref{chk:not:visited,mark:visited} of Listing~\ref{lst:SMPdesign:SEQ Helper Pseudocode} must be
-combined into a CAS loop, with CAS failure indicating a loop in the
+combined into a \IXacr{cas} loop, with \acr{cas} failure indicating a loop in the
 maze.
 \Clnrefrange{recordnext}{next:visited} of this listing must use
 fetch-and-add to arbitrate concurrent
@@ -307,7 +307,7 @@ optimizations that might combine consecutive loads or that
 might reload the value.
 A C++1x volatile relaxed load suffices~\cite{RichardSmith2019N4800}.
 Finally, the \co{maze_find_any_next_cell()} function must use
-compare-and-swap to mark a cell as visited, however
+\IXacrl{cas} to mark a cell as visited, however
 no constraints on ordering are required beyond those provided by
 thread creation and join.
 \end{fcvref}

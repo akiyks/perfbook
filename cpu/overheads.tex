@@ -117,7 +117,7 @@ This simplified sequence is just the beginning of a discipline called
 \emph{cache-coherency protocols}~\cite{Hennessy95a,DavidECuller1999,MiloMKMartin2012scale,DanielJSorin2011MemModel},
 which is discussed in more detail in
 Appendix~\ref{chp:app:whymb:Why Memory Barriers?}.
-As can be seen in the sequence of events triggered by a CAS operation,
+As can be seen in the sequence of events triggered by a \IXacr{cas} operation,
 a single instruction can cause considerable protocol traffic, which
 can significantly degrade your parallel program's performance.
 
@@ -183,25 +183,25 @@ nevertheless normalized to a clock period in the third column, labeled
 The first thing to note about this table is the large values of many of
 the ratios.
 
-The same-CPU compare-and-swap (CAS) operation consumes about seven
+The same-CPU \IXacrf{cas} operation consumes about seven
 nanoseconds, a duration more than ten times that of the clock period.
-CAS is an atomic operation in which the hardware compares the contents
+\Acr{cas} is an atomic operation in which the hardware compares the contents
 of the specified memory location to a specified ``old'' value, and if
 they compare equal, stores a specified ``new'' value, in which case the
-CAS operation succeeds.
+\acr{cas} operation succeeds.
 If they compare unequal, the memory location keeps its (unexpected) value,
-and the CAS operation fails.
+and the \acr{cas} operation fails.
 The operation is atomic in that the hardware guarantees that the memory
 location will not be changed between the compare and the store.
-CAS functionality is provided by the \co{lock;cmpxchg} instruction on x86.
+\Acr{cas} functionality is provided by the \co{lock;cmpxchg} instruction on x86.
 
-The ``same-CPU'' prefix means that the CPU now performing the CAS operation
+The ``same-CPU'' prefix means that the CPU now performing the \acr{cas} operation
 on a given variable was also the last CPU to access this variable, so
 that the corresponding cacheline is already held in that CPU's cache.
 Similarly, the same-CPU lock operation (a ``round trip'' pair consisting
 of a lock acquisition and release) consumes more than fifteen nanoseconds,
 or more than thirty clock cycles.
-The lock operation is more expensive than CAS because it requires two
+The lock operation is more expensive than \acr{cas} because it requires two
 atomic operations on the lock data structure, one for acquisition and
 the other for release.
 
@@ -210,36 +210,36 @@ sharing a single core are about the same cost as same-CPU operations.
 This should not be too surprising, given that these two hardware threads
 also share the full cache hierarchy.
 
-In the case of the blind CAS, the software specifies the old value
+In the case of the blind \IXacr{cas}, the software specifies the old value
 without looking at the memory location.
 This approach is appropriate when attempting to acquire a lock.
 If the unlocked state is represented by zero and the locked state
-is represented by the value one, then a CAS operation on the lock
+is represented by the value one, then a \acr{cas} operation on the lock
 that specifies zero for the old value and one for the new value
 will acquire the lock if it is not already held.
 The key point is that there is only one access to the memory
-location, namely the CAS operation itself.
+location, namely the \acr{cas} operation itself.
 
-In contrast, a normal CAS operation's old value is derived from
+In contrast, a normal \acr{cas} operation's old value is derived from
 some earlier load.
 For example, to implement an atomic increment, the current value of
 that location is loaded and that value is incremented to produce the
 new value.
-Then in the CAS operation, the value actually loaded would be specified
+Then in the \acr{cas} operation, the value actually loaded would be specified
 as the old value and the incremented value as the new value.
-If the value had not been changed between the load and the CAS, this
+If the value had not been changed between the load and the \acr{cas}, this
 would increment the memory location.
 However, if the value had in fact changed, then the old value would
-not match, causing a miscompare that would result in the CAS operation
+not match, causing a miscompare that would result in the \acr{cas} operation
 failing.
 The key point is that there are now two accesses to the memory location,
-the load and the CAS\@.
+the load and the \acr{cas}\@.
 
-Thus, it is not surprising that in-core blind CAS consumes only about
-seven nanoseconds, while in-core CAS consumes about 18 nanoseconds.
+Thus, it is not surprising that in-core blind \acr{cas} consumes only about
+seven nanoseconds, while in-core \acr{cas} consumes about 18 nanoseconds.
 The non-blind case's extra load does not come for free.
 That said, the overhead of these operations are similar to single-CPU
-CAS and lock, respectively.
+\acr{cas} and lock, respectively.
 
 \QuickQuiz{
 	\Cref{tab:cpu:CPU 0 View of Synchronization Mechanisms on 8-Socket System With Intel Xeon Platinum 8176 CPUs at 2.10GHz}
@@ -259,16 +259,16 @@ CAS and lock, respectively.
 	hyperthread twin CPUs until all cores are in use.
 }\QuickQuizEnd
 
-A blind CAS involving CPUs in different cores but on the same socket
+A blind \IXacr{cas} involving CPUs in different cores but on the same socket
 consumes almost fifty nanoseconds, or almost one hundred clock cycles.
 The code used for this cache-miss measurement passes the cache line
 back and forth between a pair of CPUs, so this \IX{cache miss} is satisfied
 not from memory, but rather from the other CPU's cache.
-A non-blind CAS operation, which as noted earlier must look at the old
+A non-blind \acr{cas} operation, which as noted earlier must look at the old
 value of the variable as well as store a new value, consumes over one
 hundred nanoseconds, or more than two hundred clock cycles.
 Think about this a bit.
-In the time required to do \emph{one} CAS operation, the CPU could have
+In the time required to do \emph{one} \acr{cas} operation, the CPU could have
 executed more than \emph{two hundred} normal instructions.
 This should demonstrate the limitations not only of fine-grained locking,
 but of any other synchronization mechanism relying on fine-grained
@@ -276,18 +276,18 @@ global agreement.
 
 If the pair of CPUs are on different sockets, the operations are considerably
 more expensive.
-A blind CAS operation consumes almost 150~nanoseconds, or more than
+A blind \IXacr{cas} operation consumes almost 150~nanoseconds, or more than
 three hundred clock cycles.
-A normal CAS operation consumes more than 400~nanoseconds, or almost
+A normal \acr{cas} operation consumes more than 400~nanoseconds, or almost
 \emph{one thousand} clock cycles.
 
 Worse yet, not all pairs of sockets are created equal.
 This particular system appears to be constructed as a pair of four-socket
 components, with additional latency penalties when the CPUs reside
 in different components.
-In this case, a blind CAS operation consumes more than three hundred
+In this case, a blind \acr{cas} operation consumes more than three hundred
 nanoseconds, or more than seven hundred clock cycles.
-A CAS operation consumes almost a full microsecond, or almost two
+A \acr{cas} operation consumes almost a full microsecond, or almost two
 thousand clock cycles.
 
 \QuickQuiz{
@@ -494,7 +494,7 @@ cycles, as shown in the ``Global Comms'' row.
 	Now unroll the rest of the roll.
 
 	The resulting pile of toilet paper will likely represent a single
-	CAS cache miss.
+	\IXacr{cas} cache miss.
 
 	For the more-expensive inter-system communications latencies,
 	use several rolls (or multiple cases) of toilet paper to represent

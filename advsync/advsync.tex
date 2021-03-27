@@ -142,7 +142,7 @@ using \co{READ_ONCE()} and \co{WRITE_ONCE()}.
 An NBS set may also be implemented using a bitmap, where each value that
 might be a member of the set corresponds to one bit.
 Reads and updates must normally be carried out via atomic bit-manipulation
-instructions, although compare-and-swap (\co{cmpxchg()} or CAS)
+instructions, although \IXacrl{cas} (\co{cmpxchg()} or \acr{cas})
 instructions can also be used.
 
 \subsubsection{NBS Counters}

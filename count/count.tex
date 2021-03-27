@@ -1997,11 +1997,10 @@ shows the \co{add_count()} and \co{sub_count()} functions.
 \Clnrefrange{b}{e} show \co{add_count()}, whose fastpath spans
 \clnrefrange{fast:b}{return:fs},
 with the remainder of the function being the slowpath.
-\Clnrefrange{fast:b}{loop:e} of the fastpath form a compare-and-swap
-(CAS) loop, with
+\Clnrefrange{fast:b}{loop:e} of the fastpath form a \IXacrf{cas} loop, with
 the \co{atomic_cmpxchg()} primitive on
 \clnrefrange{atmcmpex}{loop:e} performing the
-actual CAS\@.
+actual \acr{cas}\@.
 Line~\lnref{split} splits the current thread's \co{counterandmax} variable into its
 \co{counter} (in \co{c}) and \co{countermax} (in \co{cm}) components,
 while placing the underlying \co{int} into \co{old}.
