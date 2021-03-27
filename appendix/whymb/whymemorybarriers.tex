@@ -22,10 +22,10 @@ caches really work well.
 The following sections:
 \begin{enumerate}
 \item	present the structure of a cache,
-\item	describe how cache-coherency protocols ensure that CPUs agree
+\item	describe how \IXpl{cache-coherence protocol} ensure that CPUs agree
 	on the value of each location in memory, and, finally,
 \item	outline how store buffers and invalidate queues help
-	caches and cache-coherency protocols achieve high performance.
+	caches and cache-coherence protocols achieve high performance.
 \end{enumerate}
 We will see that memory barriers are a necessary evil that is required
 to enable good performance and scalability, an evil that stems from
@@ -225,13 +225,13 @@ With all this fetching, invalidating, and writing, it is easy to
 imagine data being lost or (perhaps worse) different CPUs having
 conflicting values for the same data item in their respective
 caches.
-These problems are prevented by ``cache-coherency protocols'',
+These problems are prevented by ``cache-coherence protocols'',
 described in the next section.
 
 \section{Cache-Coherence Protocols}
 \label{sec:app:whymb:Cache-Coherence Protocols}
 
-Cache-coherency protocols manage cache-line states so as to prevent
+\IXpl{Cache-coherence protocol} manage cache-line states so as to prevent
 inconsistent or lost data.
 These protocols can be quite complex, with many tens
 of states,\footnote{
@@ -240,7 +240,7 @@ of states,\footnote{
 	and Sequent (now IBM) NUMA-Q, respectively.
 	Both diagrams are significantly simpler than real life.}
 but for our purposes we need only concern ourselves with the
-four-state MESI cache-coherence protocol.
+four-state MESI \IX{cache-coherence protocol}.
 
 \subsection{MESI States}
 \label{sec:app:whymb:MESI States}
@@ -403,8 +403,8 @@ levels of the system architecture.
 }\QuickQuizAnswerM{
 	It might, if large-scale multiprocessors were in fact implemented
 	that way.  Larger multiprocessors, particularly NUMA machines,
-	tend to use so-called ``directory-based'' cache-coherence
-	protocols to avoid this and other problems.
+	tend to use so-called ``directory-based'' \IXpl{cache-coherence
+	protocol} to avoid this and other problems.
 }\QuickQuizEndM
 %
 \QuickQuizE{
@@ -412,8 +412,8 @@ levels of the system architecture.
 	anyway, why bother with SMP at all?
 }\QuickQuizAnswerE{
 	There has been quite a bit of controversy on this topic over
-	the past few decades.  One answer is that the cache-coherence
-	protocols are quite simple, and therefore can be implemented
+	the past few decades.  One answer is that the \IXpl{cache-coherence
+	protocol} are quite simple, and therefore can be implemented
 	directly in hardware, gaining bandwidths and latencies
 	unattainable by software message passing.  Another answer is that
 	the real truth is to be found in economics due to the relative
@@ -532,7 +532,7 @@ The transition arcs in this figure are as follows:
 	states need not be actually stored with the cache line, due to
 	the fact that only a few lines at a time will be transitioning.
 	The need to delay transitions is but one issue that results in
-	real-world cache coherence protocols being much more complex than
+	real-world \IXpl{cache-coherence protocol} being much more complex than
 	the over-simplified MESI protocol described in this appendix.
 	Hennessy and Patterson's classic introduction to computer
 	architecture~\cite{Hennessy95a} covers many of these issues.
@@ -656,7 +656,7 @@ the data will be moved from the store buffer to the cache line.
 
 \QuickQuiz{
 	But if the main purpose of store buffers is to hide acknowledgment
-	latencies in multiprocessor cache-coherence protocols, why
+	latencies in multiprocessor \IXpl{cache-coherence protocol}, why
 	do uniprocessors also have store buffers?
 }\QuickQuizAnswer{
 	Because the purpose of store buffers is not just to hide
@@ -684,7 +684,7 @@ access CPU~1's store buffer and vice versa.
 This restriction simplifies the hardware by separating concerns:
 The store buffer improves performance for consecutive writes, while
 the responsibility for communicating among CPUs (or cores, as the
-case may be) is fully shouldered by the cache-coherence protocol.
+case may be) is fully shouldered by the \IX{cache-coherence protocol}.
 However, even given this restriction, there are complications that must
 be addressed, which are covered in the next two sections.
 
