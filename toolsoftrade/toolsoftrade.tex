@@ -397,7 +397,7 @@ Note that this program carefully makes sure that only one of the threads
 stores a value to variable \co{x} at a time.
 Any situation in which one thread might be storing a value to a given
 variable while some other thread either loads from or stores to that
-same variable is termed a \emph{data race}.
+same variable is termed a \emph{\IX{data race}}.
 Because the C language makes no guarantee that the results of a data race
 will be in any way reasonable, we need some way of safely accessing
 and modifying data concurrently, such as the locking primitives discussed
@@ -412,8 +412,8 @@ As compilers optimize more and more aggressively, there are fewer and
 fewer truly benign data races.
 
 \QuickQuiz{
-	If the C language makes no guarantees in presence of a data
-	race, then why does the Linux kernel have so many data races?
+	If the C language makes no guarantees in presence of a \IX{data	race},
+	then why does the Linux kernel have so many data races?
 	Are you trying to tell me that the Linux kernel is completely
 	broken???
 }\QuickQuizAnswer{
@@ -438,7 +438,7 @@ fewer truly benign data races.
 \subsection{POSIX Locking}
 \label{sec:toolsoftrade:POSIX Locking}
 
-The POSIX standard allows the programmer to avoid data races via
+The POSIX standard allows the programmer to avoid \IXpl{data race} via
 ``POSIX locking''.
 POSIX locking features a number of primitives, the most fundamental
 of which are \apipx{pthread_mutex_lock()} and \apipx{pthread_mutex_unlock()}.
@@ -1557,7 +1557,7 @@ Of course, where practical, the primitives described in
 Section~\ref{sec:toolsoftrade:Atomic Operations (gcc Classic)}
 or (especially)
 Section~\ref{sec:toolsoftrade:Atomic Operations (C11)}
-should instead be used to avoid data races, that is, to ensure
+should instead be used to avoid \IXpl{data race}, that is, to ensure
 that if there are multiple concurrent accesses to a given
 variable, all of those accesses are loads.
 
@@ -1565,7 +1565,7 @@ variable, all of those accesses are loads.
 \label{sec:toolsoftrade:Shared-Variable Shenanigans}
 \OriginallyPublished{Section}{sec:toolsoftrade:Shared-Variable Shenanigans}{Shared-Variable Shenanigans}{Linux Weekly News}{JadeAlglave2019WhoAfraidCompiler}
 %
-Given code that does plain loads and stores,\footnote{
+Given code that does \IXalt{plain loads and stores}{plain access},\footnote{
 	That is, normal loads and stores instead of C11 atomics, inline
 	assembly, or volatile accesses.}
 the compiler is within
@@ -1937,7 +1937,8 @@ This transforms the if-then-else into an if-then, saving one branch.
 	much any time it likes?
 }\QuickQuizAnswer{
 	Thankfully, the answer is no.
-	This is because the compiler is forbidden from introducing data races.
+	This is because the compiler is forbidden from introducing
+	\IXpl{data race}.
 	The case of inventing a store just before a normal store is
 	quite special:  It is not possible for some other entity,
 	be it CPU, thread, signal handler, or interrupt handler, to be
@@ -1963,7 +1964,7 @@ Finally, pre-C11 compilers could invent writes to unrelated
 variables that happened to be adjacent to written-to
 variables~\cite[Section 4.2]{Boehm:2005:TCI:1064978.1065042}.
 This variant of invented stores has been outlawed by the prohibition
-against compiler optimizations that invent data races.
+against compiler optimizations that invent \IXpl{data race}.
 
 \begin{listing}[tbp]
 \begin{fcvlabel}[ln:toolsoftrade:Inviting a Store-to-Load Conversion]
@@ -2346,7 +2347,7 @@ Chapter~\ref{chp:Advanced Synchronization: Memory Ordering}.
 The next section covers an alternative to memory ordering, namely
 limiting or even entirely avoiding data races.
 
-\subsubsection{Avoiding Data Races}
+\subsubsection{Avoiding \IXpl{Data Race}}
 \label{sec:toolsoftrade:Avoiding Data Races}
 
 \begin{quote}
@@ -2372,8 +2373,10 @@ In all of these situations, all accesses to the shared variables may
 be plain C-language accesses.
 
 Here is a list of situations
-allowing plain loads and stores for some accesses to a given variable,
-while requiring markings (such as \apik{READ_ONCE()} and \apik{WRITE_ONCE()})
+allowing \IXalt{plain loads and stores}{plain access}
+for some accesses to a given variable,
+while requiring \IXalt{markings}{marked access}
+(such as \apik{READ_ONCE()} and \apik{WRITE_ONCE()})
 for other accesses to that same variable:
 
 \begin{enumerate}
@@ -2420,7 +2423,8 @@ for other accesses to that same variable:
 	are followed by other interrupted code.
 	Only those handlers that cannot be themselves interrupted
 	or that access no variables shared with an interrupting handler
-	may safely use plain accesses, and even then only if those
+	may safely use \IXalt{plain accesses}{plain access},
+	and even then only if those
 	variables cannot be concurrently accessed by some other CPU or
 	thread.
 }\QuickQuizEnd

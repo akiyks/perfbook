@@ -2367,7 +2367,8 @@ instead enshrined in various standards.\footnote{
 It is worth summarizing this material in preparation for the following
 sections.
 
-Plain accesses, as in plain-access C-language assignment statements such
+\IXalt{Plain accesses}{plain access},
+as in plain-access C-language assignment statements such
 as \qco{r1 = a} or \qco{b = 1} are subject to the
 shared-variable shenanigans described in
 \cref{sec:toolsoftrade:Shared-Variable Shenanigans}.
@@ -3180,7 +3181,8 @@ the reallocation!
 However, it would also be cruel and unusual to require developers to use
 \co{READ_ONCE()} and \co{WRITE_ONCE()} to access dynamically allocated
 memory.
-Full ordering must therefore be provided for plain accesses, in spite of
+Full ordering must therefore be provided for
+\IXalt{plain accesses}{plain access}, in spite of
 all the shared-variable shenanigans called out in
 \cref{sec:toolsoftrade:Shared-Variable Shenanigans}.
 
