@@ -605,19 +605,19 @@
 \include{indexsee}
 }{}
 \phantomsection
-\IfTwoColumn{}{
-\IfEbookSize{\idxlayout{columns=2}}{
-\newgeometry{body={6.5in,8.25in},centering=true,columnsep=0.25in}
-}}
+\IfEbookSize{
+\idxlayout{columns=2}
+}{
+\newgeometry{body={6.5in,8.25in},centering=true,twocolumn,columnsep=0.25in}
+}
 \printglossaries
 \phantomsection
 \printindex
 \phantomsection
 \printindex[api]
-\IfTwoColumn{}{
 \IfEbookSize{}{
 \restoregeometry
-}}
+}
 }{}
 
 % page-layout dimensions
