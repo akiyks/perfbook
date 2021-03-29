@@ -326,9 +326,8 @@ Figure~\ref{fig:defer:Deletion With Concurrent Readers}.
 \label{fig:defer:QSBR: Waiting for Pre-Existing Readers}
 \end{figure}
 
-This approach is termed \emph{quiescent state based reclamation}
-(QSBR)~\cite{ThomasEHart2006a}.
-A QSBR schematic is shown in
+This approach is termed \IXacr{qsbr}~\cite{ThomasEHart2006a}.
+A \acr{qsbr} schematic is shown in
 Figure~\ref{fig:defer:QSBR: Waiting for Pre-Existing Readers},
 with time advancing from the top of the figure to the bottom.
 CPU~1 does the \co{WRITE_ONCE()} that removes the current data
@@ -364,7 +363,7 @@ the old data item.
 \subsubsection{Toy Implementation}
 \label{sec:defer:Toy Implementation}
 
-Although production-quality QSBR implementations can be quite complex,
+Although production-quality \IXacr{qsbr} implementations can be quite complex,
 a toy non-preemptive Linux-kernel implementation is exceedingly simple:
 
 \begin{VerbatimN}[samepage=true]
@@ -493,7 +492,7 @@ Listing~\ref{lst:defer:Insertion and Deletion With Concurrent Readers},
 note that \co{route_lock} is used to synchronize between concurrent updaters
 invoking \co{ins_route()} and \co{del_route()}.
 However, this lock is not acquired by readers invoking \co{access_route()}:
-Readers are instead protected by the QSBR techniques described in this section.
+Readers are instead protected by the \acr{qsbr} techniques described in this section.
 
 Note that \co{ins_route()} simply returns the old value of \co{gptr}, which
 Figure~\ref{fig:defer:Insertion With Concurrent Readers} assumed would

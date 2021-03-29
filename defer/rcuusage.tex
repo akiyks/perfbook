@@ -100,31 +100,31 @@ flavor of userspace
 RCU~\cite{MathieuDesnoyers2009URCU,PaulMcKenney2013LWNURCU},
 for which \co{rcu_read_lock()} and \co{rcu_read_unlock()}
 generate a small amount of code.
-What happens for the QSBR flavor of RCU, which generates no code at all
+What happens for the \IXacr{qsbr} flavor of RCU, which generates no code at all
 for \co{rcu_read_lock()} and \co{rcu_read_unlock()}?
 (See Section~\ref{sec:defer:Introduction to RCU},
 and especially
 Figure~\ref{fig:defer:QSBR: Waiting for Pre-Existing Readers},
-for a discussion of RCU QSBR\@.)
+for a discussion of RCU \acr{qsbr}\@.)
 
 The answer to this is shown in
 Figure~\ref{fig:defer:Pre-BSD Routing Table Protected by RCU QSBR},
-which shows that RCU QSBR's performance and scalability actually exceeds
+which shows that RCU \acr{qsbr}'s performance and scalability actually exceeds
 that of the ideal synchronization-free workload.
 
 \QuickQuizSeries{%
 \QuickQuizB{
 	Wait, what???
-	How can RCU QSBR possibly be better than ideal?
+	How can RCU \IXacr{qsbr} possibly be better than ideal?
 	Just what rubbish definition of ideal would fail to be the best
 	of all possible results???
 }\QuickQuizAnswerB{
 	This is an excellent question, and the answer is that modern
 	CPUs and compilers are extremely complex.
 	But before getting into that, it is well worth noting that
-	RCU QSBR's performance advantage appears only in the
+	RCU \acr{qsbr}'s performance advantage appears only in the
 	one-hardware-thread-per-core regime.
-	Once the system is fully loaded, RCU QSBR's performance drops
+	Once the system is fully loaded, RCU \acr{qsbr}'s performance drops
 	back to ideal.
 
 	The RCU variant of the \co{route_lookup()} search loop actually
@@ -172,19 +172,19 @@ that of the ideal synchronization-free workload.
 	same as the sequential variant.
 	And the answer, as can be seen in
 	Figure~\ref{fig:defer:Pre-BSD Routing Table Protected by RCU QSBR With Non-Initial rcu-head},
-	is that this causes RCU QSBR's performance to decrease to where
+	is that this causes RCU \IXacr{qsbr}'s performance to decrease to where
 	it is still very nearly ideal, but no longer super-ideal.
 }\QuickQuizEndB
 %
 \QuickQuizE{
-	Given RCU QSBR's read-side performance, why bother with any
+	Given RCU \IXacr{qsbr}'s read-side performance, why bother with any
 	other flavor of userspace RCU?
 }\QuickQuizAnswerE{
-	Because RCU QSBR places constraints on the overall application
+	Because RCU \acr{qsbr} places constraints on the overall application
 	that might not be tolerable,
 	for example, requiring that each and every thread in the
 	application regularly pass through a quiescent state.
-	Among other things, this means that RCU QSBR is not helpful
+	Among other things, this means that RCU \acr{qsbr} is not helpful
 	to library writers, who might be better served by other
 	flavors of userspace RCU~\cite{PaulMcKenney2013LWNURCU}.
 }\QuickQuizEndE
@@ -476,7 +476,7 @@ rcu_read_unlock();
 	while read-holding it.
 
 	Note that this self-deadlock scenario does not apply to
-	RCU QSBR, because the context switch performed by the
+	RCU \IXacr{qsbr}, because the context switch performed by the
 	\co{synchronize_rcu()} would act as a quiescent state
 	for this CPU, allowing a grace period to complete.
 	However, this is if anything even worse, because data used
