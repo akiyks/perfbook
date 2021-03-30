@@ -2168,11 +2168,11 @@ Here are some ways to avoid acquiring locks in signal handlers even
 if complex data structures must be manipulated:
 
 \begin{enumerate}
-\item	Use simple data structures based on non-blocking synchronization,
+\item	Use simple data structures based on \IXacrl{nbs},
 	as will be discussed in
 	Section~\ref{sec:advsync:Simple NBS}.
 \item	If the data structures are too complex for reasonable use of
-	non-blocking synchronization, create a queue that allows
+	\acrl{nbs}, create a queue that allows
 	non-blocking enqueue operations.
 	In the signal handler, instead of manipulating the complex
 	data structure, add an element to the queue describing the

@@ -24,7 +24,7 @@ To that end,
 \cref{sec:advsync:Avoiding Locks}
 summarizes techniques used thus far for avoiding locks and
 \cref{sec:advsync:Non-Blocking Synchronization}
-gives a brief overview of non-blocking synchronization.
+gives a brief overview of \IXacrl{nbs}.
 Memory ordering is also quite important, but it warrants its own
 \lcnamecref{chp:Advanced Synchronization: Memory Ordering}, namely
 \cref{chp:Advanced Synchronization: Memory Ordering}.
@@ -527,8 +527,8 @@ improvements in simplicity, performance, and scalability.
 Recent research points to another important way to relax requirements.
 It turns out that systems providing fair scheduling can enjoy most
 of the benefits of wait-free synchronization even when running
-algorithms that provide only non-blocking
-synchronization, both in theory~\cite{DanAlitarh2013PracticalProgress}
+algorithms that provide only \IXacrl{nbs},
+both in theory~\cite{DanAlitarh2013PracticalProgress}
 and in practice~\cite{SamyAlBahra2013NBS}.
 Because most schedulers used in production do in fact provide fairness,
 the more-complex algorithms providing wait-free synchronization usually
