@@ -80,7 +80,7 @@ them, please re-read
 	  it's supposed to do.}
 	 {\emph{Robert A. Heinlein}}
 
-The term \emph{non-blocking synchronization} (NBS)~\cite{MauriceHerlihy90a}
+The term \IXacr{nbs}~\cite{MauriceHerlihy90a}
 describes seven classes of linearizable algorithms with differing
 \emph{forward-progress guarantees}~\cite{DanAlitarh2013PracticalProgress},
 which are as follows:
@@ -109,37 +109,37 @@ which are as follows:
 	failures~\cite{DanAlitarh2013PracticalProgress}.
 \end{enumerate}
 
-NBS classes~1, 2, and~3 were first formulated in the early 1990s,
+\Acr{nbs} classes~1, 2, and~3 were first formulated in the early 1990s,
 class~4 was first formulated in the early 2000s,
 and class~5 was first formulated in 2013.
 The final two classes have seen informal use for a great many decades,
 but were reformulated in 2013.
 
 In theory, any parallel algorithm can be cast into wait-free form,
-but there are a relatively small subset of NBS algorithms that are
+but there are a relatively small subset of \acr{nbs} algorithms that are
 in common use.
 A few of these are listed in the following section.
 
 \subsection{Simple NBS}
 \label{sec:advsync:Simple NBS}
 
-Perhaps the simplest NBS algorithm is atomic update of an integer
+Perhaps the simplest \IXacr{nbs} algorithm is atomic update of an integer
 counter using fetch-and-add (\co{atomic_add_return()}) primitives.
 
 \subsubsection{NBS Sets}
 \label{sec:advsync:NBS Sets}
 
-Another simple NBS algorithm implements a set of integers in an array.
+Another simple \acr{nbs} algorithm implements a set of integers in an array.
 Here the array index indicates a value that might be a member of the set
 and the array element indicates whether or not that value actually is
 a set member.
-The linearizability criterion for NBS algorithms requires that reads from
+The linearizability criterion for \acr{nbs} algorithms requires that reads from
 and updates to the array either use atomic instructions or be accompanied
 by memory barriers, but in the not-uncommon case where linearizability
 is not important, simple volatile loads and stores suffice, for example,
 using \co{READ_ONCE()} and \co{WRITE_ONCE()}.
 
-An NBS set may also be implemented using a bitmap, where each value that
+An \IXacr{nbs} set may also be implemented using a bitmap, where each value that
 might be a member of the set corresponds to one bit.
 Reads and updates must normally be carried out via atomic bit-manipulation
 instructions, although \IXacrl{cas} (\co{cmpxchg()} or \acr{cas})
@@ -160,14 +160,14 @@ of time that the \co{read_count()} function takes to sum the counters,
 it is not possible to prove that any non-linearizable behavior occurred.
 This definitely (if a bit artificially) classifies the statistical-counters
 algorithm as bounded wait-free.
-This algorithm is probably the most heavily used NBS algorithm in the
+This algorithm is probably the most heavily used \IXacr{nbs} algorithm in the
 Linux kernel.
 
 \subsubsection{Half-NBS Queue}
 \label{sec:advsync:Half-NBS Queue}
 
 \begin{fcvref}[ln:count:NBS Enqueue Algorithm]
-Another common NBS algorithm is the atomic queue where elements are
+Another common \IXacr{nbs} algorithm is the atomic queue where elements are
 enqueued using an atomic exchange instruction~\cite{MagedMichael1993JPDC},
 followed by a store into the \co{->next} pointer of the new element's
 predecessor, as shown in \cref{lst:count:NBS Enqueue Algorithm},
@@ -217,7 +217,7 @@ removal of the entire contents of the queue.
 What is not possible is to dequeue any given element in a non-blocking
 manner: The enqueuer might have failed between \clnref{tail,pred} of the
 listing, so that the element in question is only partially enqueued.
-This results in a half-NBS algorithm where enqueues are NBS but
+This results in a half-\IXacr{nbs} algorithm where enqueues are \acr{nbs} but
 dequeues are blocking.
 This algorithm is nevertheless heavily used in practice, in part because
 most production software is not required to tolerate arbitrary fail-stop
@@ -230,7 +230,7 @@ errors.
 \begin{fcvref}[ln:advsync:lifo_push:whole]
 \Cref{lst:advsync:NBS Stack Algorithm}
 shows the LIFO push algorithm, which boasts lock-free push and
-bounded wait-free pop (\path{lifo-push.c}), forming an NBS stack.
+bounded wait-free pop (\path{lifo-push.c}), forming an \acr{nbs} stack.
 The origins of this algorithm are unknown, but it was referred to in
 a patent granted in 1975~\cite{PaulJBrown1975LIFOpush}.
 This patent was filed in 1973, a few months before your editor
@@ -344,15 +344,15 @@ algorithms.
 \subsection{Applicability of NBS Benefits}
 \label{sec:advsync:Applicability of NBS Benefits}
 
-The most heavily cited NBS benefits stem from its forward-progress
+The most heavily cited \IXacr{nbs} benefits stem from its forward-progress
 guarantees, its tolerance of fail-stop bugs, and from its linearizability.
 Each of these is discussed in one of the following sections.
 
 \subsubsection{NBS Forward Progress Guarantees}
 \label{sec:advsync:NBS Forward Progress Guarantees}
 
-NBS's forward-progress guarantees have caused many to suggest its use in
-real-time systems, and NBS algorithms are in fact used in a great many
+\IXacr{nbs}'s forward-progress guarantees have caused many to suggest its use in
+real-time systems, and \acr{nbs} algorithms are in fact used in a great many
 such systems.
 However, it is important to note that forward-progress guarantees are
 largely orthogonal to those that form the basis of real-time programming:
@@ -361,27 +361,27 @@ largely orthogonal to those that form the basis of real-time programming:
 \item	Real-time forward-progress guarantees usually have some
 	definite time associated with them, for example,
 	``scheduling latency must be less than 100 microseconds.''
-	In contrast, the most popular forms of NBS only guarantees
+	In contrast, the most popular forms of \acr{nbs} only guarantees
 	that progress will be made in finite time, with no definite
 	bound.
 \item	Real-time forward-progress guarantees are often
 	probabilistic, as in the soft-real-time guarantee that
 	``at least 99.9\,\% of the time, scheduling latency must
 	be less than 100 microseconds.''
-	In contrast, many of NBS's forward-progress guarantees are
+	In contrast, many of \acr{nbs}'s forward-progress guarantees are
 	unconditional.
 \item	Real-time forward-progress guarantees are often conditioned on
 	environmental constraints, for example, only being honored:
 	(1)~For the highest-priority tasks,
 	(2)~When each CPU spends at least a certain fraction of its time idle,
 	and (3)~When I/O rates are below some specified maximum.
-	In contrast, NBS's forward-progress
-	guarantees are often unconditional, although recent NBS work
+	In contrast, \acr{nbs}'s forward-progress
+	guarantees are often unconditional, although recent \acr{nbs} work
 	accommodates conditional
 	guarantees~\cite{DanAlitarh2013PracticalProgress}.
 \item	An important component of a real-time program's environment
 	is the scheduler.
-	NBS algorithms assume a worst-case \emph{demonic scheduler}.
+	\IXacr{nbs} algorithms assume a worst-case \emph{demonic scheduler}.
 	In contrast, real-time systems assume that the scheduler is
 	doing its level best to satisfy any scheduling constraints
 	it knows about, and, in the absence of such constraints,
@@ -389,23 +389,23 @@ largely orthogonal to those that form the basis of real-time programming:
 	fair scheduling to processes of the same priority.
 	This assumption of a non-demonic scheduler allows real-time
 	programs to use simpler algorithms than those required for
-	NBS~\cite{DanAlitarh2013PracticalProgress,BjoernBrandenburgPhD}.
+	\acr{nbs}~\cite{DanAlitarh2013PracticalProgress,BjoernBrandenburgPhD}.
 \item	Real-time forward-progress guarantees usually apply only
 	in the absence of software bugs.
-	In contrast, many classes of NBS guarantees apply even in the
+	In contrast, many classes of \acr{nbs} guarantees apply even in the
 	face of fail-stop bugs.
-\item	NBS forward-progress guarantee classes imply linearizability.
+\item	\acr{nbs} forward-progress guarantee classes imply linearizability.
 	In contrast, real-time forward progress guarantees are often
 	independent of ordering constraints such as linearizability.
 \end{enumerate}
 
-To reiterate, despite these differences, a number of NBS algorithms are
+To reiterate, despite these differences, a number of \IXacr{nbs} algorithms are
 extremely useful in real-time programs.
 
 \subsubsection{NBS Fail-Stop Tolerance}
 \label{sec:advsync:NBS Fail-Stop Tolerance}
 
-Of the classes of NBS algorithms, wait-free synchronization (bounded or
+Of the classes of \IXacr{nbs} algorithms, wait-free synchronization (bounded or
 otherwise), lock-free synchronization, obstruction-free synchronization,
 and clash-free synchronization guarantee forward progress even in the
 presence of fail-stop bugs.
@@ -424,7 +424,7 @@ But in practice, the element being processed is lost because the
 fail-stop-tolerant nature of the wait-free queues does not extend to
 the code using those queues.
 
-Nevertheless, there are a few applications where NBS's rather limited
+Nevertheless, there are a few applications where \IXacr{nbs}'s rather limited
 fail-stop-tolerance is useful.
 For example, in some network-based or web applications, a fail-stop
 event will eventually result in a retransmission, which will restart
@@ -434,7 +434,7 @@ to the point where the scheduler can no longer provide any reasonable
 fairness guarantee.
 In constrast, if a thread fail-stops while holding a lock, the application
 might need to be restarted.
-Nevertheless, NBS is not a panacea even within this restricted area,
+Nevertheless, \acr{nbs} is not a panacea even within this restricted area,
 due to the possibility of spurious retransmissions due to pure scheduling
 delays.
 In some cases, it may be more efficient to reduce the load to avoid
@@ -451,13 +451,13 @@ especially when analyzing concurrent code made up of strict locking
 and fully ordered atomic operations.\footnote{
 	For example, the Linux kernel's value-returning atomic operations.}
 Furthermore, this handling of fully ordered atomic operations
-automatically covers simple NBS algorithms.
+automatically covers simple \IXacr{nbs} algorithms.
 
-However, the linearization points of a complex NBS algorithms are often
+However, the linearization points of a complex \acr{nbs} algorithms are often
 buried deep within that algorithm, and thus not visible to users of
 a library function implementing a part of such an algorithm.
 Therefore, any claims that users benefit from the linearizability properties
-of complex NBS algorithms should be regarded with deep
+of complex \acr{nbs} algorithms should be regarded with deep
 suspicion~\cite{AndreasHaas2012FIFOisnt}.
 
 It is sometimes asserted that linearizability is necessary for developers
@@ -518,7 +518,7 @@ Verification} already handle many modern concurrent software artifacts.
 \label{sec:advsync:NBS Discussion}
 
 It is possible to create fully non-blocking queues~\cite{MichaelScott96},
-however, such queues are much more complex than the half-NBS algorithm
+however, such queues are much more complex than the half-\IXacr{nbs} algorithm
 outlined above.
 The lesson here is to carefully consider your actual requirements.
 Relaxing irrelevant requirements can often result in great
