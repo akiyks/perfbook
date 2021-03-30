@@ -563,7 +563,7 @@ programming environments:
 	and the rich set of class libraries.
 	However, its performance, though greatly improved in the early
 	2000s, lags that of C and C++.
-\item[MPI:] This Message Passing Interface~\cite{MPIForum2008} powers
+\item[MPI:] This \IXacrl{mpi}~\cite{MPIForum2008} powers
 	the largest scientific and technical computing clusters in
 	the world and offers unparalleled performance and scalability.
 	In theory, it is general purpose, but it is mainly used
@@ -573,9 +573,9 @@ programming environments:
 \item[OpenMP:] This set of compiler directives can be used
 	to parallelize loops.  It is thus quite specific to this
 	task, and this specificity often limits its performance.
-	It is, however, much easier to use than MPI or C/C++
+	It is, however, much easier to use than \acr{mpi} or C/C++
 	``locking plus threads.''
-\item[SQL:] Structured Query Language~\cite{DIS9075SQL92} is
+\item[SQL:] \IXacrl{sql}~\cite{DIS9075SQL92} is
 	specific to relational database queries.
 	However, its performance is quite good as measured by the
 	Transaction Processing Performance Council (TPC)
@@ -750,8 +750,8 @@ including relational
 databases~\cite{Date82},
 web-application servers, and map-reduce environments.
 For example, a common design provides a separate process for each
-user, each of which generates SQL from user queries.
-This per-user SQL is run against a common relational database, which
+user, each of which generates \IXacr{sql} from user queries.
+This per-user \acr{sql} is run against a common relational database, which
 automatically runs the users' queries concurrently.
 The per-user programs are responsible only for the user interface,
 with the relational database taking full responsibility for the
@@ -1015,11 +1015,11 @@ access is via expressions and assignments,
 while remote-variable access uses an entirely different
 syntax, usually involving messaging.
 The POSIX Threads environment~\cite{OpenGroup1997pthreads},
-Structured Query Language (SQL)~\cite{DIS9075SQL92}, and
+\IXacrf{sql}~\cite{DIS9075SQL92}, and
 partitioned global address-space (PGAS) environments
-such as Universal Parallel C (UPC)~\cite{ElGhazawi2003UPC,UPCConsortium2013}
+such as \IXacrf{upc}~\cite{ElGhazawi2003UPC,UPCConsortium2013}
 offer implicit access,
-while Message Passing Interface (MPI)~\cite{MPIForum2008} offers
+while \IXacrf{mpi}~\cite{MPIForum2008} offers
 explicit access because access to remote data requires explicit
 messaging.
 
@@ -1141,7 +1141,7 @@ both performance and scalability~\cite{PanagiotisMetaxas1999PDCS}.
 Although many environments require the developer to deal manually
 with these tasks, there are long-standing environments that bring
 significant automation to bear.
-The poster child for these environments is SQL, many implementations
+The poster child for these environments is \IXacr{sql}, many implementations
 of which automatically parallelize single large queries and also
 automate concurrent execution of independent queries and updates.
 

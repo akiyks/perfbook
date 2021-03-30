@@ -14,8 +14,7 @@ database and non-database transactions being that non-database transactions
 drop the ``D'' in the ``ACID''\footnote{
 	Atomicity, consistency, isolation, and durability.}
 properties defining database transactions.
-The idea of supporting memory-based transactions, or ``transactional memory''
-(TM), in hardware
+The idea of supporting memory-based transactions, or \IXacr{tm}, in hardware
 is more recent~\cite{Herlihy93a}, but unfortunately, support for such
 transactions in commodity hardware was not immediately forthcoming,
 despite other somewhat similar proposals being put forward~\cite{JMStone93}.
@@ -26,20 +25,20 @@ This proposal languished for many years, perhaps due to the fact that
 the research community's attention was absorbed by non-blocking
 synchronization (see \cref{sec:advsync:Non-Blocking Synchronization}).
 
-But by the turn of the century, TM started receiving
+But by the turn of the century, \IXacr{tm} started receiving
 more attention~\cite{Martinez01a,Rajwar01a}, and by the middle of the
 decade, the level of interest can only be termed
 ``incandescent''~\cite{MauriceHerlihy2005-TM-manifesto.pldi,
 DanGrossman2007TMGCAnalogy}, with only a few voices of
 caution~\cite{Blundell2005DebunkTM,McKenney2007PLOSTM}.
 
-The basic idea behind TM is to execute a section of
+The basic idea behind \IXacr{tm} is to execute a section of
 code atomically, so that other threads see no intermediate state.
-As such, the semantics of TM could be implemented
+As such, the semantics of \acr{tm} could be implemented
 by simply replacing each transaction with a recursively acquirable
 global lock acquisition and release, albeit with abysmal performance
 and scalability.
-Much of the complexity inherent in TM implementations, whether hardware
+Much of the complexity inherent in \acr{tm} implementations, whether hardware
 or software, is efficiently detecting when concurrent transactions can safely
 run in parallel.
 Because this detection is done dynamically, conflicting transactions
@@ -47,7 +46,7 @@ can be aborted or ``rolled back'', and in some implementations, this
 failure mode is visible to the programmer.
 
 Because transaction roll-back is increasingly unlikely as transaction
-size decreases, TM might become quite attractive for small memory-based
+size decreases, \acr{tm} might become quite attractive for small memory-based
 operations,
 such as linked-list manipulations used for stacks, queues, hash tables,
 and search trees.
@@ -123,8 +122,8 @@ Here are some options for handling of I/O within transactions:
 \item	Prohibit I/O within transactions, so that any attempt to execute
 	an I/O operation aborts the enclosing transaction (and perhaps
 	multiple nested transactions).
-	This approach seems to be the conventional TM approach for
-	unbuffered I/O, but requires that TM interoperate with other
+	This approach seems to be the conventional \IXacr{tm} approach for
+	unbuffered I/O, but requires that \acr{tm} interoperate with other
 	synchronization primitives tolerating I/O.
 \item	Prohibit I/O within transactions, but enlist the compiler's aid
 	in enforcing this prohibition.
@@ -143,7 +142,7 @@ Here are some options for handling of I/O within transactions:
 	seems to greatly restrict use of manual transaction-abort
 	operations.\footnote{
 		This difficulty was pointed out by Michael Factor.
-		To see the problem, think through what TM should do
+		To see the problem, think through what \acr{tm} should do
 		in response to an attempt to abort a transaction after
 		it has executed an irrevocable operation.}
 	Finally, if there is an irrevocable transaction manipulating
@@ -156,7 +155,7 @@ Here are some options for handling of I/O within transactions:
 	transaction if the prediction failed.
 \end{enumerate}
 
-I/O operations are a well-known weakness of TM, and it is not clear
+I/O operations are a well-known weakness of \IXacr{tm}, and it is not clear
 that the problem of supporting I/O in transactions has a reasonable
 general solution, at least if ``reasonable'' is to include usable
 performance and scalability.
@@ -198,7 +197,7 @@ The only action consistent with transactional semantics is therefore to
 unconditionally abort the transaction, which is, to say the least,
 unhelpful.
 
-Here are some options available to TM:
+Here are some options available to \IXacr{tm}:
 
 \begin{enumerate}
 \item	Prohibit RPC within transactions, so that any attempt to execute
@@ -206,7 +205,7 @@ Here are some options available to TM:
 	multiple nested transactions).
 	Alternatively, enlist the compiler to enforce RPC-free
 	transactions.
-	This approach does work, but will require TM to
+	This approach does work, but will require \acr{tm} to
 	interact with other synchronization primitives.
 \item	Permit only one special
 	irrevocable transaction~\cite{SpearMichaelScott2008InevitableSTM}
@@ -242,14 +241,14 @@ Here are some options available to TM:
 	distributed databases.
 	However, it is unclear whether the requisite performance and
 	scalability requirements can be met by distributed-database
-	techniques, given that memory-based TM has no slow disk drives
+	techniques, given that memory-based \IXacr{tm} has no slow disk drives
 	behind which to hide such latencies.
 	Of course, given the advent of solid-state disks, it is also quite
 	possible that databases will need to redesign their approach to
 	latency hiding.
 \end{enumerate}
 
-As noted in the prior section, I/O is a known weakness of TM, and RPC
+As noted in the prior section, I/O is a known weakness of \acr{tm}, and RPC
 is simply an especially problematic case of I/O.
 
 \subsubsection{Time Delays}
@@ -258,7 +257,7 @@ is simply an especially problematic case of I/O.
 An important special case of interaction with extra-transactional accesses
 involves explicit time delays within a transaction.
 Of course, the idea of a time delay within a transaction flies in the
-face of TM's atomicity property, but this sort of thing is arguably what
+face of \acr{tm}'s atomicity property, but this sort of thing is arguably what
 weak atomicity is all about.
 Furthermore, correct interaction with memory-mapped I/O sometimes requires
 carefully controlled timing, and applications often use time delays
@@ -270,7 +269,7 @@ section, and even all at the same time, if need be.
 Doing so might not be wise from a contention or scalability viewpoint,
 but then again, doing so does not raise any fundamental conceptual issues.
 
-So, what can TM do about time delays within transactions?
+So, what can \IXacr{tm} do about time delays within transactions?
 
 \begin{enumerate}
 \item	Ignore time delays within transactions.
@@ -286,12 +285,12 @@ So, what can TM do about time delays within transactions?
 	simply waiting for time to elapse?
 \item	Enlist the compiler to prohibit time delays within transactions.
 \item	Let the time delays execute normally.
-	Unfortunately, some TM implementations publish modifications only
+	Unfortunately, some \acr{tm} implementations publish modifications only
 	at commit time, which could defeat the purpose of the time delay.
 \end{enumerate}
 
 It is not clear that there is a single correct answer.
-TM implementations featuring weak atomicity that publish changes
+\IXacr{tm} implementations featuring weak atomicity that publish changes
 immediately within the transaction (rolling these changes back upon abort)
 might be reasonably well served by the last alternative.
 Even in this case, the code (or possibly even hardware) at the other
@@ -347,11 +346,11 @@ written using multiple languages and software environments.
 In fact, a persistent lock might well be acquired by an application written
 in C and released by an application written in Python.
 
-How could a similar persistent functionality be provided for TM?
+How could a similar persistent functionality be provided for \IXacr{tm}?
 
 \begin{enumerate}
 \item	Restrict persistent transactions to special-purpose environments
-	designed to support them, for example, SQL\@.
+	designed to support them, for example, \IXacr{sql}\@.
 	This clearly works, given the decades-long history of database
 	systems, but does not provide the same degree of flexibility
 	provided by persistent locks.
@@ -409,7 +408,7 @@ Of course, the critical section would need to be quite large to justify
 the thread-spawning overhead, but there are many examples of large
 critical sections in production software.
 
-What might TM do about thread spawning within a transaction?
+What might \IXacr{tm} do about thread spawning within a transaction?
 
 \begin{enumerate}
 \item	Declare \co{pthread_create()} to be illegal within transactions,
@@ -420,7 +419,7 @@ What might TM do about thread spawning within a transaction?
 	transaction, but only the parent thread will be considered to
 	be part of the transaction.
 	This approach seems to be reasonably compatible with existing and
-	posited TM implementations, but seems to be a trap for the unwary.
+	posited \acr{tm} implementations, but seems to be a trap for the unwary.
 	This approach raises further questions, such as how to handle
 	conflicting child-thread accesses.
 \item	Convert the \co{pthread_create()}s to function calls.
@@ -442,18 +441,18 @@ What might TM do about thread spawning within a transaction?
 	participating in the transaction?
 	The answers to these questions are reasonably straightforward
 	in the case of locking.
-	The answers for TM are left as an exercise for the reader.
+	The answers for \acr{tm} are left as an exercise for the reader.
 \end{enumerate}
 
 Given that parallel execution of transactions is commonplace in the
-database world, it is perhaps surprising that current TM proposals do
+database world, it is perhaps surprising that current \IXacr{tm} proposals do
 not provide for it.
 On the other hand, the example above is a fairly sophisticated use
 of locking that is not normally found in simple textbook examples,
 so perhaps its omission is to be expected.
 That said, some researchers are using transactions to autoparallelize
 code~\cite{ArunRaman2010MultithreadedTransactions},
-and there are rumors that other TM researchers are investigating
+and there are rumors that other \acr{tm} researchers are investigating
 fork/join parallelism within transactions, so perhaps this topic will
 soon be addressed more thoroughly.
 
@@ -500,11 +499,11 @@ from within a transaction?
 \begin{enumerate}
 \item	Disallow \co{exec()} within transactions, so that the enclosing
 	transactions abort upon encountering the \co{exec()}.
-	This is well defined, but clearly requires non-TM synchronization
+	This is well defined, but clearly requires non-\IXacr{tm} synchronization
 	primitives for use in conjunction with \co{exec()}.
 \item	Disallow \co{exec()} within transactions, with the compiler
 	enforcing this prohibition.
-	There is a draft specification for TM in C++ that takes
+	There is a draft specification for \acr{tm} in C++ that takes
 	this approach, allowing functions to be decorated with
 	the \co{transaction_safe} and \co{transaction_unsafe}
 	attributes.\footnote{
@@ -512,7 +511,7 @@ from within a transaction?
 		to Michael Wong for having pointed me at an earlier
 		revision some time back.}
 	This approach has some advantages over aborting the transaction
-	at runtime, but again requires non-TM synchronization primitives
+	at runtime, but again requires non-\acr{tm} synchronization primitives
 	for use in conjunction with \co{exec()}.
 	One disadvantage is the need to decorate a great many library
 	functions with \co{transaction_safe} and \co{transaction_unsafe}
@@ -533,7 +532,7 @@ from within a transaction?
 \end{enumerate}
 
 The \co{exec()} system call is perhaps the strangest example of an
-obstacle to universal TM applicability, as it is not completely clear
+obstacle to universal \IXacr{tm} applicability, as it is not completely clear
 what approach makes sense, and some might argue that this is merely a
 reflection of the perils of real-life interaction with \co{exec()}.
 That said, the two options prohibiting \co{exec()} within transactions
@@ -566,10 +565,10 @@ for locking or might (erroneously) introduce a quiescent state into a
 userspace-RCU read-side critical section.
 The difference is that while the class of operations permitted in locking
 and userspace-RCU critical sections is well-understood, there appears
-to still be considerable uncertainty in the case of TM\@.
+to still be considerable uncertainty in the case of \IXacr{tm}\@.
 In fact, different implementations of TM seem to have different restrictions.
 
-So what can TM do about dynamically linked and loaded library functions?
+So what can \acr{tm} do about dynamically linked and loaded library functions?
 Options for part (a), the actual loading of the code, include the following:
 
 \begin{enumerate}
@@ -583,11 +582,11 @@ Options for part (a), the actual loading of the code, include the following:
 	transactions.
 \end{enumerate}
 
-Options for part (b), the inability to detect TM-unfriendly operations
+Options for part (b), the inability to detect \IXacr{tm}-unfriendly operations
 in a not-yet-loaded function, possibilities include the following:
 
 \begin{enumerate}
-\item	Just execute the code: if there are any TM-unfriendly operations
+\item	Just execute the code: if there are any \acr{tm}-unfriendly operations
 	in the function, simply abort the transaction.
 	Unfortunately, this approach makes it impossible for the compiler
 	to determine whether a given group of transactions may be safely
@@ -602,7 +601,7 @@ in a not-yet-loaded function, possibilities include the following:
 	a given data item, any other transaction manipulating that
 	same data item cannot have non-blocking semantics.
 \item	Decorate the function declarations indicating which functions
-	are TM-friendly.
+	are \acr{tm}-friendly.
 	These decorations can then be enforced by the compiler's type system.
 	Of course, for many languages, this requires language extensions
 	to be proposed, standardized, and implemented, with the
@@ -614,13 +613,13 @@ in a not-yet-loaded function, possibilities include the following:
 	within transactions.
 \end{enumerate}
 
-I/O operations are of course a known weakness of TM, and dynamic linking
+I/O operations are of course a known weakness of \IXacr{tm}, and dynamic linking
 and loading can be thought of as yet another special case of I/O\@.
-Nevertheless, the proponents of TM must either solve this problem, or
-resign themselves to a world where TM is but one tool of several in the
+Nevertheless, the proponents of \acr{tm} must either solve this problem, or
+resign themselves to a world where \acr{tm} is but one tool of several in the
 parallel programmer's toolbox.
-(To be fair, a number of TM proponents have long since resigned themselves
-to a world containing more than just TM.)
+(To be fair, a number of \acr{tm} proponents have long since resigned themselves
+to a world containing more than just \acr{tm}.)
 
 \subsubsection{Memory-Mapping Operations}
 \label{sec:future:Memory-Mapping Operations}
@@ -638,16 +637,16 @@ contains some variables participating in the current thread's transaction?
 And what if this memory region contains variables participating in some
 other thread's transaction?
 
-It should not be necessary to consider cases where the TM system's
+It should not be necessary to consider cases where the \IXacr{tm} system's
 metadata is remapped, given that most locking primitives do not define
 the outcome of remapping their lock variables.
 
-Here are some TM memory-mapping options:
+Here are some \acr{tm} memory-mapping options:
 
 \begin{enumerate}
 \item	Memory remapping is illegal within a transaction, and will result
 	in all enclosing transactions being aborted.
-	This does simplify things somewhat, but also requires that TM
+	This does simplify things somewhat, but also requires that \acr{tm}
 	interoperate with synchronization primitives that do tolerate
 	remapping from within their critical sections.
 \item	Memory remapping is illegal within a transaction, and the
@@ -663,7 +662,7 @@ Here are some TM memory-mapping options:
 	If there is overlap, then the memory-mapping operation fails.
 \item	The effect of memory-mapping operations that overlap the memory
 	footprint of any transaction in the system is determined by the
-	TM conflict manager, which might dynamically determine whether
+	\IXacr{tm} conflict manager, which might dynamically determine whether
 	to fail the memory-mapping operation or abort any conflicting
 	transactions.
 \end{enumerate}
@@ -697,15 +696,16 @@ So how can transactions be debugged?
 	the safe side.
 	However, this approach might impose significant overhead, which
 	might in turn obscure the bug being pursued.
-\item	Use only hardware TM implementations that are capable of
+\item	Use only hardware \IXacr{tm} implementations that are capable of
 	handling breakpoint exceptions.
 	Unfortunately, as of this writing (March 2021), all such
 	implementations are research prototypes.
-\item	Use only software TM implementations, which are
+\item	Use only software \acr{tm} implementations, which are
 	(very roughly speaking) more tolerant of exceptions than are
-	the simpler of the hardware TM implementations.
-	Of course, software TM tends to have higher overhead than hardware
-	TM, so this approach may not be acceptable in all situations.
+	the simpler of the hardware TM (\IXacr{htm}) implementations.
+	Of course, software TM (\IXacr{stm}) tends to have higher
+	overhead than \acr{htm},
+	so this approach may not be acceptable in all situations.
 \item	Program more carefully, so as to avoid having bugs in the
 	transactions in the first place.
 	As soon as you figure out how to do this, please do let everyone
@@ -752,7 +752,7 @@ In theory, the answer is trivial: simply manipulate the data structure
 representing the lock as part of the transaction, and everything works
 out perfectly.
 In practice, a number of non-obvious complications~\cite{Volos2008TRANSACT}
-can arise, depending on implementation details of the TM system.
+can arise, depending on implementation details of the \IXacr{tm} system.
 These complications can be resolved, but at the cost of a 45\,\% increase in
 overhead for locks acquired outside of transactions and a 300\,\% increase
 in overhead for locks acquired within transactions.
@@ -762,14 +762,14 @@ unacceptable for production-quality lock-based programs wishing to use
 the occasional transaction.
 
 \begin{enumerate}
-\item	Use only locking-friendly TM implementations.
+\item	Use only locking-friendly \IXacr{tm} implementations.
 	Unfortunately, the locking-unfriendly implementations have some
 	attractive properties, including low overhead for successful
 	transactions and the ability to accommodate extremely large
 	transactions.
-\item	Use TM only ``in the small'' when introducing TM to lock-based
+\item	Use \acr{tm} only ``in the small'' when introducing \acr{tm} to lock-based
 	programs, thereby accommodating the limitations of
-	locking-friendly TM implementations.
+	locking-friendly \acr{tm} implementations.
 \item	Set aside locking-based legacy systems entirely, re-implementing
 	everything in terms of transactions.
 	This approach has no shortage of advocates, but this requires
@@ -777,7 +777,7 @@ the occasional transaction.
 	During the time it takes to resolve these issues, competing
 	synchronization mechanisms will of course also have the
 	opportunity to improve.
-\item	Use TM strictly as an optimization in lock-based systems, as was
+\item	Use \acr{tm} strictly as an optimization in lock-based systems, as was
 	done by the TxLinux~\cite{ChistopherJRossbach2007a} group and
 	by a great many transactional lock elision
 	projects~\cite{MartinPohlack2011HTM2TLE,Kleen:2014:SEL:2566590.2576793,PascalFelber2016rwlockElision,SeongJaePark2020HTMRCUlock}.
@@ -786,7 +786,7 @@ the occasional transaction.
 \item	Strive to reduce the overhead imposed on locking primitives.
 \end{enumerate}
 
-The fact that there could possibly be a problem interfacing TM and locking
+The fact that there could possibly be a problem interfacing \IXacr{tm} and locking
 came as a surprise to many, which underscores the need to try out new
 mechanisms and primitives in real-world production software.
 Fortunately, the advent of open source means that a huge quantity of
@@ -817,7 +817,7 @@ the two transactions.
 This behavior is completely inconsistent with the reader-writer lock's
 goal of allowing concurrent readers.
 
-Here are some options available to TM:
+Here are some options available to \IXacr{tm}:
 
 \begin{enumerate}
 \item	Use per-CPU or per-thread reader-writer
@@ -835,7 +835,7 @@ Here are some options available to TM:
 	Other more-recent scalable
 	reader-writer locks~\cite{YossiLev2009SNZIrwlock}
 	might avoid some or all of these problems.
-\item	Use TM only ``in the small'' when introducing TM to lock-based
+\item	Use \IXacr{tm} only ``in the small'' when introducing \acr{tm} to lock-based
 	programs, thereby avoiding read-acquiring reader-writer locks
 	from within transactions.
 \item	Set aside locking-based legacy systems entirely, re-implementing
@@ -845,9 +845,9 @@ Here are some options available to TM:
 	During the time it takes to resolve these issues, competing
 	synchronization mechanisms will of course also have the
 	opportunity to improve.
-\item	Use TM strictly as an optimization in lock-based systems, as was
+\item	Use \acr{tm} strictly as an optimization in lock-based systems, as was
 	done by the TxLinux~\cite{ChistopherJRossbach2007a} group,
-	and as has been done by more recent work using TM to elide
+	and as has been done by more recent work using \acr{tm} to elide
 	reader writer locks~\cite{PascalFelber2016rwlockElision}.
 	This approach seems sound, at least on \Power{8}
 	CPUs~\cite{Le:2015:TMS:3266491.3266500}, but leaves the locking
@@ -856,29 +856,29 @@ Here are some options available to TM:
 \end{enumerate}
 
 Of course, there might well be other non-obvious issues surrounding
-combining TM with reader-writer locking, as there in fact were with
+combining \IXacr{tm} with reader-writer locking, as there in fact were with
 exclusive locking.
 
 \subsubsection{Deferred Reclamation}
 \label{sec:future:Deferred Reclamation}
 
 This section focuses mainly on RCU\@.
-Similar issues and possible resolutions arise when combining TM with
+Similar issues and possible resolutions arise when combining \IXacr{tm} with
 other deferred-reclamation mechanisms such as reference counters and
 hazard pointers.
 In the text below, known differences are specifically called out.
 
 Reference counting, hazard pointers, and RCU are all heavily used, as noted in
 \cref{sec:defer:RCU Related Work,sec:defer:Which to Choose? (Production Use)}.
-This means that any TM implementation that chooses not to surmount each
+This means that any \acr{tm} implementation that chooses not to surmount each
 and every challenge called out in this section needs to interoperate
 cleanly and efficiently with all of these synchronization mechanisms.
 
 The TxLinux group from the University of Texas at Austin appears to be
-the group to take on the challenge of RCU/TM
+the group to take on the challenge of RCU/\acr{tm}
 interoperability~\cite{ChistopherJRossbach2007a}.
-Because they applied TM to the Linux 2.6 kernel, which uses RCU, they
-had no choice but to integrate TM and RCU, with TM taking the place of
+Because they applied \acr{tm} to the Linux 2.6 kernel, which uses RCU, they
+had no choice but to integrate \acr{tm} and RCU, with \acr{tm} taking the place of
 locking for RCU updates.
 Unfortunately, although the paper does state that the RCU implementation's
 locks (e.g., \co{rcu_ctrlblk.lock}) were converted to transactions,
@@ -886,27 +886,27 @@ it is silent about what was done with those locks used by RCU-based updates
 (for example, \co{dcache_lock}).
 
 More recently, \ppl{Dimitrios}{Siakavaras} et al.~have applied
-HTM and RCU to search trees~\cite{Siakavaras2017CombiningHA,DimitriosSiakavaras2020RCU-HTM-B+Trees},
-\ppl{Christina}{Giannoula} et al.~have used HTM and RCU to color
+\IXacr{htm} and RCU to search trees~\cite{Siakavaras2017CombiningHA,DimitriosSiakavaras2020RCU-HTM-B+Trees},
+\ppl{Christina}{Giannoula} et al.~have used \acr{htm} and RCU to color
 graphs~\cite{ChristinaGiannoula2018HTM-RCU-graphcoloring},
 and
-\ppl{SeongJae}{Park} et al.~have used HTM and RCU to optimize high-contention
-locking on NUMA systems~\cite{SeongJaePark2020HTMRCUlock}.
+\ppl{SeongJae}{Park} et al.~have used \acr{htm} and RCU to optimize high-contention
+locking on \IXacr{numa} systems~\cite{SeongJaePark2020HTMRCUlock}.
 
 It is important to note that RCU permits readers and updaters to run
 concurrently, further permitting RCU readers to access data that is in
 the act of being updated.
 Of course, this property of RCU, whatever its performance, scalability,
 and real-time-response benefits might be, flies in the face of the
-underlying atomicity properties of TM, although the \Power{8} CPU family's
+underlying atomicity properties of \IXacr{tm}, although the \Power{8} CPU family's
 suspended-transaction facility~\cite{Le:2015:TMS:3266491.3266500} makes
 it an exception to this rule.
 
-So how should TM-based updates interact with concurrent RCU readers?
+So how should \IXacr{tm}-based updates interact with concurrent RCU readers?
 Some possibilities are as follows:
 
 \begin{enumerate}
-\item	RCU readers abort concurrent conflicting TM updates.
+\item	RCU readers abort concurrent conflicting \acr{tm} updates.
 	This is in fact the approach taken by the TxLinux project.
 	This approach does preserve RCU semantics, and also preserves
 	RCU's read-side performance, scalability, and real-time-response
@@ -915,22 +915,22 @@ Some possibilities are as follows:
 	In the worst case, a long sequence of RCU readers could
 	potentially starve all updaters, which could in theory result
 	in system hangs.
-	In addition, not all TM implementations offer the strong atomicity
+	In addition, not all \acr{tm} implementations offer the strong atomicity
 	required to implement this approach, and for good reasons.
-\item	RCU readers that run concurrently with conflicting TM updates
+\item	RCU readers that run concurrently with conflicting \acr{tm} updates
 	get old (pre-transaction) values from any conflicting RCU loads.
 	This preserves RCU semantics and performance, and also prevents
 	RCU-update starvation.
-	However, not all TM implementations can provide timely access
+	However, not all \acr{tm} implementations can provide timely access
 	to old values of variables that have been tentatively updated
 	by an in-flight transaction.
-	In particular, log-based TM implementations that maintain
-	old values in the log (thus providing excellent TM commit
+	In particular, log-based \acr{tm} implementations that maintain
+	old values in the log (thus providing excellent \acr{tm} commit
 	performance) are not likely to be happy with this approach.
 	Perhaps the \co{rcu_dereference()} primitive can be leveraged
 	to permit RCU to access the old values within a greater range
-	of TM implementations, though performance might still be an issue.
-	Nevertheless, there are popular TM implementations that have
+	of \acr{tm} implementations, though performance might still be an issue.
+	Nevertheless, there are popular \acr{tm} implementations that have
 	been integrated with RCU in this
 	manner~\cite{DonaldEPorter2007TRANSACT,PhilHoward2011RCUTMRBTree,
 	PhilipWHoward2013RCUrbtree}.
@@ -940,18 +940,18 @@ Some possibilities are as follows:
 	This approach preserves RCU semantics, but not RCU's performance
 	or real-time response, particularly in presence of long-running
 	transactions.
-	In addition, not all TM implementations are capable of delaying
+	In addition, not all \IXacr{tm} implementations are capable of delaying
 	conflicting accesses.
 	Nevertheless, this approach seems eminently reasonable for hardware
 	TM implementations that support only small transactions.
 \item	RCU readers are converted to transactions.
 	This approach pretty much guarantees that RCU is compatible with
-	any TM implementation, but it also imposes TM's rollbacks on RCU
+	any \acr{tm} implementation, but it also imposes \acr{tm}'s rollbacks on RCU
 	read-side critical sections, destroying RCU's real-time response
 	guarantees, and also degrading RCU's read-side performance.
 	Furthermore, this approach is infeasible in cases where any of
 	the RCU read-side critical sections contains operations that
-	the TM implementation in question is incapable of handling.
+	the \acr{tm} implementation in question is incapable of handling.
 	This approach is more difficult to apply to hazard pointers and
 	reference counters, which do not have a sharply defined notion
 	of a reader as a section of code.
@@ -962,13 +962,13 @@ Some possibilities are as follows:
 	as long as the transaction respects memory ordering and as long
 	as the roll-back process uses \co{call_rcu()} to free up the
 	corresponding structure.
-	Unfortunately, not all TM implementations respect memory barriers
+	Unfortunately, not all \IXacr{tm} implementations respect memory barriers
 	within a transaction.
 	Apparently, the thought is that because transactions are supposed
 	to be atomic, the ordering of the accesses within the transaction
 	is not supposed to matter.
-\item	Prohibit use of TM in RCU updates.
-	This is guaranteed to work, but restricts use of TM.
+\item	Prohibit use of \acr{tm} in RCU updates.
+	This is guaranteed to work, but restricts use of \acr{tm}.
 \end{enumerate}
 
 It seems likely that additional approaches will be uncovered, especially
@@ -977,7 +977,7 @@ implementations.\footnote{
 	Kudos to the TxLinux group, Maged Michael, and Josh Triplett
 	for coming up with a number of the above alternatives.}
 It is interesting to note that many of the better performing and
-scaling STM implementations make use of RCU-like techniques
+scaling \IXacr{stm} implementations make use of RCU-like techniques
 internally~\cite{UCAM-CL-TR-579,KeirFraser2007withoutLocks,Gu:2019:PSE:3358807.3358885,Kim:2019:MSR:3297858.3304040}.
 
 \QuickQuiz{
@@ -1051,7 +1051,7 @@ internally~\cite{UCAM-CL-TR-579,KeirFraser2007withoutLocks,Gu:2019:PSE:3358807.3
 	which greatly aided their scalability.
 
 	Interestingly enough, RLU and RCU take different approaches to avoid
-	the inherent limitations of STM noted by \ppl{Hagit}{Attiya} et
+	the inherent limitations of \IXacr{stm} noted by \ppl{Hagit}{Attiya} et
 	al.~\cite{Attiya:2009:STMReadOnlyLimits}.
 	RCU avoids providing strict serializability and RLU avoids providing
 	invisible read-only transactions, both thus avoiding the
@@ -1071,7 +1071,7 @@ sections, and is in fact the common case.
 Given mechanisms such as the so-called ``dirty reads'' that are
 prevalent in production database systems, it is not surprising
 that extra-transactional accesses have received serious attention
-from the proponents of TM, with the concept of weak
+from the proponents of \IXacr{tm}, with the concept of weak
 atomicity~\cite{Blundell2006TMdeadlock} being but one case in point.
 
 Here are some extra-transactional options:
@@ -1119,68 +1119,69 @@ large-scale practical impact in the near term.
 \subsection{Discussion}
 \label{sec:future:Discussion}
 
-The obstacles to universal TM adoption lead to the following
+The obstacles to universal \IXacr{tm} adoption lead to the following
 conclusions:
 
 \begin{enumerate}
-\item	One interesting property of TM is the fact that transactions are
+\item	One interesting property of \acr{tm} is the fact that transactions are
 	subject to rollback and retry.
-	This property underlies TM's difficulties with irreversible
+	This property underlies \acr{tm}'s difficulties with irreversible
 	operations, including unbuffered I/O, RPCs, memory-mapping
 	operations, time delays, and the \co{exec()} system call.
 	This property also has the unfortunate consequence of introducing
 	all the complexities inherent in the possibility of failure,
 	often in a developer-visible manner.
-\item	Another interesting property of TM, noted by
-	Shpeisman et al.~\cite{TatianaShpeisman2009CppTM}, is that TM
+\item	Another interesting property of \acr{tm}, noted by
+	Shpeisman et al.~\cite{TatianaShpeisman2009CppTM}, is that \acr{tm}
 	intertwines the synchronization with the data it protects.
-	This property underlies TM's issues with I/O, memory-mapping
+	This property underlies \acr{tm}'s issues with I/O, memory-mapping
 	operations, extra-transactional accesses, and debugging
 	breakpoints.
 	In contrast, conventional synchronization primitives, including
 	locking and RCU, maintain a clear separation between the
 	synchronization primitives and the data that they protect.
-\item	One of the stated goals of many workers in the TM area is to
+\item	One of the stated goals of many workers in the \acr{tm} area is to
 	ease parallelization of large sequential programs.
 	As such, individual transactions are commonly expected to
-	execute serially, which might do much to explain TM's issues
+	execute serially, which might do much to explain \IXacr{tm}'s issues
 	with multithreaded transactions.
 \end{enumerate}
 
 \QuickQuiz{
 	Given things like \co{spin_trylock()}, how does it make any
-	sense at all to claim that TM introduces the concept of failure???
+	sense at all to claim that \IXacr{tm} introduces the concept of failure???
 }\QuickQuizAnswer{
 	When using locking, \co{spin_trylock()} is a choice, with a
 	corresponding failure-free choice being \co{spin_lock()},
 	which is used in the common case, as in there are more than
 	100 times as many calls to \co{spin_lock()} than to
 	\co{spin_trylock()} in the v5.11 Linux kernel.
-	When using TM, the only failure-free choice is the irrevocable
+	When using \acr{tm}, the only failure-free choice is the irrevocable
 	transaction, which is not used in the common case.
 	In fact, the irrevocable transaction is not even available
-	in all TM implementations.
+	in all \acr{tm} implementations.
 }\QuickQuizEnd
 
-What should TM researchers and developers do about all of this?
+What should \IXacr{tm} researchers and developers do about all of this?
 
-One approach is to focus on TM in the small, focusing on small
+One approach is to focus on \acr{tm} in the small, focusing on small
 transactions where hardware assist potentially provides substantial
 advantages over other synchronization primitives and on small programs
 where there is some evidence for increased productivity for a combined
-TM-locking approach~\cite{VPankratius2011TMvsLockingProductivity}.
+\acr{tm}-locking approach~\cite{VPankratius2011TMvsLockingProductivity}.
 Sun took the small-transaction approach with its Rock research
 CPU~\cite{DaveDice2009ASPLOSRockHTM}.
-Some TM researchers seem to agree with these two small-is-beautiful
-approaches~\cite{JMStone93}, others have much higher hopes for TM, and yet others
-hint that high TM aspirations might be TM's worst
+Some \acr{tm} researchers seem to agree with these two small-is-beautiful
+approaches~\cite{JMStone93}, others have much higher hopes for \acr{tm},
+and yet others
+hint that high \acr{tm} aspirations might be \acr{tm}'s worst
 enemy~\cite[Section 6]{Attiya:2010:ICT:1835698.1835699}.
-It is nonetheless quite possible that TM will be able to take on larger
+It is nonetheless quite possible that \acr{tm} will be able to take on larger
 problems, and this section has listed a few of the issues that must be
-resolved if TM is to achieve this lofty goal.
+resolved if \acr{tm} is to achieve this lofty goal.
 
 Of course, everyone involved should treat this as a learning experience.
-It would seem that TM researchers have great deal to learn from
+It would seem that \IXacr{tm} researchers have great deal to learn from
 practitioners who have successfully built large software systems using
 traditional synchronization primitives.
 
@@ -1188,15 +1189,15 @@ And vice versa.
 
 \QuickQuiz{
 	What is to learn?
-	Why not just use TM for memory-based data structures and locking
+	Why not just use \IXacr{tm} for memory-based data structures and locking
 	for those rare cases featuring the many silly corner cases listed
 	in this silly section???
 }\QuickQuizAnswer{
 	The year 2005 just called, and it says that it wants its
-	incandescent TM marketing hype back.
+	incandescent \acr{tm} marketing hype back.
 
-	In the year 2021, TM still has significant proving to do,
-	even with the advent of HTM, which is covered in the
+	In the year 2021, \acr{tm} still has significant proving to do,
+	even with the advent of \IXacr{htm}, which is covered in the
 	upcoming
 	\cref{sec:future:Hardware Transactional Memory}.
 }\QuickQuizEnd
@@ -1229,23 +1230,23 @@ And vice versa.
 \ContributedBy{Figure}{fig:future:The STM Reality: Realtime Response}{Melissa Broussard}
 \end{figure}
 
-But for the moment, the current state of STM
+But for the moment, the current state of \IXacr{stm}
 can best be summarized with a series of cartoons.
 First,
 \cref{fig:future:The STM Vision}
-shows the STM vision.
+shows the \acr{stm} vision.
 As always, the reality is a bit more nuanced, as fancifully depicted by
 \cref{fig:future:The STM Reality: Conflicts,%
 fig:future:The STM Reality: Irrevocable Operations,%
 fig:future:The STM Reality: Realtime Response}.\footnote{
-	Recent academic work-in-progress has investigated lock-based STM
+	Recent academic work-in-progress has investigated lock-based \acr{stm}
 	systems for real-time use~\cite{JimAnderson2019STMRT,CatherineNemitz2018LockSTMrealtime},
 	albeit without any performance results, and with some indications
-	that real-time hybrid STM/HTM systems must choose between fast
+	that real-time hybrid \acr{stm}/\IXacr{htm} systems must choose between fast
 	common-case performance and worst-case forward-progress
 	guarantees~\cite{DBLP:journals/corr/AlistarhKKRS14,MartinSchoeberl2010realtimeTM}.}
-Less fanciful STM retrospectives are also
+Less fanciful \IXacr{stm} retrospectives are also
 available~\cite{JoeDuffy2010RetroTM,JoeDuffy2010RetroTM2}.
 
 Some commercially available hardware supports restricted variants of
-HTM, which are addressed in the following section.
+\IXacr{htm}, which are addressed in the following section.
