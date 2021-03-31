@@ -199,18 +199,11 @@
 \newcommand{\IXhr}[2]{\indexhr{#1 #2}{#2}{#1}\hlindex{#1 #2}}
 \newcommand{\IXalth}[3]{\indexh{#1}{#3}{#2}\hlindex{#1}}
 \newcommand{\IXalthr}[3]{\indexhr{#1}{#3}{#2}\hlindex{#1}}
-\newcommand{\IXacr}[1]{\glsuseri{#1}\gls{#1}} % put index via acronym dictionary
-\newcommand{\IXacrpl}[1]{\glsuseri{#1}\glspl{#1}} % put index via acronym dictionary (plural)
-\newcommand{\IXAcr}[1]{\glsuseri{#1}\Gls{#1}} % put index via acronym dictionary (upper case)
-\newcommand{\IXAcrpl}[1]{\glsuseri{#1}\Glspl{#1}} % put index via acronym dictionary (upper case, plural)
+\IfIndexOn{
 \newcommand{\acr}[1]{\gls{#1}} % print acronym via dictionary
 \newcommand{\acrpl}[1]{\glspl{#1}} % print acronym via dictionary (plural)
 \newcommand{\Acr}[1]{\Gls{#1}} % print acronym via dictionary (upper case)
 \newcommand{\Acrpl}[1]{\Glspl{#1}} % print acronym via dictionary (upper case, plural)
-\newcommand{\IXacrl}[1]{\glsuseri{#1}\glsxtrlong{#1}} % put index via acronym dictionary (long form)
-\newcommand{\IXacrlpl}[1]{\glsuseri{#1}\glsxtrlongpl{#1}} % put index via acronym dictionary (long form, plural, plural)
-\newcommand{\IXAcrl}[1]{\glsuseri{#1}\Glsxtrlong{#1}} % put index via acronym dictionary (long form, upper case)
-\newcommand{\IXAcrlpl}[1]{\glsuseri{#1}\Glsxtrlongpl{#1}} % put index via acronym dictionary (long form, upper case, plural)
 \newcommand{\acrl}[1]{\glsxtrlong{#1}} % print acronym via dictionary (long form)
 \newcommand{\acrlpl}[1]{\glsxtrlongpl{#1}} % print acronym via dictionary (long form, plural)
 \newcommand{\Acrl}[1]{\Glsxtrlong{#1}} % print acronym via dictionary (long form, upper case)
@@ -219,18 +212,44 @@
 \newcommand{\acrfpl}[1]{\glsxtrlongpl{#1} (\glsxtrshortpl{#1})} % print acronym via dictionary (full form, plural)
 \newcommand{\Acrf}[1]{\Glsxtrlong{#1} (\glsxtrshort{#1})} % print acronym via dictionary (full form, upper case)
 \newcommand{\Acrfpl}[1]{\Glsxtrlongpl{#1} (\glsxtrshortpl{#1})} % print acronym via dictionary (full form, upper case, plural)
-\newcommand{\IXacrf}[1]{\glsuseri{#1}\acrf{#1}} % put index via acronym dictionary (full form)
-\newcommand{\IXacrfpl}[1]{\glsuseri{#1} \glsxtrlongpl{#1} (\glsxtrshortpl{#1})} % put index via acronym dictionary (full form, plural)
-\newcommand{\IXAcrf}[1]{\glsuseri{#1}\Glsxtrlong{#1} (\glsxtrshort{#1})} % put index via acronym dictionary (full form, upper case)
-\newcommand{\IXAcrfpl}[1]{\glsuseri{#1}\Acrfpl{#1}} % put index via acronym dictionary (full form, upper case, plural)
 \newcommand{\acrfst}[1]{\glsreset{#1}\gls{#1}} % print acronym via dictionary (first form)
 \newcommand{\acrfstpl}[1]{\glsreset{#1}\glspl{#1}} % print acronym via dictionary (first form, plural)
 \newcommand{\Acrfst}[1]{\glsreset{#1}\Gls{#1}} % print acronym via dictionary (first form, upper case)
 \newcommand{\Acrfstpl}[1]{\glsreset{#1}\Glspl{#1}} % print acronym via dictionary (first form, upper case, plural)
-\newcommand{\IXacrfst}[1]{\glsuseri{#1}\glsreset{#1}\gls{#1}} % put index via acronym dictionary (first form)
-\newcommand{\IXacrfstpl}[1]{\glsuseri{#1}\glsreset{#1}\glspl{#1}} % put index via acronym dictionary (first form, plural)
-\newcommand{\IXAcrfst}[1]{\glsuseri{#1}\glsreset{#1}\Gls{#1}} % put index via acronym dictionary (first form, upper case)
-\newcommand{\IXAcrfstpl}[1]{\glsuseri{#1}\glsreset{#1}\Glspl{#1}} % put index via acronym dictionary (first form, upper case, plural)
+}{
+\newcommand{\acr}[1]{\gls*{#1}} % print acronym via dictionary
+\newcommand{\acrpl}[1]{\glspl*{#1}} % print acronym via dictionary (plural)
+\newcommand{\Acr}[1]{\Gls*{#1}} % print acronym via dictionary (upper case)
+\newcommand{\Acrpl}[1]{\Glspl*{#1}} % print acronym via dictionary (upper case, prural)
+\newcommand{\acrl}[1]{\glsxtrlong*{#1}} % print acronym via dictionary (long form)
+\newcommand{\acrlpl}[1]{\glsxtrlongpl*{#1}} % print acronym via dictionary (long form, plural)
+\newcommand{\Acrl}[1]{\Glsxtrlong*{#1}} % print acronym via dictionary (long form, upper case)
+\newcommand{\Acrlpl}[1]{\Glsxtrlongpl*{#1}} % print acronym via dictionary (long form, upper case, plural)
+\newcommand{\acrf}[1]{\glsxtrlong*{#1} (\glsxtrshort*{#1})} % print acronym via dictionary (full form)
+\newcommand{\acrfpl}[1]{\glsxtrlongpl*{#1} (\glsxtrshortpl*{#1})} % print acronym via dictionary (full form, plural)
+\newcommand{\Acrf}[1]{\Glsxtrlong*{#1} (\glsxtrshort*{#1})} % print acronym via dictionary (full form, upper case)
+\newcommand{\Acrfpl}[1]{\Glsxtrlongpl*{#1} (\glsxtrshortpl*{#1})} % print acronym via dictionary (full form, upper case, plural)
+\newcommand{\acrfst}[1]{\glsreset{#1}\gls*{#1}} % print acronym via dictionary (first form)
+\newcommand{\acrfstpl}[1]{\glsreset{#1}\glspl*{#1}} % print acronym via dictionary (first form, plural)
+\newcommand{\Acrfst}[1]{\glsreset{#1}\Gls*{#1}} % print acronym via dictionary (first form, upper case)
+\newcommand{\Acrfstpl}[1]{\glsreset{#1}\Glspl*{#1}} % print acronym via dictionary (first form, upper case, plural)
+}
+\newcommand{\IXacr}[1]{\glsuseri{#1}\acr{#1}} % put index via acronym dictionary
+\newcommand{\IXacrpl}[1]{\glsuseri{#1}\acrpl{#1}} % put index via acronym dictionary (plural)
+\newcommand{\IXAcr}[1]{\glsuseri{#1}\Acr{#1}} % put index via acronym dictionary (upper case)
+\newcommand{\IXAcrpl}[1]{\glsuseri{#1}\Acrpl{#1}} % put index via acronym dictionary (upper case, plural)
+\newcommand{\IXacrl}[1]{\glsuseri{#1}\acrl{#1}} % put index via acronym dictionary (long form)
+\newcommand{\IXacrlpl}[1]{\glsuseri{#1}\acrlpl{#1}} % put index via acronym dictionary (long form, plural, plural)
+\newcommand{\IXAcrl}[1]{\glsuseri{#1}\Acrl{#1}} % put index via acronym dictionary (long form, upper case)
+\newcommand{\IXAcrlpl}[1]{\glsuseri{#1}\Acrlpl{#1}} % put index via acronym dictionary (long form, upper case, plural)
+\newcommand{\IXacrf}[1]{\glsuseri{#1}\acrf{#1}} % put index via acronym dictionary (full form)
+\newcommand{\IXacrfpl}[1]{\glsuseri{#1}\acrfpl} % put index via acronym dictionary (full form, plural)
+\newcommand{\IXAcrf}[1]{\glsuseri{#1}\Acrf{#1}} % put index via acronym dictionary (full form, upper case)
+\newcommand{\IXAcrfpl}[1]{\glsuseri{#1}\Acrfpl{#1}} % put index via acronym dictionary (full form, upper case, plural)
+\newcommand{\IXacrfst}[1]{\glsuseri{#1}\acrfst{#1}} % put index via acronym dictionary (first form)
+\newcommand{\IXacrfstpl}[1]{\glsuseri{#1}\acrfstpl{#1}} % put index via acronym dictionary (first form, plural)
+\newcommand{\IXAcrfst}[1]{\glsuseri{#1}\Acrfst{#1}} % put index via acronym dictionary (first form, upper case)
+\newcommand{\IXAcrfstpl}[1]{\glsuseri{#1}\Acrfstpl{#1}} % put index via acronym dictionary (first form, upper case, plural)
 \newcommand{\apic}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{c}}}
 \newcommand{\apig}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{g}}}
 \newcommand{\apipx}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{px}}}
