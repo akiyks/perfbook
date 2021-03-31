@@ -450,12 +450,11 @@ bucket from being freed during the time that its lock was being acquired.
 		structure.
 		Hazard pointers are starting to see significant production use
 		(see \cref{sec:defer:Production Uses of Hazard Pointers}).
-	\item	Use transactional memory
-		(TM)~\cite{Herlihy93a,DBLomet1977SIGSOFT,Shavit95},
+	\item	Use \IXacrf{tm}~\cite{Herlihy93a,DBLomet1977SIGSOFT,Shavit95},
 		so that each reference and
 		modification to the data structure in question is
 		performed atomically.
-		Although TM has engendered much excitement in recent years,
+		Although \acr{tm} has engendered much excitement in recent years,
 		and seems likely to be of some use in production software,
 		developers should exercise some
 		caution~\cite{Blundell2005DebunkTM,Blundell2006TMdeadlock,McKenney2007PLOSTM},
@@ -463,7 +462,7 @@ bucket from being freed during the time that its lock was being acquired.
 		In particular, existence guarantees require that the
 		transaction covers the full path from a global reference
 		to the data elements being updated.
-		For more on TM, including ways to overcome some of its
+		For more on \acr{tm}, including ways to overcome some of its
 		weaknesses by combining it with other synchronization
 		mechanisms, see
 		\cref{sec:future:Transactional Memory,sec:future:Hardware Transactional Memory}.

@@ -1083,9 +1083,10 @@ an RCU, RCU-bh, or RCU-sched read-side critical section.
 
 Figure~\ref{fig:defer:RCU API Usage Constraints}
 shows which APIs may be used in which in-kernel environments.
-The RCU read-side primitives may be used in any environment, including NMI,
+The RCU read-side primitives may be used in any environment,
+including \IXacr{nmi},
 the RCU mutation and asynchronous grace-period primitives may be used in any
-environment other than NMI, and, finally, the RCU synchronous grace-period
+environment other than \acr{nmi}, and, finally, the RCU synchronous grace-period
 primitives may be used only in process context.
 The RCU list-traversal primitives include \co{list_for_each_entry_rcu()},
 \co{hlist_for_each_entry_rcu()}, etc.

@@ -930,8 +930,8 @@ but in practice, it is not yet clear whether this is a good tradeoff.)
 Of course, SRCU brings restrictions of its own, namely that the
 return value from \co{srcu_read_lock()} be passed into the
 corresponding \co{srcu_read_unlock()}, and that no SRCU primitives
-be invoked from hardware interrupt handlers or from non-maskable interrupt
-(NMI) handlers.
+be invoked from hardware interrupt handlers or from \IXacrf{nmi}
+handlers.
 The jury is still out as to how much of a problem is presented by
 these restrictions, and as to how they can best be handled.
 
@@ -1249,15 +1249,16 @@ In this section, we will show how \co{synchronize_sched()}'s
 read-side counterparts (which include anything that disables preemption,
 along with hardware operations and
 primitives that disable interrupts) permit you to implement interactions with
-non-maskable interrupt
-(NMI) handlers that would be quite difficult if using locking.
+\IXacrf{nmi}
+handlers that would be quite difficult if using locking.
 This approach has been called ``Pure RCU''~\cite{PaulEdwardMcKenneyPhD},
 and it is used in a number of places in the Linux kernel.
 
 The basic form of such ``Pure RCU'' designs is as follows:
 
 \begin{enumerate}
-\item	Make a change, for example, to the way that the OS reacts to an NMI\@.
+\item	Make a change, for example, to the way that the OS reacts to an
+	\acr{nmi}\@.
 \item	Wait for all pre-existing read-side critical sections to
 	completely finish (for example, by using the
 	\co{synchronize_sched()} primitive).
@@ -1270,7 +1271,7 @@ The basic form of such ``Pure RCU'' designs is as follows:
 The remainder of this section presents example code adapted from
 the Linux kernel.
 In this example, the \co{timer_stop} function uses
-\co{synchronize_sched()} to ensure that all in-flight NMI
+\co{synchronize_sched()} to ensure that all in-flight \IXacr{nmi}
 notifications have completed before freeing the associated resources.
 A simplified version of this code is shown
 Listing~\ref{lst:defer:Using RCU to Wait for NMIs to Finish}.
@@ -1321,7 +1322,7 @@ region of memory.
 
 \begin{fcvref}[ln:defer:Using RCU to Wait for NMIs to Finish:nmi_profile]
 \Clnrefrange{b}{e} define the \co{nmi_profile()} function,
-which is called from within an NMI handler.
+which is called from within an \IXacr{nmi} handler.
 As such, it cannot be preempted, nor can it be interrupted by a normal
 interrupts handler, however, it is still subject to delays due to cache misses,
 ECC errors, and cycle stealing by other hardware threads within the same
@@ -1351,7 +1352,7 @@ Otherwise, line~\lnref{NULL} \co{NULL}s out the profile-buffer pointer
 memory ordering on weakly ordered machines),
 and line~\lnref{sync_sched} waits for an RCU Sched grace period to elapse,
 in particular, waiting for all non-preemptible regions of code,
-including NMI handlers, to complete.
+including \IXacr{nmi} handlers, to complete.
 Once execution continues at line~\lnref{kfree}, we are guaranteed that
 any instance of \co{nmi_profile()} that obtained a
 pointer to the old buffer has returned.

@@ -14,7 +14,7 @@ database and non-database transactions being that non-database transactions
 drop the ``D'' in the ``ACID''\footnote{
 	Atomicity, consistency, isolation, and durability.}
 properties defining database transactions.
-The idea of supporting memory-based transactions, or \IXacr{tm}, in hardware
+The idea of supporting memory-based transactions, or \IXacrfst{tm}, in hardware
 is more recent~\cite{Herlihy93a}, but unfortunately, support for such
 transactions in commodity hardware was not immediately forthcoming,
 despite other somewhat similar proposals being put forward~\cite{JMStone93}.
@@ -702,8 +702,8 @@ So how can transactions be debugged?
 	implementations are research prototypes.
 \item	Use only software \acr{tm} implementations, which are
 	(very roughly speaking) more tolerant of exceptions than are
-	the simpler of the hardware TM (\IXacr{htm}) implementations.
-	Of course, software TM (\IXacr{stm}) tends to have higher
+	the simpler of the hardware TM (\glsunset{htm}\IXacr{htm}) implementations.
+	Of course, software TM (\glsunset{stm}\IXacr{stm}) tends to have higher
 	overhead than \acr{htm},
 	so this approach may not be acceptable in all situations.
 \item	Program more carefully, so as to avoid having bugs in the
