@@ -5,13 +5,13 @@
     sort={\the\glsshorttok},
     first={\protect\glsfirstlongemfont{\the\glslongtok}%
      \protect\glsxtrfullsep{\the\glslabeltok}%
-     \glsxtrparen{\protect\glsfirstabbrvemfont{\the\glsshorttok}}},%
+     \glsxtrparen{\protect\glsfirstabbrvfont{\the\glsshorttok}}},%
     firstplural={\protect\glsfirstlongemfont{\the\glslongpltok}%
      \protect\glsxtrfullsep{\the\glslabeltok}%
-     \glsxtrparen{\protect\glsfirstabbrvemfont{\the\glsshortpltok}}},%
-    text={\protect\glsabbrvemfont{\the\glsshorttok}},%
-    plural={\protect\glsabbrvemfont{\the\glsshortpltok}},%
-    description={\protect\glslongemfont{\the\glslongtok}},
+     \glsxtrparen{\protect\glsfirstabbrvfont{\the\glsshortpltok}}},%
+    text={\protect\glsabbrvfont{\the\glsshorttok}},%
+    plural={\protect\glsabbrvfont{\the\glsshortpltok}},%
+    description={\protect\glslongfont{\the\glslongtok}},
     user1={\protect\index{\the\glslongtok\space(\the\glsshorttok)%
       @\makefirstuc{\the\glslongtok}\space(\the\glsshorttok)}}%
   }%
@@ -24,31 +24,31 @@
   }%
 }%
 {%
-  \renewcommand*{\abbrvpluralsuffix}{\glsxtremsuffix}%
-  \renewcommand*{\glsabbrvfont}[1]{\glsabbrvemfont{##1}}%
-  \renewcommand*{\glsfirstabbrvfont}[1]{\glsfirstabbrvemfont{##1}}%
+%  \renewcommand*{\abbrvpluralsuffix}{\glsxtrabbvpluralsuffix}%
+%  \renewcommand*{\glsabbrvfont}[1]{\glsabbrvemfont{##1}}%
+%  \renewcommand*{\glsfirstabbrvfont}[1]{\glsfirstabbrvemfont{##1}}%
   \renewcommand*{\glsfirstlongfont}[1]{\glsfirstlongemfont{##1}}%
-  \renewcommand*{\glslongfont}[1]{\glslongemfont{##1}}%
+%  \renewcommand*{\glslongfont}[1]{\glslongemfont{##1}}%
   \renewcommand*{\glsxtrfullformat}[2]{%
-    \glsfirstlongemfont{\glsaccesslong{##1}\ifglsxtrinsertinside##2\fi}%
+    \glsfirstlongfont{\glsaccesslong{##1}\ifglsxtrinsertinside##2\fi}%
     \ifglsxtrinsertinside\else##2\fi
     \glsxtrfullsep{##1}%
-    \glsxtrparen{\glsfirstabbrvemfont{\glsaccessshort{##1}}}%
+    \glsxtrparen{\glsfirstabbrvfont{\glsaccessshort{##1}}}%
   }%
   \renewcommand*{\glsxtrfullplformat}[2]{%
-    \glsfirstlongemfont{\glsaccesslongpl{##1}\ifglsxtrinsertinside##2\fi}%
+    \glsfirstlongfont{\glsaccesslongpl{##1}\ifglsxtrinsertinside##2\fi}%
     \ifglsxtrinsertinside\else##2\fi\glsxtrfullsep{##1}%
-    \glsxtrparen{\glsfirstabbrvemfont{\glsaccessshortpl{##1}}}%
+    \glsxtrparen{\glsfirstabbrvfont{\glsaccessshortpl{##1}}}%
   }%
   \renewcommand*{\Glsxtrfullformat}[2]{%
-    \glsfirstlongemfont{\Glsaccesslong{##1}\ifglsxtrinsertinside##2\fi}%
+    \glsfirstlongfont{\Glsaccesslong{##1}\ifglsxtrinsertinside##2\fi}%
     \ifglsxtrinsertinside\else##2\fi\glsxtrfullsep{##1}%
-    \glsxtrparen{\glsfirstabbrvemfont{\glsaccessshort{##1}}}%
+    \glsxtrparen{\glsfirstabbrvfont{\glsaccessshort{##1}}}%
   }%
   \renewcommand*{\Glsxtrfullplformat}[2]{%
-    \glsfirstlongemfont{\Glsaccesslongpl{##1}\ifglsxtrinsertinside##2\fi}%
+    \glsfirstlongfont{\Glsaccesslongpl{##1}\ifglsxtrinsertinside##2\fi}%
     \ifglsxtrinsertinside\else##2\fi\glsxtrfullsep{##1}%
-    \glsxtrparen{\glsfirstabbrvemfont{\glsaccessshortpl{##1}}}%
+    \glsxtrparen{\glsfirstabbrvfont{\glsaccessshortpl{##1}}}%
   }%
   \renewcommand{\glsxtrprelocation}{,\space}%
 }
