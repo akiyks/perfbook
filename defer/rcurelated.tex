@@ -119,7 +119,7 @@ experimenting with alternative RCU implementations.
 \subsubsection{RCU Implementations}
 \label{sec:defer:RCU Implementations}
 
-\ppl{Mathieu}{Desnoyers} created a user-space RCU for use in
+\ppl{Mathieu}{Desnoyers} created a \IXhacrrcu{userspace}{Userspace RCU} for use in
 tracing~\cite{MathieuDesnoyers2009URCU,MathieuDesnoyersPhD,MathieuDesnoyers2012URCU},
 which has seen use in a number of projects~\cite{MikeDay2013RCUqemu}.
 
@@ -246,7 +246,7 @@ detector~\cite{AbhinavDuggal2010Masters,JustinSeyster2012PhD,Seyster:2011:RFA:20
 \ppl{Alexey}{Gotsman} of IMDEA, \ppl{Noam}{Rinetzky} of Tel Aviv University,
 and \ppl{Hongseok}{Yang} of the University of Oxford have published a
 paper~\cite{AlexeyGotsman2012VerifyGraceExtended} expressing the formal
-semantics of RCU in terms of separation logic, and have continued with
+semantics of \IXacr{rcu} in terms of separation logic, and have continued with
 other aspects of concurrency.
 
 \ppl{Joseph}{Tassarotti} (Carnegie-Mellon University), \ppl{Derek}{Dreyer} (Max
@@ -260,10 +260,10 @@ RCU~\cite{MathieuDesnoyers2009URCU,MathieuDesnoyers2012URCU}.
 (both also Oxford)~\cite{LihaoLiang2016VerifyTreeRCU}
 used the \IXacr{cbmc}~\cite{EdmundClarke2004CBMC}
 to produce a mechanical proof of correctness of a significant portion
-of Linux-kernel Tree RCU\@.
+of Linux-kernel \IXhAcrrcu{tree}{Tree RCU}\@.
 \ppl{Lance}{Roy}~\cite{LanceRoy2017CBMC-SRCU} used \acr{cbmc} to produce a similar
 proof of correctness for a significant portion of Linux-kernel
-sleepable RCU (SRCU)~\cite{PaulEMcKenney2006c}.
+\IXhacrrcu{sleepable}{Sleepable RCU} (SRCU)~\cite{PaulEMcKenney2006c}.
 Finally, \ppl{Michalis}{Kokologiannakis} and \ppl{Konstantinos}{Sagonas}
 (National Technical University of
 Athens)~\cite{MichalisKokologiannakis2017NidhuggRCU,MichalisKokologiannakis2019RCUstatelessModelCheck}
@@ -280,7 +280,8 @@ In contrast,
 automatically mutated Linux-kernel RCU's source code to test the
 coverage of the \co{rcutorture} test suite.
 The effort found several holes in this suite's coverage, one of which
-was hiding a real bug (since fixed) in Tiny RCU\@.
+was hiding a real bug (since fixed) in
+\IXhAcrrcu{tiny}{Tiny RCU}\@.
 
 With some luck, all of this validation work will eventually result in
 more and better tools for validating concurrent code.
