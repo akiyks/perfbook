@@ -80,7 +80,6 @@
 \usepackage[all]{hypcap} % for going to the top of figure and table
 \usepackage[acronym]{glossaries-extra}[2020/02/13]
 \usepackage[longragged]{glossaries-extra-stylemods}
-\makeglossaries
 \usepackage{epigraph}[2020/01/02] % latest version prevents orphaned epigraph
 \setlength{\epigraphwidth}{2.6in}
 \usepackage[xspace]{ellipsis}
@@ -234,6 +233,23 @@
 \newcommand{\Acrfst}[1]{\glsreset{#1}\Gls*{#1}} % print acronym via dictionary (first form, upper case)
 \newcommand{\Acrfstpl}[1]{\glsreset{#1}\Glspl*{#1}} % print acronym via dictionary (first form, upper case, plural)
 }
+\newcommand{\acrm}[1]{\acr{#1:m}} % print acronym via dictionary
+\newcommand{\acrmpl}[1]{\acrpl{#1:m}} % print acronym via dictionary (plural)
+\newcommand{\Acrm}[1]{\Acr{#1:m}} % print acronym via dictionary (upper case)
+\newcommand{\Acrmpl}[1]{\Acrpl{#1:m}} % print acronym via dictionary (upper case, prural)
+\newcommand{\acrml}[1]{\acrl{#1:m}} % print acronym via dictionary (long form)
+\newcommand{\acrmlpl}[1]{\acrlpl{#1:m}} % print acronym via dictionary (long form, plural)
+\newcommand{\Acrml}[1]{\Acrl{#1:m}} % print acronym via dictionary (long form, upper case)
+\newcommand{\Acrmlpl}[1]{\Acrlpl{#1:m}} % print acronym via dictionary (long form, upper case, plural)
+\newcommand{\acrmf}[1]{\acrf{#1:m}} % print acronym via dictionary (full form)
+\newcommand{\acrmfpl}[1]{\acrfpl{#1:m}} % print acronym via dictionary (full form, plural)
+\newcommand{\Acrmf}[1]{\Acrf{#1:m}} % print acronym via dictionary (full form, upper case)
+\newcommand{\Acrmfpl}[1]{\Acrfpl{#1:m}} % print acronym via dictionary (full form, upper case, plural)
+\newcommand{\acrmfst}[1]{\acrfst{#1:m}} % print acronym via dictionary (first form)
+\newcommand{\acrmfstpl}[1]{\acrfstpl{#1:m}} % print acronym via dictionary (first form, plural)
+\newcommand{\Acrmfst}[1]{\Acrfst{#1:m}} % print acronym via dictionary (first form, upper case)
+\newcommand{\Acrmfstpl}[1]{\Acrfstpl{#1:m}} % print acronym via dictionary (first form, upper case, plural)
+
 \newcommand{\IXacr}[1]{\glsuseri{#1}\acr{#1}} % put index via acronym dictionary
 \newcommand{\IXacrpl}[1]{\glsuseri{#1}\acrpl{#1}} % put index via acronym dictionary (plural)
 \newcommand{\IXAcr}[1]{\glsuseri{#1}\Acr{#1}} % put index via acronym dictionary (upper case)
@@ -243,13 +259,29 @@
 \newcommand{\IXAcrl}[1]{\glsuseri{#1}\Acrl{#1}} % put index via acronym dictionary (long form, upper case)
 \newcommand{\IXAcrlpl}[1]{\glsuseri{#1}\Acrlpl{#1}} % put index via acronym dictionary (long form, upper case, plural)
 \newcommand{\IXacrf}[1]{\glsuseri{#1}\acrf{#1}} % put index via acronym dictionary (full form)
-\newcommand{\IXacrfpl}[1]{\glsuseri{#1}\acrfpl} % put index via acronym dictionary (full form, plural)
+\newcommand{\IXacrfpl}[1]{\glsuseri{#1}\acrfpl{#1}} % put index via acronym dictionary (full form, plural)
 \newcommand{\IXAcrf}[1]{\glsuseri{#1}\Acrf{#1}} % put index via acronym dictionary (full form, upper case)
 \newcommand{\IXAcrfpl}[1]{\glsuseri{#1}\Acrfpl{#1}} % put index via acronym dictionary (full form, upper case, plural)
 \newcommand{\IXacrfst}[1]{\glsuseri{#1}\acrfst{#1}} % put index via acronym dictionary (first form)
 \newcommand{\IXacrfstpl}[1]{\glsuseri{#1}\acrfstpl{#1}} % put index via acronym dictionary (first form, plural)
 \newcommand{\IXAcrfst}[1]{\glsuseri{#1}\Acrfst{#1}} % put index via acronym dictionary (first form, upper case)
 \newcommand{\IXAcrfstpl}[1]{\glsuseri{#1}\Acrfstpl{#1}} % put index via acronym dictionary (first form, upper case, plural)
+\newcommand{\IXacrm}[1]{\glsuseri{#1}\acrm{#1}} % put index via acronym dictionary
+\newcommand{\IXacrmpl}[1]{\glsuseri{#1}\acrmpl{#1}} % put index via acronym dictionary (plural)
+\newcommand{\IXAcrm}[1]{\glsuseri{#1}\Acrm{#1}} % put index via acronym dictionary (upper case)
+\newcommand{\IXAcrmpl}[1]{\glsuseri{#1}\Acrmpl{#1}} % put index via acronym dictionary (upper case, plural)
+\newcommand{\IXacrml}[1]{\glsuseri{#1}\acrml{#1}} % put index via acronym dictionary (long form)
+\newcommand{\IXacrmlpl}[1]{\glsuseri{#1}\acrmlpl{#1}} % put index via acronym dictionary (long form, plural, plural)
+\newcommand{\IXAcrml}[1]{\glsuseri{#1}\Acrml{#1}} % put index via acronym dictionary (long form, upper case)
+\newcommand{\IXAcrmlpl}[1]{\glsuseri{#1}\Acrmlpl{#1}} % put index via acronym dictionary (long form, upper case, plural)
+\newcommand{\IXacrmf}[1]{\glsuseri{#1}\acrmf{#1}} % put index via acronym dictionary (full form)
+\newcommand{\IXacrmfpl}[1]{\glsuseri{#1}\acrmfpl{#1}} % put index via acronym dictionary (full form, plural)
+\newcommand{\IXAcrmf}[1]{\glsuseri{#1}\Acrmf{#1}} % put index via acronym dictionary (full form, upper case)
+\newcommand{\IXAcrmfpl}[1]{\glsuseri{#1}\Acrmfpl{#1}} % put index via acronym dictionary (full form, upper case, plural)
+\newcommand{\IXacrmfst}[1]{\glsuseri{#1}\acrmfst{#1}} % put index via acronym dictionary (first form)
+\newcommand{\IXacrmfstpl}[1]{\glsuseri{#1}\acrmfstpl{#1}} % put index via acronym dictionary (first form, plural)
+\newcommand{\IXAcrmfst}[1]{\glsuseri{#1}\Acrmfst{#1}} % put index via acronym dictionary (first form, upper case)
+\newcommand{\IXAcrmfstpl}[1]{\glsuseri{#1}\Acrmfstpl{#1}} % put index via acronym dictionary (first form, upper case, plural)
 \newcommand{\apic}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{c}}}
 \newcommand{\apig}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{g}}}
 \newcommand{\apipx}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{px}}}
@@ -638,7 +670,7 @@
 }{
 \newgeometry{body={6.5in,8.25in},centering=true,twocolumn,columnsep=0.25in}
 }
-\printglossaries
+\printglossary[type=\acronymtype]
 \phantomsection
 \printindex
 \phantomsection

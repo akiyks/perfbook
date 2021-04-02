@@ -53,11 +53,69 @@
   \renewcommand{\glsxtrprelocation}{,\space}%
 }
 
-\setabbreviationstyle[acronym]{pf-long-short}
+\newabbreviationstyle{pf-long-short-mod}{
+  \glsxtrAccSuppAbbrSetFirstLongAttrs\glscategorylabel
+  \renewcommand*{\CustomAbbreviationFields}{%
+    name={\glsxtrlongshortname},
+    sort={\the\glsshorttok},
+    first={\protect\glsfirstlongemfont{\the\glslongtok}%
+     \protect\glsxtrfullsep{\the\glslabeltok}%
+     \glsxtrparen{\protect\glsfirstabbrvfont{\the\glsshorttok}}},%
+    firstplural={\protect\glsfirstlongemfont{\the\glslongpltok}%
+     \protect\glsxtrfullsep{\the\glslabeltok}%
+     \glsxtrparen{\protect\glsfirstabbrvfont{\the\glsshortpltok}}},%
+    text={\protect\glsabbrvfont{\the\glsshorttok}},%
+    plural={\protect\glsabbrvfont{\the\glsshortpltok}},%
+    description={\protect\glslongfont{\the\glslongtok}}
+  }%
+  \renewcommand*{\GlsXtrPostNewAbbreviation}{%
+    \glshasattribute{\the\glslabeltok}{regular}%
+    {%
+      \glssetattribute{\the\glslabeltok}{regular}{false}%
+    }%
+    {}%
+  }%
+}%
+{%
+%  \renewcommand*{\abbrvpluralsuffix}{\glsxtrabbvpluralsuffix}%
+%  \renewcommand*{\glsabbrvfont}[1]{\glsabbrvemfont{##1}}%
+%  \renewcommand*{\glsfirstabbrvfont}[1]{\glsfirstabbrvemfont{##1}}%
+  \renewcommand*{\glsfirstlongfont}[1]{\glsfirstlongemfont{##1}}%
+%  \renewcommand*{\glslongfont}[1]{\glslongemfont{##1}}%
+  \renewcommand*{\glsxtrfullformat}[2]{%
+    \glsfirstlongfont{\glsaccesslong{##1}\ifglsxtrinsertinside##2\fi}%
+    \ifglsxtrinsertinside\else##2\fi
+    \glsxtrfullsep{##1}%
+    \glsxtrparen{\glsfirstabbrvfont{\glsaccessshort{##1}}}%
+  }%
+  \renewcommand*{\glsxtrfullplformat}[2]{%
+    \glsfirstlongfont{\glsaccesslongpl{##1}\ifglsxtrinsertinside##2\fi}%
+    \ifglsxtrinsertinside\else##2\fi\glsxtrfullsep{##1}%
+    \glsxtrparen{\glsfirstabbrvfont{\glsaccessshortpl{##1}}}%
+  }%
+  \renewcommand*{\Glsxtrfullformat}[2]{%
+    \glsfirstlongfont{\Glsaccesslong{##1}\ifglsxtrinsertinside##2\fi}%
+    \ifglsxtrinsertinside\else##2\fi\glsxtrfullsep{##1}%
+    \glsxtrparen{\glsfirstabbrvfont{\glsaccessshort{##1}}}%
+  }%
+  \renewcommand*{\Glsxtrfullplformat}[2]{%
+    \glsfirstlongfont{\Glsaccesslongpl{##1}\ifglsxtrinsertinside##2\fi}%
+    \ifglsxtrinsertinside\else##2\fi\glsxtrfullsep{##1}%
+    \glsxtrparen{\glsfirstabbrvfont{\glsaccessshortpl{##1}}}%
+  }%
+  \renewcommand{\glsxtrprelocation}{,\space}%
+}
 
-\newacronym{cas}{CAS}{compare-and-swap}
+\setabbreviationstyle[acronym]{pf-long-short}
+\setabbreviationstyle{pf-long-short-mod}
+
+\newacronym{cas}{CAS}{compare and swap}
+\glsunset{cas} % presented as CAS unless specified otherwise
+\newabbreviation{cas:m}{CAS}{compare-and-swap}
+% Note: modifier type "cas" appears first in the text as of 2nd Edition
 \newacronym{cbmc}{CBMC}{C~bounded model checker}
-\newacronym{dcas}{DCAS}{double-compare-and-swap}
+\newacronym{dcas}{DCAS}{double compare-and-swap}
+\newabbreviation{dcas:m}{DCAS}{double-compare-and-swap}
 \newacronym{dsp}{DSP}{digital signal processor}
 \newacronym{ebr}{EBR}{epoch-based reclamation}
 \newacronym{fpga}{FPGA}{field\-/programmable gate array}
@@ -92,3 +150,5 @@
   \newcommand{\IXhacrrcu}[2]{\index{#2}\hlindex{#1 \acr{rcu}}}
   \newcommand{\IXhAcrrcu}[2]{\index{#2}\hlindex{\makefirstuc{#1} \acr{rcu}}}
 }
+
+\makeglossaries
