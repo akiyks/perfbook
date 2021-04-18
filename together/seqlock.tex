@@ -84,7 +84,8 @@ Readers would also need to read-acquire multiple sequence locks, but
 in the surprisingly common case where readers only look up one data
 element, only one sequence lock need be read-acquired.
 
-This approach provides sequential consistency to successful readers,
+This approach provides \IXalth{sequential consistency}{sequential}
+{memory consistency} to successful readers,
 each of which will either see the effects of a given update or not,
 with any partial updates resulting in a read-side retry.
 Sequential consistency is an extremely strong guarantee, incurring equally

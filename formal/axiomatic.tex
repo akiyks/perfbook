@@ -284,7 +284,7 @@ referencing \co{y}, which in turn is initialized to the value
 \co{P0()} on \clnrefrange{P0start}{P0end}
 removes element \co{y} from the list by replacing it with element \co{z}
 (line~\lnref{assignnewtail}),
-waits for a grace period (line~\lnref{sync}),
+waits for a \IX{grace period} (line~\lnref{sync}),
 and finally zeroes \co{y} to emulate \co{free()} (line~\lnref{free}).
 \co{P1()} on \clnrefrange{P1start}{P1end}
 executes within an RCU read-side critical section
