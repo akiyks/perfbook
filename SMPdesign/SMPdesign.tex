@@ -746,7 +746,7 @@ or the parallel-fastpath approach discussed in the next section.
 	For example, if you split a 64-by-64 matrix multiply across
 	64 threads, each thread gets only 64 floating-point multiplies.
 	The cost of a floating-point multiply is minuscule compared to
-	the overhead of thread creation, and cache-miss overhead
+	the overhead of thread creation, and \IXh{cache-miss}{overhead}
 	also plays a role in spoiling the theoretically perfect scalability
 	(and also in making the traces so jagged).
 	The full 448~hardware threads would require a matrix with

@@ -741,8 +741,8 @@ The following sections outline the current challenges in this area.
 It is commonplace to acquire locks while holding other locks, which works
 quite well, at least as long as the usual well-known software-engineering
 techniques are employed to avoid deadlock.
-It is not unusual to acquire locks from within RCU read-side critical
-sections, which eases deadlock concerns because RCU read-side primitives
+It is not unusual to acquire locks from within \IXrhpl{RCU read-side}{critical
+section}, which eases deadlock concerns because RCU read-side primitives
 cannot participate in lock-based deadlock cycles.
 It is also possible to acquire locks while holding hazard pointers and
 within sequence-lock read-side critical sections.
@@ -828,8 +828,8 @@ Here are some options available to TM:
 	concurrently read-acquiring the lock, permitting both to proceed,
 	as intended.
 	Unfortunately, (1)~the write-acquisition overhead of
-	per-CPU/thread locking can be extremely high, (2)~the memory
-	overhead of per-CPU/thread locking can be prohibitive, and
+	per-CPU/thread locking can be extremely high, (2)~the \IXh{memory}
+	{overhead} of per-CPU/thread locking can be prohibitive, and
 	(3)~this transformation is available only when you have access to
 	the source code in question.
 	Other more-recent scalable

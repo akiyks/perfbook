@@ -176,12 +176,18 @@
 \newcommand{\indexhraw}[2]{%
   \expandafter\index\expandafter{#1!#2}%
 }
+\newcommand{\indexrawh}[2]{%
+  \lowercase{\def\temp{#1}}%
+  \expandafter\index\expandafter{\temp@\makefirstuc{\temp}!#2}%
+}
 \IfIndexHier{
 \newcommand{\indexh}[3]{\ucindexh{#2}{#3}}
 \newcommand{\indexhr}[3]{\indexhraw{#2}{#3}}
+\newcommand{\indexrh}[3]{\indexrawh{#2}{#3}}
 }{
 \newcommand{\indexh}[3]{\ucindex{#1}}
 \newcommand{\indexhr}[3]{\index{#1}}
+\newcommand{\indexrh}[3]{\index{#1}}
 }
 
 \newcommand{\IX}[1]{\ucindex{#1}\hlindex{#1}} % put with first letter capitalized into general index
@@ -194,8 +200,12 @@
 \newcommand{\IXh}[2]{\indexh{#1 #2}{#2}{#1}\hlindex{#1 #2}}
 \newcommand{\IXhpl}[2]{\indexh{#1 #2}{#2}{#1}\hlindex{#1 #2s}}
 \newcommand{\IXhr}[2]{\indexhr{#1 #2}{#2}{#1}\hlindex{#1 #2}}
-\newcommand{\IXalth}[3]{\indexh{#1}{#3}{#2}\hlindex{#1}}
-\newcommand{\IXalthr}[3]{\indexhr{#1}{#3}{#2}\hlindex{#1}}
+\newcommand{\IXrh}[2]{\indexrh{#1 #2}{#2}{#1}\hlindex{#1 #2}}
+\newcommand{\IXrhpl}[2]{\indexrh{#1 #2}{#2}{#1}\hlindex{#1 #2s}}
+\newcommand{\IXalth}[3]{\indexh{#2 #3}{#3}{#2}\hlindex{#1}}
+\newcommand{\IXalthalt}[3]{\indexh{#1}{#3}{#2}\hlindex{#1}}
+\newcommand{\IXalthr}[3]{\indexhr{#2 #3}{#3}{#2}\hlindex{#1}}
+\newcommand{\IXalthaltr}[3]{\indexhr{#1}{#3}{#2}\hlindex{#1}}
 \newcommand{\apic}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{c}}}
 \newcommand{\apig}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{g}}}
 \newcommand{\apipx}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{px}}}
@@ -597,9 +607,7 @@
 
 % Index if enabled
 \IfIndexOn{
-\IfIndexHier{
 \include{indexsee}
-}{}
 \phantomsection
 \IfEbookSize{
 \idxlayout{columns=2}

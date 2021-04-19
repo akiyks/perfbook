@@ -24,7 +24,7 @@
 	fully associative caches are normally quite limited in size.
 	The associativity of the large caches found on modern microprocessors
 	typically range from two-way to eight-way.
-\item[\IXalth{Associativity Miss}{associativity}{cache miss}:]
+\item[\IXalthalt{Associativity Miss}{associativity}{cache miss}:]
 	A cache miss incurred because the corresponding CPU has recently
 	accessed more data hashing to a given set of the cache than will
 	fit in that set.
@@ -123,7 +123,7 @@
 	(5) this CPU attempted to write to a cache line that is
 	currently read-only, possibly due to that line being replicated
 	in other CPUs' caches.
-\item[\IXalth{Capacity Miss}{capacity}{cache miss}:]
+\item[\IXalthalt{Capacity Miss}{capacity}{cache miss}:]
 	A cache miss incurred because the corresponding CPU has recently
 	accessed more data than will fit into the cache.
 \item[\IX{Clash Free}:]
@@ -400,7 +400,7 @@
 	A source-code memory access that simply mentions the name of
 	the object being accessed.
 	(See ``Marked access''.)
-\item[\IXalth{Process Consistency}{process}{memory consistency}:]
+\item[\IXalthalt{Process Consistency}{process}{memory consistency}:]
 	A memory-consistency model in which each CPU's stores appear to
 	occur in program order, but in which different CPUs might see
 	accesses from more than one CPU as occurring in different orders.
@@ -412,7 +412,7 @@
 	(The reason such CPUs are now the stuff of ancient myths
 	and legends is that they were extremely slow.
 	These dinosaurs were one of the many victims of
-	\IXaltr{Moore's-Law}{Moore's Law}-driven increases in CPU clock frequency.
+	Moore's-Law-driven increases in CPU clock frequency.
 	Some claim that these beasts will roam the earth once again,
 	others vehemently disagree.)
 \item[\IX{Quiescent State}:]
@@ -475,7 +475,7 @@
 \item[\IXh{Sequence}{Lock}:]
 	A reader-writer synchronization mechanism in which readers
 	retry their operations if a writer was present.
-\item[\IXalth{Sequential Consistency}{sequential}{memory consistency}:]
+\item[\IXalthalt{Sequential Consistency}{sequential}{memory consistency}:]
 	A memory-consistency model where all memory references appear to occur
 	in an order consistent with
 	a single global order, and where each CPU's memory references
@@ -541,7 +541,7 @@
 \item[\IX{Wait Free}:]
 	A forward-progress guarantee in which every thread makes
 	progress within a finite period of time.
-\item[\IXalth{Write Miss}{write}{cache miss}:]
+\item[\IXalthalt{Write Miss}{write}{cache miss}:]
 	A cache miss incurred because the corresponding CPU attempted
 	to write to a cache line that is read-only, most likely due
 	to its being replicated in other CPUs' caches.

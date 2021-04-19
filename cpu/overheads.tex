@@ -47,7 +47,7 @@ events might ensue:
 
 \begin{enumerate}
 \item	CPU~0 checks its local cache, and does not find the cacheline.
-	It therefore records the write in its store buffer.
+	It therefore records the write in its \IX{store buffer}.
 \item	A request for this cacheline is forwarded to CPU~0's and 1's
 	interconnect, which checks CPU~1's local cache, and does not
 	find the cacheline.

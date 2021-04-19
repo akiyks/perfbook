@@ -278,7 +278,7 @@ This approach also applies to storage and networking devices.
 In some cases, separate storage and networking hardware might be reserved
 for the sole use of high-priority portions of the real-time application.
 In short, it is not unusual for this hardware to be mostly idle, given
-that response time is more important than throughput in
+that response time is more important than \IX{throughput} in
 real-time systems.
 
 \QuickQuiz{
@@ -772,7 +772,7 @@ In all three stages, most process-level code within the Linux kernel
 can be preempted.
 This of course greatly improves real-time response latency, but
 preemption is still disabled
-within RCU read-side critical sections,
+within \IXrhpl{RCU read-side}{critical section},
 spinlock critical sections,
 interrupt handlers,
 interrupt-disabled code regions, and
@@ -1744,7 +1744,7 @@ Of course, a careful and simple application design is also extremely
 important.
 The best real-time components in the world cannot make up for a
 poorly thought-out design.
-For parallel real-time applications, synchronization overheads clearly
+For parallel real-time applications, \IXhpl{synchronization}{overhead} clearly
 must be a key component of the design.
 
 \subsubsection{Polling-Loop Applications}
