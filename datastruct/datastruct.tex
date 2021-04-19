@@ -504,7 +504,7 @@ and deletions, and RCU-aware primitives like
 \co{cds_list_for_each_entry_rcu()} are required to correctly handle
 this added concurrency.
 Note also that \co{hashtab_lookup()}'s caller must be within an
-RCU read-side critical section, for example, the caller must invoke
+\IXrh{RCU read-side}{critical section}, for example, the caller must invoke
 \co{hashtab_lock_lookup()} before invoking \co{hashtab_lookup()}
 (and of course invoke \co{hashtab_unlock_lookup()} some time afterwards).
 
@@ -622,7 +622,7 @@ But why is RCU's performance a factor of five less than ideal?
 One possibility is that the per-thread counters manipulated by
 \co{rcu_read_lock()} and \co{rcu_read_unlock()} are slowing things down.
 Figure~\ref{fig:datastruct:Read-Only RCU-Protected Hash-Table Performance For Schroedinger's Zoo including QSBR, Linear Scale}
-therefore adds the results for the QSBR variant of RCU, whose read-side
+therefore adds the results for the \IXacr{qsbr} variant of RCU, whose read-side
 primitives do nothing.
 And although QSBR does perform slightly better than does RCU, it is still
 about a factor of five short of ideal.
@@ -844,7 +844,7 @@ increases due to the latter's read-side memory barriers, which incur
 greater overhead, especially in the presence of updates, and particularly
 when execution involves more than one socket.
 It therefore seems likely that modern hardware heavily optimizes memory-barrier
-execution, greatly reducing memory-barrier overhead in the read-only case.
+execution, greatly reducing \IXh{memory-barrier}{overhead} in the read-only case.
 
 \begin{figure}
 \centering
@@ -1658,7 +1658,7 @@ critically important when resizing large hash tables, especially
 for applications that must meet severe response-time constraints.
 
 Of course, the \co{ht_elem} structure's
-pair of pointer sets does impose some memory overhead,
+pair of pointer sets does impose some \IXh{memory}{overhead},
 which is taken up in the next section.
 
 \subsection{Other Resizable Hash Tables}

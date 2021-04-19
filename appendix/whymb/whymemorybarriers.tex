@@ -24,7 +24,7 @@ The following sections:
 \item	present the structure of a cache,
 \item	describe how cache-coherency protocols ensure that CPUs agree
 	on the value of each location in memory, and, finally,
-\item	outline how store buffers and invalidate queues help
+\item	outline how \IXpl{store buffer} and invalidate queues help
 	caches and cache-coherency protocols achieve high performance.
 \end{enumerate}
 We will see that memory barriers are a necessary evil that is required
@@ -195,7 +195,7 @@ However, if the program were to access location 0x1233E00, which hashes
 to line 0xE, one of the existing lines must be ejected from the cache
 to make room for the new cache line.
 If this ejected line were accessed later, a cache miss would result.
-Such a cache miss is termed an ``\IXalth{associativity miss}
+Such a cache miss is termed an ``\IXalthalt{associativity miss}
 {associativity}{cache miss}''.
 
 Thus far, we have been considering only cases where a CPU reads
@@ -207,14 +207,14 @@ cause it to be removed, or ``invalidated'', from other CPUs' caches.
 Once this \IX{invalidation} has completed, the CPU may safely modify the
 data item.
 If the data item was present in this CPU's cache, but was read-only,
-this process is termed a ``\IXalth{write miss}{write}{cache miss}''.
+this process is termed a ``\IXalthalt{write miss}{write}{cache miss}''.
 Once a given CPU has completed invalidating a given data item from other
 CPUs' caches, that CPU may repeatedly write (and read) that data item.
 
 Later, if one of the other CPUs attempts to access the data item, it
 will incur a cache miss, this time because the first CPU invalidated
 the item in order to write to it.
-This type of cache miss is termed a ``\IXalth{communication miss}
+This type of cache miss is termed a ``\IXalthalt{communication miss}
 {communication}{cache miss}'', since it
 is usually due to several CPUs using the data items to communicate
 (for example, a lock is a data item that is used to communicate among
@@ -757,7 +757,7 @@ subsequent loads, without having to pass through the cache.
 \label{fig:app:whymb:Caches With Store Forwarding}
 \end{figure}
 
-With store forwarding in place, item~\ref{item:app:whymb:Need Store Buffer}
+With \IX{store forwarding} in place, item~\ref{item:app:whymb:Need Store Buffer}
 in the above sequence would have found the correct value of 1 for ``a'' in
 the store buffer, so that the final value of ``b'' would have been 2,
 as one would hope.
@@ -1605,7 +1605,7 @@ severe realtime requirements, which are in the tens of microseconds
 for some applications.
 The realtime-response requirements are difficult enough to meet as is,
 and would be even more difficult to meet given the extremely low
-single-threaded throughput implied by the massive multi-threaded
+single-threaded \IX{throughput} implied by the massive multi-threaded
 scenarios.
 
 Another argument in favor would cite increasingly sophisticated

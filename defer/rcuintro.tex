@@ -326,8 +326,7 @@ Figure~\ref{fig:defer:Deletion With Concurrent Readers}.
 \label{fig:defer:QSBR: Waiting for Pre-Existing Readers}
 \end{figure}
 
-This approach is termed \emph{quiescent state based reclamation}
-(QSBR)~\cite{ThomasEHart2006a}.
+This approach is termed \IXacrfst{qsbr}~\cite{ThomasEHart2006a}.
 A QSBR schematic is shown in
 Figure~\ref{fig:defer:QSBR: Waiting for Pre-Existing Readers},
 with time advancing from the top of the figure to the bottom.
@@ -519,7 +518,7 @@ In contrast, \co{del_route()} uses \co{synchronize_rcu()} and
 	But what if the old structure needs to be freed, but the caller
 	of \co{ins_route()} cannot block, perhaps due to performance
 	considerations or perhaps because the caller is executing within
-	an RCU read-side critical section?
+	an \IXrh{RCU read-side}{critical section}?
 }\QuickQuizAnswer{
 	A \co{call_rcu()} function, which is described in
 	Section~\ref{sec:defer:Wait For Pre-Existing RCU Readers},
