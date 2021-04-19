@@ -347,7 +347,7 @@ including for example \IX{scalability} (performance per CPU) and \IX{efficiency}
 
 That said, the focus of performance has shifted from hardware to
 parallel software.
-This change in focus is due to the fact that, although \IXr{Moore's Law}
+This change in focus is due to the fact that, although Moore's Law
 continues to deliver increases in transistor density, it has ceased to
 provide the traditional single-threaded performance increases.
 This can be seen in
@@ -787,7 +787,7 @@ development effort.
 Up through the early 2000s, CPU clock frequencies doubled every 18 months.
 It was therefore usually more important to create new functionality than to
 carefully optimize performance.
-Now that \IXr{Moore's Law} is ``only'' increasing transistor density instead
+Now that Moore's Law is ``only'' increasing transistor density instead
 of increasing both transistor density and per-transistor performance,
 it might be a good time to rethink the importance of performance
 optimization.
@@ -972,7 +972,7 @@ overlap computation and I/O so as to fully utilize I/O devices.
 		or other failures if there are so many threads that
 		networking events cannot be responded to in a timely
 		fashion.
-	\item	Synchronization overhead.
+	\item	\IXh{Synchronization}{overhead}.
 		For many synchronization protocols, excessive numbers
 		of threads can result in excessive spinning, blocking,
 		or rollbacks, thus degrading performance.
@@ -1125,7 +1125,7 @@ For example, the data-parallel approach first
 partitions the data so as to minimize the need for
 inter-partition communication, partitions the code accordingly,
 and finally maps data partitions and threads so as to maximize
-throughput while minimizing inter-thread communication,
+\IX{throughput} while minimizing inter-thread communication,
 as shown in
 Figure~\ref{fig:intro:Ordering of Parallel-Programming Tasks}.
 The developer can then

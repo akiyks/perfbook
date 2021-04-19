@@ -13,7 +13,7 @@ Causality and sequencing are deeply intuitive, and hackers often
 have a strong grasp of these concepts.
 These intuitions can be quite helpful when writing, analyzing, and
 debugging not only sequential code, but also parallel code that makes
-use of standard mutual-exclusion mechanisms such as locking.
+use of standard \IXpl{mutual-exclusion mechanism} such as locking.
 Unfortunately, these intuitions break down completely in face of
 code that fails to use such mechanisms.
 One example of such code implements the standard mutual-exclusion
@@ -194,7 +194,7 @@ than impatient software hackers would like.
 \label{fig:memorder:System Architecture With Store Buffers}
 \end{figure}
 
-CPUs therefore come equipped with store buffers, as shown in
+CPUs therefore come equipped with \IXpl{store buffer}, as shown in
 \cref{fig:memorder:System Architecture With Store Buffers}.
 When a given CPU stores to a variable
 not present in that CPU's cache, then the new value
@@ -594,7 +594,7 @@ are at most two threads involved.
 
 	None of the ordering operations thus far require prior stores to be
 	ordered against subsequent loads, which means that these operations
-	need not interfere with store buffers, whose main purpose in life
+	need not interfere with \IXpl{store buffer}, whose main purpose in life
 	is in fact to reorder prior stores against subsequent loads.
 	The lightweight nature of these operations is precisely due to
 	their policy of store-buffer non-interference.
@@ -1783,7 +1783,7 @@ This sequence of events will depend critically on \co{P0()} and
 	to use the entire capabilities of that core.
 	Other more highly parallel but cache-miss-prone portions of the
 	workload might be assigned to cores with all hardware threads
-	enabled to provide improved throughput.
+	enabled to provide improved \IX{throughput}.
 	This improved throughput could be due to the fact that while one
 	hardware thread is stalled on a cache miss, the other hardware
 	threads can make forward progress.
@@ -3283,7 +3283,7 @@ As described in
 \cref{sec:defer:RCU Fundamentals},
 the fundamental property of RCU grace periods is this straightforward
 two-part guarantee:
-(1)~If any part of a given RCU read-side critical section precedes
+(1)~If any part of a given \IXrh{RCU read-side}{critical section} precedes
 the beginning of a given \IX{grace period}, then the entirety of that
 critical section precedes the end of that grace period.
 (2)~If any part of a given RCU read-side critical section follows
@@ -3392,7 +3392,7 @@ This litmus test's cycle is also allowed.
 
 Of course, lack of ordering in both these litmus tests should be absolutely
 no surprise, given that both \co{rcu_read_lock()} and \co{rcu_read_unlock()}
-are no-ops in the QSBR implementation of RCU\@.
+are no-ops in the \IXacr{qsbr} implementation of RCU\@.
 
 \subsubsection{RCU Update-Side Ordering}
 \label{sec:memorder:RCU Update-Side Ordering}
@@ -4362,7 +4362,7 @@ defined its memory ordering with an executable formal model~\cite{ARMv8A:2017}.
 \subsection{Itanium}
 \label{sec:memorder:Itanium}
 
-Itanium offers a \IXalth{weak consistency}{weak}{memory consistency}
+Itanium offers a \IXalthalt{weak consistency}{weak}{memory consistency}
 model, so that in absence of explicit
 memory-barrier instructions or dependencies, Itanium is within its rights
 to arbitrarily reorder memory references~\cite{IntelItanium02v2}.

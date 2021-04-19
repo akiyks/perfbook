@@ -1888,7 +1888,7 @@ Beng-Hong Lim and Anant Agarwal therefore combined a simple test-and-set
 lock with a queued lock, using the test-and-set lock at low levels of
 contention and switching to the queued lock at high levels of
 contention~\cite{BengHongLim94}, thus getting low overhead at low levels
-of contention and getting fairness and high throughput at high levels
+of contention and getting fairness and high \IX{throughput} at high levels
 of contention.
 Browning et al.\ took a similar approach, but avoided the use of a separate
 flag, so that the test-and-set fast path uses the same sequence of
