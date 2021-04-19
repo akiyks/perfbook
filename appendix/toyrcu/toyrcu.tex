@@ -54,8 +54,8 @@ spinlock, \co{rcu_read_unlock()} releases it, and
 \co{synchronize_rcu()} acquires it then immediately releases it.
 
 Because \co{synchronize_rcu()} does not return until it has acquired
-(and released) the lock, it cannot return until all prior RCU read-side
-critical sections have completed, thus faithfully implementing
+(and released) the lock, it cannot return until all prior \IXrhpl{RCU read-side}
+{critical section} have completed, thus faithfully implementing
 RCU semantics.
 Of course, only one RCU reader may be in its read-side critical section
 at a time, which almost entirely defeats the purpose of RCU\@.

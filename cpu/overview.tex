@@ -139,7 +139,7 @@ In the 1980s, it often took less time for a microprocessor to load a value
 from memory than it did to execute an instruction.
 More recently, microprocessors might execute hundreds or even thousands
 of instructions in the time required to access memory.
-This disparity is due to the fact that \IXr{Moore's Law} has increased CPU
+This disparity is due to the fact that Moore's Law has increased CPU
 performance at a much greater rate than it has decreased memory \IX{latency},
 in part due to the rate at which memory sizes have grown.
 For example, a typical 1970s minicomputer might have 4\,KB (yes, kilobytes,
@@ -207,7 +207,7 @@ permit a given atomic operation to complete correctly.
 
 In contrast, when executing a non-atomic operation, the CPU can load
 values from cachelines as they appear and place the results in the
-store buffer, without the need to wait for cacheline ownership.
+\IX{store buffer}, without the need to wait for cacheline ownership.
 Although there are a number of hardware optimizations that can sometimes
 hide cache latencies, the resulting effect on performance is all too
 often as depicted in
@@ -304,8 +304,8 @@ Such cache misses form a major obstacle to CPU performance, as shown
 in Figure~\ref{fig:cpu:CPU Meets a Cache Miss}.
 
 \QuickQuiz{
-	So have CPU designers also greatly reduced the overhead of
-	cache misses?
+	So have CPU designers also greatly reduced the \IXalth{overhead of
+	cache misses}{cache-miss}{overhead}?
 }\QuickQuizAnswer{
 	Unfortunately, not so much.
 	There has been some reduction given constant numbers of CPUs,

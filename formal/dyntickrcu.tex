@@ -18,8 +18,8 @@ a variant similar to the RCU implementations in
 the \rt\ patchset~\cite{IngoMolnar05a}
 since August 2005.
 Preemptible RCU is needed for real-time workloads because older
-RCU implementations disable preemption across RCU read-side
-critical sections, resulting in excessive real-time latencies.
+RCU implementations disable preemption across \IXrhpl{RCU read-side}
+{critical section}, resulting in excessive real-time latencies.
 
 However, one disadvantage of the older \rt\ implementation
 was that each \IX{grace period}

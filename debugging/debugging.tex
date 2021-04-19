@@ -1907,7 +1907,7 @@ invoked after completion of the RCU grace period.
 This distinction between an \co{rcutorture} error and near miss is
 shown in
 Figure~\ref{fig:debugging:RCU Errors and Near Misses}.
-To qualify as a full-fledged error, an RCU read-side critical section
+To qualify as a full-fledged error, an \IXrh{RCU read-side}{critical section}
 must extend from the \co{call_rcu()} that initiated a grace period,
 through the remainder of the previous grace period, through the
 entirety of the grace period initiated by the \co{call_rcu()}
