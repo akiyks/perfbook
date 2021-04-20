@@ -269,7 +269,7 @@ A slightly more sophisticated RCU implementation is shown in
 This implementation makes use of a global reference counter
 \co{rcu_refcnt} defined on \clnref{lock_unlock:grc}.
 The \co{rcu_read_lock()} primitive atomically increments this
-counter, then executes a memory barrier to ensure that the
+counter, then executes a \IX{memory barrier} to ensure that the
 RCU read-side critical section is ordered after the atomic
 increment.
 Similarly, \co{rcu_read_unlock()} executes a memory barrier to

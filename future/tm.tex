@@ -351,7 +351,7 @@ How could a similar persistent functionality be provided for TM?
 
 \begin{enumerate}
 \item	Restrict persistent transactions to special-purpose environments
-	designed to support them, for example, SQL\@.
+	designed to support them, for example, \IXacr{sql}\@.
 	This clearly works, given the decades-long history of database
 	systems, but does not provide the same degree of flexibility
 	provided by persistent locks.
@@ -1063,8 +1063,8 @@ internally~\cite{UCAM-CL-TR-579,KeirFraser2007withoutLocks,Gu:2019:PSE:3358807.3
 
 Within a lock-based critical section, it is perfectly legal to manipulate
 variables that are concurrently accessed or even modified outside that
-lock's critical section, with one common example being statistical
-counters.
+lock's critical section, with one common example being \IXpl{statistical
+counter}.
 The same thing is possible within RCU read-side critical
 sections, and is in fact the common case.
 

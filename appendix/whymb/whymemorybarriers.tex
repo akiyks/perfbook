@@ -8,7 +8,7 @@
 	  Order in the court!}
 	 {\emph{Unknown}}
 
-So what possessed CPU designers to cause them to inflict memory barriers
+So what possessed CPU designers to cause them to inflict \IXpl{memory barrier}
 on poor unsuspecting SMP software designers?
 
 In short, because reordering memory references allows much better performance,
@@ -425,7 +425,7 @@ levels of the system architecture.
 	SMP machines.
 	A third answer is that the SMP programming model is easier to
 	use than that of distributed systems, but a rebuttal might note
-	the appearance of HPC clusters and MPI\@.
+	the appearance of HPC clusters and \IXacr{mpi}\@.
 	And so the argument continues.
 }\QuickQuizEndE
 }
@@ -1247,8 +1247,8 @@ to do anything with the store buffer.
 
 Many CPU architectures therefore provide weaker memory-barrier
 instructions that do only one or the other of these two.
-Roughly speaking, a ``read memory barrier'' marks only the invalidate
-queue and a ``write memory barrier'' marks only the store buffer,
+Roughly speaking, a ``\IXh{read}{memory barrier}'' marks only the invalidate
+queue and a ``\IXh{write}{memory barrier}'' marks only the store buffer,
 while a full-fledged memory barrier does both.
 
 The effect of this is that a read memory barrier orders only loads
@@ -1330,7 +1330,7 @@ constraints~\cite{PaulMcKenney2005i,PaulMcKenney2005j}:
 	(\co{smp_wmb()}) will be perceived by all CPUs to precede
 	any stores following that write memory barrier.
 \item	All of a given CPU's accesses (loads and stores) preceding a
-	full memory barrier
+	\IXh{full}{memory barrier}
 	(\co{smp_mb()}) will be perceived by all CPUs to precede
 	any accesses following that memory barrier.
 \end{enumerate}

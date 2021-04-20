@@ -80,7 +80,7 @@ As was said in 2004~\cite{PaulEdwardMcKenneyPhD}:
 	Alles'', literally, uniprocessors above all else.
 
 	These uniprocessor systems would be subject only to instruction
-	overhead, since memory barriers, cache thrashing, and contention
+	overhead, since \IXpl{memory barrier}, cache thrashing, and contention
 	do not affect single-CPU systems.
 	In this scenario, RCU is useful only for niche applications, such
 	as interacting with \IXacrpl{nmi}.
@@ -229,7 +229,7 @@ intensity, in part because it seemed unlikely that RCU would really
 be used for such workloads.
 In the event, the \co{SLAB_TYPESAFE_BY_RCU} has been pressed into
 service in a number of instances where these cache-warmth issues would
-otherwise be problematic, as has sequence locking.
+otherwise be problematic, as has \IXalth{sequence locking}{sequence}{lock}.
 On the other hand, this passage also failed to anticipate that
 RCU would be used to reduce scheduling latency or for security.
 

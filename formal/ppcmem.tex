@@ -244,8 +244,8 @@ void P1(void)
 Putting all this together, the C-language equivalent to the entire litmus
 test is as shown in
 \cref{lst:formal:Meaning of PPCMEM Litmus Test}.
-The key point is that if \co{atomic_add_return()} acts as a full
-memory barrier (as the Linux kernel requires it to), 
+The key point is that if \co{atomic_add_return()} acts as a \IXh{full}
+{memory barrier} (as the Linux kernel requires it to),
 then it should be impossible for \co{P0()}'s and \co{P1()}'s \co{r3}
 variables to both be zero after execution completes.
 
