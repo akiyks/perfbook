@@ -430,7 +430,7 @@ avoids the delays inherent in such circulation.
 \epigraph{Facts are stubborn things, but statistics are pliable.}
 	 {\emph{Mark Twain}}
 
-This section covers the common special case of statistical counters, where
+This section covers the common special case of \IXpl{statistical counter}, where
 the count is updated extremely frequently and the value is read out
 rarely, if ever.
 These will be used to solve the network-packet counting problem
@@ -1213,14 +1213,15 @@ suppose that you need to maintain a count of the number of
 structures allocated in order to fail any allocations once the number
 of structures in use exceeds a limit, in this case, 10,000.
 Suppose further that these structures are short-lived, that this
-limit is rarely exceeded, and that this limit is approximate in
+limit is rarely exceeded, and that this limit is
+\IXalth{approximate}{approximate}{limit counter} in
 that it is OK to exceed it sometimes by some bounded amount
 (see Section~\ref{sec:count:Exact Limit Counters}
 if you instead need the limit to be exact).
 
 \subsection{Design}
 
-One possible design for limit counters is to divide the limit of 10,000
+One possible design for \IXpl{limit counter} is to divide the limit of 10,000
 by the number of threads, and give each thread a fixed pool of structures.
 For example, given 100 threads, each thread would manage its own pool
 of 100 structures.
@@ -1834,7 +1835,8 @@ with exact limits.
 
 To solve the exact structure-allocation limit problem noted in
 \QuickQuizRef{\QcountQexactcnt},
-we need a limit counter that can tell exactly when its limits are
+we need a \IXalth{limit counter}{exact}{limit counter}
+that can tell exactly when its limits are
 exceeded.
 One way of implementing such a limit counter is to
 cause threads that have reserved counts to give them up.
@@ -1899,7 +1901,7 @@ represent \co{counter} and the low-order 16 bits to represent
 \end{listing}
 
 \begin{fcvref}[ln:count:count_lim_atomic:var_access:var]
-The variables and access functions for a simple atomic limit counter
+The variables and access functions for a simple \IXh{atomic}{limit counter}
 are shown in
 Listing~\ref{lst:count:Atomic Limit Counter Variables and Access Functions}
 (\path{count_lim_atomic.c}).
@@ -2265,7 +2267,7 @@ atomic operations are not necessary, as shown in the next section.
 	But signal handlers can be migrated to some other
 	CPU while running.
 	Doesn't this possibility require that atomic instructions
-	and memory barriers are required to reliably communicate
+	and \IXpl{memory barrier} are required to reliably communicate
 	between a thread and a signal handler that interrupts that
 	thread?
 }\QuickQuizAnswer{
@@ -2377,7 +2379,8 @@ The slowpath then sets that thread's \co{theft} state to IDLE\@.
 \begin{fcvref}[ln:count:count_lim_sig:data]
 Listing~\ref{lst:count:Signal-Theft Limit Counter Data}
 (\path{count_lim_sig.c})
-shows the data structures used by the signal-theft based counter
+shows the data structures used by the \IXalth{signal-theft based counter}
+{signal-theft}{limit counter}
 implementation.
 \Clnrefrange{value:b}{value:e} define the states and values
 for the per-thread theft state machine
@@ -3220,8 +3223,7 @@ and the weakening optimization to the ``Parallel Access Control'' bubble,
 as shown in
 Figure~\ref{fig:count:Optimization and the Four Parallel-Programming Tasks}.
 Of course, if you are using special-purpose hardware such as
-digital signal processors (DSPs), field-programmable gate arrays (FPGAs),
-or general-purpose graphical processing units (GPGPUs), you may need
+\IXacrfpl{dsp}, \IXacrfpl{fpga}, or \IXacrfpl{gpgpu}, you may need
 to pay close attention to the ``Interacting With Hardware'' bubble
 throughout the design process.
 For example, the structure of a GPGPU's hardware threads and memory

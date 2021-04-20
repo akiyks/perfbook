@@ -92,7 +92,7 @@ structure, and no additional storage is required.
 Hazard pointers require external-to-object pointers be provisioned,
 and that there be sufficient pointers to handle the maximum number of
 objects that a given CPU or thread might need to reference simultaneously.
-Of course, sequence locks provides no pointer-traversal protection,
+Of course, \IXhpl{sequence}{lock} provides no pointer-traversal protection,
 which is why it is normally used on static data.
 
 \QuickQuiz{
@@ -519,7 +519,7 @@ In 2015, Maxim Khizhinsky added RCU to
 libcds~\cite{MaxKhiszinsky2015C++RCU}.
 
 Mindaugas Rasiukevicius implemented libqsbr in 2016, which features
-QSBR and epoch-based reclamation
+QSBR and \IXacrl{ebr}
 (EBR)~\cite{MindaugasRasiukevicius2016libqsbr},
 both of which are types of implementations of RCU\@.
 

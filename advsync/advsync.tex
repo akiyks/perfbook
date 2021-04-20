@@ -44,7 +44,7 @@ Although locking is the workhorse of parallelism in production, in
 many situations performance, scalability, and real-time response can
 all be greatly improved through use of lockless techniques.
 A particularly impressive example of such a lockless technique is
-the statistical counters described in
+the \IXpl{statistical counter} described in
 \cref{sec:count:Statistical Counters},
 which avoids not only locks, but also atomic operations, memory barriers,
 and even cache misses for counter increments.
@@ -137,7 +137,7 @@ and the array element indicates whether or not that value actually is
 a set member.
 The linearizability criterion for NBS algorithms requires that reads from
 and updates to the array either use atomic instructions or be accompanied
-by memory barriers, but in the not-uncommon case where linearizability
+by \IXpl{memory barrier}, but in the not-uncommon case where linearizability
 is not important, simple volatile loads and stores suffice, for example,
 using \co{READ_ONCE()} and \co{WRITE_ONCE()}.
 
