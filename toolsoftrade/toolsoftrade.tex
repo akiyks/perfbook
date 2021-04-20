@@ -811,7 +811,7 @@ rights to assume that the value of \co{goflag} would never change.
 %
 \QuickQuizM{
 	\apik{READ_ONCE()} only affects the compiler, not the CPU\@.
-	Don't we also need memory barriers to make sure
+	Don't we also need \IXpl{memory barrier} to make sure
 	that the change in \co{goflag}'s value propagates to the
 	CPU in a timely fashion in
 	\cref{lst:toolsoftrade:Measuring Reader-Writer Lock Scalability}?
@@ -2019,7 +2019,7 @@ with a check, as shown on \clnref{if1,null} of
 \cref{lst:toolsoftrade:Compiler Converts a Store to a Load}.
 Although this transformation is often desirable, it could be problematic
 if the actual store was required for ordering.
-For example, a write memory barrier (Linux kernel \apik{smp_wmb()}) would
+For example, a \IXh{write}{memory barrier} (Linux kernel \apik{smp_wmb()}) would
 order the store, but not the load.
 This situation might suggest use of \apik{smp_store_release()} over
 \apik{smp_wmb()}.
@@ -2319,7 +2319,7 @@ further prevents the remaining reordering by addition of
 The \apik{smp_mb()} macro is similar to \apik{barrier()} shown in
 \cref{lst:toolsoftrade:Compiler Barrier Primitive (for GCC)},
 but with the empty string replaced by a string containing the
-instruction for a full memory barrier, for example, \co{"mfence"}
+instruction for a \IXh{full}{memory barrier}, for example, \co{"mfence"}
 on x86 or \co{"sync"} on PowerPC.
 
 \QuickQuiz{

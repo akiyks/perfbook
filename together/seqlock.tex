@@ -29,7 +29,7 @@ try conversing with some of his family members!
 In other words, Schr\"odinger wants to be able to carry out a
 wedlock-consistent traversal of his database.
 
-One approach is to use sequence locks
+One approach is to use \IXhpl{sequence}{lock}
 (see \cref{sec:defer:Sequence Locks}),
 so that wedlock-related updates are carried out under the
 protection of \co{write_seqlock()}, while reads requiring
