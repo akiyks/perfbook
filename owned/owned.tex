@@ -162,7 +162,7 @@ but they are permitted to read it.
 In short, the use of shared memory allows more nuanced notions
 of ownership and access rights.
 
-For example, consider the per-thread statistical counter implementation
+For example, consider the per-thread \IX{statistical counter} implementation
 shown in
 Listing~\ref{lst:count:Per-Thread Statistical Counters} on
 page~\pageref{lst:count:Per-Thread Statistical Counters}.
@@ -399,8 +399,9 @@ of parallel-programming environments.
 Examples of data ownership include:
 
 \begin{enumerate}
-\item	All message-passing environments, such as MPI~\cite{MPIForum2008}
-	and BOINC~\cite{BOINC2008}.
+\item	All message-passing environments, such as
+	\IXacr{mpi}~\cite{MPIForum2008}
+	and \IXacr{boinc}~\cite{BOINC2008}.
 \item	Map-reduce~\cite{MapReduce2008MIT}.
 \item	Client-server systems, including RPC, web services, and
 	pretty much any system with a back-end database server.
@@ -410,7 +411,7 @@ Examples of data ownership include:
 \item	Private variables, for example, C-language on-stack auto variables,
 	in threaded environments.
 \item	Many parallel linear-algebra algorithms, especially those
-	well-suited for GPGPUs.\footnote{
+	well-suited for \IXacrpl{gpgpu}.\footnote{
 		But note that a great many other classes of applications
 		have also been ported to
 		GPGPUs~\cite{NormMatloff2017ParProcBook,AMD2020ROCm,NVidia2017GPGPU,NVidia2017GPGPU-university}.}

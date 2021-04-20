@@ -564,7 +564,7 @@ programming environments:
 	and the rich set of class libraries.
 	However, its performance, though greatly improved in the early
 	2000s, lags that of C and C++.
-\item[MPI:] This Message Passing Interface~\cite{MPIForum2008} powers
+\item[MPI:] This \IXacrl{mpi}~\cite{MPIForum2008} powers
 	the largest scientific and technical computing clusters in
 	the world and offers unparalleled performance and scalability.
 	In theory, it is general purpose, but it is mainly used
@@ -576,7 +576,7 @@ programming environments:
 	task, and this specificity often limits its performance.
 	It is, however, much easier to use than MPI or C/C++
 	``locking plus threads.''
-\item[SQL:] Structured Query Language~\cite{DIS9075SQL92} is
+\item[SQL:] \IXacrl{sql}~\cite{DIS9075SQL92} is
 	specific to relational database queries.
 	However, its performance is quite good as measured by the
 	Transaction Processing Performance Council (TPC)
@@ -761,8 +761,7 @@ difficult issues surrounding parallelism and persistence.
 In addition, there are a growing number of parallel library functions,
 particularly for numeric computation.
 Even better, some libraries take advantage of special\-/purpose
-hardware such as vector units and general\-/purpose graphical processing
-units (GPGPUs).
+hardware such as vector units and \IXacrfpl{gpgpu}.
 
 Taking this approach often sacrifices some performance, at least when
 compared to carefully hand-coding a fully parallel application.
@@ -1016,11 +1015,11 @@ access is via expressions and assignments,
 while remote-variable access uses an entirely different
 syntax, usually involving messaging.
 The POSIX Threads environment~\cite{OpenGroup1997pthreads},
-Structured Query Language (SQL)~\cite{DIS9075SQL92}, and
+\IXacrf{sql}~\cite{DIS9075SQL92}, and
 partitioned global address-space (PGAS) environments
-such as Universal Parallel C (UPC)~\cite{ElGhazawi2003UPC,UPCConsortium2013}
+such as \IXacrf{upc}~\cite{ElGhazawi2003UPC,UPCConsortium2013}
 offer implicit access,
-while Message Passing Interface (MPI)~\cite{MPIForum2008} offers
+while \IXacrf{mpi}~\cite{MPIForum2008} offers
 explicit access because access to remote data requires explicit
 messaging.
 

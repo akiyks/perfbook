@@ -668,7 +668,7 @@ One example within the Linux kernel is
 which uses per-CPU buffers to allow data to be collected with
 extremely low overhead.
 Even so, enabling tracing can sometimes change timing enough to
-hide bugs, resulting in \emph{heisenbugs}, which are discussed in
+hide bugs, resulting in \emph{\IXpl{heisenbug}}, which are discussed in
 Section~\ref{sec:debugging:Probability and Heisenbugs}
 and especially Section~\ref{sec:debugging:Hunting Heisenbugs}.
 In the kernel, BPF can do data reduction in the kernel, reducing
@@ -1084,7 +1084,7 @@ Here are some time-tested ways of accomplishing this:
 \item	Write a sequential program that scales through use of
 	available parallel library functions.
 \item	Write sequential plug-ins for a parallel framework,
-	such as map-reduce, BOINC, or a web-application server.
+	such as map-reduce, \IXacr{boinc}, or a web-application server.
 \item	Fully partition your problems, then implement sequential
 	program(s) that run in parallel without communication.
 \item	Stick to one of the application areas (such as linear algebra)

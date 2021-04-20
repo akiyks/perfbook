@@ -148,7 +148,7 @@ maintains its own array, which is referenced by the per-thread variable
 \co{gplist}.
 If line~\lnref{check} determines that this thread has not yet allocated its
 \co{gplist}, \clnrefrange{alloc:b}{alloc:e} carry out the allocation.
-The memory barrier on line~\lnref{mb1} ensures that all threads see the
+The \IX{memory barrier} on line~\lnref{mb1} ensures that all threads see the
 removal of all objects by this thread before
 \clnrefrange{loop:b}{loop:e} scan
 all of the hazard pointers, accumulating non-NULL pointers into
@@ -332,7 +332,7 @@ Figure~\ref{fig:defer:Pre-BSD Routing Table Protected by Reference Counting}.
 Although hazard pointers scale far better than does reference counting,
 hazard pointers still require readers to do writes to shared
 memory (albeit with much improved locality of reference),
-and also require a full memory barrier and retry check for each
+and also require a \IXh{full}{memory barrier} and retry check for each
 object traversed.
 Therefore, hazard-pointers performance is still far short of ideal.
 On the other hand, unlike naive approaches to concurrent

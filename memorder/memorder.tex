@@ -90,7 +90,7 @@ into \co{r2} must happen after Thread~\co{P0()}'s store to~\co{x0},
 so that \nbco{1:r2=2}, thus not triggering the \co{exists} clause.
 The example is symmetric, so similar reasoning might lead
 us to hope that \nbco{1:r2=0} guarantees that \nbco{0:r2=2}.
-Unfortunately, the lack of memory barriers dashes these hopes.
+Unfortunately, the lack of \IXpl{memory barrier} dashes these hopes.
 The CPU is within its rights to reorder
 the statements within both Thread~\co{P0()} and Thread~\co{P1()},
 even on relatively strongly ordered systems such as x86.
@@ -356,7 +356,7 @@ ordering works, read on!
 The first stop on the journey is
 \cref{lst:memorder:Memory Ordering: Store-Buffering Litmus Test}
 (\path{C-SB+o-mb-o+o-mb-o.litmus}),
-which places an \co{smp_mb()} Linux-kernel full memory barrier between
+which places an \co{smp_mb()} Linux-kernel \IXh{full}{memory barrier} between
 the store and load in both \co{P0()} and \co{P1()}, but is otherwise
 identical to
 \cref{lst:memorder:Memory Misordering: Store-Buffering Litmus Test}.
@@ -585,11 +585,13 @@ are at most two threads involved.
 	subsequent stores.
 
 	The \co{smp_rmb()} row captures the fact that many CPUs have
-	lightweight memory-barrier instructions that order prior loads against
+	\IXalth{lightweight memory-barrier}{read}{memory barrier}
+	instructions that order prior loads against
 	subsequent loads.
 	Similarly,
 	the \co{smp_wmb()} row captures the fact that many CPUs have
-	lightweight memory-barrier instructions that order prior stores against
+	\IXalth{lightweight memory-barrier}{write}{memory barrier}
+	instructions that order prior stores against
 	subsequent stores.
 
 	None of the ordering operations thus far require prior stores to be
@@ -603,7 +605,7 @@ are at most two threads involved.
 	reordered against later stores, which brings us to the remaining
 	rows in this table.
 
-	The \co{smp_mb()} row corresponds to the full memory barrier
+	The \co{smp_mb()} row corresponds to the \IXh{full}{memory barrier}
 	available on most platforms, with Itanium being the exception
 	that proves the rule.
 	However, even on Itanium, \co{smp_mb()} provides full ordering
@@ -1938,7 +1940,7 @@ Cumulativity nevertheless has limits, which are examined in the next section.
 \Cref{lst:memorder:W+RWC Litmus Test With Release (No Ordering)}
 (\path{C-W+RWC+o-r+a-o+o-mb-o.litmus})
 shows the limitations of cumulativity and store-release,
-even with a full memory barrier.
+even with a \IXh{full}{memory barrier}.
 The problem is that although the \co{smp_store_release()} on
 \clnref{P0:sr} has cumulativity, and although that cumulativity does
 order \co{P2()}'s load on \clnref{P2:ld}, the \co{smp_store_release()}'s
@@ -2836,7 +2838,7 @@ do not understand them and can easily break them.
 The rules and examples in this section are intended to help you
 prevent your compiler's ignorance from breaking your code.
 
-A load-load control dependency requires a full read memory barrier,
+A load-load control dependency requires a full \IXh{read}{memory barrier},
 not simply a data dependency barrier.
 Consider the following bit of code:
 
@@ -3739,7 +3741,7 @@ end of \co{P0()}'s grace period, which in turn would prevent \co{P2()}'s
 read from \co{x0} from preceding \co{P0()}'s write, as depicted by the
 red dashed arrow in
 \cref{fig:memorder:Cycle for One RCU Grace Period; Two RCU Readers; and Memory Barrier}.
-In this case, RCU and the full memory barrier work together to forbid
+In this case, RCU and the \IXh{full}{memory barrier} work together to forbid
 the cycle, with RCU preserving ordering between \co{P0()} and both
 \co{P1()} and \co{P2()}, and with the \co{smp_mb()} preserving
 ordering between \co{P1()} and \co{P2()}.
@@ -3893,7 +3895,7 @@ which was covered in
 \crefrange{sec:memorder:Address Dependencies}{sec:memorder:Control Dependencies}
 and which is explained in more detail in
 \cref{sec:memorder:Alpha}.
-The short version is that Alpha requires memory barriers for readers
+The short version is that Alpha requires \IXpl{memory barrier} for readers
 as well as updaters of linked data structures, however, these memory
 barriers are provided by the Alpha architecture-specific code in
 v4.15 and later Linux kernels.
@@ -3932,13 +3934,13 @@ Therefore,
 Linux provides a carefully chosen least-common-denominator
 set of memory-ordering primitives, which are as follows:
 \begin{description}
-\item	[\tco{smp_mb()}] (full memory barrier) that orders both loads and
+\item	[\tco{smp_mb()}] (\IXh{full}{memory barrier}) that orders both loads and
 	stores.
 	This means that loads and stores preceding the memory barrier
 	will be committed to memory before any loads and stores
 	following the memory barrier.
-\item	[\tco{smp_rmb()}] (read memory barrier) that orders only loads.
-\item	[\tco{smp_wmb()}] (write memory barrier) that orders only stores.
+\item	[\tco{smp_rmb()}] (\IXh{read}{memory barrier}) that orders only loads.
+\item	[\tco{smp_wmb()}] (\IXh{write}{memory barrier}) that orders only stores.
 \item	[\tco{smp_mb__before_atomic()}] that forces ordering of accesses
 	preceding the \co{smp_mb__before_atomic()} against accesses following
 	a later RMW atomic operation.
@@ -4244,7 +4246,7 @@ Its memory model is similar to that of \Power{}
 different set of memory-barrier instructions~\cite{ARMv7A:2010}:
 
 \begin{description}
-\item	[\tco{DMB}] (data memory barrier) causes the specified type of
+\item	[\tco{DMB}] (\IXh{data}{memory barrier}) causes the specified type of
 	operations to \emph{appear} to have completed before any
 	subsequent operations of the same type.
 	The ``type'' of operations can be all operations or can be
@@ -4329,7 +4331,7 @@ in contrast to their 32-bit-only CPU described in
 but adds load-acquire (\co{LDLARB}, \co{LDLARH}, and \co{LDLAR})
 and store-release (\co{STLLRB}, \co{STLLRH}, and \co{STLLR})
 instructions.
-These instructions act as ``half memory barriers'', so that
+These instructions act as ``\IXhpl{half}{memory barrier}'', so that
 \ARMv8 CPUs can reorder previous accesses with a later \co{LDLAR}
 instruction, but are prohibited from reordering an earlier \co{LDLAR}
 instruction with later accesses, as fancifully depicted in
@@ -4392,7 +4394,7 @@ Nevertheless, Itanium was the first mainstream CPU to introduce the concept
 instruction set.
 
 \QuickQuiz{
-	Given that hardware can have a half memory barrier, why don't
+	Given that hardware can have a \IXh{half}{memory barrier}, why don't
 	locking primitives allow the compiler to move memory-reference
 	instructions into lock-based critical sections?
 }\QuickQuizAnswer{
@@ -4541,29 +4543,29 @@ in a manner similar to the \ARMv8 additions:
 	to memory references, which is used to implement the v4.13
 	Linux kernel's \co{smp_mb()} for OCTEON systems.
 \item[\tco{SYNC_WMB}]
-	Write memory barrier, which can be used on OCTEON systems
+	\IXh{Write}{memory barrier}, which can be used on OCTEON systems
 	to implement the
 	\co{smp_wmb()} primitive in the v4.13 Linux kernel via the
 	\co{syncw} mnemonic.
 	Other systems use plain \co{sync}.
 \item[\tco{SYNC_MB}]
-	Full memory barrier, but only for memory operations.
+	\IXh{Full}{memory barrier}, but only for memory operations.
 	This may be used to implement the
 	C++ \co{atomic_thread_fence(memory_order_seq_cst)}.
 \item[\tco{SYNC_ACQUIRE}]
-	Acquire memory barrier, which could be used to implement
+	\IXh{Acquire}{memory barrier}, which could be used to implement
 	C++'s \co{atomic_thread_fence(memory_order_acquire)}.
 	In theory, it could also be used to implement the v4.13 Linux-kernel
 	\co{smp_load_acquire()} primitive, but in practice
 	\co{sync} is used instead.
 \item[\tco{SYNC_RELEASE}]
-	Release memory barrier, which may be used to implement
+	\IXh{Release}{memory barrier}, which may be used to implement
 	C++'s \co{atomic_thread_fence(memory_order_release)}.
 	In theory, it could also be used to implement the v4.13 Linux-kernel
 	\co{smp_store_release()} primitive, but in practice
 	\co{sync} is used instead.
 \item[\tco{SYNC_RMB}]
-	Read memory barrier, which could in theory be used to implement the
+	\IXh{Read}{memory barrier}, which could in theory be used to implement the
 	\co{smp_rmb()} primitive in the Linux kernel, except that current
 	MIPS implementations supported by the v4.13 Linux kernel do not
 	need an explicit instruction to force ordering.
@@ -4656,7 +4658,7 @@ does, with the exception that the \Power{} \co{isync} instruction
 is substituted for the \ARM\ \co{ISB} instruction.
 
 Like \ARMv8, \Power{} requires \co{smp_mb__after_spinlock()} to be
-a full memory barrier.
+a \IXh{full}{memory barrier}.
 In addition, \Power{} is the only architecture requiring
 \co{smp_mb__after_unlock_lock()} to be a full memory barrier.
 In both cases, this is because of the weak ordering properties
@@ -4901,7 +4903,7 @@ for example, using the herd tool as described in
 	minimal ordering.
 }\QuickQuizEnd
 
-The fourth and final rule of thumb identifies where full memory barriers
+The fourth and final rule of thumb identifies where \IXhpl{full}{memory barrier}
 (or stronger) are required:
 If a given cycle contains two or more non-store-to-load links (that is, a
 total of two or more links that are either load-to-store or store-to-store

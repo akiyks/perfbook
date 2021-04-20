@@ -114,8 +114,8 @@ combinations of mechanisms, as shown in
 This table
 divides reference-counting mechanisms into the following broad categories:
 \begin{enumerate}
-\item	Simple counting with neither atomic operations, memory
-	barriers, nor alignment constraints (``$-$'').
+\item	Simple counting with neither atomic operations, \IXpl{memory
+	barrier}, nor alignment constraints (``$-$'').
 \item	Atomic counting without memory barriers (``A'').
 \item	Atomic counting, with memory barriers required only on release
 	(``AM'').
@@ -124,7 +124,7 @@ divides reference-counting mechanisms into the following broad categories:
 	(``CAM'').
 \item	Atomic counting with a check combined with the atomic acquisition
 	operation (``CA'').
-\item	Simple counting with a check combined with full memory barriers
+\item	Simple counting with a check combined with \IXhpl{full}{memory barrier}
 	(``M'').
 \item	Atomic counting with a check combined with the atomic acquisition
 	operation, and with memory barriers also required on acquisition
@@ -151,10 +151,11 @@ Simple counting protected by locking (``$-$'') is described in
 \cref{sec:together:Simple Counting},
 atomic counting with no memory barriers (``A'') is described in
 \cref{sec:together:Atomic Counting},
-atomic counting with acquisition memory barrier (``AM'') is described in
+atomic counting with \IXalth{acquisition memory barrier}
+{acquire}{memory barrier} (``AM'') is described in
 \cref{sec:together:Atomic Counting With Release Memory Barrier},
 and
-atomic counting with check and release memory barrier (``CAM'') is described in
+atomic counting with check and \IXh{release}{memory barrier} (``CAM'') is described in
 \cref{sec:together:Atomic Counting With Check and Release Memory Barrier}.
 Use of hazard pointers is described in
 \cref{sec:defer:Hazard Pointers}
@@ -384,7 +385,7 @@ Otherwise, \co{kref_sub()} returns zero, informing the caller that
 \subsubsection{Atomic Counting With Release Memory Barrier}
 \label{sec:together:Atomic Counting With Release Memory Barrier}
 
-Atomic reference counting with release memory barriers is used by the
+Atomic reference counting with \IXhpl{release}{memory barrier} is used by the
 Linux kernel's networking layer to track the destination caches that
 are used in packet routing.
 The actual implementation is quite a bit more involved; this section

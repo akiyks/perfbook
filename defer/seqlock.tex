@@ -9,7 +9,7 @@
 
 The published sequence-lock
 record~\cite{10.1145/800212.806505,10.1145/359863.359878}
-extends back as far as that of reader-writer locking, but sequence locks
+extends back as far as that of reader-writer locking, but \IXhpl{sequence} {lock}
 nevertheless remain in relative obscurity.
 Sequence locks are used in the Linux kernel for read-mostly data that
 must be seen in a consistent state by readers.
@@ -33,7 +33,7 @@ very rarely need to retry.
 	you know, the one on \emph{locking}?
 }\QuickQuizAnswer{
 	The sequence-lock mechanism is really a combination of two
-	separate synchronization mechanisms, sequence counts and
+	separate synchronization mechanisms, \IXpl{sequence count} and
 	locking.
 	In fact, the sequence-count mechanism is available separately
 	in the Linux kernel via the
