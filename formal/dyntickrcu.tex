@@ -30,11 +30,11 @@ The idea behind the dynticks-idle state is that idle CPUs
 should be physically powered down in order to conserve energy.
 In short, preemptible RCU can disable a valuable energy-conservation
 feature of recent Linux kernels.
-Although Josh Triplett and Paul McKenney
+Although \ppl{Josh}{Triplett} and \pplalt{Paul McKenney}{McKenney, Paul E.}
 had discussed some approaches for allowing
 CPUs to remain in low-power state throughout an RCU grace period
 (thus preserving the Linux kernel's ability to conserve energy), matters
-did not come to a head until Steve Rostedt integrated a new dyntick
+did not come to a head until \ppl{Steve}{Rostedt} integrated a new dyntick
 implementation with preemptible RCU in the \rt\ patchset.
 
 This combination caused one of Steve's systems to hang on boot, so in
@@ -1193,7 +1193,7 @@ This leads to the notion of providing separate code paths and variables
 for \IRQ s and NMIs, as has been done for
 hierarchical RCU~\cite{PaulEMcKenney2008HierarchicalRCU}
 as indirectly suggested by
-Manfred Spraul~\cite{ManfredSpraul2008StateMachineRCU}.
+\ppl{Manfred}{Spraul}~\cite{ManfredSpraul2008StateMachineRCU}.
 This work was pulled into mainline kernel during the v2.6.29
 development cycle~\cite{PaulEMcKenney2008commit:64db4cfff99c}.
 
@@ -1584,7 +1584,7 @@ rcu_implicit_dynticks_qs(struct rcu_data *rdp)
 
 Linux-kernel RCU's dyntick-idle code has since been rewritten yet again
 based on a suggestion from
-Andy Lutomirski~\cite{PaulMcKenney2015dyntickAndyNMI},
+\ppl{Andy}{Lutomirski}~\cite{PaulMcKenney2015dyntickAndyNMI},
 but it is time to sum up and move on to other topics.
 
 \subsubsection{Discussion}

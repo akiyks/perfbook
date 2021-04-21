@@ -70,7 +70,7 @@ provides some useful rules of thumb.
 	 {\emph{Henry Ward Beecher, updated}}
 
 One motivation for memory ordering can be seen in the trivial-seeming
-litmus test in
+\IX{litmus test} in
 \cref{lst:memorder:Memory Misordering: Store-Buffering Litmus Test}
 (\path{C-SB+o-o+o-o.litmus}),
 which at first glance might
@@ -1525,7 +1525,7 @@ column of the cheat sheet shown in
 Unfortunately, this property is so popular that it has been named
 multiple times, with ``single-variable SC'',\footnote{
 	Recall that SC stands for sequentially consistent.}
-``single-copy atomic''~\cite{Stone:1995:SP:623262.623912},
+``\IX{single-copy atomic}''~\cite{Stone:1995:SP:623262.623912},
 and just plain ``coherence''~\cite{JadeAlglave2011ppcmem}
 having seen use.
 Rather than further compound the confusion by inventing yet another term
@@ -1595,7 +1595,7 @@ and other counter-intuitive behavior, as discussed in the next section.
 \end{figure}
 
 Threads running on a fully
-\emph{multicopy atomic}~\cite{Stone:1995:SP:623262.623912}
+\emph{\IX{multicopy atomic}}~\cite{Stone:1995:SP:623262.623912}
 platform are guaranteed
 to agree on the order of stores, even to different variables.
 A useful mental model of such a system is the single-bus architecture
@@ -1608,7 +1608,7 @@ Unfortunately, building a computer system as shown in the figure, without
 store buffers or even caches, would result in glacially slow computation.
 Most CPU vendors interested in providing multicopy atomicity therefore
 instead provide the slightly weaker
-\emph{other-multicopy atomicity}~\cite[Section B2.3]{ARMv8A:2017},
+\emph{\IXalt{other-multicopy atomicity}{other-multicopy atomic}}~\cite[Section B2.3]{ARMv8A:2017},
 which excludes the CPU doing a given store from the requirement that all
 CPUs agree on the order of all stores.\footnote{
 	As of early 2021, \ARMv8 and x86 provide other-multicopy atomicity,
@@ -1663,7 +1663,8 @@ value directly from the store buffer, which improves performance.
 
 Perhaps there will come a day when all platforms provide some flavor
 of multi-copy atomicity, but
-in the meantime, non-multicopy-atomic platforms do exist, and so software
+in the meantime, \IXalt{non-multicopy-atomic}{non-multicopy atomic}
+platforms do exist, and so software
 must deal with them.
 
 \begin{listing}
@@ -3338,7 +3339,7 @@ also forbids this same cycle.
 However, this definition is incomplete, as can be seen from the following
 list of questions:\footnote{
 	Several of which were introduced to Paul by \ppl{Jade}{Alglave} during
-	early work on LKMM, and a few more of which came from other
+	early work on \IXacr{lkmm}, and a few more of which came from other
 	LKMM participants~\cite{Alglave:2018:FSC:3173162.3177156}.}
 
 \begin{enumerate}
@@ -3693,8 +3694,8 @@ period.
 This in turn suggests the general rule, which is:  In these sorts of RCU-only
 litmus tests, if there are at least as many RCU grace periods as there
 are RCU read-side critical sections, the cycle is forbidden.\footnote{
-	Interestingly enough, Alan Stern proved that within the context
-	of LKMM, the two-part fundamental property of RCU expressed
+	Interestingly enough, \ppl{Alan}{Stern} proved that within the context
+	of \IXacr{lkmm}, the two-part fundamental property of RCU expressed
 	in \cref{sec:defer:RCU Fundamentals} actually implies
 	this seemingly more general result, which is called the RCU
 	axiom~\cite{Alglave:2018:FSC:3173162.3177156}.}
@@ -3977,7 +3978,7 @@ of reordering memory optimizations across the barriers.
 	ordering of the intervening code and the plea to avoid such code.
 }\QuickQuizEnd
 
-These primitives generate code only in SMP kernels, however, several
+These primitives generate code only in \IXacr{smp} kernels, however, several
 have UP versions ({\tt mb()}, {\tt rmb()}, and {\tt wmb()},
 respectively) that generate a memory barrier even in UP kernels.
 The \co{smp_} versions should be used in most cases.
@@ -4276,7 +4277,7 @@ None of these instructions exactly match the semantics of Linux's
 The \co{DMB} and \co{DSB} instructions have a recursive definition
 of accesses ordered before and after the barrier, which has an effect
 similar to that of \Power{}'s cumulativity, both of which are
-stronger than LKMM's cumulativity described in
+stronger than \IXacr{lkmm}'s cumulativity described in
 \cref{sec:memorder:Cumulativity}.
 
 \ARM\ also implements control dependencies, so that if a conditional
