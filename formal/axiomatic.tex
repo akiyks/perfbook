@@ -35,7 +35,7 @@ exists
 \end{listing}
 
 Although the PPCMEM tool can solve the famous ``independent reads of
-independent writes'' (IRIW) litmus test shown in
+independent writes'' (IRIW) \IX{litmus test} shown in
 \cref{lst:formal:IRIW Litmus Test}, doing so requires no less than
 fourteen CPU hours and generates no less than ten gigabytes of state space.
 That said, this situation is a great improvement over that before the advent
@@ -142,8 +142,8 @@ Axiomatic approaches may also be applied to higher-level
 languages and also to higher-level synchronization primitives, as
 exemplified by the lock-based litmus test shown in
 \cref{lst:formal:Locking Example} (\path{C-Lock1.litmus}).
-This litmus test can be modeled by the Linux kernel memory model
-(LKMM)~\cite{Alglave:2018:FSC:3173162.3177156,LucMaranget2018lock.cat}.
+This litmus test can be modeled by the
+\IXacrf{lkmm}~\cite{Alglave:2018:FSC:3173162.3177156,LucMaranget2018lock.cat}.
 As expected, the \co{herd} tool's output features the string \co{Never},
 correctly indicating that \co{P1()} cannot see \co{x} having a value
 of one.\footnote{
@@ -342,7 +342,7 @@ In the Linux kernel, this would be a doubly linked circular list,
 but \co{herd} is currently incapable of modeling such a beast.
 The strategy is instead to use a singly linked linear list that
 is long enough that the end is never reached.
-\Clnref{rrcache} defines variable \co{c}, which is used to
+\Clnref{rrcache} defines variable~\co{c}, which is used to
 cache the list pointer between successive RCU read-side critical
 sections.
 

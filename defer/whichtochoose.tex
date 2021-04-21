@@ -151,7 +151,7 @@ of reader traversals, as is often the case in kernels and low-level
 applications, then it does not matter that RCU has duration-limit
 requirements because your code already meets them.
 In the same vein, if readers must already write to the objects that they
-are traversing, the read-side overhead of reference counters might
+are traversing, the read-side overhead of \IXpl{reference counter} might
 not be so important.
 Of course, if the data to be protected is in statically allocated variables,
 then sequence locking's inability to protect pointers is irrelevant.
@@ -438,17 +438,17 @@ the case may be.\footnote{
 \subsubsection{Production Uses of Hazard Pointers}
 \label{sec:defer:Production Uses of Hazard Pointers}
 
-In 2010, Keith Bostic added hazard pointers to
+In 2010, \ppl{Keith}{Bostic} added hazard pointers to
 WiredTiger~\cite{KeithBostic2010WiredTigerhazptr}.
 MongoDB 3.0, released in 2015, included WiredTiger and thus hazard pointers.
 
-In 2011, Samy Al Bahra added hazard pointers to the Concurrency Kit
+In 2011, \ppl{Samy}{Al Bahra} added hazard pointers to the Concurrency Kit
 library~\cite{SamyAlBahra2011ckhp}.
 
-In 2014, Maxim Khizhinsky added hazard pointers to
+In 2014, \ppl{Maxim}{Khizhinsky} added hazard pointers to
 libcds~\cite{MaximKhizhinsky2014libcdsHazptr}.
 
-In 2015, David Gwynne introduced shared reference pointers, a form
+In 2015, \ppl{David}{Gwynne} introduced shared reference pointers, a form
 of hazard pointers, to OpenBSD~\cite{DavidGwynne2015srp}.
 
 In 2017--2018, the Rust-language
@@ -456,7 +456,7 @@ In 2017--2018, the Rust-language
 \co{conc}~\cite{crates.io.user.ticki2017concHazptr}
 crates rolled their own implementations of hazard pointers.
 
-In 2018, Maged Michael added hazard pointers to Facebook's Folly
+In 2018, \ppl{Maged}{Michael} added hazard pointers to Facebook's Folly
 library~\cite{MagedMichael2018FollyHazptr}, where it is used heavily.
 
 \subsubsection{Production Uses of Sequence Locking}
@@ -467,13 +467,13 @@ The Linux kernel added sequence locking to v2.5.60 in
 an ad-hoc technique used in x86's implementation of the
 \co{gettimeofday()} system call.
 
-In 2011, Samy Al Bahra added sequence locking to the Concurrency Kit
+In 2011, \ppl{Samy}{Al Bahra} added sequence locking to the Concurrency Kit
 library~\cite{SamyAlBahra2011ckseqlock}.
 
-Paolo Bonzini added a simple sequence-lock to the QEMU emulator in
+\ppl{Paolo}{Bonzini} added a simple sequence-lock to the QEMU emulator in
 2013~\cite{PaoloBonzini2013QEMUseqlock}.
 
-Alexis Menard abstracted a sequence-lock implementation in Chromium
+\ppl{Alexis}{Menard} abstracted a sequence-lock implementation in Chromium
 in 2016~\cite{AlexisMenard2016ChromiumSeqLock}.
 
 A simple sequence locking implementation was added to \co{jemalloc()}
@@ -489,7 +489,7 @@ RCU, some time in the 1980s~\cite{Hennessy89}.
 
 DYNIX/ptx adopted RCU in 1993~\cite{McKenney98,Slingwine95}.
 
-The Linux kernel adopted Dipankar Sarma's implementation of RCU in
+The Linux kernel adopted \ppl{Dipankar}{Sarma}'s implementation of RCU in
 2002~\cite{Torvalds2.5.43}.
 
 The userspace RCU project started in 2009~\cite{MathieuDesnoyers2009URCU}.
@@ -501,7 +501,7 @@ implementation~\cite{AviKivity2013OSvRCU},
 later adding an RCU-protected linked list~\cite{AviKivity2013OSvRCUlist}
 and an RCU-protected hash table~\cite{AviKivity2013OSvRCUhash}.
 
-In 2011, Samy Al Bahra added epochs
+In 2011, \ppl{Samy}{Al Bahra} added epochs
 (a form of RCU~\cite{UCAM-CL-TR-579,KeirFraser2007withoutLocks})
 to the Concurrency Kit
 library~\cite{SamyAlBahra2011ckEpoch}.
@@ -511,18 +511,18 @@ NetBSD began using the aforementioned passive serialization with v6.0 in
 Among other things, passive serialization is used in
 NetBSD packet filter (NPF)~\cite{MindaugasRasiukevicius2014NPFRCU}.
 
-Paolo Bonzini added RCU support to the QEMU emulator in 2015 via a
+\ppl{Paolo}{Bonzini} added RCU support to the QEMU emulator in 2015 via a
 friendly fork of the userspace RCU
 library~\cite{MikeDay2013RCUqemu,PaoloBonzini2013QEMURCU}.
 
-In 2015, Maxim Khizhinsky added RCU to
+In 2015, \ppl{Maxim}{Khizhinsky} added RCU to
 libcds~\cite{MaxKhiszinsky2015C++RCU}.
 
-Mindaugas Rasiukevicius implemented libqsbr in 2016, which features
+\ppl{Mindaugas}{Rasiukevicius} implemented libqsbr in 2016, which features
 QSBR and \IXacrf{ebr}~\cite{MindaugasRasiukevicius2016libqsbr},
 both of which are types of implementations of RCU\@.
 
-Sheth et al.~\cite{HarshalSheth2016goRCU}
+\pplsur{Harshal}{Sheth} et al.~\cite{HarshalSheth2016goRCU}
 demonstrated the value of leveraging Go's garbage
 collector to provide RCU-like functionality, and
 the Go programming language provides a \co{Value} type that can
@@ -530,13 +530,13 @@ provide this functionality.\footnote{
 	See \url{https://golang.org/pkg/sync/atomic/\#Value}, particularly
 	the ``Example (ReadMostly)''.}
 
-Matt Klein describes an RCU-like mechanism that is used in the Envoy
+\ppl{Matt}{Klein} describes an RCU-like mechanism that is used in the Envoy
 Proxy~\cite{MattKlein2017EnvoyRCU}.
 
-Honnappa Nagarahalli added an RCU library to the Data Plane Development
+\ppl{Honnappa}{Nagarahalli} added an RCU library to the Data Plane Development
 Kit (DPDK) in 2018~\cite{HonnappaNagarahalli2018dpdkRCU}.
 
-Stjepan Glavina merged an epoch-based RCU implementation into the
+\ppl{Stjepan}{Glavina} merged an epoch-based RCU implementation into the
 \co{crossbeam} set of concurrency-support ``crates'' for the Rust
 language~\cite{StjepanGlavina2018RustRCU}.
 

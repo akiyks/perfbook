@@ -28,7 +28,7 @@ There are a number of reasons behind this Jekyll-and-Hyde dichotomy:
 	\begin{enumerate}
 	\item	Use of lock hierarchies to avoid deadlock.
 	\item	Deadlock-detection tools, for example, the Linux kernel's
-		lockdep facility~\cite{JonathanCorbet2006lockdep}.
+		\IXr{lockdep} facility~\cite{JonathanCorbet2006lockdep}.
 	\item	Locking-friendly data structures, such as
 		arrays, hash tables, and radix trees, which will
 		be covered in \cref{chp:Data Structures}.
@@ -1520,8 +1520,8 @@ compared to VAX/VMS's six.
 The locking primitives discussed thus far require explicit acquisition and
 release primitives, for example, \co{spin_lock()} and \co{spin_unlock()},
 respectively.
-Another approach is to use the object-oriented ``resource allocation
-is initialization'' (RAII) pattern~\cite{MargaretAEllis1990Cplusplus}.\footnote{
+Another approach is to use the object-oriented ``\IXacrl{raii}'' (RAII)
+pattern~\cite{MargaretAEllis1990Cplusplus}.\footnote{
 	Though more clearly expressed at
 	\url{https://www.stroustrup.com/bs_faq2.html\#finally}.}
 This pattern is often applied to auto variables in languages like C++,

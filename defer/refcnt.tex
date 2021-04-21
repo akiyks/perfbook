@@ -22,7 +22,7 @@
 Reference counting tracks the number of references to a given object in
 order to prevent that object from being prematurely freed.
 As such, it has a long and honorable history of use dating back to
-at least an early 1960s Weizenbaum
+at least an early 1960s \pplsur{Joseph}{Weizenbaum}
 paper~\cite{Weizenbaum:1963:SLP:367593.367617}.
 Weizenbaum discusses reference counting as if it was already well-known,
 so it likely dates back to the 1950s or even to the 1940s.
@@ -49,7 +49,7 @@ only the differences will be discussed.
 \begin{fcvref}[ln:defer:route_refcnt:lookup:entry]
 Starting with
 \cref{lst:defer:Reference-Counted Pre-BSD Routing Table Lookup},
-\clnref{refcnt} adds the actual reference counter,
+\clnref{refcnt} adds the actual \IX{reference counter},
 \clnref{freed} adds a \co{->re_freed}
 use-after-free check field,
 \clnref{routelock} adds the \co{routelock} that will

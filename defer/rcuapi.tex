@@ -479,7 +479,7 @@ pointer on weakly ordered machines.
 The \co{rcu_replace_pointer()} primitive updates the pointer just like
 \co{rcu_assign_pointer()} does, but also returns the previous value,
 just like \co{rcu_dereference_protected()} (see below) would, including
-the lockdep expression.
+the \IXr{lockdep} expression.
 This replacement is convenient when the updater must both publish a new
 pointer and free the structure referenced by the old pointer.
 
