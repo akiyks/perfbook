@@ -53,6 +53,12 @@ sub check_line {
 		$safe = 1;
 	    }
 	}
+	if ($line =~ /^(?=[\s]*+[^%])[^%]*[^~]\\cite/) {
+	    $safe = 0;
+	    if ($line =~ /^(?=[\s]*+[^%])[^%]*~\(\\cite/) {
+		$safe = 1;
+	    }
+	}
 	unless ($safe) {
 	    print $ARGV[0], ':', $line_num, ':', $line;
 	}
