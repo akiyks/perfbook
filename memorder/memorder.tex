@@ -22,7 +22,7 @@ paths that use weaker synchronization.
 Insults to intuition notwithstanding, some argue that weakness is a
 virtue~\cite{JadeAlglave2013-WeaknessIsVirtue}.
 Virtue or vice, this chapter will help you gain an understanding of
-memory ordering, that, with practice, will be sufficient to implement
+\IX{memory ordering}, that, with practice, will be sufficient to implement
 synchronization primitives and performance-critical fast paths.
 
 \Cref{sec:memorder:Ordering: Why and How?}
@@ -3330,7 +3330,8 @@ completely overlap an RCU grace period, as demonstrated by
 Either or neither of the \co{r2} registers can have the final value of zero,
 but at least one of them must be non-zero (that is, the cycle identified
 by the \co{exists} clause is prohibited), courtesy of RCU's fundamental
-grace-period guarantee, as can be seen by running \co{herd} on this litmus test.
+grace-period guarantee, as can be seen by running
+\IXaltr{\co{herd}}{herd} on this litmus test.
 Note that this guarantee is insensitive to the ordering of the accesses
 within \co{P1()}'s critical section, so the litmus test shown in
 \cref{lst:memorder:RCU Fundamental Property and Reordering}\footnote{

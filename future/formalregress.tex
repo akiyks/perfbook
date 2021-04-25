@@ -61,7 +61,7 @@ Repeated verification clearly requires either that the formal-verification
 tooling input your code directly, or that there be bug-free automatic
 translation of your code to the form required for verification.
 
-PPCMEM and \co{herd} can in theory directly input assembly language
+\IXr{PPCMEM} and \IXaltr{\co{herd}}{herd} can in theory directly input assembly language
 and C++ code, but these tools work only on very small \IXpl{litmus test},
 which normally means that you must extract the core of your
 mechanism---by hand.
@@ -135,8 +135,9 @@ testing, which is in fact the topic of this section.
 
 It is critically important that formal-verification tools correctly
 model their environment.
-One all-too-common omission is the memory model, where a great
-many formal-verification tools, including Promela/spin, are
+One all-too-common omission is the \IX{memory model}, where a great
+many formal-verification tools, including
+\IXacr{promela}/\IXaltacr{spin}{spin}, are
 restricted to \IXalthalt{sequential consistency}{sequential}{memory consistency}.
 The QRCU experience related in
 \cref{sec:formal:Is QRCU Really Correct?}
