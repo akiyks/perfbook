@@ -496,7 +496,7 @@ except that \co{cds_list_for_each_entry()} is replaced
 by \co{cds_list_for_each_entry_rcu()}.
 Both of these primitives traverse the hash chain referenced
 by \co{htb->htb_head} but \co{cds_list_for_each_entry_rcu()} also
-correctly enforces memory ordering in case of concurrent insertion.
+correctly enforces \IX{memory ordering} in case of concurrent insertion.
 This is an important difference between these two hash-table implementations:
 Unlike the pure per-bucket-locked implementation, the RCU protected
 implementation allows lookups to run concurrently with insertions
