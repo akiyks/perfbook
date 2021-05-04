@@ -1201,8 +1201,8 @@ to \co{rcu_read_unlock()}, and
 \clnref{decgp} decrements this thread's instance of \co{rcu_reader_gp},
 which has the effect of decrementing the nesting count contained in
 \co{rcu_reader_gp}'s low-order bits.
-Debugging versions of this primitive would check (before decrementing!)
-that these low-order bits were non-zero.
+Debugging versions of this primitive would check
+(before decrementing!) that these low-order bits were non-zero.
 \end{fcvref}
 
 \begin{fcvref}[ln:defer:rcu_nest:synchronize:syn]
