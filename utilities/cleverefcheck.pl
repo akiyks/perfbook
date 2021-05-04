@@ -38,9 +38,7 @@ sub check_line {
     }
     unless ($skip) {
 	$safe = 1;
-	if ($line =~ /^(?=[\s]*+[^%])[^%]*\\ref\{/ ||
-	    $line =~ /^(?=[\s]*+[^%])[^%]*\\pageref\{/ ||
-	    $line =~ /^(?=[\s]*+[^%])[^%]*\\lnref\{/) {
+	if ($line =~ /^(?=[\s]*+[^%])[^%]*\\(ref|lnref|pageref)\{/ ) {
 	    $safe = 0;
 	    if ($line =~ /or~\\lnref\{/ ||
 		$line =~ /item~\\ref\{/) {
@@ -48,23 +46,23 @@ sub check_line {
 	    }
 	}
 	if ($new_sentence == 1 &&
-	    ($line =~ /^\s*\\cref/ || $line =~ /^\s*\\cpageref/ ||
-	     $line =~ /^\s*\\clnref/)) {
+	    ($line =~ /^\s*\\c(ref|pageref|lnref)/ ||
+	     $line =~ /^\s*\\(IX)?acr/)) {
 	    $safe = 0;
 	}
-	if ($line =~ /^\s*\\Cref/ || $line =~ /^\s*\\Cpageref/ ||
-	    $line =~ /^\s*\\Clnref/) {
+	if ($line =~ /^\s*\\C(ref|pageref|lnref)/ ||
+	    $line =~ /^\s*\\(IX)?Acr/) {
 	    if ($new_sentence) {
 		$safe = 1;
 	    } else {
 		$safe = 0;
 	    }
 	}
-	if ($line =~ /^(?=[\s]*+[^%])[^%]*[^\s]+\s*\\Cref/ ||
-	    $line =~ /^(?=[\s]*+[^%])[^%]*[^\s]+\s*\\Cpageref/ ||
-	    $line =~ /^(?=[\s]*+[^%])[^%]*[^\s]+\s*\\Clnref/) {
+	if ($line =~ /^(?=[\s]*+[^%])[^%]*[^\s]+\s*\\C(ref|pageref|lnref)/ ||
+	    $line =~ /^(?=[\s]*+[^%])[^%]*[^\s]+\s*\\(IX)?Acr/) {
 	    $safe = 0;
-	    if ($line =~ /^(?=[\s]*+[^%])[^%]*^\s*\\item\s+\\C/ ) {
+	    if ($line =~ /^(?=[\s]*+[^%])[^%]*^\s*\\item\s+\\C/ ||
+		$line =~ /^(?=[\s]*+[^%])[^%]*^\s*\\item\s+\\(IX)?Acr/ ) {
 		$safe = 1;
 	    }
 	}
