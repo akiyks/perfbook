@@ -36,6 +36,10 @@ sub check_line {
 	    $line =~ s/$quoted_2//;
 	}
     }
+    if ($line =~ /\\pplalt\{[^\}]+\}\s*\{([^\}]+)\}/) {
+	my $quoted_1 = quotemeta $1;
+	$line =~ s/$quoted_1// ;
+    }
     unless ($skip) {
 	$safe = 1;
 	if ($line =~ /^(?=[\s]*+[^%])[^%]*\\(ref|lnref|pageref)\{/ ) {
