@@ -21,6 +21,7 @@ my $safe = 0;
 my $Verbatim_begin = qr/\\begin\{(Verbatim|tabula|equation|SaveVerb)/ ;
 my $Verbatim_end = qr/\\end\{(Verbatim|tabula|equation|SaveVerb)/ ;
 my $label_ptn = qr/(^\s*|\{)(,?[a-z]{3,4}:([a-zMPS]+:)?[^\},]+)(\}|,)/ ;
+my $co_ptn = qr/(.*)(\\([tq]?co|url|path)\{)[^\}]+(\}.*)$/ ;
 my $in_footnote = 0 ;
 my $footnote_save = 0;
 
@@ -34,11 +35,18 @@ sub check_line {
 	while ($line && $line =~ /$label_ptn/) {
 	    my $quoted_2 = quotemeta $2;
 	    $line =~ s/$quoted_2//;
+#	    print $line_num, ":", $line ;
 	}
     }
-    if ($line =~ /\\pplalt\{[^\}]+\}\s*\{([^\}]+)\}/) {
+    if ($line =~ /\\pplalt\{[^\}]+\}\s*\{([^\}]+)\}/) {# ignore 2nd arg of \pplalt
 	my $quoted_1 = quotemeta $1;
 	$line =~ s/$quoted_1// ;
+    }
+    if ($line =~ /$co_ptn/) {# ignore arg of \co, \tco, \qco, \url, and \path
+	while ($line && $line =~ /$co_ptn/) {
+	    $line = $1 . $2 . $4 ;
+#	    print $line_num, ":", $line , "\n";
+	}
     }
     unless ($skip) {
 	$safe = 1;
