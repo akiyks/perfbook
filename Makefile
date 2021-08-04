@@ -59,10 +59,7 @@ OBSOLETE_FILES = extraction $(FAKE_EPS_FROM_SVG) CodeSamples/snippets.mk
 
 EPSSOURCES_DUP := \
 	$(wildcard */*.eps) \
-	$(wildcard */*/*.eps) \
-	$(wildcard */*/*/*.eps) \
-	$(wildcard */*/*/*/*.eps) \
-	$(wildcard */*/*/*/*/*.eps) \
+	$(wildcard appendix/*/*.eps) \
 	$(EPSSOURCES_FROM_TEX) \
 	$(EPSSOURCES_FROM_DOT) \
 	$(EPSSOURCES_FROM_FIG)
