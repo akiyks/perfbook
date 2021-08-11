@@ -29,6 +29,8 @@
 
 tag=${1-hps.2020.11.26a}
 font=${2-../../../../../}
+texpath=../../../../../datastruct/
+plotpath=../CodeSamples/datastruct/hash/data/hps.perf-hashsize.2020.12.29a
 
 fontsize=10
 plotsize=0.5
@@ -51,3 +53,9 @@ set label 3 "QSBR,RCU,hazptr" at 400000,1e6 right
 # set label 5 "refcnt" at 0.15,2.8 left
 plot "zoo.hashsize.hash_bkt_hazptr.${tag}.dat" w l, "zoo.hashsize.hash_bkt_qsbr.${tag}.dat" w l, "zoo.hashsize.hash_bkt_rcu.${tag}.dat" w l, "zoo.hashsize.hash_unsync.${tag}.dat" w l, 1.04207e+07 w l
 ---EOF---
+
+# Create/update symlink from datastruct/
+for f in zoohashsize
+do
+	ln -sf $plotpath/$f.eps $texpath
+done

@@ -19,6 +19,9 @@
 #
 # Authors: Paul E. McKenney <paulmck@kernel.org>
 
+texpath=../../../../toolsoftrade/
+plotpath=../CodeSamples/toolsoftrade/data/hps.2020.03.27a
+
 fontsize=10
 plotsize=0.7
 
@@ -43,3 +46,9 @@ set label 6 "1us" at 350,0.00055 left
 # set label 7 "1K" at 18,0.03 right
 plot "rwlockscale.hps.2020.03.27a.dat" w e, "rwlockscale.hps.2020.03.27a.dat" w l, 1
 ---EOF---
+
+# Create/update symlink from datastruct/
+for f in rwlockscale
+do
+	ln -sf $plotpath/$f.eps $texpath
+done

@@ -27,8 +27,10 @@
 #
 # Authors: Paul E. McKenney <paulmck@kernel.org>
 
-tag=$1
+tag=${1-hps.2019.12.02a}
 font=${2-../../../../}
+texpath=../../../../defer/
+plotpath=../CodeSamples/defer/data/hps.2019.12.02a
 
 fontsize=10
 plotsize=0.5
@@ -50,7 +52,7 @@ set label 2 "refcnt" at 330,1.5e6 right
 # set label 5 "RCU" at 400,1.4e7 right
 plot "route_seq.$tag.dat" w l, "route_seq.$tag.dat" w e, "route_refcnt.$tag.dat" w l, "route_refcnt.$tag.dat" w e
 ---EOF---
-cp perf-refcnt.eps ../..
+# cp perf-refcnt.eps ../..
 
 gnuplot << ---EOF---
 set term postscript portrait ${fontsize} enhanced "NimbusSanL-Regu" fontfile "${font}fonts/uhvr8a.pfb"
@@ -69,7 +71,7 @@ set label 2 "refcnt" at 10,7000 right
 # set label 5 "RCU" at 400,1.4e7 right
 plot "route_seq.$tag.dat" w l, "route_seq.$tag.dat" w e, "route_refcnt.$tag.dat" w l, "route_refcnt.$tag.dat" w e
 ---EOF---
-cp perf-refcnt-logscale.eps ../..
+# cp perf-refcnt-logscale.eps ../..
 
 gnuplot << ---EOF---
 set term postscript portrait ${fontsize} enhanced "NimbusSanL-Regu" fontfile "${font}fonts/uhvr8a.pfb"
@@ -88,7 +90,7 @@ set label 3 "hazptr" at 360,3.5e6 left
 # set label 5 "RCU" at 400,1.4e7 right
 plot "route_seq.$tag.dat" w l, "route_seq.$tag.dat" w e, "route_hazptr.$tag.dat" w l, "route_hazptr.$tag.dat" w e
 ---EOF---
-cp perf-hazptr.eps ../..
+# cp perf-hazptr.eps ../..
 
 gnuplot << ---EOF---
 set term postscript portrait ${fontsize} enhanced "NimbusSanL-Regu" fontfile "${font}fonts/uhvr8a.pfb"
@@ -107,7 +109,7 @@ set label 4 "seqlock" at 250,5.6e6 right
 # set label 5 "RCU" at 400,1.4e7 right
 plot "route_seq.$tag.dat" w l, "route_seq.$tag.dat" w e, "route_hazptr.$tag.dat" w l, "route_hazptr.$tag.dat" w e, "route_seqlock.$tag.dat" w l, "route_seqlock.$tag.dat" w e
 ---EOF---
-cp perf-seqlock.eps ../..
+# cp perf-seqlock.eps ../..
 
 gnuplot << ---EOF---
 set term postscript portrait ${fontsize} enhanced "NimbusSanL-Regu" fontfile "${font}fonts/uhvr8a.pfb"
@@ -126,7 +128,7 @@ set label 4 "seqlock" at 250,5.6e6 right
 set label 5 "RCU" at 400,1.4e7 right
 plot "route_seq.$tag.dat" w l, "route_seq.$tag.dat" w e, "route_hazptr.$tag.dat" w l, "route_hazptr.$tag.dat" w e, "route_seqlock.$tag.dat" w l, "route_seqlock.$tag.dat" w e, "route_rcu.$tag.dat" w l, "route_rcu.$tag.dat" w e
 ---EOF---
-cp perf-rcu.eps ../..
+# cp perf-rcu.eps ../..
 
 gnuplot << ---EOF---
 set term postscript portrait ${fontsize} enhanced "NimbusSanL-Regu" fontfile "${font}fonts/uhvr8a.pfb"
@@ -146,4 +148,10 @@ set label 5 "RCU" at 400,1.4e7 right
 set label 6 "RCU-QSBR" at 300,2e7 right
 plot "route_seq.$tag.dat" w l, "route_seq.$tag.dat" w e, "route_hazptr.$tag.dat" w l, "route_hazptr.$tag.dat" w e, "route_seqlock.$tag.dat" w l, "route_seqlock.$tag.dat" w e, "route_rcu.$tag.dat" w l, "route_rcu.$tag.dat" w e, "route_rcu_qsbr.$tag.dat" w l, "route_rcu_qsbr.$tag.dat" w e
 ---EOF---
-cp perf-rcu-qsbr.eps ../..
+## cp perf-rcu-qsbr.eps ../..
+
+# Create/update symlink from datastruct/
+for f in perf-refcnt perf-refcnt-logscale perf-hazptr perf-seqlock perf-rcu
+do
+	ln -sf $plotpath/$f.eps $texpath
+done

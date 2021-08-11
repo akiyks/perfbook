@@ -23,6 +23,9 @@
 #
 # Authors: Paul E. McKenney <paulmck@kernel.org>
 
+texpath=../../debugging/
+plotpath=../CodeSamples/debugging
+
 fontsize=10
 plotsize=0.5
 
@@ -43,3 +46,9 @@ set nokey
 # set label 5 "refcnt" at 0.15,2.8 left
 plot log(0.01) / log(1-x)
 ---EOF---
+
+# Create/update symlink from datastruct/
+for f in BinomialNRuns
+do
+	ln -sf $plotpath/$f.eps $texpath
+done

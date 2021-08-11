@@ -23,6 +23,9 @@
 #
 # Authors: Paul E. McKenney <paulmck@kernel.org>
 
+texpath=../../count/
+plotpath=../CodeSamples/count
+
 fontsize=10
 plotsize=0.5
 
@@ -102,3 +105,9 @@ set term png medium
 set output "atomic_hps.png"
 replot
 ---EOF---
+
+# Create/update symlink from count/
+for f in atomic atomic125 atomic_hps atomic_nehalem
+do
+	ln -sf $plotpath/$f.eps $texpath
+done
