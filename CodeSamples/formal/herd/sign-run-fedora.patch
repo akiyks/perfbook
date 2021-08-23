@@ -1,0 +1,14 @@
+--- a/klitmus/run.sh	2020-04-26 19:54:01.775239290 +0900
++++ b/klitmus/run.sh	2020-04-29 09:05:13.003516511 +0900
+@@ -10,6 +10,11 @@
+   ko=$2
+   if test -f  $ko
+   then
++    if test -f $KEYS/private_key.priv
++    then
++      /usr/src/kernels/$(uname -r)/scripts/sign-file sha256 \
++        $KEYS/private_key.priv $KEYS/public_key.der $ko
++    fi
+     insmod $ko $OPT
+     cat /proc/litmus
+     rmmod $ko
