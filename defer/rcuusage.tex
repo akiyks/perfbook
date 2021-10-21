@@ -855,7 +855,11 @@ longer any readers still referencing it.
 
 \begin{figure*}
 \centering
-\resizebox{\textwidth}{!}{\includegraphics{defer/RCUspacetime}}
+\IfTwoColumn{
+  \resizebox{.75\textwidth}{!}{\includegraphics{defer/RCUspacetime}}
+}{
+  \resizebox{\textwidth}{!}{\includegraphics{defer/RCUspacetime}}
+}
 \caption{RCU Spatial/Temporal Synchronization}
 \label{fig:defer:RCU Spatial/Temporal Synchronization}
 \end{figure*}
