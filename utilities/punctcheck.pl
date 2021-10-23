@@ -27,6 +27,8 @@ my $next_line;
 my $line_num = 0;
 my $skip = 0;
 my $ng;
+my $in_footnote = 0;
+my $in_footnote_qq = 0;
 my $Verbatim_begin = qr/\\begin\{(Verbatim|tabula|equation)/ ;
 my $Verbatim_end = qr/\\end\{(Verbatim|tabular|equation)/ ;
 my $label_ptn = qr/(^\s*|\{)(,?[a-z]{3,4}:([a-zMPS]+:)?[^\},]+)(\}|,)/ ;
@@ -73,6 +75,14 @@ sub check_line {
 		$ng -= 1;
 	    }
 	}
+	if ($in_footnote && $line =~ /\}[,.]\s*$/ &&
+	    $next_line =~ /^[^\s]+/ ) {
+	    $ng += 1;
+	}
+	if ($in_footnote_qq && $line =~ /\}[,.]\s*$/ &&
+	    $next_line =~ /^\t[^\s]+/ ) {
+	    $ng += 1;
+	}
 	if ($line =~ /^(?=[\s]*+[^%])[^%]*[a-z][\)\}\']*[\.\?\!][\)\}\']*\s+[^%]/ ||
 #	    $line =~ /^(?=[\s]*+[^%])[^%]*.*\.[\)\}\']*\s+[^%]/ ||  # Uncomment for full check
 	    $line =~ /^(?=[\s]*+[^%])[^%]*.*:[\)\}\']*\s+[^%]/ ) {
@@ -97,6 +107,18 @@ sub check_line {
     }
     if ($line =~ /$Verbatim_end/ ) {
 	$skip = 0;
+    }
+    if ($line =~ /\\footnote\{/ && $line =~ /^[^\s]+/ ) {
+	$in_footnote = 1;
+    }
+    if ($line =~ /\\footnote\{/ && $line =~ /^\t[^\s]+/ ) {
+	$in_footnote_qq = 1;
+    }
+    if ($in_footnote && $next_line && $next_line =~ /^[^\s]+/ ) {
+	$in_footnote = 0;
+    }
+    if ($in_footnote_qq && $next_line && $next_line =~ /^\t[^\s]+/ ) {
+	$in_footnote_qq = 0;
     }
 }
 
