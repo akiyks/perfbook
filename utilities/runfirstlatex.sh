@@ -67,8 +67,10 @@ fi
 
 basename=`echo $1 | sed -e 's/\.tex$//'`
 
-echo "pdflatex 1 for $basename.pdf"
-pdflatex $LATEX_OPT $basename > /dev/null 2>&1 < /dev/null || :
+LATEXCMD=${LATEX:-pdflatex}
+
+echo "$LATEXCMD 1 for $basename.pdf"
+$LATEXCMD $LATEX_OPT $basename > /dev/null 2>&1 < /dev/null || :
 if grep -q 'LaTeX Warning: You have requested' $basename.log
 then
 	grep -A 4 'LaTeX Warning: You have requested' $basename.log

@@ -1,4 +1,5 @@
 SHELL = /bin/bash
+LATEX ?= pdflatex
 
 GITREFSTAGS := $(shell ls -d .git/refs/tags 2>/dev/null)
 
@@ -217,7 +218,7 @@ qqmsg: perfbook.pdf
 	@echo "built as perfbook.pdf."
 
 $(PDFTARGETS): %.pdf: %.tex %.bbl
-	sh utilities/runlatex.sh $(basename $@)
+	LATEX=$(LATEX) sh utilities/runlatex.sh $(basename $@)
 
 $(PDFTARGETS:.pdf=.bbl): %.bbl: %.aux $(BIBSOURCES)
 	bibtex $(basename $@)
@@ -226,7 +227,7 @@ $(PDFTARGETS:.pdf=.aux): $(LATEXGENERATED) $(LATEXSOURCES) $(LST_SOURCES)
 ifeq ($(NEWTXTEXT),)
 	$(error Font package 'newtx' not found. See #9 in FAQ-BUILD.txt)
 endif
-	sh utilities/runfirstlatex.sh $(basename $@)
+	LATEX=$(LATEX) sh utilities/runfirstlatex.sh $(basename $@)
 
 autodate.tex: perfbook-lt.tex $(LATEXSOURCES) $(BIBSOURCES) \
     $(PDFTARGETS_OF_EPS) $(PDFTARGETS_OF_SVG) $(FCVSNIPPETS) $(FCVSNIPPETS_VIA_LTMS) \

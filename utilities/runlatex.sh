@@ -29,6 +29,8 @@
 # Authors: Paul E. McKenney <paulmck@us.ibm.com>
 #          Akira Yokosawa <akiyks@gmail.com>
 
+LATEXCMD=${LATEX:-pdflatex}
+
 diff_warning () {
 	if diff -q $basename-warning.log $basename-warning-prev.log >/dev/null
 	then
@@ -72,7 +74,7 @@ iterate_latex () {
 		exit 1
 	fi
 	makeglossaries $basename > /dev/null 2>&1
-	pdflatex $LATEX_OPT $basename > /dev/null 2>&1 < /dev/null || :
+	$LATEXCMD $LATEX_OPT $basename > /dev/null 2>&1 < /dev/null || :
 	if grep -q '! Emergency stop.' $basename.log
 	then
 		grep -B 15 -A 5 '! Emergency stop.' $basename.log
@@ -104,11 +106,11 @@ basename=`echo $1 | sed -e 's/\.tex$//'`
 if ! test -r $basename-first.log
 then
 	echo "No need to update aux and bbl files."
-	echo "pdflatex 1 for $basename.pdf"
+	echo "$LATEXCMD 1 for $basename.pdf"
 	iter=1
 else
 	rm -f $basename-first.log
-	echo "pdflatex 2 for $basename.pdf # for possible bib update"
+	echo "$LATEXCMD 2 for $basename.pdf # for possible bib update"
 	iter=2
 fi
 iterate_latex
@@ -125,7 +127,7 @@ do
 		break
 	fi
 	iter=`expr $iter + 1`
-	echo "pdflatex $iter for $basename.pdf # remaining undefined refs"
+	echo "$LATEXCMD $iter for $basename.pdf # remaining undefined refs"
 	undefined_refs=1
 	iterate_latex
 done
@@ -137,7 +139,7 @@ do
 		break
 	fi
 	iter=`expr $iter + 1`
-	echo "pdflatex $iter for $basename.pdf # label(s) may have changed"
+	echo "$LATEXCMD $iter for $basename.pdf # label(s) may have changed"
 	iterate_latex
 done
 exerpt_warnings
