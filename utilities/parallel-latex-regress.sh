@@ -26,6 +26,8 @@ copy_synctex_db () {
 # Reference sequential builds
 
 $REFMAKE neatfreak
+# Prepare perfbook-lt.tex, now converted from perfbook-main.tex
+make perfbook-lt.tex
 $REFMAKE -j$JOBS perfbook_flat.tex
 $REFMAKE $TARGETS
 

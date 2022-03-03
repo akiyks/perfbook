@@ -14,7 +14,20 @@
 % A more pleasant font
 \usepackage{lmodern}
 \usepackage[T1]{fontenc} % use postscript type 1 fonts
-\usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
+\usepackage{ifthen}
+\newboolean{newtxoneseven}
+\setboolean{newtxoneseven}{false} % newtx version 1.7 or later (set by Makefile)
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
+\else % LuaTeX or XeTeX
+  \ifthenelse{\boolean{newtxoneseven}}{ % newtx 1.7 or later needs nofontspec
+                                        % for existing font choices.
+    \usepackage[nofontspec,defaultsups,helvratio=0.9]{newtxtext}
+  }{
+    \usepackage[defaultsups,helvratio=0.9]{newtxtext}
+  }
+\fi
 \usepackage{textcomp} % use symbols in TS1 encoding
 
 % Improves the text layout
@@ -44,7 +57,6 @@
 \newlist{sequence}{enumerate}{10}
 \setlist[sequence]{label*=\arabic*}
 %\usepackage{enumerate}
-\usepackage{ifthen}
 \usepackage[table,svgnames]{xcolor}
 \usepackage[shortcuts]{extdash}
 \usepackage{changepage}
@@ -444,7 +456,7 @@
     \IfAfourPaper{
       \usepackage[a4paper,body={6.5in,8.25in},twocolumn,columnsep=0.25in]{geometry}
     }{
-      \usepackage[letterpaper,body={6.5in,8.25in},twocolumn,columnsep=0.25in]{geometry}      
+      \usepackage[letterpaper,body={6.5in,8.25in},twocolumn,columnsep=0.25in]{geometry}
 }}}{ % One Column
   \setlength{\twocolumnwidth}{3.125in}
   \IfEbookSize {
