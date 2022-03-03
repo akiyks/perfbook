@@ -30,7 +30,7 @@ sub_qqz
 contrib.tex
 origpub.tex
 perfbook*.out
-!/perfbook-lt.tex
+!/perfbook-main.tex
 perfbook-*.tex
 perfbook.tex
 autodate.tex

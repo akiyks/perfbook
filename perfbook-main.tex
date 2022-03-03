@@ -14,7 +14,12 @@
 % A more pleasant font
 \usepackage{lmodern}
 \usepackage[T1]{fontenc} % use postscript type 1 fonts
-\usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
+\else % "nofontspec" (available since newtx 1.70) for existing font choices
+  \usepackage[nofontspec,defaultsups,helvratio=0.9]{newtxtext}
+\fi
 \usepackage{textcomp} % use symbols in TS1 encoding
 
 % Improves the text layout
@@ -443,7 +448,7 @@
     \IfAfourPaper{
       \usepackage[a4paper,body={6.5in,8.25in},twocolumn,columnsep=0.25in]{geometry}
     }{
-      \usepackage[letterpaper,body={6.5in,8.25in},twocolumn,columnsep=0.25in]{geometry}      
+      \usepackage[letterpaper,body={6.5in,8.25in},twocolumn,columnsep=0.25in]{geometry}
 }}}{ % One Column
   \setlength{\twocolumnwidth}{3.125in}
   \IfEbookSize {
