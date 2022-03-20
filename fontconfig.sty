@@ -43,6 +43,8 @@
     \setmonofont{LMMono10-Regular}[Scale=.97,BoldFont={LMMonoLt10-Bold}]
     \setboolean{nimbusavail}{false}
   }{}
+  % Restore even spacing ellipsis in text (math mode ellipsis still uneven)
+  \UndeclareTextCommand{\textellipsis}{TU}
 }{ % font choices incompatible with fontspec + opentype fonts
 \ifPDFTeX
   \usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
