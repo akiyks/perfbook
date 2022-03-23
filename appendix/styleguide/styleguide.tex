@@ -1226,6 +1226,43 @@ the vertical skips between captions and tables are further reduced
 by setting a negative value to the \co{\\abovetopsep} variable,
 which controls the behavior of \co{\\toprule}.
 
+\ifthenelse{\boolean{unicodemathloaded}}{
+\subsection{Math Font Examples (Opentype Fonts)}
+
+This section demonstrates some of opentype math font choices.
+
+\begin{enumerate}
+    \item STIX Two Math + XITS Math Bold (current default)
+    \input{appendix/styleguide/opentype-math.tex}
+    {
+    \setmathfont{XITS Math}[math-style=ISO,Scale=MatchUppercase,BoldFont={XITSMath-Bold}]
+    \item XITS Math
+    \input{appendix/styleguide/opentype-math.tex}
+    }{
+    \setmathfont{TeX Gyre Termes Math}[math-style=ISO,Scale=MatchUppercase,BoldFont={XITSMath-Bold}]
+    \item TeX Gyre Termes Math + XITS Math Bold
+    \input{appendix/styleguide/opentype-math.tex}
+    }{
+    \setmathfont{Libertinus Math}[math-style=ISO,Scale=MatchUppercase,BoldFont={XITSMath-Bold}]
+    \item Libertinus Math + XITS Math Bold
+    \input{appendix/styleguide/opentype-math.tex}
+    }
+\end{enumerate}
+}{
+\subsection{Math Font Example (Type 1 Font)}
+
+This section demonstrates math typesetting.
+
+\begin{itemize}
+\IfSansSerif{
+    \item math font: newtxsf
+}{
+    \item math font: newtxmath
+}
+\input{appendix/styleguide/typeone-math.tex}
+\end{itemize}
+}
+
 \subsection{Improvement Candidates}
 \label{sec:app:styleguide:Improvement Candidates}
 
