@@ -1,4 +1,21 @@
-FROM fedora:latest
+# Fedora based container for building perfbook.
+# build ARGs:
+#    rel: Fedora release, default: "latest"
+#    uid: user id, default: 0
+#    gid: group id, default: 0
+#    user: user name, default: "perfbook"
+#    group: group name, default: "perfbook"
+#
+# build example:
+#    docker build -t <image tag> [--build-arg rel=<release tag>] \
+#                 [--build-arg uid=1000 --build-arg gid=1000] \
+#                 -f Dockerfile.fedora .
+# run example:
+#    docker run --rm -it -v <perfbook Git dir (abs)>:/work <image tag>
+# , or
+#    podman run --rm -it -v <perfbook Git dir (abs)>:/work:z <image tag>
+ARG rel=latest
+FROM fedora:$rel
 
 RUN dnf -y update && dnf install -y --setopt=tsflags=nodocs \
     fig2ps graphviz inkscape make git vim nano gnuplot-minimal groff time \
@@ -16,12 +33,12 @@ WORKDIR /opt
 RUN curl https://gitlab.com/latexpand/latexpand/-/archive/v1.3/latexpand-v1.3.tar.gz -o - | tar xfz - && \
     sed -i -e 's/@LATEXPAND_VERSION@/v1.3/' latexpand-v1.3/latexpand && \
     cp latexpand-v1.3/latexpand /usr/local/bin
-ARG uid=1000
-ARG gid=1000
+ARG uid=0
+ARG gid=0
 ARG user=perfbook
 ARG group=perfbook
 RUN if [ $uid -ne 0 ] ; then \
-    groupadd -g $gid $group ; \
+    groupadd -g $gid $group && \
     useradd -u $uid -g $gid -m $user ; \
     fi
 VOLUME /work
