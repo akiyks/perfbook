@@ -236,7 +236,7 @@
 	      - Changes made by utilities/synctex-forward.sh can be
 		reverted by running:
 
-		    $ utilitied/synctex-forward.sh
+		    $ utilities/synctex-forward.sh
 
 		Please make sure to revert the changes before doing
 		"git commit" of the other updates you've made.
