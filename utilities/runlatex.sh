@@ -79,8 +79,8 @@ iterate_latex () {
 	$LATEX $LATEX_OPT $basename > /dev/null 2>&1 < /dev/null
 	exitcode=$?
 	if [ $exitcode -ne 0 ]; then
-		tail -n 20 $basename.log
-		echo "\n!!! $LATEX aborted !!!"
+		tail -n 35 $basename.log
+		echo "!!!!! $LATEX aborted !!!!!"
 		exit $exitcode
 	fi
 	if grep -q '! Emergency stop.' $basename.log
