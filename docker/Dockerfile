@@ -27,7 +27,14 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=UTC apt-get install -y t
     make nano vim git curl gnuplot-nox time && \
     rm -rf /var/lib/apt/lists/*
 COPY steel-city-comic.regular.ttf /usr/local/share/fonts/
-RUN fc-cache /usr/local/share/fonts/
+RUN mkdir -p /etc/fonts/conf.avail && cd /etc/fonts/conf.avail && \
+    echo '<?xml version="1.0"?>\n\
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">\n\
+<fontconfig>\n\
+  <dir>/usr/share/texlive/texmf-dist/fonts/opentype</dir>\n\
+</fontconfig>' > 09-texlive-fonts.conf && \
+    ln -sf /etc/fonts/conf.avail/09-texlive-fonts.conf /etc/fonts/conf.d/ && \
+    fc-cache -sf
 WORKDIR /opt
 RUN if [ $REL = "bionic" ] ; then \
     curl https://mirrors.ctan.org/macros/latex/contrib/cleveref.zip -L -O && unzip cleveref.zip && \
