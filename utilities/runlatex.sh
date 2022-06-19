@@ -54,7 +54,7 @@ identical_warnings () {
 }
 
 exerpt_warnings () {
-	if grep -q "LaTeX Warning:" $basename.log
+	if grep -v "Unused global option" $basename.log | grep -q "LaTeX Warning:"
 	then
 		echo "----- Excerpt around remaining warning messages -----"
 		grep -B 8 -A 5 "LaTeX Warning:" $basename.log | tee $basename-warning.log
