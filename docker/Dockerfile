@@ -5,6 +5,8 @@
 #    gid: group id, default: 0
 #    user: user name, default: "perfbook"
 #    group: group name, default: "perfbook"
+#    otf: =1 installs packages and fonts for builds by xelatex and lualatex,
+#         default: otf=0
 #
 # build example:
 #    docker build -t <image tag> [--build-arg rel=<release tag>] \
@@ -26,6 +28,12 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=UTC apt-get install -y t
     texlive-publishers texlive-pstricks texlive-science texlive-fonts-extra \
     make nano vim git curl gnuplot-nox time && \
     rm -rf /var/lib/apt/lists/*
+ARG otf=0
+RUN if [ $otf -ne 0 ] ; then \
+    apt-get update && \
+    apt-get install -y texlive-xetex && \
+    rm -rf /var/lib/apt/lists/* ; \
+    fi
 COPY steel-city-comic.regular.ttf /usr/local/share/fonts/
 RUN mkdir -p /etc/fonts/conf.avail && cd /etc/fonts/conf.avail && \
     echo '<?xml version="1.0"?>\n\
