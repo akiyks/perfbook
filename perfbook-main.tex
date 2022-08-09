@@ -78,7 +78,7 @@
 % \usepackage[strings]{underscore}
 % \usepackage{underscore}
 \usepackage{pifont} % symbols for qqz reference points and carriagereturn
-\usepackage{gensymb} % symbols for both text and math modes such as \degree and \micro
+%\usepackage{gensymb} % symbols for both text and math modes such as \degree and \micro
 \usepackage{verbatimbox}[2014/01/30] % for centering verbatim listing in figure environment
 \usepackage{fancyvrb}
 \usepackage{fvextra}[2016/09/02]
@@ -110,8 +110,14 @@
 \setlength{\epigraphwidth}{2.6in}
 \usepackage[xspace]{ellipsis}
 \usepackage{braket} % for \ket{} macro in QC section
-\usepackage{siunitx} % for \num{} macro
+\ifthenelse{\boolean{unicodemathloaded}}{
+\usepackage{siunitx} % for \num{}, \unit{}, and \qty{} macros and "S" column in tabular
+}{
+\usepackage{siunitx}[=v2] % siunitx >= 3.0 needs unicode math fonts
+}
 \sisetup{group-minimum-digits=4,group-separator={,},group-digits=integer}
+\providecommand{\unit}{\si} % for siunitx < 3.0
+\providecommand{\qty}{\SI} % for siunitx < 3.0
 \usepackage{multirow}
 \usepackage{noindentafter}
 \NoIndentAfterCmd{\epigraph}
