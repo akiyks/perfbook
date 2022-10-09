@@ -4,7 +4,7 @@ LATEX ?= pdflatex
 GITREFSTAGS := $(shell ls -d .git/refs/tags 2>/dev/null)
 
 LATEXSOURCES = \
-	perfbook-main.tex \
+	perfbook-main.tex fontconfig.sty \
 	legal.tex \
 	summary.tex \
 	glossary.tex \
@@ -322,18 +322,21 @@ perfbook-eb.tex: perfbook-main.tex
 	sed -i 's/setboolean{twocolumn}{true}/setboolean{twocolumn}{false}/' $@
 
 perfbook-msns.tex: $(PERFBOOK_BASE)
-	sed -e 's/%msfontstub/\\usepackage{courier}/' < $< > $@
+	sed -e 's/{msns}{false}/{msns}{true}/' \
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' < $< > $@
 
 perfbook-mss.tex: $(PERFBOOK_BASE)
 ifeq ($(COURIERS),)
 	$(error Font package 'courier-scaled' not found. See #9 in FAQ-BUILD.txt)
 endif
-	sed -e 's/%msfontstub/\\usepackage[scaled=.94]{couriers}/' < $< > $@
+	sed -e 's/{mss}{false}/{mss}{true}/' \
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' < $< > $@
 
 perfbook-mstx.tex: $(PERFBOOK_BASE)
 perfbook-1cmstx.tex: perfbook-1c.tex
 perfbook-mstx.tex perfbook-1cmstx.tex:
-	sed -e 's/%msfontstub/\\renewcommand*\\ttdefault{txtt}/' < $< > $@
+	sed -e 's/{mstx}{false}/{mstx}{true}/' \
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' < $< > $@
 
 perfbook-msr.tex: $(PERFBOOK_BASE)
 perfbook-1cmsr.tex: perfbook-1c.tex
@@ -341,7 +344,8 @@ perfbook-msr.tex perfbook-1cmsr.tex:
 ifeq ($(NIMBUSMONO),)
 	$(error Font package 'nimbus15' not found. See #9 in FAQ-BUILD.txt)
 endif
-	sed -e 's/%msfontstub/\\usepackage[scaled=.94]{nimbusmono}/' \
+	sed -e 's/{msr}{false}/{msr}{true}/' \
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' \
 	    -e 's/{nimbusavail}{false}/{nimbusavail}{true}/' < $< > $@
 
 perfbook-msn.tex: $(PERFBOOK_BASE)
@@ -350,7 +354,8 @@ perfbook-msn.tex perfbook-1cmsn.tex:
 ifeq ($(NIMBUSMONO),)
 	$(error Font package 'nimbus15' not found. See #9 in FAQ-BUILD.txt)
 endif
-	sed -e 's/\\renewcommand\*\\ttdefault{lmtt}//' \
+	sed -e 's/{msn}{false}/{msn}{true}/' \
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' \
 	    -e 's/{lmttforcode}{true}/{lmttforcode}{false}/' \
 	    -e 's/{nimbusavail}{false}/{nimbusavail}{true}/' < $< > $@
 
@@ -363,7 +368,8 @@ endif
 ifeq ($(NIMBUSMONO),)
 	$(error Font package 'nimbus15' not found. See #9 in FAQ-BUILD.txt)
 endif
-	sed -e 's/%msfontstub/\\usepackage[zerostyle=a]{newtxtt}/' \
+	sed -e 's/{msnt}{false}/{msnt}{true}/' \
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' \
 	    -e 's/{qqzbg}{false}/{qqzbg}{true}/' \
 	    -e 's/{nimbusavail}{false}/{nimbusavail}{true}/' < $< > $@
 
@@ -381,8 +387,8 @@ ifeq ($(NIMBUSMONO),)
 	$(error Font package 'nimbus15' not found. See #9 in FAQ-BUILD.txt)
 endif
 	sed -e 's/setboolean{sansserif}{false}/setboolean{sansserif}{true}/' \
-	    -e 's/{nimbusavail}{false}/{nimbusavail}{true}/' \
-	    -e 's/%msfontstub/\\usepackage[var0]{inconsolata}[2013\/07\/17]/' < $< > $@
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' \
+	    -e 's/{nimbusavail}{false}/{nimbusavail}{true}/' < $< > $@
 
 perfbook-nq.tex: $(PERFBOOK_BASE)
 perfbook-sfnq.tex: perfbook-sf.tex

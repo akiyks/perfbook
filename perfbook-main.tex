@@ -12,23 +12,36 @@
 % standard packages
 
 % A more pleasant font
-\usepackage{lmodern}
-\usepackage[T1]{fontenc} % use postscript type 1 fonts
+
 \usepackage{ifthen}
+\newboolean{sansserif}
+\setboolean{sansserif}{false}
+\newcommand{\IfSansSerif}[2]{\ifthenelse{\boolean{sansserif}}%
+  {\ignorespaces#1\ignorespaces}{\ignorespaces#2\ignorespaces}}
+\newboolean{lmttforcode}
+\setboolean{lmttforcode}{true}
+\newcommand{\IfLmttForCode}[2]{\ifthenelse{\boolean{lmttforcode}}{#1}{#2}}
+\newboolean{nimbusavail}
+\setboolean{nimbusavail}{false}
+\newcommand{\IfNimbusAvail}[2]{\ifthenelse{\boolean{nimbusavail}}{#1}{#2}}
+\newboolean{msnt}
+\setboolean{msnt}{false}
+\newboolean{mstx}
+\setboolean{mstx}{false}
+\newboolean{mss}
+\setboolean{mss}{false}
+\newboolean{msr}
+\setboolean{msr}{false}
+\newboolean{msn}
+\setboolean{msn}{false}
+\newboolean{msns}
+\setboolean{msns}{false}
+\newboolean{msdefault}
+\setboolean{msdefault}{true}
+
 \newboolean{newtxoneseven}
 \setboolean{newtxoneseven}{false} % newtx version 1.7 or later (set by Makefile)
-\usepackage{iftex}
-\ifPDFTeX
-  \usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
-\else % LuaTeX or XeTeX
-  \ifthenelse{\boolean{newtxoneseven}}{ % newtx 1.7 or later needs nofontspec
-                                        % for existing font choices.
-    \usepackage[nofontspec,defaultsups,helvratio=0.9]{newtxtext}
-  }{
-    \usepackage[defaultsups,helvratio=0.9]{newtxtext}
-  }
-\fi
-\usepackage{textcomp} % use symbols in TS1 encoding
+\input{fontconfig.sty} % Load perfbook specific font config
 
 % Improves the text layout
 \usepackage{microtype}
@@ -135,19 +148,9 @@
 \newboolean{afourpaper}
 \setboolean{afourpaper}{false}
 \newcommand{\IfAfourPaper}[2]{\ifthenelse{\boolean{afourpaper}}{#1}{#2}}
-\newboolean{sansserif}
-\setboolean{sansserif}{false}
-\newcommand{\IfSansSerif}[2]{\ifthenelse{\boolean{sansserif}}%
-  {\ignorespaces#1\ignorespaces}{\ignorespaces#2\ignorespaces}}
-\newboolean{lmttforcode}
-\setboolean{lmttforcode}{true}
-\newcommand{\IfLmttForCode}[2]{\ifthenelse{\boolean{lmttforcode}}{#1}{#2}}
 \newboolean{tblcptop}
 \setboolean{tblcptop}{true}
 \newcommand{\IfTblCpTop}[2]{\ifthenelse{\boolean{tblcptop}}{#1}{#2}}
-\newboolean{nimbusavail}
-\setboolean{nimbusavail}{false}
-\newcommand{\IfNimbusAvail}[2]{\ifthenelse{\boolean{nimbusavail}}{#1}{#2}}
 \newboolean{colorlinks}
 \setboolean{colorlinks}{false}
 \newcommand{\IfColorLinks}[2]{\ifthenelse{\boolean{colorlinks}}{#1}{#2}}
@@ -304,35 +307,14 @@
 }
 }{}
 
-\IfNimbusAvail{
-\usepackage{nimbusmononarrow}
-}{}
-\renewcommand*\ttdefault{lmtt}
-%msfontstub
-
 \IfEbookSize{
   \newcommand{\OneColumnHSpace}[1]{}
 }{
   \newcommand{\OneColumnHSpace}[1]{\IfTwoColumn{}{\hspace*{#1}}}
 }
 
-\IfSansSerif{
-\renewcommand{\familydefault}{\sfdefault}
-\normalfont
-\usepackage[slantedGreek,scaled=.96]{newtxsf}
-}{
-\usepackage[slantedGreek]{newtxmath} % math package to be used with newtxtext
-% Poor person's slanted shape for roman --- newtxtext lacks slanted shape
-\AtBeginDocument{%
-  \DeclareFontShape{\encodingdefault}{\rmdefault}{m}{sl}{<-> ptmro7t}{}%
-  \DeclareFontShape{\encodingdefault}{\rmdefault}{b}{sl}{<-> ptmbo7t}{}%
-  \DeclareFontShape{\encodingdefault}{\rmdefault}{bx}{sl}{<->ssub * ptm/b/sl}{}%
-}
-}
-
 \newcommand{\LstLineNo}{\makebox[5ex][r]{\arabic{VerbboxLineNo}\hspace{2ex}}}
 
-\usepackage{bm} % for bold math mode fonts --- should be after math mode font choice
 \usepackage{booktabs}
 \usepackage{arydshln}
 \definecolor{lightgray}{gray}{0.9} % for coloring alternate rows in table

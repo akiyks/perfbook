@@ -1,0 +1,52 @@
+% font setting for perfbook
+% Not yet implemented as a proper LaTeX style file
+% included by \input{} in preamble
+
+\usepackage[T1]{fontenc} % use postscript type 1 fonts
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
+\else % LuaTeX or XeTeX
+  \ifthenelse{\boolean{newtxoneseven}}{ % newtx 1.7 or later needs nofontspec
+                                        % for existing font choices.
+    \usepackage[nofontspec,defaultsups,helvratio=0.9]{newtxtext}
+  }{
+    \usepackage[defaultsups,helvratio=0.9]{newtxtext}
+  }
+\fi
+\usepackage{textcomp} % use symbols in TS1 encoding
+
+\IfSansSerif{
+\renewcommand{\familydefault}{\sfdefault}
+\normalfont
+\usepackage[slantedGreek,scaled=.96]{newtxsf}
+}{
+\usepackage[slantedGreek]{newtxmath} % math package to be used with newtxtext
+% Poor person's slanted shape for roman --- newtxtext lacks slanted shape
+\AtBeginDocument{%
+  \DeclareFontShape{\encodingdefault}{\rmdefault}{m}{sl}{<-> ptmro7t}{}%
+  \DeclareFontShape{\encodingdefault}{\rmdefault}{b}{sl}{<-> ptmbo7t}{}%
+  \DeclareFontShape{\encodingdefault}{\rmdefault}{bx}{sl}{<->ssub * ptm/b/sl}{}%
+}
+}
+
+\IfNimbusAvail{
+\usepackage{nimbusmononarrow}
+}{}
+\ifthenelse{\boolean{msdefault}}{
+  \renewcommand*\ttdefault{lmtt}}{}
+\ifthenelse{\boolean{msnt}}{
+  \usepackage[zerostyle=a]{newtxtt}}{}
+\ifthenelse{\boolean{mstx}}{
+  \renewcommand*\ttdefault{txtt}}{}
+\ifthenelse{\boolean{mss}}{
+  \usepackage[scaled=.94]{couriers}}{}
+\ifthenelse{\boolean{msr}}{
+  \usepackage[scaled=.94]{nimbusmono}}{}
+\ifthenelse{\boolean{msn}}{}{}
+\ifthenelse{\boolean{msns}}{
+  \usepackage{courier}}{}
+\IfSansSerif{
+  \usepackage[var0]{inconsolata}[2013/07/17]}{}
+
+\usepackage{bm} % for bold math mode fonts --- should be after math mode font choice
