@@ -1,9 +1,49 @@
-% font setting for perfbook
-% Not yet implemented as a proper LaTeX style file
-% included by \input{} in preamble
+% font configs for perfbook
+% not implemented as a proper LaTeX style file
+% suppoesed to be included by \input{} in the preamble
 
-\usepackage[T1]{fontenc} % use postscript type 1 fonts
 \usepackage{iftex}
+
+\newboolean{opentypefont}
+\setboolean{opentypefont}{false}
+\ifPDFTeX
+  \usepackage[T1]{fontenc} % use postscript type 1 fonts
+\else % LuaTeX or XeTeX
+  \ifthenelse{\boolean{sansserif} \or \boolean{msdefault}}{
+    \setboolean{opentypefont}{true}}{}
+\fi
+
+\newboolean{unicodemathloaded}
+\setboolean{unicodemathloaded}{false}
+
+\ifthenelse{\boolean{opentypefont}}{ % fontspec ready font choices
+  \ifthenelse{\boolean{sansserif}}{ % TeX Gyre Heros base setting
+    \usepackage{textcomp} % use symbols in TS1 encoding
+    \renewcommand{\familydefault}{\sfdefault}
+    \normalfont
+    \usepackage[slantedGreek,scaled=.96]{newtxsf} % type1 font package
+    \usepackage[no-math]{fontspec} % No math
+    \setromanfont{TeX Gyre Termes}
+    \setsansfont{TeX Gyre Heros}[Scale=.89,WordSpace=1.05]
+    \setmainfont{TeX Gyre Heros}[Scale=.89,WordSpace=1.05]
+    \setmonofont{Inconsolatazi4}[Scale=MatchUppercase,StylisticSet=2]
+    \setboolean{nimbusavail}{false}
+    \usepackage{bm} % need bm for newtxsf (type1 math font)
+    \providecommand{\symbf}[1]{\bm{#1}} % fall back to \bm for type1 math fonts
+  }{}
+  \ifthenelse{\boolean{msdefault}}{ % TeX Gyre Termes (Times clone) based
+				    % full opentype setting
+    \usepackage{unicode-math}
+    \setboolean{unicodemathloaded}{true}
+    \setmainfont{TeX Gyre Termes}[WordSpace=1.115,Scale=.99]
+    % "TeX Gyre Termes Math" has peculiar looking kernning around "f".
+    % Use STIX Two Math as an alternative.
+    \setmathfont{STIX Two Math}[math-style=ISO,Scale=MatchUppercase,BoldFont={XITSMath-Bold}]
+    \setsansfont{TeX Gyre Heros}[Scale=MatchUppercase,WordSpace=1.05]
+    \setmonofont{LMMono10-Regular}[Scale=.97,BoldFont={LMMonoLt10-Bold}]
+    \setboolean{nimbusavail}{false}
+  }{}
+}{ % font choices incompatible with fontspec + opentype fonts
 \ifPDFTeX
   \usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
 \else % LuaTeX or XeTeX
@@ -14,7 +54,6 @@
     \usepackage[defaultsups,helvratio=0.9]{newtxtext}
   }
 \fi
-\usepackage{textcomp} % use symbols in TS1 encoding
 
 \IfSansSerif{
 \renewcommand{\familydefault}{\sfdefault}
@@ -50,3 +89,5 @@
   \usepackage[var0]{inconsolata}[2013/07/17]}{}
 
 \usepackage{bm} % for bold math mode fonts --- should be after math mode font choice
+\providecommand{\symbf}[1]{\bm{#1}} % fall back to \bm for type1 math fonts
+}
