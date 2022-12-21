@@ -5,6 +5,9 @@
 \usepackage{pst-eps}
 \usepackage{multido}
 \usepackage{calc}
+\usepackage[helvratio=0.9]{newtxtext}
+\renewcommand{\familydefault}{\sfdefault}
+\normalfont
 
 \begin{document}
 \thispagestyle{empty}
@@ -33,7 +36,7 @@
         \setcounter{itemid}{\idx + 1}
         % Philosophers
         \pscircle[fillcolor=PhColor,fillstyle=solid]([nodesep=4,angle=\arabic{degp}]O){.7}
-        \rput([nodesep=4, angle=\arabic{degp}]O){P\arabic{itemid}}
+        \rput([nodesep=4, angle=\arabic{degp}]O){\large P\arabic{itemid}}
         % Fork1
         \setcounter{degf}{\value{degp} + 15}
         \psline([nodesep=3.8, angle=\arabic{degf}]O)([nodesep=2.8, angle=\arabic{degf}]O)
