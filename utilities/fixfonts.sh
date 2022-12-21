@@ -19,25 +19,28 @@
 # Copyright (c) 2019 Paul E. McKenney, Facebook.
 # Copyright (c) 2018, 2021 Akira Yokosawa
 
-sed	-e 's+Times-Roman-BoldItalic+NimbusSanL-BoldItal+g' \
+sed	-e 's+Times-Roman-iso+NimbusSans-iso+g' \
+	-e 's+Times-Roman-BoldItalic+NimbusSanL-BoldItal+g' \
 	-e 's+Times-Roman-Italic+NimbusSanL-ReguItal+g' \
 	-e 's+Times-Roman-Bold+NimbusSanL-Bold+g' \
 	-e 's+Times-Roman+NimbusSanL-Regu+g' \
 	-e 's+Times+NimbusSanL-Regu+g' \
 	-e 's+Helvetica-BoldOblique+NimbusSanL-BoldItal+g' \
 	-e 's+Helvetica-Oblique+NimbusSanL-ReguItal+g' \
-	-e 's+Helvetica-Bold-iso+NimbusSanL-Bold+g' \
+	-e 's+Helvetica-Bold-iso+NimbusSans-Bold-iso+g' \
 	-e 's+Helvetica-Bold+NimbusSanL-Bold+g' \
-	-e 's+Helvetica-Narrow-BoldOblique-iso+NimbusSanL-BoldCondItal+g' \
+	-e 's+Helvetica-Narrow-BoldOblique-iso+NimbusSans-Narrow-BoldOblique-iso+g' \
 	-e 's+Helvetica-Narrow-BoldOblique+NimbusSanL-BoldCondItal+g' \
-	-e 's+Helvetica-Narrow-Oblique-iso+NimbusSanL-ReguCondItal+g' \
+	-e 's+Helvetica-Narrow-Oblique-iso+NimbusSans-Narrow-Oblique-iso+g' \
 	-e 's+Helvetica-Narrow-Oblique+NimbusSanL-ReguCondItal+g' \
-	-e 's+Helvetica-Narrow-Bold-iso+NimbusSanL-BoldCond+g' \
+	-e 's+Helvetica-Narrow-Bold-iso+NimbusSans-Narrow-Bold-iso+g' \
 	-e 's+Helvetica-Narrow-Bold+NimbusSanL-BoldCond+g' \
-	-e 's+Helvetica-Narrow-iso+NimbusSanL-ReguCond+g' \
+	-e 's+Helvetica-Narrow-iso+NimbusSans-Narrow-iso+g' \
 	-e 's+Helvetica-Narrow+NimbusSanL-ReguCond+g' \
-	-e 's+Helvetica-iso+NimbusSanL-Regu+g' \
+	-e 's+Helvetica-iso+NimbusSans-iso+g' \
 	-e 's+Helvetica+NimbusSanL-Regu+g' \
+	-e 's+Courier-iso+NimbusMono-iso+g' \
+	-e 's+Courier-Bold-iso+NimbusMono-Bold-iso+g' \
 	-e 's+Courier-BoldOblique+NimbusMonL-BoldObli+g' \
 	-e 's+Courier-Oblique+NimbusMonL-ReguObli+g' \
 	-e 's+Courier-Bold+NimbusMonL-Bold+g' \
