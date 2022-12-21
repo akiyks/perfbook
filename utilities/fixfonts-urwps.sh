@@ -21,25 +21,28 @@
 # Copyright (c) 2019 Paul E. McKenney, Facebook.
 # Copyright (c) 2018, 2021 Akira Yokosawa.
 
-sed	-e 's+Times-Roman-BoldItalic+NimbusSans-BoldItalic+g' \
+sed	-e 's+Times-Roman-iso+NimbusSans-iso+g' \
+	-e 's+Times-Roman-BoldItalic+NimbusSans-BoldItalic+g' \
 	-e 's+Times-Roman-Italic+NimbusSans-Italic+g' \
 	-e 's+Times-Roman-Bold+NimbusSans-Bold+g' \
 	-e 's+Times-Roman+NimbusSans-Regular+g' \
 	-e 's+Times+NimbusSans-Regular+g' \
+	-e 's+Helvetica-iso+NimbusSans-iso+g' \
+	-e 's+Helvetica-Bold-iso+NimbusSans-Bold-iso+g' \
 	-e 's+Helvetica-BoldOblique+NimbusSans-BoldItalic+g' \
 	-e 's+Helvetica-Oblique+NimbusSans-Italic+g' \
-	-e 's+Helvetica-Bold-iso+NimbusSans-Bold+g' \
 	-e 's+Helvetica-Bold+NimbusSans-Bold+g' \
-	-e 's+Helvetica-Narrow-BoldOblique-iso+NimbusSansNarrow-BdOblique+g' \
+	-e 's+Helvetica-Narrow-BoldOblique-iso+NimbusSans-Narrow-BdOblique-iso+g' \
 	-e 's+Helvetica-Narrow-BoldOblique+NimbusSansNarrow-BdOblique+g' \
-	-e 's+Helvetica-Narrow-Oblique-iso+NimbusSansNarrow-Oblique+g' \
+	-e 's+Helvetica-Narrow-Oblique-iso+NimbusSans-Narrow-Oblique-iso+g' \
 	-e 's+Helvetica-Narrow-Oblique+NimbusSansNarrow-Oblique+g' \
-	-e 's+Helvetica-Narrow-Bold-iso+NimbusSansNarrow-Bold+g' \
+	-e 's+Helvetica-Narrow-Bold-iso+NimbusSans-Narrow-Bold-iso+g' \
 	-e 's+Helvetica-Narrow-Bold+NimbusSansNarrow-Bold+g' \
-	-e 's+Helvetica-Narrow-iso+NimbusSansNarrow-Regular+g' \
+	-e 's+Helvetica-Narrow-iso+NimbusSans-Narrow-iso+g' \
 	-e 's+Helvetica-Narrow+NimbusSansNarrow-Regular+g' \
-	-e 's+Helvetica-iso+NimbusSans-Regular+g' \
 	-e 's+Helvetica+NimbusSans-Regular+g' \
+	-e 's+Courier-iso+NimbusMono-iso+g' \
+	-e 's+Courier-Bold-iso+NimbusMono-Bold-iso+g' \
 	-e 's+Courier-BoldOblique+NimbusMonoPS-BoldItalic+g' \
 	-e 's+Courier-Oblique+NimbusMonoPS-Italic+g' \
 	-e 's+Courier-Bold+NimbusMonoPS-Bold+g' \
