@@ -103,7 +103,7 @@ BIBSOURCES := bib/*.bib alphapf.bst
 # required commands
 LATEX_CMD := $(shell which $(LATEX) 2>/dev/null)
 DOT := $(shell which dot 2>/dev/null)
-FIG2EPS := $(shell which fig2eps 2>/dev/null)
+FIG2DEV := $(shell which fig2dev 2>/dev/null)
 INKSCAPE := $(shell which inkscape 2>/dev/null)
 ifdef INKSCAPE
   INKSCAPE_ONE := $(shell inkscape --version 2>/dev/null | grep -c "Inkscape 1")
@@ -141,10 +141,12 @@ endef
 ifeq ($(URWPS),0)
 FIXSVGFONTS   = utilities/fixsvgfonts.sh
 FIXANEPSFONTS = utilities/fixanepsfonts.sh
+FIXFIG2DEVFONTS = utilities/fixfig2devfonts.sh
 FIXFONTS      = utilities/fixfonts.sh
 else
 FIXSVGFONTS   = utilities/fixsvgfonts-urwps.sh
 FIXANEPSFONTS = utilities/fixanepsfonts-urwps.sh
+FIXFIG2DEVFONTS = utilities/fixfig2devfonts-urwps.sh
 FIXFONTS      = utilities/fixfonts-urwps.sh
 endif
 ifeq ($(FREESANS),0)
@@ -422,13 +424,11 @@ perfbook-a4.tex: perfbook-main.tex
 
 # Rules related to perfbook_html are removed as of May, 2016
 
-$(EPSSOURCES_FROM_TEX): $(FIXANEPSFONTS) $(FIXFONTS)
 $(EPSSOURCES_FROM_TEX): %.eps: %.tex
 	@echo "$< --> $(suffix $@)"
 	sh utilities/mpostcheck.sh
 	@latex -output-directory=$(shell dirname $<) $< > /dev/null 2>&1
 	@dvips -Pdownload35 -E $(patsubst %.tex,%.dvi,$<) -o $@ > /dev/null 2>&1
-	@sh $(FIXANEPSFONTS) $@
 
 $(EPSSOURCES_FROM_DOT): $(FIXANEPSFONTS) $(FIXFONTS)
 $(EPSSOURCES_FROM_DOT): %.eps: %.dot
@@ -439,14 +439,19 @@ endif
 	@dot -Tps -o $@ $<
 	@sh $(FIXANEPSFONTS) $@
 
-$(EPSSOURCES_FROM_FIG): $(FIXANEPSFONTS) $(FIXFONTS)
+ifdef FIG2DEV
+FIXFONTS_FOR_FIG = $(FIXFIG2DEVFONTS)
+endif
+
+$(EPSSOURCES_FROM_FIG): $(FIXFONTS_FOR_FIG)
 $(EPSSOURCES_FROM_FIG): %.eps: %.fig
 	@echo "$< --> $(suffix $@)"
-ifndef FIG2EPS
-	$(error $< --> $@: fig2eps not found. Please install fig2ps)
+ifdef FIG2DEV
+	@fig2dev -L eps $< $@
+	@sh $(FIXFIG2DEVFONTS) $@
+else
+	$(error $< --> $@: fig2dev not found. Please install xfig or transfig (or fig2dev))
 endif
-	@fig2eps --nogv $< > /dev/null 2>&1
-	@sh $(FIXANEPSFONTS) $@
 
 # .eps --> .pdf rules
 ifdef USE_A2PING
