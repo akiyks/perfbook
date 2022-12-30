@@ -103,7 +103,6 @@ BIBSOURCES := bib/*.bib alphapf.bst
 # required commands
 LATEX_CMD := $(shell which $(LATEX) 2>/dev/null)
 DOT := $(shell which dot 2>/dev/null)
-FIG2EPS := $(shell which fig2eps 2>/dev/null)
 FIG2DEV := $(shell which fig2dev 2>/dev/null)
 INKSCAPE := $(shell which inkscape 2>/dev/null)
 ifdef INKSCAPE
@@ -426,23 +425,18 @@ endif
 	@dot -Tps -o $@ $<
 	@sh $(FIXANEPSFONTS) $@
 
-ifdef FIG2EPS
-FIXFONTS_FOR_FIG = $(FIXANEPSFONTS) $(FIXFONTS)
-else ifdef FIG2DEV
+ifdef FIG2DEV
 FIXFONTS_FOR_FIG = $(FIXFIG2DEVFONTS)
 endif
 
 $(EPSSOURCES_FROM_FIG): $(FIXFONTS_FOR_FIG)
 $(EPSSOURCES_FROM_FIG): %.eps: %.fig
 	@echo "$< --> $(suffix $@)"
-ifdef FIG2EPS
-	@fig2eps --nogv $< > /dev/null 2>&1
-	@sh $(FIXANEPSFONTS) $@
-else ifdef FIG2DEV
+ifdef FIG2DEV
 	@fig2dev -L eps $< $@
 	@sh $(FIXFIG2DEVFONTS) $@
 else
-	$(error $< --> $@: Neither fig2eps or fig2dev found. Please install fig2ps or transfig (or fig2dev))
+	$(error $< --> $@: fig2dev not found. Please install xfig or transfig (or fig2dev))
 endif
 
 # .eps --> .pdf rules
