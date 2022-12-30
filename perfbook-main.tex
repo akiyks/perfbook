@@ -1,9 +1,9 @@
 \documentclass[10pt,twocolumn,letterpaper]{pfbook} % book class customized for perfbook
 % For arxiv.org, must be on or before line 5:
-\pdfoutput=1
+\ifdefined\pdfoutput \pdfoutput=1 \fi
 
 % To accomodate change in Ghostscript 9.26 (default output: PDF 1.7)
-\pdfminorversion=7
+\ifdefined\pdfminorversion \pdfminorversion=7 \fi
 
 % Suppress warning emitted when multiple figures drawn by inkscape appear
 % within a page. See: https://tex.stackexchange.com/questions/183149/
@@ -12,10 +12,36 @@
 % standard packages
 
 % A more pleasant font
-\usepackage{lmodern}
-\usepackage[T1]{fontenc} % use postscript type 1 fonts
-\usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
-\usepackage{textcomp} % use symbols in TS1 encoding
+
+\usepackage{ifthen}
+\newboolean{sansserif}
+\setboolean{sansserif}{false}
+\newcommand{\IfSansSerif}[2]{\ifthenelse{\boolean{sansserif}}%
+  {\ignorespaces#1\ignorespaces}{\ignorespaces#2\ignorespaces}}
+\newboolean{lmttforcode}
+\setboolean{lmttforcode}{true}
+\newcommand{\IfLmttForCode}[2]{\ifthenelse{\boolean{lmttforcode}}{#1}{#2}}
+\newboolean{nimbusavail}
+\setboolean{nimbusavail}{false}
+\newcommand{\IfNimbusAvail}[2]{\ifthenelse{\boolean{nimbusavail}}{#1}{#2}}
+\newboolean{msnt}
+\setboolean{msnt}{false}
+\newboolean{mstx}
+\setboolean{mstx}{false}
+\newboolean{mss}
+\setboolean{mss}{false}
+\newboolean{msr}
+\setboolean{msr}{false}
+\newboolean{msn}
+\setboolean{msn}{false}
+\newboolean{msns}
+\setboolean{msns}{false}
+\newboolean{msdefault}
+\setboolean{msdefault}{true}
+
+\newboolean{newtxoneseven}
+\setboolean{newtxoneseven}{false} % newtx version 1.7 or later (set by Makefile)
+\input{fontconfig.sty} % Load perfbook specific font config
 
 % Improves the text layout
 \usepackage{microtype}
@@ -44,7 +70,6 @@
 \newlist{sequence}{enumerate}{10}
 \setlist[sequence]{label*=\arabic*}
 %\usepackage{enumerate}
-\usepackage{ifthen}
 \usepackage[table,svgnames]{xcolor}
 \usepackage[shortcuts]{extdash}
 \usepackage{changepage}
@@ -53,7 +78,7 @@
 % \usepackage[strings]{underscore}
 % \usepackage{underscore}
 \usepackage{pifont} % symbols for qqz reference points and carriagereturn
-\usepackage{gensymb} % symbols for both text and math modes such as \degree and \micro
+%\usepackage{gensymb} % symbols for both text and math modes such as \degree and \micro
 \usepackage{verbatimbox}[2014/01/30] % for centering verbatim listing in figure environment
 \usepackage{amsmath} % lineno v5.0 (loaded via fvextra) needs amsmath in front
 \usepackage{fancyvrb}
@@ -91,8 +116,14 @@
 \setlength{\epigraphwidth}{2.6in}
 \usepackage[xspace]{ellipsis}
 \usepackage{braket} % for \ket{} macro in QC section
-\usepackage{siunitx} % for \num{} macro
+\ifthenelse{\boolean{unicodemathloaded}}{
+\usepackage{siunitx} % for \num{}, \unit{}, and \qty{} macros and "S" column in tabular
+}{
+\usepackage{siunitx}[=v2] % siunitx >= 3.0 needs unicode math fonts
+}
 \sisetup{group-minimum-digits=4,group-separator={,},group-digits=integer}
+\providecommand{\unit}{\si} % for siunitx < 3.0
+\providecommand{\qty}{\SI} % for siunitx < 3.0
 \usepackage{multirow}
 \usepackage{noindentafter}
 \NoIndentAfterCmd{\epigraph}
@@ -129,19 +160,9 @@
 \newboolean{afourpaper}
 \setboolean{afourpaper}{false}
 \newcommand{\IfAfourPaper}[2]{\ifthenelse{\boolean{afourpaper}}{#1}{#2}}
-\newboolean{sansserif}
-\setboolean{sansserif}{false}
-\newcommand{\IfSansSerif}[2]{\ifthenelse{\boolean{sansserif}}%
-  {\ignorespaces#1\ignorespaces}{\ignorespaces#2\ignorespaces}}
-\newboolean{lmttforcode}
-\setboolean{lmttforcode}{true}
-\newcommand{\IfLmttForCode}[2]{\ifthenelse{\boolean{lmttforcode}}{#1}{#2}}
 \newboolean{tblcptop}
 \setboolean{tblcptop}{true}
 \newcommand{\IfTblCpTop}[2]{\ifthenelse{\boolean{tblcptop}}{#1}{#2}}
-\newboolean{nimbusavail}
-\setboolean{nimbusavail}{false}
-\newcommand{\IfNimbusAvail}[2]{\ifthenelse{\boolean{nimbusavail}}{#1}{#2}}
 \newboolean{colorlinks}
 \setboolean{colorlinks}{false}
 \newcommand{\IfColorLinks}[2]{\ifthenelse{\boolean{colorlinks}}{#1}{#2}}
@@ -298,35 +319,14 @@
 }
 }{}
 
-\IfNimbusAvail{
-\usepackage{nimbusmononarrow}
-}{}
-\renewcommand*\ttdefault{lmtt}
-%msfontstub
-
 \IfEbookSize{
   \newcommand{\OneColumnHSpace}[1]{}
 }{
   \newcommand{\OneColumnHSpace}[1]{\IfTwoColumn{}{\hspace*{#1}}}
 }
 
-\IfSansSerif{
-\renewcommand{\familydefault}{\sfdefault}
-\normalfont
-\usepackage[slantedGreek,scaled=.96]{newtxsf}
-}{
-\usepackage[slantedGreek]{newtxmath} % math package to be used with newtxtext
-% Poor person's slanted shape for roman --- newtxtext lacks slanted shape
-\AtBeginDocument{%
-  \DeclareFontShape{\encodingdefault}{\rmdefault}{m}{sl}{<-> ptmro7t}{}%
-  \DeclareFontShape{\encodingdefault}{\rmdefault}{b}{sl}{<-> ptmbo7t}{}%
-  \DeclareFontShape{\encodingdefault}{\rmdefault}{bx}{sl}{<->ssub * ptm/b/sl}{}%
-}
-}
-
 \newcommand{\LstLineNo}{\makebox[5ex][r]{\arabic{VerbboxLineNo}\hspace{2ex}}}
 
-\usepackage{bm} % for bold math mode fonts --- should be after math mode font choice
 \usepackage{booktabs}
 \usepackage{arydshln}
 \definecolor{lightgray}{gray}{0.9} % for coloring alternate rows in table
@@ -450,7 +450,7 @@
     \IfAfourPaper{
       \usepackage[a4paper,body={6.5in,8.25in},twocolumn,columnsep=0.25in]{geometry}
     }{
-      \usepackage[letterpaper,body={6.5in,8.25in},twocolumn,columnsep=0.25in]{geometry}      
+      \usepackage[letterpaper,body={6.5in,8.25in},twocolumn,columnsep=0.25in]{geometry}
 }}}{ % One Column
   \setlength{\twocolumnwidth}{3.125in}
   \IfEbookSize {

@@ -1,0 +1,31 @@
+% Loaded by \input{} from itemize environment
+\item Vector variable in bold
+\begin{VerbatimU}[breaklines=true]
+\[ \symbf{v = \ln u} \]
+\end{VerbatimU}
+    \[ \symbf{v = \ln u} \]
+    This is not rendered as intended in type1 math settings where
+    \verb|\symbf| is defined by using \verb|\bm|.
+\item Portable version of above:
+\begin{VerbatimU}[breaklines=true]
+\[ \symbf v = \ln \symbf u \]
+\end{VerbatimU}
+    \[ \symbf v = \ln \symbf u \]
+\item Variables in English and Greek:
+    \[ 4g + 3v + 2w + 5y + 4\nu + 5\omega \]
+    \[ 4\symbf g + 3\symbf v + 2\symbf w + 5\symbf y +
+       4\symbf\nu + 5\symbf\omega \]
+\item Variable $f$:
+    \[ x = 2f + C \]
+\item Expression in \cref{sec:debuggingStatistics for Continuous Testing}:
+    \[ F_{i \le m} = \sum_{i=0}^m \frac{\lambda^i}{i!} \euler^{-\lambda} \]
+\item Example 1 from newtxdoc:
+    \[ t \left[ u_1,\dotsc,u_n \right] =
+    \sum_{k=1}^n
+    \begin{pmatrix}
+	n - 1 \\ k - 1 \\
+    \end{pmatrix}
+    ( 1 - t )^{n-k} t^{k-1} u_k \]
+\item Example 2 (ISO style) from newtxdoc:
+    \[ \Phi(u) = \frac{1}{\sqrt{2\uppi}}
+    \int_{-\infty}^u \euler^{-t^2 / 2} \mathrm{d}t \]

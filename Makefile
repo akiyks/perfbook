@@ -4,7 +4,7 @@ LATEX ?= pdflatex
 GITREFSTAGS := $(shell ls -d .git/refs/tags 2>/dev/null)
 
 LATEXSOURCES = \
-	perfbook-lt.tex \
+	perfbook-main.tex fontconfig.sty \
 	legal.tex \
 	summary.tex \
 	glossary.tex \
@@ -34,7 +34,7 @@ EBTARGETS := $(foreach v,nq sf sfnq ix df,eb$(v))
 ABBREVTARGETS := lt hb a4 1c tcb msns mss eb $(TWOCOLTARGETS) $(foreach v,$(TWOCOLTARGETS),1c$(v)) $(EBTARGETS)
 
 PDFTARGETS := perfbook.pdf $(foreach v,$(ABBREVTARGETS),perfbook-$(v).pdf)
-GENERATED_MAIN := $(filter-out perfbook-lt.tex,$(foreach v,$(ABBREVTARGETS),perfbook-$(v).tex)) perfbook.tex
+GENERATED_MAIN := perfbook.tex $(foreach v,$(ABBREVTARGETS),perfbook-$(v).tex)
 
 EPSSOURCES_FROM_TEX := \
 	SMPdesign/DiningPhilosopher5.eps \
@@ -118,6 +118,12 @@ URWPS := $(shell fc-list | grep "Nimbus Mono PS" | wc -l)
 # required font packages
 FONTPACKAGES := $(shell kpsewhich newtxtext.sty nimbusmono.sty newtxtt.sty newtxsf.sty inconsolata.sty couriers.sty)
 NEWTXTEXT := $(findstring newtxtext,$(FONTPACKAGES))
+NEWTXTEXT_1_7 := $(shell grep -F "fileversion{1.7" `kpsewhich newtxtext.sty` /dev/null | wc -l)
+ifeq ($(NEWTXTEXT_1_7),0)
+  NEWTXPTN := -e 's/DUMMY_PATTERN_DEADBEAF/DUMMY_PATTERN_DEADBEAF/'
+else
+  NEWTXPTN := -e 's/setboolean{newtxoneseven}{false}/setboolean{newtxoneseven}{true}/'
+endif
 NIMBUSMONO := $(findstring nimbusmono,$(FONTPACKAGES))
 NEWTXTT := $(findstring newtxtt,$(FONTPACKAGES))
 COURIERS := $(findstring couriers,$(FONTPACKAGES))
@@ -190,7 +196,7 @@ else
 endif
 endif
 
-BASE_DEPENDS := perfbook.tex $(foreach v,tcb 1c msns mss mstx msr msn msnt sf nq ix df,perfbook-$(v).tex)
+PAPER_BASE := $(foreach v,lt a4 hb eb,perfbook-$(v).tex)
 
 .PHONY: all touchsvg clean distclean neatfreak 2c ls-unused $(ABBREVTARGETS)
 .PHONY: mslm perfbook-mslm.pdf mslmmsg
@@ -283,7 +289,7 @@ endif
 	echo > qqz.tex
 	echo > contrib.tex
 	echo > origpub.tex
-	latexpand --empty-comments perfbook-lt.tex 1> $@ 2> /dev/null
+	latexpand --empty-comments perfbook-main.tex 1> $@ 2> /dev/null
 
 qqz.tex: perfbook_flat.tex
 	sh utilities/extractqqz.sh < $< | perl utilities/qqzreorder.pl > $@
@@ -308,26 +314,29 @@ perfbook-tcb.tex: $(PERFBOOK_BASE)
 perfbook-1c.tex: $(PERFBOOK_BASE)
 	sed -e 's/setboolean{twocolumn}{true}/setboolean{twocolumn}{false}/' < $< > $@
 
-perfbook-hb.tex: perfbook-lt.tex
-	sed -e 's/setboolean{hardcover}{false}/setboolean{hardcover}{true}/' < $< > $@
+perfbook-hb.tex: perfbook-main.tex
+	sed $(NEWTXPTN) -e 's/setboolean{hardcover}{false}/setboolean{hardcover}{true}/' < $< > $@
 
-perfbook-eb.tex: perfbook-lt.tex
-	sed -e 's/setboolean{ebooksize}{false}/setboolean{ebooksize}{true}/' < $< > $@
+perfbook-eb.tex: perfbook-main.tex
+	sed $(NEWTXPTN) -e 's/setboolean{ebooksize}{false}/setboolean{ebooksize}{true}/' < $< > $@
 	sed -i 's/setboolean{twocolumn}{true}/setboolean{twocolumn}{false}/' $@
 
 perfbook-msns.tex: $(PERFBOOK_BASE)
-	sed -e 's/%msfontstub/\\usepackage{courier}/' < $< > $@
+	sed -e 's/{msns}{false}/{msns}{true}/' \
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' < $< > $@
 
 perfbook-mss.tex: $(PERFBOOK_BASE)
 ifeq ($(COURIERS),)
 	$(error Font package 'courier-scaled' not found. See #9 in FAQ-BUILD.txt)
 endif
-	sed -e 's/%msfontstub/\\usepackage[scaled=.94]{couriers}/' < $< > $@
+	sed -e 's/{mss}{false}/{mss}{true}/' \
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' < $< > $@
 
 perfbook-mstx.tex: $(PERFBOOK_BASE)
 perfbook-1cmstx.tex: perfbook-1c.tex
 perfbook-mstx.tex perfbook-1cmstx.tex:
-	sed -e 's/%msfontstub/\\renewcommand*\\ttdefault{txtt}/' < $< > $@
+	sed -e 's/{mstx}{false}/{mstx}{true}/' \
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' < $< > $@
 
 perfbook-msr.tex: $(PERFBOOK_BASE)
 perfbook-1cmsr.tex: perfbook-1c.tex
@@ -335,7 +344,8 @@ perfbook-msr.tex perfbook-1cmsr.tex:
 ifeq ($(NIMBUSMONO),)
 	$(error Font package 'nimbus15' not found. See #9 in FAQ-BUILD.txt)
 endif
-	sed -e 's/%msfontstub/\\usepackage[scaled=.94]{nimbusmono}/' \
+	sed -e 's/{msr}{false}/{msr}{true}/' \
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' \
 	    -e 's/{nimbusavail}{false}/{nimbusavail}{true}/' < $< > $@
 
 perfbook-msn.tex: $(PERFBOOK_BASE)
@@ -344,7 +354,8 @@ perfbook-msn.tex perfbook-1cmsn.tex:
 ifeq ($(NIMBUSMONO),)
 	$(error Font package 'nimbus15' not found. See #9 in FAQ-BUILD.txt)
 endif
-	sed -e 's/\\renewcommand\*\\ttdefault{lmtt}//' \
+	sed -e 's/{msn}{false}/{msn}{true}/' \
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' \
 	    -e 's/{lmttforcode}{true}/{lmttforcode}{false}/' \
 	    -e 's/{nimbusavail}{false}/{nimbusavail}{true}/' < $< > $@
 
@@ -357,7 +368,8 @@ endif
 ifeq ($(NIMBUSMONO),)
 	$(error Font package 'nimbus15' not found. See #9 in FAQ-BUILD.txt)
 endif
-	sed -e 's/%msfontstub/\\usepackage[zerostyle=a]{newtxtt}/' \
+	sed -e 's/{msnt}{false}/{msnt}{true}/' \
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' \
 	    -e 's/{qqzbg}{false}/{qqzbg}{true}/' \
 	    -e 's/{nimbusavail}{false}/{nimbusavail}{true}/' < $< > $@
 
@@ -375,8 +387,8 @@ ifeq ($(NIMBUSMONO),)
 	$(error Font package 'nimbus15' not found. See #9 in FAQ-BUILD.txt)
 endif
 	sed -e 's/setboolean{sansserif}{false}/setboolean{sansserif}{true}/' \
-	    -e 's/{nimbusavail}{false}/{nimbusavail}{true}/' \
-	    -e 's/%msfontstub/\\usepackage[var0]{inconsolata}[2013\/07\/17]/' < $< > $@
+	    -e 's/{msdefault}{true}/{msdefault}{false}/' \
+	    -e 's/{nimbusavail}{false}/{nimbusavail}{true}/' < $< > $@
 
 perfbook-nq.tex: $(PERFBOOK_BASE)
 perfbook-sfnq.tex: perfbook-sf.tex
@@ -402,9 +414,11 @@ perfbook-df.tex perfbook-1cdf.tex perfbook-ebdf.tex:
 	sed -e 's/setboolean{qqzbg}{true}/setboolean{qqzbg}{false}/' \
 	    -e 's/setboolean{indexon}{true}/setboolean{indexon}{false}/' < $< > $@
 
-perfbook-a4.tex: perfbook-lt.tex
-perfbook-a4.tex:
-	sed -e 's/{afourpaper}{false}/{afourpaper}{true}/' < $< > $@
+perfbook-lt.tex: perfbook-main.tex
+	sed $(NEWTXPTN) < $< > $@
+
+perfbook-a4.tex: perfbook-main.tex
+	sed $(NEWTXPTN) -e 's/{afourpaper}{false}/{afourpaper}{true}/' < $< > $@
 
 # Rules related to perfbook_html are removed as of May, 2016
 
@@ -582,7 +596,7 @@ clean:
 	@rm -f $(OBSOLETE_FILES) $(EPSSOURCES_TMP)
 
 paper-clean:
-	rm -f $(BASE_DEPENDS)
+	rm -f $(PAPER_BASE)
 
 distclean: clean
 	sh utilities/cleanpdf.sh
