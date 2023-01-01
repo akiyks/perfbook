@@ -7,6 +7,9 @@
 \newboolean{opentypefont}
 \setboolean{opentypefont}{false}
 \ifPDFTeX
+  \usepackage[full]{textcomp}
+  \usepackage{biolinum} % for epigraph text
+  \usepackage{lmodern}
   \usepackage[T1]{fontenc} % use postscript type 1 fonts
 \else % LuaTeX or XeTeX
   \ifthenelse{\boolean{sansserif} \or \boolean{msdefault}}{
@@ -23,6 +26,7 @@
     \normalfont
     \usepackage[slantedGreek,scaled=.96]{newtxsf} % type1 font package
     \usepackage[no-math]{fontspec} % No math
+    \usepackage{biolinum} % for epigraph text
     \setromanfont{TeX Gyre Termes}
     \setsansfont{TeX Gyre Heros}[Scale=.89,WordSpace=1.05]
     \setmainfont{TeX Gyre Heros}[Scale=.89,WordSpace=1.05]
@@ -35,6 +39,7 @@
 				    % full opentype setting
     \usepackage{unicode-math}
     \setboolean{unicodemathloaded}{true}
+    \usepackage{biolinum} % for epigraph text
     \setmainfont{TeX Gyre Termes}[WordSpace=1.115,Scale=.99]
     % "TeX Gyre Termes Math" has peculiar looking kernning around "f".
     % Use STIX Two Math as an alternative.
