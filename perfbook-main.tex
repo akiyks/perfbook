@@ -43,6 +43,11 @@
 \setboolean{newtxoneseven}{false} % newtx version 1.7 or later (set by Makefile)
 \input{fontconfig.sty} % Load perfbook specific font config
 
+% mitigate harmless warnings from tcolorbox >=v6.0.0 (for lualatex)
+\ifluatex
+  \usepackage{luacolor}
+\fi
+
 % Improves the text layout
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
