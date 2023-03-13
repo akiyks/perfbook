@@ -9,7 +9,7 @@
 TARGETS=${TARGETS:-2c 1c eb}
 JOBS=${JOBS:-4}
 TMP=${TMP:-/tmp}
-REFMAKE=${REFMAKE:-make -f Makefile.2022.01.25}
+REFMAKE=${REFMAKE:-make WHICH=which -f Makefile.2022.01.25}
 export LATEX_OPT=-synctex=1
 
 copy_synctex_db () {
