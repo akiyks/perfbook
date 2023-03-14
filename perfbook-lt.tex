@@ -35,6 +35,10 @@
     \usepackage[defaultsups,helvratio=0.9]{newtxtext}
   }
 \fi
+% suppress harmless warnings from tcolorbox >=v6.0.0 (for lualatex)
+\ifLuaTeX
+  \usepackage{luacolor}
+\fi
 
 % Improves the text layout
 \usepackage{microtype}
