@@ -37,6 +37,14 @@ then
 	exit 1
 fi
 
+# check if we have newtxtext
+newtxtext_sty=`kpsewhich newtxtext.sty`
+if [ "$newtxtext_sty" = "" ]
+then
+	echo "Error: package 'newtx' not found. See #5 in FAQ-BUILD.txt." >&2
+	exit 1
+fi
+
 # check if we are in git repository
 if ! test -e .git
 then
@@ -131,4 +139,13 @@ env printf '%% tcolorbox version: %s\n' $tcbversion >> $fn
 if [ $(echo $tcbversion $tcbold | awk '{if ($1 > $2) print 1;}') ] ;
 then
 	env printf '\\tcbsetforeverylayer{autoparskip}\n' >> $fn
+fi
+
+# set boolean indicating newtxtext >= 1.7
+newtxversion=`grep -F 'fileversion{' $newtxtext_sty | sed -e 's/.*version{\([0-9]\+\.[0-9]\+\)}/\1/g'`
+newtx_preotf=1.69
+env printf '%% newtxtext version: %s\n' $newtxversion >> $fn
+if [ $(echo $newtxversion $newtx_preotf | awk '{if ($1 > $2) print 1;}') ] ;
+then
+	env printf '\\setboolean{newtxoneseven}{true}\n' >> $fn
 fi

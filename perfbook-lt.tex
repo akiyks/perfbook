@@ -15,7 +15,26 @@
 \usepackage[full]{textcomp} % use symbols in TS1 encoding
 \usepackage{lmodern}
 \usepackage[T1]{fontenc} % use postscript type 1 fonts
-\usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
+\usepackage{ifthen}
+\newboolean{newtxoneseven}
+\setboolean{newtxoneseven}{false} % newtx version 1.7 or later (set by autodate.sh)
+\newboolean{qqzbg}
+\setboolean{qqzbg}{true} % overriden by target specific setting
+\newcommand{\IfQqzBg}[2]{\ifthenelse{\boolean{qqzbg}}{#1}{#2}}
+\usepackage[table,svgnames]{xcolor}
+\usepackage[breakable,skins]{tcolorbox} % need to be ahead of tcolorbox
+\input{autodate} % need to input here to get package version status
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
+\else % luatex or xetex
+  \ifthenelse{\boolean{newtxoneseven}}{ % newtx 1.7 or later needs nofontspec
+                                        % to keep existing font choices
+    \usepackage[defaultsups,helvratio=0.9,nofontspec]{newtxtext}
+  }{
+    \usepackage[defaultsups,helvratio=0.9]{newtxtext}
+  }
+\fi
 
 % Improves the text layout
 \usepackage{microtype}
@@ -44,8 +63,6 @@
 \newlist{sequence}{enumerate}{10}
 \setlist[sequence]{label*=\arabic*}
 %\usepackage{enumerate}
-\usepackage{ifthen}
-\usepackage[table,svgnames]{xcolor}
 \usepackage[shortcuts]{extdash}
 \usepackage{changepage}
 \usepackage{listings}
@@ -72,7 +89,6 @@
 \SetWatermarkHorCenter{.85\paperwidth}
 \SetWatermarkVerCenter{.95\paperheight}
 \SetWatermarkText{\texttt{\commitid}}
-\usepackage[breakable,skins]{tcolorbox}
 \usepackage[split,makeindex]{splitidx}
 \usepackage[nottoc]{tocbibind}
 \usepackage[columns=3,totoc,indentunit=12pt,justific=raggedright,font=small,columnsep=.15in]{idxlayout}
@@ -100,14 +116,10 @@
 \titleformat{\paragraph}[runin]{\normalfont\normalsize\bfseries}{}{0pt}{}
 
 % custom packages
-\newboolean{qqzbg}
-\setboolean{qqzbg}{true} % overriden by target specific setting
-\newcommand{\IfQqzBg}[2]{\ifthenelse{\boolean{qqzbg}}{#1}{#2}}
 \newboolean{noqqz}
 \setboolean{noqqz}{false}
 \newcommand{\IfNoQqz}[2]{\ifthenelse{\boolean{noqqz}}{#1}{#2}}
 
-\input{autodate} % need to input here to reflect tag state
 \usepackage{qqz}
 \usepackage{origpub}
 
@@ -323,7 +335,7 @@
   \DeclareFontShape{\encodingdefault}{\rmdefault}{bx}{sl}{<->ssub * ptm/b/sl}{}%
 }
 }
-\usepackage{biolinum}
+\usepackage[type1]{biolinum}
 % restore \sfdefault of newtxtext
 \renewcommand{\sfdefault}{qhv}
 
