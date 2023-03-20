@@ -63,8 +63,8 @@ RUN cd /usr/local/share/texmf/tex/latex/glossaries-extra/ \
  && ln -s glossary-longextra-2021-11-22.sty glossary-longextra.sty \
  && ln -s glossary-topic-2021-11-22.sty glossary-topic.sty \
  && texhash /usr/local/share/texmf
-ARG uid=1000
-ARG gid=1000
+ARG uid=0
+ARG gid=0
 ARG user=perfbook
 ARG group=perfbook
 RUN if [ $uid -ne 0 ] ; then \

@@ -307,26 +307,32 @@
 		to the "docker run" command.  The bash prompt will be in the
 		form of "I have no name!@abcdef012345:/work$".	Builds of
 		perfbook will nevertheless succeed.  You can also build
-		a container image of your own:
+		a container image on your own:
 
 		    cd docker
 		    docker build -t <container image tag> \
 		      --build-arg uid=$(id -u) --build-arg gid=$(id -g) .
+
+		The default uid:gid pair in Dockerfiles under docker/ is
+		0:0, which is good for rootless mode docker/podman.
+		Such an image is available with a different tag of
+		akiyks/perfbook-build-focal:rootless.
 
 		For those prefer a Fedora-based container image,
 		akiyks/perfbook-build-fedora:latest is also available.
 		It is built from docker/Dockerfile.fedora.
 
 		If you have podman already installed, you can run the image
-		with podman. podman maps container's root to your host uid
-		by default.
+		with rootless-mode podman.  It maps container's root to your
+		host uid by default.
 		Use the following command to run:
 
-		    podman run --rm -it -v <path to perfbook dir>:/work:z \
-		      -u 0:0 akiyks/perfbook-build-fedora:latest
+		    podman run --rm -it -v <path to perfbook dir>:/work:Z \
+		      akiyks/perfbook-build-fedora:rootless
 
 		You will see a prompt with a "#".
-		Your updates under /work will have your host uid in host's POV.
+		Your updates under /work will have your host uid in from the
+		host's POV.
 
 14.	It looks as if answers above all assume building under GNU/Linux
 	hosts.	Wouldn't it be possible to build under non-GNU/Linux systems?
