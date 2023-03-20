@@ -33,15 +33,22 @@ WORKDIR /opt
 RUN curl https://gitlab.com/latexpand/latexpand/-/archive/v1.3/latexpand-v1.3.tar.gz -o - | tar xfz - \
  && sed -i -e 's/@LATEXPAND_VERSION@/v1.3/' latexpand-v1.3/latexpand \
  && cp latexpand-v1.3/latexpand /usr/local/bin
+WORKDIR /work
+CMD /bin/bash
+
+# Add uid:gid setting and sudo for root mode docker (default is rootless)
 ARG uid=0
 ARG gid=0
 ARG user=perfbook
 ARG group=perfbook
 RUN if [ $uid -ne 0 ] ; then \
-      groupadd -g $gid $group \
- &&   useradd -u $uid -g $gid -m $user ; \
-    fi
-VOLUME /work
+      apt-get update \
+ &&   apt-get install -y --no-install-recommends \
+        sudo \
+ &&   apt-get clean \
+ &&   rm -rf /var/lib/apt/lists/* \
+ &&   groupadd -g $gid $group \
+ &&   useradd -u $uid -g $gid -m $user \
+ &&   echo "$user ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-container-user \
+ ;  fi
 USER $uid:$gid
-WORKDIR /work
-CMD /bin/bash

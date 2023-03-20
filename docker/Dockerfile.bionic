@@ -63,15 +63,22 @@ RUN cd /usr/local/share/texmf/tex/latex/glossaries-extra/ \
  && ln -s glossary-longextra-2021-11-22.sty glossary-longextra.sty \
  && ln -s glossary-topic-2021-11-22.sty glossary-topic.sty \
  && texhash /usr/local/share/texmf
+WORKDIR /work
+CMD /bin/bash
+
+# Add uid:gid setting and sudo for root mode docker (default is rootless)
 ARG uid=0
 ARG gid=0
 ARG user=perfbook
 ARG group=perfbook
 RUN if [ $uid -ne 0 ] ; then \
-      groupadd -g $gid $group \
- &&   useradd -u $uid -g $gid -m $user ; \
-    fi
-VOLUME /work
+      apt-get update \
+ &&   apt-get install -y --no-install-recommends \
+        sudo \
+ &&   apt-get clean \
+ &&   rm -rf /var/lib/apt/lists/* \
+ &&   groupadd -g $gid $group \
+ &&   useradd -u $uid -g $gid -m $user \
+ &&   echo "$user ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-container-user \
+ ;  fi
 USER $uid:$gid
-WORKDIR /work
-CMD /bin/bash
