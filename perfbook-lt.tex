@@ -621,7 +621,10 @@
 
 \frontmatter
 
+\IfEbookSize{\hypersetup{pageanchor=false}}{}
 \maketitle
+\IfEbookSize{\hypersetup{pageanchor=true}}{}
+
 \IfTwoColumn{
   \onecolumn\begin{adjustwidth*}{.95in}{.8in}
   \addtolength{\parindent}{6pt}
