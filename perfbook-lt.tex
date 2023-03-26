@@ -310,6 +310,11 @@
 }
 
 \IfSansSerif{
+\IfQqzBg{
+  \RequirePackage{silence}
+  \WarningFilter[sansslant]{latexfont}{Font shape `T1/qhv/m/sl'}
+  \ActivateWarningFilters[sansslant]
+}{}
 \renewcommand{\familydefault}{\sfdefault}
 \normalfont
 \usepackage[slantedGreek,scaled=.96]{newtxsf}
