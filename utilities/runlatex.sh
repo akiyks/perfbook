@@ -60,8 +60,24 @@ excerpt_warnings () {
 		grep -B 8 -A 5 "LaTeX Warning:" $basename.log | tee $basename-warning.log
 		echo "----- You can see $basename-warning.log for the warnings above. -----"
 		echo "----- If you need to, see $basename.log for details. -----"
-		rm -f $basename-warning-prev.log
 		exit 1
+	fi
+	# For warnings other than "LaTeX Warning:"
+	if grep -q -i "warning:" $basename.log
+	then
+		num_warning=`grep -c -i "warning:" $basename.log`
+
+		if grep -q -F "silence.sty" $basename.log ; then
+			echo "$num_warning minor warnings detected."
+		else
+			echo "$num_warning warnings detected w/o filtering."
+		fi
+		grep -A 2 -i "warning:" $basename.log > $basename-warning.log
+		echo "You can see $basename-warning.log for them."
+	fi
+	if [ -e $basename.sil ] && grep -q -i "warning:" $basename.sil
+	then
+		echo "Inevitable harmless warnings are saved in $basename.sil."
 	fi
 }
 
@@ -91,7 +107,7 @@ iterate_latex () {
 			echo "----- Fatal latex error, see $basename.log for details. -----"
 		else
 			tail -n 20 $basename.log
-			echo "\n!!! $LATEX aborted !!!"
+			env printf "\n!!! $LATEX aborted !!!"
 		fi
 		exit $exitcode
 	fi
@@ -99,7 +115,6 @@ iterate_latex () {
 	then
 		mv -f $basename-warning.log $basename-warning-prev.log
 	fi
-	grep 'LaTeX Warning:' $basename.log > $basename-warning.log
 	return 0 ;
 }
 
@@ -120,6 +135,10 @@ then
 else
 	rm -f $basename-first.log
 	echo "$LATEX 2 for $pdfname # for possible bib update"
+	if test -r $basename-warning.log
+	then
+		mv -f $basename-warning.log $basename-warning-prev.log
+	fi
 	iter=2
 fi
 iterate_latex
@@ -151,8 +170,8 @@ do
 	echo "$LATEX $iter for $pdfname # label(s) may have changed"
 	iterate_latex
 done
+rm -f $basename-warning-prev.log
 excerpt_warnings
-rm -f $basename-warning.log $basename-warning-prev.log
 echo "'$basename.pdf' is ready."
 # cleveref version check (Ubuntu 18.04 LTS has buggy one
 if grep -q -F "packageversion{0.21.1}" `kpsewhich cleveref.sty`
