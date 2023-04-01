@@ -74,6 +74,18 @@ excerpt_warnings () {
 		fi
 		grep -A 2 -i "warning:" $basename.log > $basename-warning.log
 		echo "You can see $basename-warning.log for them."
+		# noindentafter version?
+		if grep "Package: noindentafter" $basename.log | grep -q "0.2.2"
+		then
+			echo "You have noindentafter version 0.2.2."
+			echo "Having a later version can reduce warnings."
+		fi
+		# tcolobox version?
+		if grep "Package: tcolorbox" $basename.log | grep -q "6.0.1"
+		then
+			echo "You have tcolorbox version 6.0.1."
+			echo "Having a later version can reduce warnings."
+		fi
 	fi
 	if [ -e $basename.sil ] && grep -q -i "warning:" $basename.sil
 	then
