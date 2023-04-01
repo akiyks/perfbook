@@ -1,9 +1,9 @@
 \documentclass[10pt,letterpaper]{pfbook} % book class customized for perfbook
 % For arxiv.org, must be on or before line 5:
-\pdfoutput=1
+\ifdefined\pdfoutput \pdfoutput=1 \fi
 
 % To accomodate change in Ghostscript 9.26 (default output: PDF 1.7)
-\pdfminorversion=7
+\ifdefined\pdfminorversion \pdfminorversion=7 \fi
 
 % Suppress warning emitted when multiple figures drawn by inkscape appear
 % within a page. See: https://tex.stackexchange.com/questions/183149/
