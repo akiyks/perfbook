@@ -79,21 +79,29 @@ then
 	echo "### See items 9 and 10 in FAQ-BUILD.txt for how to update.          ###"
 	exit 1
 fi
-if grep -q '!pdfTeX error:' $basename.log
+if grep -q 'LaTeX Error:' $basename.log
 then
-	grep -B 10 -A 5 '!pdfTeX error:' $basename.log
+	echo "----- !!! Fatal latex error !!! -----"
+	grep -B 5 -A 8 'LaTeX Error:' $basename.log
+	echo "----- See $basename.log for the full log. -----"
+	exit 2
+fi
+if grep -q 'pdfTeX error:' $basename.log
+then
+	echo "----- !!! Fatal pdfTeX error !!! -----"
+	grep -B 10 -A 8 '!pdfTeX error:' $basename.log
+	echo "----- See $basename.log for the full log. -----"
+	exit 2
+fi
+if grep -q '! Emergency stop.' $basename.log
+then
+	grep -B 10 -A 5 '! Emergency stop.' $basename.log
 	echo "----- Fatal latex error, see $basename.log for details. -----"
 	exit 2
 fi
 if [ $exitcode -ne 0 ]; then
-	if grep -q '! Emergency stop.' $basename.log
-	then
-		grep -B 10 -A 5 '! Emergency stop.' $basename.log
-		echo "----- Fatal latex error, see $basename.log for details. -----"
-	else
-		tail -n 20 $basename.log
-		echo "\n!!! $LATEX aborted !!!"
-	fi
+	tail -n 20 $basename.log
+	echo "\n!!! $LATEX aborted !!!"
 	exit $exitcode
 fi
 if [ $DETECTED_BUGGY -eq 1 ]; then
