@@ -105,24 +105,6 @@ iterate_latex () {
 	fi
 	makeglossaries $basename > /dev/null 2>&1
 	$LATEX $LATEX_OPT $basename > /dev/null 2>&1 < /dev/null
-	exitcode=$?
-	if grep -q '!pdfTeX error:' $basename.log
-	then
-		grep -B 10 -A 2 '!pdfTeX error:' $basename.log
-		echo "----- Fatal latex error, see $basename.log for details. -----"
-		exit 2
-	fi
-	if [ $exitcode -ne 0 ]; then
-		if grep -q '! Emergency stop.' $basename.log
-		then
-			grep -B 10 -A 5 '! Emergency stop.' $basename.log
-			echo "----- Fatal latex error, see $basename.log for details. -----"
-		else
-			tail -n 20 $basename.log
-			env printf "\n!!! $LATEX aborted !!!"
-		fi
-		exit $exitcode
-	fi
 	if test -r $basename-warning.log
 	then
 		mv -f $basename-warning.log $basename-warning-prev.log
