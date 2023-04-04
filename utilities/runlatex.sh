@@ -63,6 +63,16 @@ exerpt_warnings () {
 		rm -f $basename-warning-prev.log
 		exit 1
 	fi
+
+	# Test of font markup corruption in SVG -> PDF conversion
+	PDFFONTS_CMD=`command -v pdffonts`
+	if [ "x$PDFFONTS_CMD" != "x" ] ; then
+		FONTMARKUP=`pdffonts cartoons/r-2014-Out-of-order.pdf | grep -c -i steelcitycomic`
+		if [ $FONTMARKUP -eq 0 ] ; then
+			echo "### Corruption of font markup in SVG --> PDF conversion ###"
+			echo "### See #15 in FAQ-BUILD.txt for workarounds.           ###"
+		fi
+	fi
 }
 
 iterate_latex () {
