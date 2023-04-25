@@ -30,6 +30,7 @@
 #          Akira Yokosawa <akiyks@gmail.com>
 
 : ${LATEX:=pdflatex}
+: ${PERFBOOK_VERBOSE:=no}
 
 diff_warning () {
 	if diff -q $basename-warning.log $basename-warning-prev.log >/dev/null
@@ -53,6 +54,13 @@ identical_warnings () {
 	return 1 ;
 }
 
+echo_v () {
+	if [ "x$PERFBOOK_VERBOSE" != "xno" ]
+	then
+		echo "$1"
+	fi
+}
+
 excerpt_warnings () {
 	if grep -q "LaTeX Warning:" $basename.log
 	then
@@ -68,28 +76,30 @@ excerpt_warnings () {
 		num_warning=`grep -c -i "warning:" $basename.log`
 
 		if grep -q -F "silence.sty" $basename.log ; then
-			echo "$num_warning minor warnings detected."
+			echo_v "$num_warning minor warnings detected."
 		else
-			echo "$num_warning warnings detected w/o filtering."
+			echo_v "$num_warning warnings detected w/o filtering."
 		fi
 		grep -A 2 -i "warning:" $basename.log > $basename-warning.log
-		echo "You can see $basename-warning.log for them."
+		echo_v "You can see $basename-warning.log for them."
 		# noindentafter version?
 		if grep "Package: noindentafter" $basename.log | grep -q "0.2.2"
 		then
-			echo "You have noindentafter version 0.2.2."
-			echo "Having a later version can reduce warnings."
+			echo_v "You have noindentafter version 0.2.2."
+			echo_v "Having a later version can reduce warnings."
 		fi
 		# tcolobox version?
 		if grep "Package: tcolorbox" $basename.log | grep -q "6.0.1"
 		then
-			echo "You have tcolorbox version 6.0.1."
-			echo "Having a later version can reduce warnings."
+			echo_v "You have tcolorbox version 6.0.1."
+			echo_v "Having a later version can reduce warnings."
 		fi
+	else
+		echo_v "No warning in $basename.log."
 	fi
 	if [ -e $basename.sil ] && grep -q -i "warning:" $basename.sil
 	then
-		echo "Inevitable harmless warnings are saved in $basename.sil."
+		echo_v "Inevitable harmless warnings are saved in $basename.sil."
 	fi
 }
 
