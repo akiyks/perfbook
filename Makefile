@@ -107,9 +107,10 @@ LATEX_CMD := $(shell $(WHICH) $(LATEX) 2>/dev/null)
 DOT := $(shell $(WHICH) dot 2>/dev/null)
 FIG2EPS := $(shell $(WHICH) fig2eps 2>/dev/null)
 FIG2DEV := $(shell $(WHICH) fig2dev 2>/dev/null)
-INKSCAPE := $(shell $(WHICH) inkscape 2>/dev/null)
-ifdef INKSCAPE
-  INKSCAPE_ONE := $(shell inkscape --version 2>/dev/null | grep -c "Inkscape 1")
+INKSCAPE_CMD ?= inkscape
+INKSCAPE := $(shell $(INKSCAPE_CMD) --version 2>/dev/null | grep -c -i inkscape)
+ifneq ($(INKSCAPE),0)
+  INKSCAPE_ONE := $(shell $(INKSCAPE_CMD) --version 2>/dev/null | grep -c "Inkscape 1")
 endif
 LATEXPAND := $(shell $(WHICH) latexpand 2>/dev/null)
 QPDF := $(shell $(WHICH) qpdf 2>/dev/null)
@@ -452,8 +453,8 @@ $(PDFTARGETS_OF_SVG): %.pdf: %.svg
 ifeq ($(STEELFONT),0)
 	$(error "Steel City Comic" font not found. See #1 in FAQ.txt)
 endif
-ifndef INKSCAPE
-	$(error $< --> $@ inkscape not found. Please install it)
+ifeq ($(INKSCAPE),0)
+	$(error $< --> $@ $(INKSCAPE_CMD) not found. Please install it)
 endif
 ifeq ($(STEELFONTID),0)
 	@sh $(FIXSVGFONTS) < $< | sed -e 's/Steel City Comic/Test/g' > $<i
@@ -474,9 +475,9 @@ ifeq ($(RECOMMEND_LIBERATIONMONO),1)
 endif
 
 ifeq ($(INKSCAPE_ONE),0)
-	@inkscape --export-pdf=$@ $<i > /dev/null 2>&1
+	@$(INKSCAPE_CMD) --export-pdf=$@ $<i > /dev/null 2>&1
 else
-	@inkscape -o $@ $<i > /dev/null 2>&1
+	@$(INKSCAPE_CMD) -o $@ $<i > /dev/null 2>&1
 endif
 	@rm -f $<i
 ifeq ($(chkpagegroup),on)
