@@ -18,7 +18,7 @@
 *_backup.svg
 *.epsi
 *__.eps
-*.svgi
+*.svgi*
 *.fcv
 *.ltms
 *.pdfp
