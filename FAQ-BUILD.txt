@@ -377,3 +377,41 @@
 		Code samples under CodeSamples/ were originally written for
 		Linux and a QNX compat layer was added in 2022.  Compat layers
 		for other OSes are more than welcome!
+
+15.	Near the end of building perfbook, I see the message:
+
+	    ### Corruption of font markup in SVG --> PDF conversion ###
+	    ### See #15 in FAQ-BUILD.txt for workarounds.           ###
+
+	What can I do?
+
+	A.	It can be ignored if you don't bother with font markup in PDF
+		files.  Please read on if you are interested.
+
+		Several regressions in Inkscape 1.2.2 are observed under
+		Arch Linux, Fedora 38, Ubuntu 23.04, etc.
+		Sporadic crash of command-line inkscape is one of the symptom,
+		which is related to Gnome 44.
+		Another symptom is corruption of font markup and it is
+		not limited to Gnome. Ubuntu is free of this mode of regression
+		as of May 2023.
+
+		Until those regressions are fixed in distro packages,
+		AppImage or flatpak packages can be used as workarounds.
+
+		flatpak inkscape can be specified via make/env variable:
+
+		    $ make INKSCAPE_CMD="flatpak run org.inkscape.Inkscape"
+
+		Note: snap package of inkscape can not be used for perfbook.
+
+		A workaround for sporadic crashes of Inkscape is to use the
+		rsvg-convert command for SVG --> PDF conversion by setting
+		a make/env variable:
+
+		    $ make USE_RSVG_CONVERT=1
+
+		Note that rsvg-convert's SVG parser is not identical to that
+		of Inkscape and can result in PDFs rendered differently.
+		Also note that using rsvg-convert won't cure the corruption
+		of font markups.

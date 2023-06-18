@@ -52,7 +52,9 @@ FIGSOURCES := $(wildcard */*.fig) $(wildcard */*/*.fig)
 
 EPSSOURCES_FROM_FIG := $(FIGSOURCES:%.fig=%.eps)
 
-SVGSOURCES := $(wildcard */*.svg)
+SVGSOURCES_ALL := $(wildcard */*.svg)
+SVGSOURCES_EMG := $(wildcard */*.svgi.*.svg)
+SVGSOURCES := $(filter-out $(SVGSOURCES_EMG),$(SVGSOURCES_ALL))
 FAKE_EPS_FROM_SVG := $(SVGSOURCES:%.svg=%.eps)
 PDFTARGETS_OF_SVG := $(SVGSOURCES:%.svg=%.pdf)
 
@@ -105,9 +107,15 @@ LATEX_CMD := $(shell $(WHICH) $(LATEX) 2>/dev/null)
 DOT := $(shell $(WHICH) dot 2>/dev/null)
 FIG2EPS := $(shell $(WHICH) fig2eps 2>/dev/null)
 FIG2DEV := $(shell $(WHICH) fig2dev 2>/dev/null)
-INKSCAPE := $(shell $(WHICH) inkscape 2>/dev/null)
-ifdef INKSCAPE
-  INKSCAPE_ONE := $(shell inkscape --version 2>/dev/null | grep -c "Inkscape 1")
+ifdef USE_RSVG_CONVERT
+  RSVG_CONVERT := $(shell $(WHICH) rsvg-convert 2>/dev/null)
+  SVG_PDF_CONVERTER := (by rsvg-convert)
+else
+  INKSCAPE_CMD ?= inkscape
+  INKSCAPE := $(shell $(INKSCAPE_CMD) --version 2>/dev/null | grep -c -i inkscape)
+  ifneq ($(INKSCAPE),0)
+    INKSCAPE_ONE := $(shell $(INKSCAPE_CMD) --version 2>/dev/null | grep -c "Inkscape 1")
+  endif
 endif
 LATEXPAND := $(shell $(WHICH) latexpand 2>/dev/null)
 QPDF := $(shell $(WHICH) qpdf 2>/dev/null)
@@ -452,12 +460,18 @@ endif
 
 $(PDFTARGETS_OF_SVG): $(FIXSVGFONTS)
 $(PDFTARGETS_OF_SVG): %.pdf: %.svg
-	@echo "$< --> $(suffix $@)"
+	@echo "$< --> $(suffix $@) $(SVG_PDF_CONVERTER)"
 ifeq ($(STEELFONT),0)
 	$(error "Steel City Comic" font not found. See #1 in FAQ.txt)
 endif
-ifndef INKSCAPE
-	$(error $< --> $@ inkscape not found. Please install it)
+ifdef USE_RSVG_CONVERT
+  ifeq ($(RSVG_CONVERT),)
+	$(error $< --> $@ rsvg-convert not found. Please install it)
+  endif
+else
+  ifeq ($(INKSCAPE),0)
+	$(error $< --> $@ $(INKSCAPE_CMD) not found. Please install it)
+  endif
 endif
 ifeq ($(STEELFONTID),0)
 	@sh $(FIXSVGFONTS) < $< | sed -e 's/Steel City Comic/Test/g' > $<i
@@ -480,10 +494,14 @@ ifeq ($(RECOMMEND_LIBERATIONMONO),1)
 	$(info Nice-to-have font family 'Liberation Mono' not found. See #9 in FAQ-BUILD.txt)
 endif
 
-ifeq ($(INKSCAPE_ONE),0)
-	@inkscape --export-pdf=$@ $<i > /dev/null 2>&1
+ifdef USE_RSVG_CONVERT
+	@cat $<i | rsvg-convert --format=pdf > $@
 else
-	@inkscape -o $@ $<i > /dev/null 2>&1
+  ifeq ($(INKSCAPE_ONE),0)
+	@$(INKSCAPE_CMD) --export-pdf=$@ $<i > /dev/null 2>&1
+  else
+	@$(INKSCAPE_CMD) -o $@ $<i > /dev/null 2>&1
+  endif
 endif
 	@rm -f $<i
 ifeq ($(chkpagegroup),on)
@@ -599,6 +617,7 @@ clean:
 	rm -f perfbook*.glg perfbook*.glo perfbook*.gls perfbook*.glsdefs
 	rm -f CodeSamples/snippets.d
 	rm -f *.synctex*
+	rm -f */*.svgi*
 	@rm -f $(OBSOLETE_FILES) $(EPSSOURCES_TMP)
 
 paper-clean:
