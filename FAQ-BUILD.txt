@@ -401,3 +401,14 @@
 		    $ make INKSCAPE_CMD="flatpak run org.inkscape.Inkscape"
 
 		Note: snap package of inkscape can not be used for perfbook.
+
+		A workaround for sporadic crashes of Inkscape is to use the
+		rsvg-convert command for SVG --> PDF conversion by setting
+		a make/env variable:
+
+		    $ make USE_RSVG_CONVERT=1
+
+		Note that rsvg-convert's SVG parser is not identical to that
+		of Inkscape and can result in PDFs rendered differently.
+		Also note that using rsvg-convert won't cure the corruption
+		of font markups.
