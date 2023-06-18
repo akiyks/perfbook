@@ -24,12 +24,13 @@
 #
 # Copyright (C) IBM Corporation, 2012-2019
 # Copyright (C) Facebook, 2019
-# Copyright (C) Akira Yokosawa, 2016, 2017
+# Copyright (C) Akira Yokosawa, 2016, 2017, 2023
 #
 # Authors: Paul E. McKenney <paulmck@us.ibm.com>
 #          Akira Yokosawa <akiyks@gmail.com>
 
 : ${LATEX:=pdflatex}
+: ${PERFBOOK_VERBOSE:=no}
 
 diff_warning () {
 	if diff -q $basename-warning.log $basename-warning-prev.log >/dev/null
@@ -53,15 +54,52 @@ identical_warnings () {
 	return 1 ;
 }
 
-exerpt_warnings () {
+echo_v () {
+	if [ "x$PERFBOOK_VERBOSE" != "xno" ]
+	then
+		echo "$1"
+	fi
+}
+
+excerpt_warnings () {
 	if grep -q "LaTeX Warning:" $basename.log
 	then
 		echo "----- Excerpt around remaining warning messages -----"
 		grep -B 8 -A 5 "LaTeX Warning:" $basename.log | tee $basename-warning.log
 		echo "----- You can see $basename-warning.log for the warnings above. -----"
 		echo "----- If you need to, see $basename.log for details. -----"
-		rm -f $basename-warning-prev.log
 		exit 1
+	fi
+	# For warnings other than "LaTeX Warning:"
+	if grep -q -i "warning:" $basename.log
+	then
+		num_warning=`grep -c -i "warning:" $basename.log`
+
+		if grep -q -F "silence.sty" $basename.log ; then
+			echo_v "$num_warning minor warnings detected."
+		else
+			echo_v "$num_warning warnings detected w/o filtering."
+		fi
+		grep -A 2 -i "warning:" $basename.log > $basename-warning.log
+		echo_v "You can see $basename-warning.log for them."
+		# noindentafter version?
+		if grep "Package: noindentafter" $basename.log | grep -q "0.2.2"
+		then
+			echo_v "You have noindentafter version 0.2.2."
+			echo_v "Having a later version can reduce warnings."
+		fi
+		# tcolobox version?
+		if grep "Package: tcolorbox" $basename.log | grep -q "6.0.1"
+		then
+			echo_v "You have tcolorbox version 6.0.1."
+			echo_v "Having a later version can reduce warnings."
+		fi
+	else
+		echo_v "No warning in $basename.log."
+	fi
+	if [ -e $basename.sil ] && grep -q -i "warning:" $basename.sil
+	then
+		echo_v "Inevitable harmless warnings are saved in $basename.sil."
 	fi
 
 	# Test of font markup corruption in SVG -> PDF conversion
@@ -87,29 +125,10 @@ iterate_latex () {
 	fi
 	makeglossaries $basename > /dev/null 2>&1
 	$LATEX $LATEX_OPT $basename > /dev/null 2>&1 < /dev/null
-	exitcode=$?
-	if [ $exitcode -ne 0 ]; then
-		tail -n 20 $basename.log
-		echo "\n!!! $LATEX aborted !!!"
-		exit $exitcode
-	fi
-	if grep -q '! Emergency stop.' $basename.log
-	then
-		grep -B 15 -A 5 '! Emergency stop.' $basename.log
-		echo "----- Fatal latex error, see $basename.log for details. -----"
-		exit 2
-	fi
-	if grep -q '!pdfTeX error:' $basename.log
-	then
-		grep -A 2 '!pdfTeX error:' $basename.log
-		echo "----- Fatal latex error, see $basename.log for details. -----"
-		exit 2
-	fi
 	if test -r $basename-warning.log
 	then
 		mv -f $basename-warning.log $basename-warning-prev.log
 	fi
-	grep 'LaTeX Warning:' $basename.log > $basename-warning.log
 	return 0 ;
 }
 
@@ -130,6 +149,10 @@ then
 else
 	rm -f $basename-first.log
 	echo "$LATEX 2 for $pdfname # for possible bib update"
+	if test -r $basename-warning.log
+	then
+		mv -f $basename-warning.log $basename-warning-prev.log
+	fi
 	iter=2
 fi
 iterate_latex
@@ -139,7 +162,7 @@ do
 	if test $undefined_refs
 	then
 		echo "Undefined refs remain, giving up."
-		exerpt_warnings
+		excerpt_warnings
 	fi
 	if identical_warnings
 	then
@@ -161,8 +184,8 @@ do
 	echo "$LATEX $iter for $pdfname # label(s) may have changed"
 	iterate_latex
 done
-exerpt_warnings
-rm -f $basename-warning.log $basename-warning-prev.log
+rm -f $basename-warning-prev.log
+excerpt_warnings
 echo "'$basename.pdf' is ready."
 # cleveref version check (Ubuntu 18.04 LTS has buggy one
 if grep -q -F "packageversion{0.21.1}" `kpsewhich cleveref.sty`

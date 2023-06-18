@@ -1,4 +1,4 @@
-\documentclass[10pt,twocolumn,letterpaper]{pfbook} % book class customized for perfbook
+\documentclass[10pt,letterpaper]{pfbook} % book class customized for perfbook
 % For arxiv.org, must be on or before line 5:
 \pdfoutput=1
 
@@ -35,7 +35,6 @@
 \captionsetup[listing]{font=small,labelsep=colon}
 \captionsetup[subfloat]{font=small}
 % \usepackage{breakurl}
-\usepackage{varwidth}
 \usepackage{graphicx}
 \usepackage{rotating}
 \usepackage{setspace}
@@ -328,6 +327,11 @@
 }
 
 \IfSansSerif{
+\IfQqzBg{
+  \RequirePackage[save]{silence}
+  \WarningFilter[sansslant]{latexfont}{Font shape `T1/qhv/m/sl'}
+  \ActivateWarningFilters[sansslant]
+}{}
 \renewcommand{\familydefault}{\sfdefault}
 \normalfont
 \usepackage[slantedGreek,scaled=.96]{newtxsf}
@@ -464,8 +468,8 @@
 \newlength{\twocolumnwidth}
 \newlength{\onecolumntextwidth}
 \setlength{\onecolumntextwidth}{4.75in}
+\setlength{\twocolumnwidth}{3.125in}
 \IfTwoColumn{
-  \setlength{\twocolumnwidth}{\columnwidth}
   \renewcommand\floatpagefraction{.75}
   \IfHardCover{
     \usepackage[papersize={8.25in,10.75in},body={6.5in,8.25in},twocolumn,columnsep=0.25in]{geometry}
@@ -473,14 +477,15 @@
     \IfAfourPaper{
       \usepackage[a4paper,body={6.5in,8.25in},twocolumn,columnsep=0.25in]{geometry}
     }{
-      \usepackage[letterpaper,body={6.5in,8.25in},twocolumn,columnsep=0.25in]{geometry}      
-}}}{ % One Column
-  \setlength{\twocolumnwidth}{3.125in}
+      \usepackage[letterpaper,body={6.5in,8.25in},twocolumn,columnsep=0.25in]{geometry}
+    }}
+  \sloppy % prefer wide inter-word spaces to occasional horizontal overfulls
+}{ % One Column
   \IfEbookSize {
     % From https://tex.stackexchange.com/questions/16735/latex-options-for-kindle
     \usepackage[papersize={4.5in,6.3in},margin=0.2in,footskip=0.2in,
       headsep=0.0335in,headheight=0.1665in,onecolumn,twoside=false]{geometry}
-    \sloppy
+    \sloppy % prefer wide inter-word spaces to occasional horizontal overfulls
     \setlength{\onecolumntextwidth}{4.1in}
     \usepackage{fancyhdr}
     \fancypagestyle{plain}{%
@@ -540,12 +545,11 @@
 \newcommand{\ebresizewidthsw}[1]{\resizebox{.95\textheight}{!}{#1}}
 \newcommand{\ebresizeverb}[2]{%
   \begin{lrbox}{\ebbox}%
-    \begin{varwidth}{\textwidth}%
+    \begin{minipage}{\textwidth}%
       {#2}%
-    \end{varwidth}%
+    \end{minipage}%
   \end{lrbox}%
   \resizebox{#1\textwidth}{!}{\usebox{\ebbox}}%
-  \vspace*{-7pt}%
 }
 \newcommand\ebFloatBarrier{\FloatBarrier}
 }{
@@ -640,7 +644,10 @@
 
 \frontmatter
 
+\IfEbookSize{\hypersetup{pageanchor=false}}{}
 \maketitle
+\IfEbookSize{\hypersetup{pageanchor=true}}{}
+
 \IfTwoColumn{
   \onecolumn\begin{adjustwidth*}{.95in}{.8in}
   \addtolength{\parindent}{6pt}
