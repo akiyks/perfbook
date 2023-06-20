@@ -22,8 +22,42 @@
 #ifndef __EXISTENCE_H
 #define __EXISTENCE_H
 
-struct existence;
-struct existence_group;
+#define _GNU_SOURCE
+#define _LGPL_SOURCE
+#define RCU_SIGNAL
+#include <urcu.h>
+
+/* Existence structure associated with each moving structure. */
+struct existence {
+	const int **existence_switch;
+	int offset;
+};
+
+/* Existence-group structure associated with multi-structure change. */
+struct existence_group {
+	struct existence outgoing;
+	struct existence incoming;
+	const int *existence_switch;
+	struct rcu_head rh;
+	struct existence_group *next;
+};
+
+/*
+ * Existence-group per-thread cache structure, which can be wired up to
+ * dump excess free blocks to another such cache.  Multilevel linkages
+ * are not allowed.
+ */
+struct existence_group_cache {
+	struct existence_group *free;
+	struct existence_group **tail;
+	long nfree;
+	struct existence_group_cache *egcp;
+	spinlock_t lock __attribute__((__aligned__(CACHE_LINE_SIZE)));
+	struct existence_group *ffree;
+	struct existence_group **ftail;
+	long nffree;
+	struct rcu_head rh;
+};
 
 void existence_wire_call_rcu(void);
 struct existence_group *existence_alloc(void);
