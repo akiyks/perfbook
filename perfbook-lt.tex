@@ -15,7 +15,7 @@
 \usepackage[full]{textcomp} % use symbols in TS1 encoding
 \usepackage{lmodern}
 \usepackage[T1]{fontenc} % use postscript type 1 fonts
-\usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
+\usepackage[defaultsups,helvratio=0.9,nofontspec]{newtxtext} % use nice, standard fonts for roman
 
 % Improves the text layout
 \usepackage{microtype}
@@ -343,7 +343,7 @@
   \DeclareFontShape{\encodingdefault}{\rmdefault}{bx}{sl}{<->ssub * ptm/b/sl}{}%
 }
 }
-\usepackage{biolinum}
+\usepackage[type1]{biolinum}
 % restore \sfdefault of newtxtext
 \renewcommand{\sfdefault}{qhv}
 
