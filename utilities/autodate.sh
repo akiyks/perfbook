@@ -133,3 +133,33 @@ if [ $(echo $tcbversion $tcbold | awk '{if ($1 > $2) print 1;}') ] ;
 then
 	env printf '\\tcbsetforeverylayer{autoparskip}\n' >> $fn
 fi
+
+# show compatibility of newtx package for perfbook
+newtxtext_sty=`kpsewhich newtxtext.sty`
+if [ "$newtxtext_sty" = "" ]
+then
+    echo "Error: font package 'newtx' not found. See #5 in FAQ-BUILD.txt." >& 2
+    exit 1
+fi
+
+fn_newtx="newtxversion.tex"
+newtxversion=`grep fileversion{ $newtxtext_sty | $SED -e 's/.*version{\([0-9]\+\.[0-9]\+\).*/\1/g'`
+nofontspecver=1.70
+notcompatver=1.72
+env printf '%% newtxtext version: %s\n' $newtxversion > $fn_newtx
+if [ $(echo $newtxversion $nofontspecver | awk '{if ($1 < $2) print 1;}') ]
+then
+	nofontspec=false
+	notcompat=false
+else
+	if [ $(echo $newtxversion $notcompatver | awk '{if ($1 < $2) print 1;}') ]
+	then
+		nofontspec=true
+		notcompat=false
+	else
+		nofontspec=false
+		notcompat=true
+	fi
+fi
+env printf '\\setboolean'"{newtxnofontspec}{$nofontspec}\n" >> $fn_newtx
+env printf '\\setboolean'"{newtxnotcompat}{$notcompat}\n" >> $fn_newtx

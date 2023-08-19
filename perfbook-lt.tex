@@ -15,8 +15,24 @@
 \usepackage[full]{textcomp} % use symbols in TS1 encoding
 \usepackage{lmodern}
 \usepackage[T1]{fontenc} % use postscript type 1 fonts
-\usepackage[defaultsups,helvratio=0.9,nofontspec]{newtxtext} % use nice, standard fonts for roman
-
+\usepackage{ifthen}
+\usepackage{iftex}
+\newboolean{newtxnofontspec}
+\newboolean{newtxnotcompat}
+\ifPDFTeX
+  \usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
+\else % assume lualatex or xelatex
+  \input{newtxversion} % load info of newtx version (by autodate.sh)
+  \ifthenelse{\boolean{newtxnofontspec}}{
+    \usepackage[defaultsups,helvratio=0.9,nofontspec]{newtxtext}
+  }{
+    \ifthenelse{\boolean{newtxnotcompat}}{
+      % doesn't work for non-PDF latex
+    }{
+      \usepackage[defaultsups,helvratio=0.9]{newtxtext}
+    }
+  }
+\fi
 % Improves the text layout
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
@@ -43,7 +59,6 @@
 \newlist{sequence}{enumerate}{10}
 \setlist[sequence]{label*=\arabic*}
 %\usepackage{enumerate}
-\usepackage{ifthen}
 \usepackage[table,svgnames]{xcolor}
 \usepackage[shortcuts]{extdash}
 \usepackage{changepage}
