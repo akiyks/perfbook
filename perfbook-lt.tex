@@ -15,6 +15,7 @@
 \usepackage[full]{textcomp} % use symbols in TS1 encoding
 \usepackage{lmodern}
 \usepackage[T1]{fontenc} % use postscript type 1 fonts
+\usepackage{amsmath}
 \usepackage{ifthen}
 \usepackage{iftex}
 \newboolean{newtxnofontspec}
@@ -27,7 +28,10 @@
     \usepackage[defaultsups,helvratio=0.9,nofontspec]{newtxtext}
   }{
     \ifthenelse{\boolean{newtxnotcompat}}{
-      % doesn't work for non-PDF latex
+      % newtx 1.72x doesn't work with perfbook under non-PDF latex
+      % fall back to tex-gyre type1 packages
+      \usepackage[scale=0.9]{tgheros}
+      \usepackage{tgtermes}
     }{
       \usepackage[defaultsups,helvratio=0.9]{newtxtext}
     }
@@ -69,7 +73,7 @@
 \usepackage{pifont} % symbols for qqz reference points and carriagereturn
 \usepackage{gensymb} % symbols for both text and math modes such as \degree and \micro
 \usepackage{verbatimbox}[2014/01/30] % for centering verbatim listing in figure environment
-\usepackage{amsmath} % lineno v5.0 (loaded via fvextra) needs amsmath in front
+%\usepackage{amsmath} % lineno v5.0 (loaded via fvextra) needs amsmath in front
 \usepackage{fancyvrb}
 \usepackage{fvextra}[2016/09/02]
 \usepackage[bottom]{footmisc} % place footnotes under floating figures/tables
