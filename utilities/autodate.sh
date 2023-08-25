@@ -133,3 +133,21 @@ if [ $(echo $tcbversion $tcbold | awk '{if ($1 > $2) print 1;}') ] ;
 then
 	env printf '\\tcbsetforeverylayer{autoparskip}\n' >> $fn
 fi
+
+# newtxtext compatibility setting for perfbook
+newtxtext_sty=`kpsewhich newtxtext.sty`
+if [ "$newtxtext_sty" = "" ] ; then
+	echo "Error: font package 'newtx' not found. See #5 and #9 in FAQ-BUILD.txt." >& 2
+	exit 1
+fi
+
+fn_newtx="newtxversion.tex"
+newtxversion=`grep fileversion{ $newtxtext_sty | $SED -e 's/.*version{\([0-9]\+\.[0-9]\+\).*/\1/g'`
+trueslantedver=1.65
+env printf '%% newtxtext version: %s\n' $newtxversion > $fn_newtx
+if [ $(echo $newtxversion $trueslantedver | awk '{if ($1 < $2) print 1;}') ] ; then
+	trueslanted=false
+else
+	trueslanted=true
+fi
+env printf '\\setboolean'"{newtxtrueslanted}{$trueslanted}\n" >> $fn_newtx
