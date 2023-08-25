@@ -16,8 +16,15 @@
 \usepackage{lmodern}
 \usepackage[scale=0.9]{tgheros}
 \usepackage[T1]{fontenc} % use postscript type 1 fonts
+\usepackage{ifthen}
+\newboolean{newtxtrueslanted}
+\input{newtxversion} % load newtx version info (by autodate.sh)
 \usepackage[table,svgnames]{xcolor} % newtxtext v1.73 loads xcolor without options
-\usepackage[defaultsups,helvratio=0.9]{newtxtext} % use nice, standard fonts for roman
+\ifthenelse{\boolean{newtxtrueslanted}}{  % use nice, standard fonts for roman
+  \usepackage[defaultsups,helvratio=0.9,trueslanted]{newtxtext}
+}{
+  \usepackage[defaultsups,helvratio=0.9]{newtxtext}
+}
 
 % Improves the text layout
 \usepackage{microtype}
@@ -350,11 +357,13 @@
 \ActivateWarningFilters[sansslant]
 }{
 \usepackage[slantedGreek]{newtxmath} % math package to be used with newtxtext
-% Poor person's slanted shape for roman --- newtxtext lacks slanted shape
-\AtBeginDocument{%
-  \DeclareFontShape{\encodingdefault}{\rmdefault}{m}{sl}{<-> ptmro7t}{}%
-  \DeclareFontShape{\encodingdefault}{\rmdefault}{b}{sl}{<-> ptmbo7t}{}%
-  \DeclareFontShape{\encodingdefault}{\rmdefault}{bx}{sl}{<->ssub * ptm/b/sl}{}%
+\ifthenelse{\boolean{newtxtrueslanted}}{}{
+% Poor person's slanted shape for roman --- newtxtext < v1.65 lacks trueslanted
+  \AtBeginDocument{%
+    \DeclareFontShape{\encodingdefault}{\rmdefault}{m}{sl}{<-> ptmro7t}{}%
+    \DeclareFontShape{\encodingdefault}{\rmdefault}{b}{sl}{<-> ptmbo7t}{}%
+    \DeclareFontShape{\encodingdefault}{\rmdefault}{bx}{sl}{<->ssub * ptm/b/sl}{}%
+  }
 }
 }
 \usepackage{biolinum}
