@@ -32,6 +32,7 @@
 \usepackage{etoolbox}
 
 %\usepackage{fixltx2e} % for \textsubscript, nop since Tex Live 2015
+\usepackage{iftex}
 \usepackage{float}
 \floatstyle{ruled}
 \newfloat{listing}{tbp}{lst}[chapter]
@@ -335,12 +336,20 @@
 }
 }{}
 
-\IfNimbusAvail{
-\usepackage{nimbusmononarrow}
-}{}
-\renewcommand*\ttdefault{lmtt}
-%msfontstub
-
+\ifPDFTeX
+  \IfNimbusAvail{
+    \usepackage{nimbusmononarrow}
+  }{}
+  \renewcommand*\ttdefault{lmtt}
+  %msfontstub
+\else
+  \IfSansSerif{
+    \setmonofont{Inconsolatazi4-Regular.otf}[
+      BoldFont=Inconsolatazi4-Bold.otf,
+      StylisticSet=2]
+  }{}
+  \setboolean{nimbusavail} {false} % extra space to escape sed in Makefile
+\fi
 \IfEbookSize{
   \newcommand{\OneColumnHSpace}[1]{}
 }{
@@ -367,8 +376,13 @@
 }
 }
 \usepackage{biolinum}
-% restore \sfdefault of newtxtext
-\renewcommand{\sfdefault}{qhv}
+\ifPDFTeX
+  % restore \sfdefault of newtxtext
+  \renewcommand{\sfdefault}{qhv}
+\else
+  % restore "TeX Gyre Heros" as sans-serif
+  \setsansfont{TeX Gyre Heros}[Scale=0.9,WordSpace=1.05]
+\fi
 
 \newcommand{\LstLineNo}{\makebox[5ex][r]{\arabic{VerbboxLineNo}\hspace{2ex}}}
 
