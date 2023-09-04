@@ -121,14 +121,16 @@ For example,
 \end{quote}
 \end{itemize}
 
-The symbol of micro (\micro :$10^{-6}$) can be typeset easily by
-the help of ``gensymb'' \LaTeX\ package.
-A macro \qco{\\micro} can be used in both text and math modes.
-To typeset the symbol of ``microsecond'', you can do
-so by \qco{\\micro s}.
-For example,
+The symbol of micro ($10^{-6}$) can be typeset easily by
+the help of the ``siunitx'' \LaTeX\ package.
+The symbol of ``microsecond'' can be typeset as follows:
+
+\begin{VerbatimU}
+  \qty{10}{\us}
+\end{VerbatimU}
+
 \begin{quote}
-  10\,\micro s
+  \qty{10}{\us}
 \end{quote}
 
 Note that math mode \qco{\\mu} is italic by default and should not
@@ -181,18 +183,21 @@ These ambiguities should not be confusing in discussing approximate order.
 \subsubsection{Degree Symbol}
 \label{sec:app:styleguide:Degree Symbol}
 
-The angular-degree symbol (\degree) does not require any space in front
+The angular-degree symbol (\textdegree) does not require any space in front
 of it.
 NIST style guide clearly states so.
 
-The symbol of degree can also be typeset easily by the help of gensymb
+The symbol of degree can also be typeset easily by the help of the siunitx
 package.
-A macro \qco{\\degree} can be used in both text and math modes.
 
 Example:
 
+\begin{VerbatimU}
+  \qty{60}{\degree}
+\end{VerbatimU}
+
 \begin{quote}
-  $45\degree$, rather than $45\,\degree$.
+  \qty{60}{\degree}
 \end{quote}
 
 \subsubsection{Percent Symbol}
