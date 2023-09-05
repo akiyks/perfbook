@@ -160,10 +160,17 @@ fi
 fn_newtx="newtxversion.tex"
 newtxversion=`grep fileversion{ $newtxtext_sty | $SED -e 's/.*version{\([0-9]\+\.[0-9]\+\).*/\1/g'`
 trueslantedver=1.65
+fontspecver=1.70
 env printf '%% newtxtext version: %s\n' $newtxversion > $fn_newtx
 if [ $(echo $newtxversion $trueslantedver | awk '{if ($1 < $2) print 1;}') ] ; then
 	trueslanted=false
 else
 	trueslanted=true
 fi
+if [ $(echo $newtxversion $fontspecver | awk '{if ($1 < $2) print 1;}') ] ; then
+	fontspec=false
+else
+	fontspec=true
+fi
 env printf '\\setboolean'"{newtxtrueslanted}{$trueslanted}\n" >> $fn_newtx
+env printf '\\setboolean'"{newtxfontspec}{$fontspec}\n" >> $fn_newtx

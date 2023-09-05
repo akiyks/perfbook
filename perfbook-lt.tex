@@ -18,6 +18,7 @@
 \usepackage[T1]{fontenc} % use postscript type 1 fonts
 \usepackage{ifthen}
 \newboolean{newtxtrueslanted}
+\newboolean{newtxfontspec}
 \input{newtxversion} % load newtx version info (by autodate.sh)
 \usepackage[table,svgnames]{xcolor} % newtxtext v1.73 loads xcolor without options
 \ifthenelse{\boolean{newtxtrueslanted}}{  % use nice, standard fonts for roman
@@ -342,12 +343,14 @@
   \renewcommand*\ttdefault{lmtt}
   %msfontstub
 \else
-  \IfSansSerif{
-    \setmonofont{Inconsolatazi4-Regular.otf}[
-      BoldFont=Inconsolatazi4-Bold.otf,
-      StylisticSet=2]
+  \ifthenelse{\boolean{newtxfontspec}}{
+    \IfSansSerif{
+      \setmonofont{Inconsolatazi4-Regular.otf}[
+        BoldFont=Inconsolatazi4-Bold.otf,
+        StylisticSet=2]
+    }{}
+    \setboolean{nimbusavail} {false} % extra space to escape sed in Makefile
   }{}
-  \setboolean{nimbusavail} {false} % extra space to escape sed in Makefile
 \fi
 \IfEbookSize{
   \newcommand{\OneColumnHSpace}[1]{}
@@ -374,13 +377,20 @@
   }
 }
 }
-\usepackage{biolinum}
 \ifPDFTeX
+  \usepackage{biolinum}
   % restore \sfdefault of newtxtext
   \renewcommand{\sfdefault}{qhv}
 \else
-  % restore "TeX Gyre Heros" as sans-serif
-  \setsansfont{TeX Gyre Heros}[Scale=0.9,WordSpace=1.05]
+  \ifthenelse{\boolean{newtxfontspec}}{
+    \usepackage{biolinum}
+    % restore "TeX Gyre Heros" as sans-serif
+    \setsansfont{TeX Gyre Heros}[Scale=0.9,WordSpace=1.05]
+  }{
+    \usepackage[type1]{biolinum}
+    % restore \sfdefault of newtxtext
+    \renewcommand{\sfdefault}{qhv}
+  }
 \fi
 
 \newcommand{\LstLineNo}{\makebox[5ex][r]{\arabic{VerbboxLineNo}\hspace{2ex}}}
