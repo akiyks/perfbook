@@ -99,8 +99,10 @@ sub check_line {
 	    print "vvv Hint: end of sentence needs new line vvv\n";
 	}
 	if ($line =~ /[a-z][\)\}\']*\\\@[\.\?\!\:][\)\}\']*\s/) {
-	    print "vvv Hint: should be \"xxx.\\\@\" vvv\n";
-	    $ng += 1;
+	    if ($line !~ /^(?=[\s]*+[^%])[^%]*[Aa]crm?(f|fst)?\{[^\}]+\}[\)\']*\\\@[\.\?\!\:][\)\}\']*$/) {
+		print "vvv Hint: should be \"xxx.\\\@\" vvv\n";
+		$ng += 1;
+	    }
 	}
 	if ($line =~ /[A-Z][\)\}\']*[\.\?\!\:]\\\@[\)\}\']*\s/) {
 	    print "vvv Hint: should be \"XXX\\\@.\" vvv\n";
