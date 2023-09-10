@@ -28,8 +28,7 @@ synchronization primitives and performance-critical fast paths.
 
 First, \cref{sec:memorder:Memory-Model Intuitions}
 provides some reliable intuitions and useful rules of thumb, which can
-often provide a useful alternative to learning the full Linux-kernel
-memory model (LKMM)\@.
+often provide a useful alternative to learning the full \IXacrmf{lkmm}\@.
 However, those working on fast-paths or concurrency primitives will
 need the additional detail provided by the following sections.
 \Cref{sec:memorder:Ordering: Why and How?}
@@ -72,8 +71,7 @@ follows up with more detail on a few representative hardware platforms.
 	and implementing \IXacr{lkmm}, has also been added to the Linux kernel
 	and is now heavily used.
 
-	Finally, there are now better ways of describing the Linux-kernel
-	memory model (LKMM).
+	Finally, there are now better ways of describing the \acrmf{lkmm}.
 
 	Given all this progress, substantial change was required.
 }\QuickQuizEnd
@@ -86,7 +84,9 @@ follows up with more detail on a few representative hardware platforms.
 	 {F. W. Nichol}
 
 This section is for people who would like to avoid learning all the
-details of the Linux-kernel memory model (LKMM), the better to get on with
+details of the \IXacrf{lkmm},\footnote{
+	Or just ``\acrml{lkmm}'' for brevity.}
+the better to get on with
 their concurrency lives.
 The good news is that learning a very small fraction of LKMM can get
 you most of its benefits.
