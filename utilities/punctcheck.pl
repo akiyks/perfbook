@@ -104,6 +104,10 @@ sub check_line {
 		$ng += 1;
 	    }
 	}
+	if ($line =~ /^(?=[\s]*+[^%])[^%]*[Aa]crm?(f|fst)?\{[^\}]+\}[\)\']*[\.\?\!\:]\\\@[\)\}\']*$/ ) {
+		print "vvv Hint: should be \"\acr{xxxx}\\\@.\" vvv\n";
+		$ng += 1;
+	}
 	if ($line =~ /[A-Z][\)\}\']*[\.\?\!\:]\\\@[\)\}\']*\s/) {
 	    print "vvv Hint: should be \"XXX\\\@.\" vvv\n";
 	    $ng += 1;
