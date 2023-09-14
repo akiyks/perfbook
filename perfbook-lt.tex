@@ -363,9 +363,17 @@
 \normalfont
 \usepackage[slantedGreek,scaled=.96]{newtxsf}
 % Silence inevitable warnings on missing slanted shape
-\RequirePackage[save]{silence}
-\WarningFilter[sansslant]{latexfont}{Font shape `T1/qhv/m/sl'}
-\ActivateWarningFilters[sansslant]
+\ifPDFTeX
+  \RequirePackage[save]{silence}
+  \WarningFilter[sansslant]{latexfont}{Font shape `T1/qhv/m/sl'}
+  \ActivateWarningFilters[sansslant]
+\else
+  \ifthenelse{\boolean{newtxfontspec}}{}{
+    \RequirePackage[save]{silence}
+    \WarningFilter[sansslant]{latexfont}{Font shape `T1/qhv/m/sl'}
+    \ActivateWarningFilters[sansslant]
+  }
+\fi
 }{
 \usepackage[slantedGreek]{newtxmath} % math package to be used with newtxtext
 \ifthenelse{\boolean{newtxtrueslanted}}{}{
