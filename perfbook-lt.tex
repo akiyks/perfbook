@@ -350,7 +350,12 @@
         StylisticSet=2]
     }{}
     \setboolean{nimbusavail} {false} % extra space to escape sed in Makefile
-  }{}
+  }{
+    \IfSansSerif{
+      %msfontstub
+      \setboolean{nimbusavail} {true}
+    }
+  }
 \fi
 \IfEbookSize{
   \newcommand{\OneColumnHSpace}[1]{}
