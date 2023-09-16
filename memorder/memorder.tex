@@ -1832,13 +1832,13 @@ useful ordering in concurrent code.
 \Cref{lst:memorder:Message-Passing Address-Dependency Litmus Test (No Ordering Before v4.15)}
 (\path{C-MP+o-wmb-o+o-addr-o.litmus})
 shows a linked variant of the message-passing pattern.
-The head pointer is \co{x1}, which initially
-references the \co{int} variable \co{y} (\clnref{init:x1}), which is in turn
-initialized to the value $1$ (\clnref{init:y}).
-\co{P0()} updates head pointer \co{x1} to reference \co{x0} (\clnref{P0:x1}),
-but only after initializing it to $2$ (\clnref{P0:x0}) and forcing ordering
+The head pointer is~\co{x1}, which initially
+references the \co{int} variable~\co{y} (\clnref{init:x1}), which is in turn
+initialized to the value~$1$ (\clnref{init:y}).
+\co{P0()} updates head pointer~\co{x1} to reference~\co{x0} (\clnref{P0:x1}),
+but only after initializing it to~$2$ (\clnref{P0:x0}) and forcing ordering
 (\clnref{P0:wmb}).
-\co{P1()} picks up the head pointer \co{x1} (\clnref{P1:x1}), and then loads
+\co{P1()} picks up the head pointer~\co{x1} (\clnref{P1:x1}), and then loads
 the referenced value (\clnref{P1:ref}).
 There is thus an address dependency from the load on \clnref{P1:x1} to the
 load on \clnref{P1:ref}.
