@@ -19,6 +19,12 @@
 	Acquiring a lock provides similar memory-ordering semantics,
 	hence the ``acquire'' in ``acquire load''.
 	(See also ``memory barrier'' and ``release store''.)
+\item[\IXGh{Address}{Dependency}:]
+	When the address of a later memory access is computed based on
+	the value returned by an earlier load, an ``address dependency''
+	extends from that load to the later access.
+	See \cref{sec:memorder:Address Dependencies} for further details.
+	(See also ``control dependency'' and ``data dependency''.)
 \item[\IXGr{Amdahl's Law}:]
 	If sufficient numbers of CPUs are used to run a job that has both
 	a sequential portion and a concurrent portion, performance and
@@ -192,6 +198,12 @@
 	on \cpageref{sec:app:questions:What is the Difference Between ``Concurrent'' and ``Parallel''?}
 	for a discussion of the recent distinction between these two
 	terms.
+\item[\IXGh{Control}{Dependency}:]
+	When a later store's execution depends on a test of a value
+	computed from a value returned by an earlier load,
+	a ``control dependency'' extends from that load to that store.
+	See \cref{sec:memorder:Control Dependencies} for further details.
+	(See also ``address dependency'' and ``data dependency''.)
 \item[\IXG{Critical Section}:]
 	A section of code guarded by some synchronization mechanism,
 	so that its execution constrained by that primitive.
@@ -201,6 +213,12 @@
 	If a thread is executing in one such critical section,
 	any other threads must wait until the first thread completes
 	before executing any of the critical sections in the set.
+\item[\IXGh{Data}{Dependency}:]
+	When the data written by a later store is computed based
+	on the value returned by an earlier load, a ``data dependency''
+	extends from that load to that later store.
+	See \cref{sec:memorder:Data Dependencies} for further details.
+	(See also ``address dependency'' and ``control dependency''.)
 \item[\IXGh{Data}{Locking}:]
 	A scalable locking design in which each instance of a given
 	data structure has its own lock.
