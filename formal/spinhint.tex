@@ -521,7 +521,8 @@ full ordering.
 In any given Promela state, all processes agree on both the current
 state and the order of state changes that caused us to arrive at
 the current state.
-This is analogous to the ``sequentially consistent'' memory model
+This is analogous to the ``sequentially consistent''
+\IXalt{memory model}{memory-consistency model}
 used by a few computer systems (such as 1990s MIPS and PA-RISC\@).
 As noted earlier, and as will be seen in a later example,
 weak memory ordering must be explicitly coded.
@@ -1207,7 +1208,8 @@ clearly untrustworthy.
 }\QuickQuizAnswer{
 	It is certainly true that many formal-verification tools are
 	specialized in some way.
-	For example, Promela does not handle realistic memory models
+	For example, Promela does not handle realistic
+	\IXalt{memory models}{memory-consistency model}
 	(though they can be programmed into
 	\IX{Promela}~\cite{Desnoyers:2013:MSM:2506164.2506174}),
 	\IXacr{cbmc}~\cite{EdmundClarke2004CBMC} does not detect probabilistic

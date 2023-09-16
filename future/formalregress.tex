@@ -154,7 +154,8 @@ testing, which is in fact the topic of this section.
 
 It is critically important that formal-verification tools correctly
 model their environment.
-One all-too-common omission is the memory model, where a great
+One all-too-common omission is the
+\IXalt{memory model}{memory-consistency model}, where a great
 many formal-verification tools, including Promela/spin, are
 restricted to \IXh{sequential}{consistency}.
 The QRCU experience related in
@@ -167,7 +168,7 @@ good match for modern computer systems, as was seen in
 In contrast, one of the great strengths of PPCMEM and \co{herd}
 is their detailed modeling of various CPU families memory models,
 including x86, \ARM, Power, and, in the case of \co{herd},
-a Linux-kernel memory model~\cite{Alglave:2018:FSC:3173162.3177156},
+a \IXacrml{lkmm}~\cite{Alglave:2018:FSC:3173162.3177156},
 which was accepted into Linux-kernel version v4.17.
 
 The \co{cbmc} and Nidhugg tools provide some ability to select

@@ -4270,7 +4270,7 @@ Can memory accesses be reordered into lock-based critical sections?
 \label{lst:memorder:Subsequent Accesses Into Critical Section (Ordering?)}
 \end{listing}
 
-Within the context of the Linux-kernel memory model, the simple answer
+Within the context of the \IXacrml{lkmm}, the simple answer
 is ``yes''.
 This may be verified by running the litmus tests shown in
 \cref{lst:memorder:Prior Accesses Into Critical Section (Ordering?),%
@@ -5277,7 +5277,7 @@ architecture-specific code or synchronization primitives.
 Besides, they say that a little knowledge is a very dangerous thing.
 Just imagine the damage you could do with a lot of knowledge!
 For those who wish to understand more about individual CPUs'
-\IXh{memory}{consistency} models, the next sections describe those of a few
+\IXpl{memory-consistency model}, the next sections describe those of a few
 popular and prominent CPUs.
 Although there is no substitute for actually reading a given CPU's
 documentation, these sections do give a good overview.
@@ -5511,7 +5511,8 @@ For more on Alpha, see its reference manual~\cite{ALPHA2002}.
 
 The \ARM\ family of CPUs is popular in deep embedded applications,
 particularly for power-constrained microcontrollers.
-Its memory model is similar to that of \Power{}
+Its \IXalt{memory model}{memory-consistency model}
+is similar to that of \Power{}
 (see \cref{sec:memorder:POWER / PowerPC}), but \ARM\ uses a
 different set of memory-barrier instructions~\cite{ARMv7A:2010}:
 
@@ -5598,7 +5599,8 @@ Note that inserting an additional \co{ISB} instruction somewhere between
 includes 64-bit capabilities,
 in contrast to their 32-bit-only CPU described in
 \cref{sec:memorder:ARMv7-A/R}.
-\ARMv8's memory model closely resembles its \ARMv7 counterpart,
+\ARMv8's \IXalt{memory model}{memory-consistency model}
+closely resembles its \ARMv7 counterpart,
 but adds load-acquire (\co{LDLARB}, \co{LDLARH}, and \co{LDLAR})
 and store-release (\co{STLLRB}, \co{STLLRH}, and \co{STLLR})
 instructions.
