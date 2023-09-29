@@ -949,7 +949,7 @@ This is the subject of the next section.
 
 It turns out that there are compiler directives and synchronization
 primitives (such as locking and RCU) that are responsible for maintaining
-the illusion of ordering through use of \emph{\IXBpl{memory barrier}} (for
+the illusion of ordering through use of \emph{\IXB{memory barrier}s} (for
 example, \co{smp_mb()} in the Linux kernel).
 These memory barriers can be explicit instructions, as they are on
 \ARM, \Power{}, Itanium, and Alpha, or they can be implied by other instructions,
@@ -3601,7 +3601,7 @@ instead enshrined in various standards.\footnote{
 It is worth summarizing this material in preparation for the following
 sections.
 
-\IXplx{Plain access}{es}, as in plain-access C-language assignment statements such
+\IX{Plain access}es, as in plain-access C-language assignment statements such
 as \qco{r1 = a} or \qco{b = 1} are subject to the
 shared-variable shenanigans described in
 \cref{sec:toolsoftrade:Shared-Variable Shenanigans}.
@@ -3659,7 +3659,7 @@ starting on
 }\QuickQuizEnd
 
 Please note that all of these shared-memory shenanigans can instead be
-avoided by avoiding \IXpl{data race} on plain accesses, as described in
+avoided by avoiding \IX{data race}s on plain accesses, as described in
 \cref{sec:toolsoftrade:Avoiding Data Races}.
 After all, if there are no data races, then each and every one of the
 compiler optimizations mentioned above is perfectly safe.
@@ -5648,7 +5648,7 @@ on \clnrefrange{init:b}{init:e}.
 \Cref{fig:memorder:fig:memorder:Why smp-read-barrier-depends() is Required in Pre-v4.15 Linux Kernels}
 shows how this can happen on
 an aggressively parallel machine with partitioned caches, so that
-alternating \IXpl{cache line} are processed by the different partitions
+alternating \IX{cache line}s are processed by the different partitions
 of the caches.
 For example, the load of \co{head.next} on \clnref{h:next} of
 \cref{lst:memorder:Insert and Lock-Free Search (No Ordering)}

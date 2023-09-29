@@ -12,7 +12,7 @@
 
 In recent concurrency research, locking often plays the role of villain.
 \IX{Locking} stands accused of inciting deadlocks, convoying, \IX{starvation},
-\IX{unfairness}, \IXpl{data race}, and all manner of other concurrency sins.
+\IX{unfairness}, \IX{data race}s, and all manner of other concurrency sins.
 Interestingly enough, the role of workhorse in production-quality
 shared-memory parallel software is also played by locking.
 This chapter will look into this dichotomy between villain and
@@ -1158,7 +1158,7 @@ shuttle between CPUs~0 and~1, bypassing CPUs~2--7.
 \subsection{Inefficiency}
 \label{sec:locking:Inefficiency}
 
-Locks are implemented using atomic instructions and \IXpl{memory barrier},
+Locks are implemented using atomic instructions and \IX{memory barrier}s,
 and often involve cache misses.
 As we saw in \cref{chp:Hardware and its Habits},
 these instructions are quite expensive, roughly two
@@ -1203,7 +1203,7 @@ Too coarse a granularity will limit scalability, while too fine a
 granularity will result in excessive synchronization overhead.
 
 Acquiring a lock might be expensive, but once held, the CPU's caches
-are an effective performance booster, at least for large \IXpl{critical section}.
+are an effective performance booster, at least for large \IX{critical section}s.
 In addition, once a lock is held, the data protected by that lock can
 be accessed by the lock holder without interference from other threads.
 
@@ -1266,7 +1266,7 @@ and scoped locking (\cref{sec:locking:Scoped Locking}).
 \subsection{Exclusive Locks}
 \label{sec:locking:Exclusive Locks}
 
-\IXhpl{Exclusive}{lock} are what they say they are:
+\IXh{Exclusive}{lock}s are what they say they are:
 Only one thread may hold the lock at a time.
 The holder of such a lock thus has exclusive access to all data protected
 by that lock, hence the name.
@@ -1470,7 +1470,7 @@ systems designed to avoid contention might not need fairness at all.
 \subsection{Reader-Writer Locks}
 \label{sec:locking:Reader-Writer Locks}
 
-\IXhpl{Reader-writer}{lock}~\cite{Courtois71}
+\IXh{Reader-writer}{lock}s~\cite{Courtois71}
 permit any number of readers to hold the lock
 concurrently on the one hand or a single writer to hold the lock
 on the other.
@@ -1506,7 +1506,7 @@ and memory-barrier overhead---multiplied by the number of threads.
 In short, reader-writer locks can be quite useful in a number of
 situations, but each type of implementation does have its drawbacks.
 The canonical use case for reader-writer locking involves very long
-\IXhpl{read-side}{critical section}, preferably measured in hundreds of microseconds
+\IXh{read-side}{critical section}s, preferably measured in hundreds of microseconds
 or even milliseconds.
 
 As with exclusive locks, a reader-writer lock acquisition cannot complete
@@ -2639,7 +2639,7 @@ It is important to note that hardware transactional memory
 (discussed in
 \cref{sec:future:Hardware Transactional Memory})
 cannot help here unless the hardware transactional memory implementation
-provides \IXpl{forward-progress guarantee}, which few do.
+provides \IX{forward-progress guarantee}s, which few do.
 Other alternatives that appear to be quite practical (if less heavily
 hyped) include the methods discussed in
 \cref{sec:locking:Conditional Locking,sec:locking:Acquire Needed Locks First},

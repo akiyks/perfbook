@@ -54,7 +54,7 @@ Unfortunately, as laid out in
 \cref{sec:toolsoftrade:Shared-Variable Shenanigans}
 and reiterated in
 \cref{sec:defer:Minimal Insertion and Deletion},
-it is unwise to use \IXplx{plain access}{es} for these publication and subscription
+it is unwise to use \IX{plain access}es for these publication and subscription
 operations.
 It is instead necessary to inform both the compiler and the CPU
 of the need for care, as can be seen from
@@ -140,7 +140,7 @@ The coding restrictions are described in more detail in
 \cref{sec:memorder:Address- and Data-Dependency Difficulties},
 however, the common case of field selection (\qtco{->}) works quite well.
 Software that does not require the ultimate in read-side performance
-can instead use C11 \IXpl{acquire load}, which provide the needed ordering and
+can instead use C11 \IX{acquire load}s, which provide the needed ordering and
 more, albeit at a cost.
 It is hoped that lighter-weight compiler support for \co{rcu_dereference()}
 will appear in due course.
@@ -541,7 +541,7 @@ microphones, headsets, cameras, mice, printers, and much else besides.
 Furthermore, the large number of Linux-kernel RCU API uses shown in
 \cref{fig:defer:RCU Usage in the Linux Kernel},
 combined with the Linux kernel's heavy use of reference counting
-and with increasing use of \IXpl{hazard pointer} in other projects, demonstrates
+and with increasing use of \IX{hazard pointer}s in other projects, demonstrates
 that tolerance for such inconsistencies is more common than one might
 imagine.
 

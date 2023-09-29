@@ -10,7 +10,7 @@
 Parallel programming has earned a reputation as one of the most
 difficult areas a hacker can tackle.
 Papers and textbooks warn of the perils of \IX{deadlock}, \IX{livelock},
-\IXpl{race condition}, non-determinism,
+\IX{race condition}s, non-determinism,
 \IXaltr{Amdahl's-Law}{Amdahl's Law} limits to scaling,
 and excessive realtime latencies.
 And these perils are quite real; we authors have accumulated uncounted
@@ -1094,7 +1094,7 @@ parallelism, so much so that it is
 usually wise to begin parallelization by partitioning your write-intensive
 resources and replicating frequently accessed read-mostly resources.
 The resource in question is most frequently data, which might be
-partitioned over computer systems, mass-storage devices, \IXplr{NUMA node},
+partitioned over computer systems, mass-storage devices, \IXr{NUMA node}s,
 CPU cores (or dies or hardware threads), pages, cache lines, instances
 of synchronization primitives, or critical sections of code.
 For example, partitioning over locking primitives is termed

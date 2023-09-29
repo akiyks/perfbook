@@ -21,7 +21,7 @@ and where elements might be added to and removed from the structure
 at any location and at any time.
 \Cref{sec:defer:Which to Choose? (Production Use)}
 then points out a few publicly visible production uses of
-\IXpl{hazard pointer}, \IXh{sequence}{lock}ing, and RCU\@.
+\IX{hazard pointer}s, \IXh{sequence}{lock}ing, and RCU\@.
 This discussion should help you to make an informed choice between
 these techniques.
 
@@ -291,7 +291,7 @@ provides more-detailed rules of thumb that can help you choose among the
 four deferred-processing techniques presented in this chapter.
 
 As shown in the ``Existence Guarantee'' row,
-if you need \IXpl{existence guarantee} for linked
+if you need \IX{existence guarantee}s for linked
 data elements, you must use reference counting, hazard pointers, or RCU\@.
 Sequence locks do not provide existence guarantees, instead providing
 detection of updates, retrying any read-side critical sections
@@ -455,7 +455,7 @@ of RCU and reference counters.
 RCU is used for short-lived references, which means that RCU read-side
 critical sections can be short.
 These short RCU read-side critical sections in turn mean that the corresponding
-RCU \IXpl{grace period} can also be short, which limits the memory footprint.
+RCU \IX{grace period}s can also be short, which limits the memory footprint.
 For the few data elements that need longer-lived references, reference
 counting is used.
 This means that the complexity of reference-acquisition failure only

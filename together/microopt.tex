@@ -153,7 +153,7 @@ is sometimes necessary to take extreme measures to reduce memory overhead.
 
 Modern computers typically move data between CPUs and main memory in
 fixed-sized blocks that range in size from 32 bytes to 256 bytes.
-These blocks are called \emph{\IXpl{cache line}}, and are extremely important
+These blocks are called \emph{\IX{cache line}s}, and are extremely important
 to high performance and scalability, as was discussed in
 \cref{sec:cpu:Overheads}.
 One timeworn way to kill both performance and scalability is to
@@ -253,7 +253,7 @@ An additional set of rules of thumb deal with locks:
 	that they protect.
 	This approach means that the cache miss that brings the
 	lock to the current CPU also brings its data.
-\item	Protect read-mostly data with \IXpl{hazard pointer}, RCU, or, for
+\item	Protect read-mostly data with \IX{hazard pointer}s, RCU, or, for
 	long-duration critical sections, reader-writer locks.
 \end{enumerate}
 

@@ -739,7 +739,7 @@ at any given time, but multiple threads may read-hold a given
 \apipx{pthread_rwlock_t}, at least while there is no thread
 currently write-holding it.
 
-As you might expect, \IXhpl{reader-writer}{lock} are designed for read-mostly
+As you might expect, \IXh{reader-writer}{lock}s are designed for read-mostly
 situations.
 In these situations, a reader-writer lock can provide greater scalability
 than can an \IXh{exclusive}{lock} because the exclusive lock is by definition
@@ -898,8 +898,8 @@ Given ideal hardware and software scalability, this value will always
 be 1.0.
 
 As can be seen in the figure, reader-writer locking scalability is
-decidedly non-ideal, especially for smaller sizes of \IXpl{critical
-section}.
+decidedly non-ideal, especially for smaller sizes of \IX{critical
+section}s.
 To see why read-acquisition can be so slow, consider
 that all the acquiring threads must update the \co{pthread_rwlock_t}
 data structure.
@@ -1561,7 +1561,7 @@ should be replaced by the primitives described in
 \cref{sec:toolsoftrade:Atomic Operations (gcc Classic)}
 or (especially)
 \cref{sec:toolsoftrade:Atomic Operations (C11)}.
-Use these primitives to avoid \IXpl{data race}, that is, ensure that if
+Use these primitives to avoid \IX{data race}s, that is, ensure that if
 there are multiple concurrent C-language accesses to a given variable,
 all of those accesses are loads.
 
@@ -2707,7 +2707,7 @@ a number of ways of concurrently accessing shared variables.
 All else being equal, the C11 standard operations described in
 \cref{sec:toolsoftrade:Atomic Operations (C11)}
 should be your first stop.
-If you need to access a given shared variable both with \IXplx{plain access}{es}
+If you need to access a given shared variable both with \IX{plain access}es
 and atomically, then the modern \GCC\ atomics described in
 \cref{sec:toolsoftrade:Atomic Operations (Modern gcc)}
 might work well for you.

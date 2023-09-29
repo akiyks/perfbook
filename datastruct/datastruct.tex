@@ -496,7 +496,7 @@ read-mostly situations.
 However, we can achieve both performance and scalability by using
 RCU, which was introduced in
 \cref{sec:defer:Read-Copy Update (RCU)}.
-Similar results can be achieved using \IXpl{hazard pointer}
+Similar results can be achieved using \IX{hazard pointer}s
 (\path{hazptr.c})~\cite{MagedMichael04a}, which will be included in
 the performance results shown in this
 section~\cite{McKenney:2013:SDS:2483852.2483867}.
@@ -704,7 +704,7 @@ Both show a change in slope at 224~CPUs, and this is due to hardware
 multithreading.
 At 224 and fewer CPUs, each thread has a core to itself.
 In this regime, RCU does better than does hazard pointers because the
-latter's read-side \IXpl{memory barrier} result in dead time within the core.
+latter's read-side \IX{memory barrier}s result in dead time within the core.
 In short, RCU is better able to utilize a core from a single hardware
 thread than is hazard pointers.
 
@@ -928,7 +928,7 @@ throughput.
 Of course, a great many applications have good load-spreading
 properties, and for these applications sharding works
 quite well.
-However, sharding does not handle ``\IXpl{hot spot}'' very well, with
+However, sharding does not handle ``\IX{hot spot}s'' very well, with
 the hot spot exemplified by Schr\"odinger's cat being but one case
 in point.
 

@@ -203,7 +203,7 @@ The full API is covered in \cref{sec:defer:RCU Linux-Kernel API}.
 
 Three members of the core APIs are used by readers.
 The \apik{rcu_read_lock()} and \apik{rcu_read_unlock()} functions delimit
-\IXhmrpl{RCU read-side}{critical section}.
+\IXhmr{RCU read-side}{critical section}s.
 These may be nested, so that one \co{rcu_read_lock()}--\co{rcu_read_unlock()}
 pair can be enclosed within another.
 In this case, the nested set of RCU read-side critical sections act as
@@ -397,7 +397,7 @@ one CPU or thread at a time.
 This approach has the advantage of not degrading reader response times
 at all, let alone gravely.
 Furthermore, numerous applications already have states (termed
-\emph{\IXpl{quiescent state}}) that can be
+\emph{\IX{quiescent state}s}) that can be
 reached only after all pre-existing readers are done.
 In transaction-processing systems, the time between a pair of
 successive transactions might be a quiescent state.
@@ -729,7 +729,7 @@ of an object, respectively.
 These mechanisms distribute the work among read and
 update paths in such a way as to make read paths extremely fast, using
 replication and weakening optimizations in a manner similar to
-\IXpl{hazard pointer}, but without the need for read-side retries.
+\IX{hazard pointer}s, but without the need for read-side retries.
 In some cases, including \co{CONFIG_PREEMPT=n} Linux kernels,
 RCU's read-side primitives have zero overhead.
 

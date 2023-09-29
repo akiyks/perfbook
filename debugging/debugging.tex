@@ -699,7 +699,7 @@ scripts to analyze the voluminous output.
 But beware---scripts will only notice what you tell them to.
 My \co{rcutorture} scripts are a case in point:
 Early versions of those scripts were quite satisfied with a test run
-in which RCU \IXpl{grace period} stalled indefinitely.
+in which RCU \IX{grace period}s stalled indefinitely.
 This of course resulted in the scripts being modified to detect RCU
 grace-period stalls, but this does not change the fact that the scripts
 will only detect problems that I make them detect.
@@ -771,7 +771,7 @@ KCSAN has a significant false-positive rate, especially from the
 viewpoint of developers thinking in terms of C as assembly language
 with additional syntax.
 KCSAN therefore provides a \co{data_race()} construct to forgive
-known-benign \IXpl{data race}, and also the \co{ASSERT_EXCLUSIVE_ACCESS()}
+known-benign \IX{data race}s, and also the \co{ASSERT_EXCLUSIVE_ACCESS()}
 and \co{ASSERT_EXCLUSIVE_WRITER()} assertions to explicitly check for data
 races~\cite{MarcoElver2020FearDataRaceDetector1,MarcoElver2020FearDataRaceDetector2}.
 
@@ -2445,7 +2445,7 @@ which is one sign that we are living in the real world.
 	Benchmarks sensitive to memory bandwidth (such as those involving
 	matrix arithmetic) should spread the running threads across the
 	available cores and sockets to maximize memory parallelism.
-	They should also spread the data across \IXplr{NUMA node}, memory
+	They should also spread the data across \IXr{NUMA node}s, memory
 	controllers, and DRAM chips to the extent possible.
 	In contrast, benchmarks sensitive to memory latency (including
 	most poorly scaling applications) should instead maximize

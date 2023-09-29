@@ -1447,7 +1447,7 @@ In this approach, code updating groups of per-CPU variables must
 acquire the current CPU's spinlock, carry out the update, then
 release whichever lock is acquired, keeping in mind that a preemption
 might have resulted in a migration to some other CPU\@.
-However, this approach introduces both overhead and \IXpl{deadlock}.
+However, this approach introduces both overhead and \IX{deadlock}s.
 
 Another alternative, which is used in the \rt\ patchset as of early 2021,
 is to convert preemption disabling to migration disabling.
@@ -1954,7 +1954,7 @@ temperature, humidity, and barometric pressure.
 The real-time response constraints on this program are so severe that
 it is not permissible to spin or block, thus ruling out locking,
 nor is it permissible to use a retry loop, thus ruling out \IXh{sequence}{lock}s
-and \IXpl{hazard pointer}.
+and \IX{hazard pointer}s.
 Fortunately, the temperature and pressure are normally controlled,
 so that a default hard-coded set of data is usually sufficient.
 
