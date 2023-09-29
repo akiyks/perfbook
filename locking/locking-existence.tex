@@ -8,7 +8,7 @@
 \epigraph{Existence precedes and rules essence.}{Jean-Paul Sartre}
 
 A key challenge in parallel programming is to provide
-\emph{\IXpl{existence guarantee}}~\cite{Gamsa99},
+\emph{\IX{existence guarantee}s}~\cite{Gamsa99},
 so that attempts to access a given object can rely on that object
 being in existence throughout a given access attempt.
 
@@ -96,7 +96,7 @@ One way of providing scalability that improves as the size of the
 data structure increases is to place a lock in each element of the
 structure.
 Unfortunately, putting the lock that is to protect a data element
-in the data element itself is subject to subtle \IXpl{race condition},
+in the data element itself is subject to subtle \IX{race condition}s,
 as shown in
 \cref{lst:locking:Per-Element Locking Without Existence Guarantees (Buggy!)}.
 

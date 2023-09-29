@@ -211,7 +211,7 @@ If the program has only a single shared resource, code locking
 will even give optimal performance.
 However, many of the larger and more complex programs
 require much of the execution to
-occur in \IXpl{critical section}, which in turn causes code locking
+occur in \IX{critical section}s, which in turn causes code locking
 to sharply limits their scalability.
 
 Therefore, you should use code locking on programs that spend
@@ -331,7 +331,7 @@ in the next section.
 
 Many data structures may be partitioned,
 with each partition of the data structure having its own lock.
-Then the \IXpl{critical section} for each part of the data structure
+Then the \IX{critical section}s for each part of the data structure
 can execute in parallel,
 although only one instance of the critical section for a given
 part could be executing at a given time.
@@ -512,7 +512,7 @@ bucket from being freed during the time that its lock was being acquired.
 		reference counter, or a global array of reference counters.
 		These have strengths and limitations similar to those
 		called out above for locks.
-	\item	Use \emph{\IXpl{hazard pointer}}~\cite{MagedMichael04a}, which
+	\item	Use \emph{\IX{hazard pointer}s}~\cite{MagedMichael04a}, which
 		can be thought of as an inside-out reference count.
 		Hazard-pointer-based algorithms maintain a per-thread list of
 		pointers, so that the appearance of a given pointer on
@@ -926,7 +926,7 @@ as depicted in \cref{fig:SMPdesign:Parallel-Fastpath Design Patterns}:
 \label{sec:SMPdesign:Reader/Writer Locking}
 
 If synchronization overhead is negligible (for example, if the program
-uses coarse-grained parallelism with large \IXpl{critical section}), and if
+uses coarse-grained parallelism with large \IX{critical section}s), and if
 only a small fraction of the critical sections modify data, then allowing
 multiple readers to proceed in parallel can greatly increase scalability.
 Writers exclude both readers and each other.
