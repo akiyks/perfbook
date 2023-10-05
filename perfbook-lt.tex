@@ -232,9 +232,11 @@
 
 \newcommand{\IX}[1]{\ucindex{#1}\hlindex{#1}} % put with first letter capitalized into general index
 \newcommand{\IXr}[1]{\index{#1}\hlindex{#1}} % put as is into general index
+\newcommand{\IXplx}[3]{\ucindex{#1#3}\hlindex{#1#2}} % put as is into general index for plural of exeptional form
 \newcommand{\IXalt}[2]{\ucindex{#2}\hlindex{#1}} % put alternative with first letter capitalized into general index
 \newcommand{\IXaltr}[2]{\index{#2}\hlindex{#1}} % put alternative as is into general index
 \newcommand{\IXh}[2]{\indexh{#1 #2}{#2}{#1}\hlindex{#1 #2}}
+\newcommand{\IXhplx}[4]{\indexh{#1 #2#4}{#2#4}{#1}\hlindex{#1 #2#3}}
 \newcommand{\IXhr}[2]{\indexhr{#1 #2}{#2}{#1}\hlindex{#1 #2}}
 \newcommand{\IXhmr}[2]{\indexhmr{#1 #2}{#2}{#1}\hlindex{#1 #2}}
 \newcommand{\IXhy}[2]{\indexhy{#1#2}{#2}{#1}\hlindex{#1#2}}
@@ -245,10 +247,12 @@
 % page number in bold face
 \newcommand{\BF}[1]{\textbf{#1}}
 \newcommand{\IXB}[1]{\ucindex{#1|BF}\hlindex{#1}} % put with first letter capitalized into general index
+\newcommand{\IXBplx}[3]{\ucindex{#1#3|BF}\hlindex{#1#2}}
 \newcommand{\IXBr}[1]{\index{#1|BF}\hlindex{#1}} % put as is into general index
 \newcommand{\IXBalt}[2]{\ucindex{#2|BF}\hlindex{#1}} % put alternative with first letter capitalized into general index
 \newcommand{\IXBaltr}[2]{\index{#2|BF}\hlindex{#1}} % put alternative as is into general index
 \newcommand{\IXBh}[2]{\indexh{#1 #2|BF}{#2|BF}{#1}\hlindex{#1 #2}}
+\newcommand{\IXBhplx}[4]{\indexh{#1 #2#4|BF}{#2#4|BF}{#1}\hlindex{#1 #2#3}}
 \newcommand{\IXBhr}[2]{\indexhr{#1 #2|BF}{#2|BF}{#1}\hlindex{#1 #2}}
 \newcommand{\IXBhmr}[2]{\indexhmr{#1 #2|BF}{#2|BF}{#1}\hlindex{#1 #2}}
 \newcommand{\IXBhy}[2]{\indexhy{#1#2|BF}{#2|BF}{#1}\hlindex{#1#2}}
