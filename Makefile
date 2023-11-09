@@ -52,6 +52,9 @@ FIGSOURCES := $(wildcard */*.fig) $(wildcard */*/*.fig)
 
 EPSSOURCES_FROM_FIG := $(FIGSOURCES:%.fig=%.eps)
 
+EPSSOURCES_FROM_DATA := \
+	CodeSamples/formal/data/RCU-test-ratio.eps
+
 SVGSOURCES_ALL := $(wildcard */*.svg)
 SVG_EMERGENCY := $(wildcard */*.svg*.svg)
 SVGSOURCES := $(filter-out $(SVG_EMERGENCY),$(SVGSOURCES_ALL))
@@ -83,11 +86,11 @@ EPSSOURCES_OLD := \
 	$(wildcard CodeSamples/*/*/*/OLD-*/*.eps) \
 	$(wildcard CodeSamples/*/*/*/OLD-*/*/*.eps)
 
-EPSSOURCES := $(sort $(filter-out $(EPSSOURCES_OLD) $(OBSOLETE_FILES) $(EPSSOURCES_TMP),$(EPSSOURCES_DUP)))
+EPSSOURCES := $(sort $(filter-out $(EPSSOURCES_OLD) $(OBSOLETE_FILES) $(EPSSOURCES_TMP),$(EPSSOURCES_DUP) $(EPSSOURCES_FROM_DATA)))
 
 PDFTARGETS_OF_EPS := $(EPSSOURCES:%.eps=%.pdf)
 
-EPSORIGIN := $(filter-out $(EPSSOURCES_FROM_TEX) $(EPSSOURCES_FROM_DOT) $(EPSSOURCES_FROM_FIG),$(EPSSOURCES))
+EPSORIGIN := $(filter-out $(EPSSOURCES_FROM_TEX) $(EPSSOURCES_FROM_DOT) $(EPSSOURCES_FROM_FIG) $(EPSSOURCES_FROM_DATA),$(EPSSOURCES))
 
 GNUPLOT_ORIG := $(shell grep -l gnuplot $(EPSORIGIN))
 GNUPLOT_ORIG_NOFIXFONTS := $(shell grep -l '/FontMatrix' $(GNUPLOT_ORIG))
@@ -144,6 +147,8 @@ else
   SVG_PDF_CONVERTER = (inkscape)
 endif
 LATEXPAND := $(shell $(WHICH) latexpand 2>/dev/null)
+GNUPLOT := $(shell $(WHICH) gnuplot 2>/dev/null)
+PFBTOPS := $(shell $(WHICH) pfbtops 2>/dev/null)
 QPDF := $(shell $(WHICH) qpdf 2>/dev/null)
 
 # required fonts
@@ -475,6 +480,19 @@ else
 endif
 	@sh $(FIXANEPSFONTS) $@
 
+# run gnuplot to generate RCU-test-ratio.eps
+CodeSamples/formal/data/RCU-test-ratio.eps: CodeSamples/formal/data/rcu-test.dat CodeSamples/formal/data/plot.sh
+	@echo "Generating $@"
+ifdef GNUPLOT
+  ifdef PFBTOPS
+	@cd CodeSamples/formal/data && sh plot.sh && cd ../../..
+  else
+	$(error $@: pfbtops not found. Please install groff)
+  endif
+else
+	$(error $@: gnuplot not found. Please install it)
+endif
+
 # .eps --> .pdf rules
 ifdef USE_A2PING
   include a2ping-rule.mk
@@ -661,7 +679,7 @@ neatfreak: distclean
 	find . -name '*.pdf' | xargs rm -f
 
 cleanfigs-eps:
-	rm -f $(EPSSOURCES_FROM_TEX) $(EPSSOURCES_FROM_DOT) $(EPSSOURCES_FROM_FIG)
+	rm -f $(EPSSOURCES_FROM_TEX) $(EPSSOURCES_FROM_DOT) $(EPSSOURCES_FROM_FIG) $(EPSSOURCES_FROM_DATA)
 	rm -f $(PDFTARGETS_OF_EPS)
 
 cleanfigs-svg:
