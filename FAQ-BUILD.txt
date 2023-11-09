@@ -44,7 +44,7 @@
 		necessary packages (except for -doc packages):
 			texlive-publishers texlive-pstricks
 			texlive-science texlive-fonts-extra
-			xfig inkscape graphviz
+			xfig inkscape graphviz gnuplot groff
 
 		On Fedora, installing the following set of packages
 		suffices:
@@ -53,7 +53,7 @@
 			texlive-collection-latexextra
 			texlive-collection-fontsextra
 			texlive-collection-fontutils
-			transfig graphviz inkscape
+			transfig graphviz inkscape gnuplot groff
 
 		On other Linux distributions such as RHEL/CentOS and
 		Scientific Linux, where support of TeX Live packages
@@ -71,6 +71,7 @@
 		Besides TeX Live, you need the following list of
 		packages:
 			fig2dev (or transfig) graphviz inkscape
+			gnuplot groff
 
 6.	I cannot build perfbook, and the perfbook.log file complains
 	about some obscure package being missing.  What do I do?
