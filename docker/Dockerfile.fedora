@@ -4,7 +4,7 @@
 # You can override "rel" by saying:
 #    docker build -t <tag> --build-arg rel=latest -f Dockerfile.fedora .
 #
-ARG rel=37
+ARG rel=latest
 FROM fedora:$rel
 
 RUN dnf -y update && dnf install -y --setopt=tsflags=nodocs \
