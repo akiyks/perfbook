@@ -3,7 +3,7 @@
 fontsize=12
 plotsize=1
 przsize="nosquare 1.2,0.375"
-font=`kpsewhich uhvr8a.pfb`
+font=../../../fonts/uhvr8a.pfb
 
 gnuplot << ---EOF---
 set term postscript portrait color ${fontsize} enhanced "NimbusSanL-Regu" fontfile "${font}"
