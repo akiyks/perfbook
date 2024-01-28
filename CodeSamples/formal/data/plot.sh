@@ -6,7 +6,7 @@ przsize="nosquare 1.2,0.375"
 font=`kpsewhich uhvr8a.pfb`
 
 gnuplot << ---EOF---
-set term postscript portrait color ${fontsize} enhanced "NimbusSanL-Regu" fontfile "${font}"
+set term postscript portrait color ${fontsize} enhanced fontfile "${font}" "NimbusSanL-Regu"
 set colorsequence podo
 set size $przsize
 set output "RCU-test-ratio.eps"
