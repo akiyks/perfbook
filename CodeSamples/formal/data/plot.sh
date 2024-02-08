@@ -1,15 +1,11 @@
 #!/bin/sh
 
-fontsize=12
-plotsize=1
-przsize="nosquare 1.2,0.375"
-font=`kpsewhich uhvr8a.pfb`
+fontsize=14
 
 gnuplot << ---EOF---
-set term postscript portrait color ${fontsize} enhanced "NimbusSanL-Regu" fontfile "${font}"
+set term svg size 800,350 enhanced font "Nimbus Sans,$fontsize"
 set colorsequence podo
-set size $przsize
-set output "RCU-test-ratio.eps"
+set output "RCU-test-ratio.svg"
 set xlabel "Linux Release"
 set ylabel "LoC"
 set y2label "\% Test"
