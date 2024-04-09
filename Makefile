@@ -305,6 +305,14 @@ autodate.tex: $(LATEXSOURCES) $(BIBSOURCES) $(LST_SOURCES) \
     $(GITREFSTAGS) utilities/autodate.sh
 	sh utilities/autodate.sh
 
+ifdef LATEXPAND
+  LATEXPAND_OPTS = --empty-comments
+  LATEXPAND_NON_GLOBAL := $(shell latexpand --help | grep -c -e "--non-global")
+  ifneq ($(LATEXPAND_NON_GLOBAL),0)
+    LATEXPAND_OPTS += --non-global
+  endif
+endif
+
 perfbook_flat.tex: autodate.tex
 ifndef LATEXPAND
 	$(error --> $@: latexpand not found. Please install it)
@@ -328,7 +336,7 @@ endif
 	echo > qqz.tex
 	echo > contrib.tex
 	echo > origpub.tex
-	latexpand --empty-comments perfbook-lt.tex 1> $@ 2> /dev/null
+	latexpand $(LATEXPAND_OPTS) perfbook-lt.tex 1> $@ 2> /dev/null
 
 qqz.tex: perfbook_flat.tex
 	sh utilities/extractqqz.sh < $< | perl utilities/qqzreorder.pl > $@
