@@ -1972,7 +1972,8 @@ mechanisms have been used extensively as pure spinlocks in production.
 
 There are a great many other possible implementations of locking based
 on atomic instructions, many of which are reviewed in the classic paper
-by Mellor-Crummey and Scott~\cite{MellorCrummey91a}.
+by \pplsur{John M.}{Mellor-Crummey} and
+\pplsur{Michael}{Scott}~\cite{MellorCrummey91a}.
 These implementations represent different points in a multi-dimensional
 design tradeoff~\cite{Guerraoui:2019:LPA:3319851.3301501,HugoGuirouxPhD,McKenney96a}.
 For example,
@@ -2037,7 +2038,8 @@ steps to avoid
 starvation~\cite{McKenney02e,radovic03hierarchical,radovic02efficient,BenJackson02,McKenney02d}.
 Many of these can be thought of as analogous to the elevator algorithms
 traditionally used in scheduling disk I/O\@.
-Dice et al.~discuss use of local and global locks in order to transform
+\pplsur{David}{Dice} et al.\ discuss use of local and global locks
+in order to transform
 any architecture-oblivious lock into a local/global locking scheme
 that optimizes for the system's structure by providing (for example)
 per-socket locks along with a global
@@ -2046,13 +2048,15 @@ lock~\cite{DavidDice2012NUMAlock1,DavidDice2012NUMAlock2}.
 Unfortunately, the same scheduling logic that improves the \IX{efficiency}
 of queued locks at high contention also increases their overhead at
 low contention.
-Beng-Hong Lim and Anant Agarwal therefore combined a simple test-and-set
+\ppl{Beng-Hong}{Lim} and \ppl{Anant}{Agarwal} therefore combined
+a simple test-and-set
 lock with a queued lock, using the test-and-set lock at low levels of
 contention and switching to the queued lock at high levels of
 contention~\cite{BengHongLim94}, thus getting low overhead at low levels
 of contention and getting fairness and high throughput at high levels
 of contention.
-Browning et al.\ took a similar approach, but avoided the use of a separate
+\pplsur{Luke}{Browning} et al.\ took a similar approach,
+but avoided the use of a separate
 flag, so that the test-and-set fast path uses the same sequence of
 instructions that would be used in a simple test-and-set
 lock~\cite{LukeBrowning2005SimpleLockNUMAAware}.
@@ -2101,8 +2105,8 @@ them can be both entertaining and enlightening.
 Nevertheless, with one exception described below, such study is left
 as an exercise for the reader.
 
-Gamsa et al.~\cite[Section 5.3]{Gamsa99} describe a token-based
-mechanism in which a token circulates among the CPUs.
+\pplsur{Ben}{Gamsa} et al.~\cite[Section 5.3]{Gamsa99} describe
+a token-based mechanism in which a token circulates among the CPUs.
 When the token reaches a given CPU, it has exclusive
 access to anything protected by that token.
 There are any number of schemes that may be used to implement
@@ -2184,7 +2188,8 @@ performance across the range of contention levels, the path has not
 always been smooth~\cite{CatalinMarinas2018qspinlockTLA,WillDeacon2018qspinlock}.
 As increasing numbers of people gain familiarity with parallel hardware
 and parallelize increasing amounts of code, we can continue to expect more
-special-purpose locking primitives to appear, see for example Guerraoui et
+special-purpose locking primitives to appear, see for example
+\pplsur{Rachid}{Guerraoui} et
 al.~\cite{Guerraoui:2019:LPA:3319851.3301501,HugoGuirouxPhD}.
 Nevertheless, you should carefully consider this important safety tip:
 Use the standard synchronization primitives whenever humanly possible.
