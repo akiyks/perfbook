@@ -586,7 +586,7 @@ on
 % @@@ \QuickQuizARef{\MemorderQQLitmusTestR}.
 Full barriers include \co{smp_mb()}, successful full-strength non-\co{void}
 atomic RMW operations, and other atomic RMW operations in conjunction with
-either \co{smp_mb__before_atomic()} or \co{smp_mb__after_atomic()}.
+either \apik{smp_mb__before_atomic()} or \apik{smp_mb__after_atomic()}.
 Any of RCU's grace-period-wait primitives (\co{synchronize_rcu()} and
 friends) also act as full barriers, but at far greater expense than
 \co{smp_mb()}.
@@ -4590,8 +4590,9 @@ However, as noted earlier, \IXalthmr{\acr{lkmm}}{Linux kernel}{memory model}
 chooses not to provide these additional
 orderings, in part to avoid imposing performance penalties on the simpler
 and more prevalent locking use cases.
-Instead, the \co{smp_mb__after_spinlock()} and \co{smp_mb__after_unlock_lock()}
-primitives are provided for those more complex use cases, as discussed
+Instead, the \apik{smp_mb__after_spinlock()} and
+\apik{smp_mb__after_unlock_lock()} primitives are provided
+for those more complex use cases, as discussed
 in \cref{sec:memorder:Hardware Specifics}.
 
 Thus far, this section has discussed only hardware reordering.
@@ -5494,26 +5495,26 @@ Therefore,
 Linux provides a carefully chosen least-common-denominator
 set of memory-ordering primitives, which are as follows:
 \begin{description}
-\item	[\tco{smp_mb()}] (\IXh{full}{memory barrier}) that orders both loads and
+\item	[\apitk{smp_mb()}] (\IXh{full}{memory barrier}) that orders both loads and
 	stores.
 	This means that loads and stores preceding the memory barrier
 	will be committed to memory before any loads and stores
 	following the memory barrier.
-\item	[\tco{smp_rmb()}] (\IXh{read}{memory barrier}) that orders only loads.
-\item	[\tco{smp_wmb()}] (\IXh{write}{memory barrier}) that orders only stores.
-\item	[\tco{smp_mb__before_atomic()}] that forces ordering of accesses
+\item	[\apitk{smp_rmb()}] (\IXh{read}{memory barrier}) that orders only loads.
+\item	[\apitk{smp_wmb()}] (\IXh{write}{memory barrier}) that orders only stores.
+\item	[\apitk{smp_mb__before_atomic()}] that forces ordering of accesses
 	preceding the \co{smp_mb__before_atomic()} against accesses following
 	a later RMW atomic operation.
 	This is a noop on systems that fully order atomic RMW operations.
-\item	[\tco{smp_mb__after_atomic()}] that forces ordering of accesses
+\item	[\apitk{smp_mb__after_atomic()}] that forces ordering of accesses
 	preceding an earlier RMW atomic operation against accesses
 	following the \co{smp_mb__after_atomic()}.
 	This is also a noop on systems that fully order atomic RMW operations.
-\item	[\tco{smp_mb__after_spinlock()}] that forces ordering of accesses
+\item	[\apitk{smp_mb__after_spinlock()}] that forces ordering of accesses
 	preceding a lock acquisition against accesses
 	following the \co{smp_mb__after_spinlock()}.
 	This is also a noop on systems that fully order lock acquisitions.
-\item	[\tco{mmiowb()}] that forces ordering on MMIO writes that are guarded
+\item	[\apitk{mmiowb()}] that forces ordering on MMIO writes that are guarded
 	by global spinlocks, and is more thoroughly described
 	in a 2016 LWN article on MMIO~\cite{PaulEMcKenney2016LinuxKernelMMIO}.
 \end{description}
