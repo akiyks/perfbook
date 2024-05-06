@@ -2118,7 +2118,7 @@ for read-write
 workloads where consistent data is required, although usually in
 conjunction with a number of other synchronization primitives.
 For example, the directory-entry cache in recent Linux kernels uses RCU in
-conjunction with sequence locks, per-CPU locks, and per-data-structure
+conjunction with \IXh{sequence}{lock}s, per-CPU locks, and per-data-structure
 locks to allow lockless traversal of pathnames in the common case.
 Although RCU can be very beneficial in this read-write case, the
 corresponding code is often more complex than that of the read-mostly

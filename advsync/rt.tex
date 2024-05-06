@@ -1953,7 +1953,7 @@ data that is subject to gradual change, perhaps due to changes in
 temperature, humidity, and barometric pressure.
 The real-time response constraints on this program are so severe that
 it is not permissible to spin or block, thus ruling out locking,
-nor is it permissible to use a retry loop, thus ruling out sequence locks
+nor is it permissible to use a retry loop, thus ruling out \IXh{sequence}{lock}s
 and \IXpl{hazard pointer}.
 Fortunately, the temperature and pressure are normally controlled,
 so that a default hard-coded set of data is usually sufficient.
