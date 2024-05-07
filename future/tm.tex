@@ -14,13 +14,14 @@ database and non-database transactions being that non-database transactions
 drop the ``D'' in the ``ACID''\footnote{
 	Atomicity, consistency, isolation, and durability.}
 properties defining database transactions.
-The idea of supporting memory-based transactions, or ``transactional memory''
-(TM), in hardware
+The idea of supporting memory-based transactions, or
+\IXBacrfst{tm}, in hardware
 is more recent~\cite{Herlihy93a}, but unfortunately, support for such
 transactions in commodity hardware was not immediately forthcoming,
 despite other somewhat similar proposals being put forward~\cite{JMStone93}.
-Not long after, Shavit and Touitou proposed a software-only implementation
-of transactional memory (STM) that was capable of running on commodity
+Not long after, \pplsur{Nir}{Shavit} and \pplsur{Dan}{Touitou} proposed
+a software-only implementation
+of transactional memory (\IXacr{stm}) that was capable of running on commodity
 hardware, give or take memory-ordering issues~\cite{Shavit95}.
 This proposal languished for many years, perhaps due to the fact that
 the research community's attention was absorbed by \IXacrl{nbs}
@@ -1155,7 +1156,7 @@ A full exposition on contention managers is beyond the scope of this section.
 This section will therefore limit itself to a few seminal papers
 in this area.
 
-Herlihy et al.~\cite{HerlihyLMS03}
+\pplsur{Maurice P.}{Herlihy} et al.~\cite{HerlihyLMS03}
 have writing transactions unconditionally abort reading transactions,
 which has the virtue of simplicity, but which can result in reader
 starvation.
