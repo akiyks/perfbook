@@ -7,11 +7,10 @@
 %
 \epigraph{I am never letting you go!}{Unknown}
 
-\IXalt{Reference counting}{reference count}
-tracks the number of references to a given object in
-order to prevent that object from being prematurely freed.
+\IXB{Reference count}ing tracks the number of references to a given
+object in order to prevent that object from being prematurely freed.
 As such, it has a long and honorable history of use dating back to
-at least an early 1960s Weizenbaum
+at least an early 1960s \pplsur{Joseph}{Weizenbaum}
 paper~\cite{Weizenbaum:1963:SLP:367593.367617}.
 Weizenbaum discusses reference counting as if it was already well-known,
 so it likely dates back to the 1950s or even to the 1940s.
@@ -241,7 +240,7 @@ The problem is that the reference count is located in the object
 to be protected, but that means that there is no protection during
 the instant in time when the reference count itself is being acquired!
 This is the reference-counting counterpart of a locking issue noted
-by Gamsa et al.~\cite{Gamsa99}.
+by \pplsur{Ben}{Gamsa} et al.~\cite{Gamsa99}.
 One could imagine using a global lock or reference count to protect
 the per-route-entry reference-count acquisition, but this would
 result in severe contention issues.
