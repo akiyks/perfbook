@@ -414,24 +414,24 @@ The ``RCU'' column corresponds to the consolidation of the
 three Linux-kernel RCU
 implementations~\cite{PaulEMcKenney2019RCUCVE,McKenney:2019:CRS:3319647.3325836},
 in which RCU read-side critical sections start with
-\apik{rcu_read_lock()} and end with \apik{rcu_read_unlock()}.
+\apiDk{rcu_read_lock()} and end with \apiDk{rcu_read_unlock()}.
 These critical sections can also use  APIs in
 \cref{tab:defer:RCU Markers for Read-Side Critical Sections}, including
-\apik{rcu_read_lock_bh()}, \apik{rcu_read_lock_sched()},
-and \apik{rcu_read_unlock_bh()}, or \apik{rcu_read_unlock_sched()}.
+\apiDk{rcu_read_lock_bh()}, \apiDk{rcu_read_lock_sched()},
+and \apiDk{rcu_read_unlock_bh()}, or \apiDk{rcu_read_unlock_sched()}.
 In addition, any region of code that disables bottom halves, interrupts,
 or preemption also acts as an RCU read-side critical section.
 RCU read-side critical sections may be nested.\footnote{
 	Note well the RAII variants provided by \co{guard(rcu)()} and
 	\co{scoped_guard(rcu)}.}
 The corresponding synchronous update-side primitives,
-\apik{synchronize_rcu()} and \apik{synchronize_rcu_expedited()}, along with
-their synonym \apik{synchronize_net()}, wait for any type of currently
+\apiDk{synchronize_rcu()} and \apiDk{synchronize_rcu_expedited()}, along with
+their synonym \apiDk{synchronize_net()}, wait for any type of currently
 executing RCU read-side critical sections to complete.
 The length of this wait is known as a ``\IX{grace period}'', and
-\apik{synchronize_rcu_expedited()} is designed to reduce \IXh{grace-period}
+\co{synchronize_rcu_expedited()} is designed to reduce \IXh{grace-period}
 {latency} at the expense of increased CPU overhead and IPIs.
-The asynchronous update-side primitive, \apik{call_rcu()},
+The asynchronous update-side primitive, \apiDk{call_rcu()},
 invokes a specified function with a specified argument after a
 subsequent grace period.
 For example, \co{call_rcu(p,f);} will result in
@@ -446,7 +446,7 @@ There are situations,
 such as when unloading a Linux-kernel module that uses \co{call_rcu()}
 or \co{call_rcu_hurry()}, when it is necessary to wait for all
 outstanding RCU callbacks to complete~\cite{PaulEMcKenney2007rcubarrier}.
-The \apik{rcu_barrier()} primitive does this job.
+The \apiDk{rcu_barrier()} primitive does this job.
 
 \QuickQuizSeries{%
 \QuickQuizB{
@@ -456,7 +456,7 @@ The \apik{rcu_barrier()} primitive does this job.
 }\QuickQuizAnswerB{
 	There is no need to do anything to prevent RCU read-side
 	critical sections from indefinitely blocking a
-	\co{synchronize_rcu()} invocation, because the
+	\apik{synchronize_rcu()} invocation, because the
 	\co{synchronize_rcu()} invocation need wait only for
 	\emph{pre-existing} RCU read-side critical sections.
 	So as long as each RCU read-side critical section is
@@ -623,18 +623,18 @@ In the context of RCU, type-safe memory guarantees that a given
 data element will not change type during any RCU read-side critical section
 that accesses it.
 To make use of RCU-based type-safe memory, pass
-\apik{SLAB_TYPESAFE_BY_RCU} to \apik{kmem_cache_create()}.
+\apiDk{SLAB_TYPESAFE_BY_RCU} to \apiDk{kmem_cache_create()}.
 
 The ``SRCU'' column in
 \cref{tab:defer:RCU Wait-to-Finish APIs}
 displays a specialized RCU API that permits general sleeping in SRCU
 read-side critical
 sections~\cite{PaulEMcKenney2006c}
-delimited by \apik{srcu_read_lock()} and \apik{srcu_read_unlock()}.
-However, unlike RCU, SRCU's \apik{srcu_read_lock()} returns a value that
-must be passed into the corresponding \apik{srcu_read_unlock()}.
+delimited by \apiDk{srcu_read_lock()} and \apiDk{srcu_read_unlock()}.
+However, unlike RCU, SRCU's \co{srcu_read_lock()} returns a value that
+must be passed into the corresponding \co{srcu_read_unlock()}.
 This difference is due to the fact that the SRCU user allocates an
-\apik{srcu_struct} for each distinct SRCU usage, so that there is no
+\apiDk{srcu_struct} for each distinct SRCU usage, so that there is no
 convenient place to store a per-task reader-nesting count.
 (Keep in mind that although the Linux kernel provides dynamically
 allocated per-CPU storage, there is not yet dynamically allocated
@@ -644,8 +644,8 @@ SRCU read-side critical sections can also be marked by the APIs shown in
 noting the new RAII variants.
 
 A given \co{srcu_struct} structure may be defined as a global
-variable with \co{DEFINE_SRCU()} if the structure must be used in
-multiple translation units, or with \co{DEFINE_STATIC_SRCU()} otherwise.
+variable with \apiDk{DEFINE_SRCU()} if the structure must be used in
+multiple translation units, or with \apiDk{DEFINE_STATIC_SRCU()} otherwise.
 For example, \co{DEFINE_SRCU(my_srcu)} would create a global variable
 named \co{my_srcu} that could be used by any file in the program.
 Alternatively, an \co{srcu_struct} structure may be either an on-stack
@@ -657,10 +657,10 @@ underlying storage disappears).
 
 However they are created, these distinct \co{srcu_struct} structures
 prevent SRCU read-side critical sections from blocking unrelated
-\apik{synchronize_srcu()} and \apik{synchronize_srcu_expedited()}
+\apiDk{synchronize_srcu()} and \apiDk{synchronize_srcu_expedited()}
 invocations.
-Of course, use of either \apik{synchronize_srcu()} or
-\apik{synchronize_srcu_expedited()} within an SRCU read-side critical
+Of course, use of either \co{synchronize_srcu()} or
+\co{synchronize_srcu_expedited()} within an SRCU read-side critical
 section can result in self-deadlock, so should be avoided (and which
 is checked for by lockdep in v6.4 and later).
 As with RCU, SRCU's \co{synchronize_srcu_expedited()} decreases
@@ -702,7 +702,7 @@ srcu_read_unlock(&ssb, idx);
 }\QuickQuizEnd
 
 Similar to normal RCU, self-deadlock can be avoided using the
-asynchronous \apik{call_srcu()} function.
+asynchronous \apiDk{call_srcu()} function.
 However, special care must be taken when using \co{call_srcu()} because
 a single task could register SRCU callbacks very quickly.
 Given that SRCU readers can block for an arbitrarily long
@@ -711,7 +711,7 @@ In contrast, given the synchronous \co{synchronize_srcu()}
 interface, a given task must finish waiting for a given grace period
 before it can start waiting for the next one.
 
-Also similar to RCU, there is an \apik{srcu_barrier()} function that waits
+Also similar to RCU, there is an \apiDk{srcu_barrier()} function that waits
 for all prior \co{call_srcu()} callbacks to be invoked.
 
 In other words, SRCU compensates for its extremely weak
@@ -756,10 +756,10 @@ is good given that its main use case has nowhere to put such markings.
 Instead, calls to \co{schedule()} serve directly as quiescent states,
 but only those calls to \co{schedule()} that correspond to voluntary
 context switches.
-Updates can use \apik{synchronize_rcu_tasks()} to wait for all pre-existing
+Updates can use \apiDk{synchronize_rcu_tasks()} to wait for all pre-existing
 trampoline execution to complete, or they can use its asynchronous
-counterpart, \apik{call_rcu_tasks()}.
-There is also an \apik{rcu_barrier_tasks()} that waits for completion
+counterpart, \apiDk{call_rcu_tasks()}.
+There is also an \apiDk{rcu_barrier_tasks()} that waits for completion
 of callbacks corresponding to all prior invocations of \co{call_rcu_tasks()}.
 There is no \co{synchronize_rcu_tasks_expedited()} because there has
 not yet been a request for it, though implementing a useful variant of
@@ -904,10 +904,10 @@ APIs described in
 \cref{sec:defer:RCU has List-Processing APIs}.
 
 The first category publishes pointers to new data items.
-The \apik{rcu_assign_pointer()} primitive ensures that any
+The \apiDk{rcu_assign_pointer()} primitive ensures that any
 prior initialization remains ordered before the assignment to the
 pointer on weakly ordered machines.
-The \apik{rcu_replace_pointer()} primitive updates the pointer just like
+The \apiDk{rcu_replace_pointer()} primitive updates the pointer just like
 \co{rcu_assign_pointer()} does, but also returns the previous value,
 just like \co{rcu_dereference_protected()} (see below) would, including
 the lockdep expression.
@@ -974,19 +974,19 @@ rcu_read_unlock();
 }\QuickQuizEndE
 }
 
-The \apik{rcu_pointer_handoff()} primitive simply returns its sole argument,
+The \apiDk{rcu_pointer_handoff()} primitive simply returns its sole argument,
 but is useful to tooling checking for pointers being leaked from
 RCU read-side critical sections.
 Use of \co{rcu_pointer_handoff()} indicates to such tooling that protection
 of the structure in question has been handed off from RCU to some other
 mechanism, such as locking or reference counting.
 
-The \apik{RCU_INIT_POINTER()} macro can be used to initialize RCU-protected
+The \apiDk{RCU_INIT_POINTER()} macro can be used to initialize RCU-protected
 pointers that have not yet been exposed to readers, or alternatively,
 to set RCU-protected pointers to \co{NULL}.
 In these restricted cases, the memory-barrier instructions provided by
 \co{rcu_assign_pointer()} are not needed.
-Similarly, \apik{RCU_POINTER_INITIALIZER()} provides a \GCC-style
+Similarly, \apiDk{RCU_POINTER_INITIALIZER()} provides a \GCC-style
 structure initializer to allow easy initialization of RCU-protected
 pointers in structures.
 
@@ -999,9 +999,9 @@ read-side critical section could result in the pointed-to object being
 freed at any time.
 However, if the pointer is merely to be tested and not dereferenced,
 the freeing of the pointed-to object is not necessarily a problem.
-In this case, \apik{rcu_access_pointer()} may be used.
+In this case, \apiDk{rcu_access_pointer()} may be used.
 Normally, however, RCU read-side protection is required, and so the
-\apik{rcu_dereference()} primitive uses the Linux kernel's \co{lockdep}
+\apiDk{rcu_dereference()} primitive uses the Linux kernel's \co{lockdep}
 facility~\cite{JonathanCorbet2006lockdep} to verify that this
 \co{rcu_dereference()} invocation is under the protection of
 \co{rcu_read_lock()}, \co{srcu_read_lock()}, or some other RCU read-side
@@ -1012,21 +1012,21 @@ used outside of an RCU read-side critical section.
 
 Another situation where protection is not required is when update-side code
 accesses the RCU-protected pointer while holding the update-side lock.
-The \apik{rcu_dereference_protected()} API member is provided for this
+The \apiDk{rcu_dereference_protected()} API member is provided for this
 situation.
 Its first parameter is the RCU-protected pointer, and the second
 parameter takes a lockdep expression describing which locks must be
 held in order for the access to be safe.
 Code invoked both from readers and updaters can use
-\apik{rcu_dereference_check()}, which also takes a lockdep expression, but
+\apiDk{rcu_dereference_check()}, which also takes a lockdep expression, but
 which may also be invoked from read-side code not holding the locks.
 In some cases, the lockdep expressions can be very complex, for example,
 when using fine-grained locking, any of a very large number of locks
 might be held, and it might be quite difficult to work out which applies.
-In these (hopefully rare) cases, \apik{rcu_dereference_raw()} provides
+In these (hopefully rare) cases, \apiDk{rcu_dereference_raw()} provides
 protection but does not check for being invoked within a reader or with
 any particular lock being held.
-The \apik{rcu_dereference_raw_notrace()} API member acts similarly, but
+The \apiDk{rcu_dereference_raw_notrace()} API member acts similarly, but
 cannot be traced, and may therefore be safely used by tracing code.
 
 Although pretty much any linked structure can be accessed by manipulating
@@ -1109,9 +1109,9 @@ Should a reader encounter a \co{NULL} pointer not matching the index of
 the bucket it started from, that reader knows that an element it was
 traversing was moved to some other bucket during the traversal, taking
 that reader with it.
-The reader can use the \apik{is_a_nulls()} function (which returns \co{true}
+The reader can use the \apiDk{is_a_nulls()} function (which returns \co{true}
 if passed an \co{hlist_nulls} \co{NULL} pointer) to determine when
-it reaches the end of a list, and the \apik{get_nulls_value()} function
+it reaches the end of a list, and the \apiDk{get_nulls_value()} function
 (which returns its argument's \co{NULL}-pointer identifier) to fetch
 the type of \co{NULL} pointer.
 When \co{get_nulls_value()} returns an unexpected value, the reader
@@ -1271,7 +1271,7 @@ directory of the Linux-kernel source tree and at
 Linux Weekly News~\cite{PaulEMcKenney2024RCUAPI}.
 
 However, the remainder of this section expands on the use of
-\apik{list_replace_rcu()}, given that this API member gave RCU its name.
+\apiDk{list_replace_rcu()}, given that this API member gave RCU its name.
 This API member is used to carry out more complex updates in which an
 element in the middle of the list having multiple fields is atomically
 updated, so that a given reader sees either the old set of values or
@@ -1357,7 +1357,7 @@ other, not a mixture of the two.
 
 After the \co{synchronize_rcu()} on \clnref{sync_rcu} returns,
 a grace period will have elapsed, and so all reads that started before the
-\apik{list_replace_rcu()} will have completed.
+\co{list_replace_rcu()} will have completed.
 In particular, any readers that might have been holding references
 to the \co{5,6,7} element are guaranteed to have exited
 their RCU read-side critical sections, and are thus prohibited from
@@ -1448,21 +1448,21 @@ parameters, and return values allows the Linux kernel's \co{sparse}
 tool to detect situations where RCU-protected pointers are
 incorrectly accessed using plain C-language loads and stores.
 
-Debug-object support is automatic for any \apik{rcu_head} structures
+Debug-object support is automatic for any \apiDk{rcu_head} structures
 that are part of a structure obtained from the Linux kernel's
 memory allocators, but those building their own special-purpose
-memory allocators can use \apik{init_rcu_head()} and \apik{destroy_rcu_head()}
+memory allocators can use \apiDk{init_rcu_head()} and \apiDk{destroy_rcu_head()}
 at allocation and free time, respectively.
 Those using \co{rcu_head} structures allocated on the function-call
-stack (it happens!\@) may use \apik{init_rcu_head_on_stack()}
-before first use and \apik{destroy_rcu_head_on_stack()} after last use,
+stack (it happens!\@) may use \apiDk{init_rcu_head_on_stack()}
+before first use and \apiDk{destroy_rcu_head_on_stack()} after last use,
 but before returning from the function.
 Debug-object support allows detection of bugs involving passing the
 same \co{rcu_head} structure to \co{call_rcu()} and friends in
 quick succession, which is the \co{call_rcu()} counterpart to the
 infamous double-free class of memory-allocation bugs.
 
-Stall-warning control is provided by \apik{rcu_cpu_stall_reset()}, which
+Stall-warning control is provided by \apiDk{rcu_cpu_stall_reset()}, which
 allows the caller to suppress RCU CPU stall warnings for the remainder
 of the current grace period.
 RCU CPU stall warnings help pinpoint situations where an RCU read-side
@@ -1470,18 +1470,18 @@ critical section runs for an excessive length of time, and it is useful
 for things like kernel debuggers to be able to suppress them, for example,
 when encountering a breakpoint.
 
-Callback checking is provided by \apik{rcu_head_init()} and
-\apik{rcu_head_after_call_rcu()}.
+Callback checking is provided by \apiDk{rcu_head_init()} and
+\apiDk{rcu_head_after_call_rcu()}.
 The former is invoked on an \co{rcu_head} structure before it is passed
 to \co{call_rcu()}, and then \co{rcu_head_after_call_rcu()} will
 check to see if the callback has been invoked with the specified
 function.
 
 Support for lockdep~\cite{JonathanCorbet2006lockdep} includes
-\apik{rcu_read_lock_held()},
-\apik{rcu_read_lock_bh_held()},
-\apik{rcu_read_lock_sched_held()}, and
-\apik{srcu_read_lock_held()},
+\apiDk{rcu_read_lock_held()},
+\apiDk{rcu_read_lock_bh_held()},
+\apiDk{rcu_read_lock_sched_held()}, and
+\apiDk{srcu_read_lock_held()},
 each of which returns \co{true} if invoked within the corresponding
 type of RCU read-side critical section.
 
@@ -1495,18 +1495,18 @@ type of RCU read-side critical section.
 
 Because \co{rcu_read_lock()} cannot be used from the idle loop,
 and because energy-efficiency concerns have caused the idle loop
-to become quite ornate, \apik{rcu_is_watching()} returns \co{true} if
+to become quite ornate, \apiDk{rcu_is_watching()} returns \co{true} if
 invoked in a context where use of \co{rcu_read_lock()} is legal.
 Note again that \co{srcu_read_lock()} may be used from idle and
 even offline CPUs, which means that \co{rcu_is_watching()} does not
 apply to SRCU\@.
 
-\apik{RCU_LOCKDEP_WARN()} emits a warning if lockdep is enabled and if
+\apiDk{RCU_LOCKDEP_WARN()} emits a warning if lockdep is enabled and if
 its argument evaluates to \co{true}.
 For example, \co{RCU_LOCKDEP_WARN(!rcu_read_lock_held())} would emit a
 warning if invoked outside of an RCU read-side critical section.
 
-\apik{RCU_NONIDLE()} may be used to force RCU to watch when executing
+\apiDk{RCU_NONIDLE()} may be used to force RCU to watch when executing
 the statement that is passed in as the sole argument.
 For example, \co{RCU_NONIDLE(WARN_ON(!rcu_is_watching()))}
 would never emit a warning.
@@ -1514,7 +1514,7 @@ However, changes in the 2020--2021 timeframe extend RCU's reach deeper
 into the idle loop, which should greatly reduce or even eliminate the
 need for \co{RCU_NONIDLE()}.
 
-Finally,  \apik{rcu_sleep_check()} emits a warning if invoked within
+Finally,  \apiDk{rcu_sleep_check()} emits a warning if invoked within
 an RCU, RCU-bh, or RCU-sched read-side critical section.
 
 \subsubsection{Where Can RCU's APIs Be Used?}
@@ -1534,9 +1534,9 @@ the RCU mutation and asynchronous grace-period primitives may be used in any
 environment other than NMI, and, finally, the RCU synchronous grace-period
 primitives may be used only in process context.
 The RCU list-traversal primitives include \apik{list_for_each_entry_rcu()},
-\apik{hlist_for_each_entry_rcu()}, etc.
+\apiDk{hlist_for_each_entry_rcu()}, etc.
 Similarly, the RCU list-mutation primitives include
-\apik{list_add_rcu()}, \apik{hlist_del_rcu()}, etc.
+\apiDk{list_add_rcu()}, \apiDk{hlist_del_rcu()}, etc.
 
 Note that as a general rule, primitives from other families of RCU
 may be substituted, although \co{srcu_read_lock_nmisafe()} but not
