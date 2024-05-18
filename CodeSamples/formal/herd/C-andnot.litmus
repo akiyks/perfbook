@@ -1,0 +1,22 @@
+C andnot
+
+{
+atomic_t u = ATOMIC_INIT(10);
+}
+
+P0(atomic_t *u)
+{
+	int r0;
+
+        r0 = atomic_fetch_andnot(9, u);
+}
+
+P1(atomic_t *u)
+{
+	int r0;
+
+        r0 = atomic_fetch_andnot(6, u);
+}
+
+locations[0:r0;1:r0;]
+exists (~u=0)
