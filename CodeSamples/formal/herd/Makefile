@@ -59,7 +59,8 @@ KLITMUS_READY = \
     C-MP+o-xchg-rcusync-o+o-xchg-rcusync-o+rl-o-o-rul \
     C-MP+o-o-rcusync-o+o-o-rcusync-o+rl-o-o-rul \
     C-double-check-cas-2 \
-    C-double-check-rcu-2 C-double-check-rcu-3 C-double-check-rcu-4
+    C-double-check-rcu-2 C-double-check-rcu-3 C-double-check-rcu-4 \
+    C-andnot C-andnot-non-atomic
 
 KLITMUS_TEST   := $(addsuffix .litmus,$(KLITMUS_READY))
 

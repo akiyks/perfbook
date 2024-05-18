@@ -1,0 +1,25 @@
+C andnot-non-atomic
+
+{
+int u = 10;
+}
+
+P0(int *u)
+{
+	int r0;
+
+	r0 = READ_ONCE(*u);
+        WRITE_ONCE(*u, r0 & (-1 ^ 9));
+}
+
+P1(int *u)
+{
+	int r0;
+
+	r0 = READ_ONCE(*u);
+        WRITE_ONCE(*u, r0 & (-1 ^ 6));
+}
+
+locations[0:r0;1:r0;]
+exists (~u=0)
+
