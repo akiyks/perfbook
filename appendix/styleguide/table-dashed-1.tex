@@ -1,0 +1,41 @@
+\documentclass[10pt]{article}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{booktabs}
+\usepackage{arydshln}
+
+\begin{document}
+\thispagestyle{empty}
+\setlength\dashlinedash{1pt}
+\setlength\dashlinegap{2pt}
+\newcommand{\CPf}{C_\mathrm{P}}
+
+\renewcommand*{\arraystretch}{1.2}\small
+\begin{tabular}{l:r:r:r}\toprule
+Situation
+	& $T$ (K)
+		& $\CPf$ & \parbox[b]{.75in}{\raggedleft Power per watt\par waste heat (W)} \\
+\hline
+Dry Ice
+	& $195$
+		& $1.990$
+			& 0.5 \\ \hdashline
+Liquid N$_2$
+	& $77$
+		& $0.356$
+			& 2.8 \\ \hdashline
+Liquid H$_2$
+	& $20$
+		& $0.073$
+			& 13.7 \\ \hdashline
+Liquid He
+	& $4$
+		& $0.0138$
+			& 72.3 \\ \hdashline
+IBM~Q	& $0.015$
+		& $0.000051$
+			& 19,500.0 \\
+\bottomrule
+\end{tabular}
+
+\end{document}

@@ -40,7 +40,10 @@ EPSSOURCES_FROM_TEX := \
 	SMPdesign/DiningPhilosopher5.eps \
 	SMPdesign/DiningPhilosopher5TB.eps \
 	SMPdesign/DiningPhilosopher4part-b.eps \
-	SMPdesign/DiningPhilosopher5PEM.eps
+	SMPdesign/DiningPhilosopher5PEM.eps \
+	datastruct/numa-topology.eps \
+	appendix/styleguide/table-dashed-1.eps \
+	appendix/styleguide/table-dashed-2.eps
 
 PDFTARGETS_OF_TEX := $(EPSSOURCES_FROM_TEX:%.eps=%.pdf)
 
