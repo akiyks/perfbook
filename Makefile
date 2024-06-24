@@ -456,7 +456,7 @@ perfbook-a4.tex:
 $(EPSSOURCES_FROM_TEX): %.eps: %.tex
 	@echo "$< --> $(suffix $@)"
 	sh utilities/mpostcheck.sh
-	@latex -output-directory=$(shell dirname $<) $< > /dev/null 2>&1
+	@latex -output-directory=$(shell dirname $<) -interaction=batchmode $< > /dev/null
 	@dvips -Pdownload35 -E $(patsubst %.tex,%.dvi,$<) -o $@ > /dev/null 2>&1
 
 $(EPSSOURCES_FROM_DOT): $(FIXANEPSFONTS) $(FIXFONTS)
