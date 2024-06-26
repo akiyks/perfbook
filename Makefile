@@ -453,10 +453,16 @@ perfbook-a4.tex:
 
 # Rules related to perfbook_html are removed as of May, 2016
 
+ifneq (,$(findstring -dev,$(LATEX)))
+  NONPDF_LATEX = latex-dev
+else
+  NONPDF_LATEX = latex
+endif
+
 $(EPSSOURCES_FROM_TEX): %.eps: %.tex
-	@echo "$< --> $(suffix $@)"
+	@echo "$< --> $(suffix $@) ($(NONPDF_LATEX))"
 	sh utilities/mpostcheck.sh
-	@latex -output-directory=$(shell dirname $<) -interaction=batchmode $< > /dev/null
+	@$(NONPDF_LATEX) -output-directory=$(shell dirname $<) -interaction=batchmode $< > /dev/null
 	@dvips -Pdownload35 -E $(patsubst %.tex,%.dvi,$<) -o $@ > /dev/null 2>&1
 
 $(EPSSOURCES_FROM_DOT): $(FIXANEPSFONTS) $(FIXFONTS)
