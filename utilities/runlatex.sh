@@ -145,7 +145,7 @@ do
 	undefined_refs=1
 	iterate_latex
 done
-min_iter=3
+min_iter=5
 while grep -q 'LaTeX Warning: Label(s) may have changed' $basename.log
 do
 	if identical_warnings
