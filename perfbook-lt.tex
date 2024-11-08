@@ -393,6 +393,17 @@
 \captionsetup[listing]{hangindent=20pt}
 
 \usepackage[capitalise,noabbrev,nosort]{cleveref}
+% work around a bug in firstaid
+\RemoveFromHook{label}[firstaid/cleveref]
+\makeatletter
+\AddToHook{label}[firstaid/cleveref]
+          {\ifx
+           \@currentcounter\@empty
+          \else
+           \firstaid@cref@updatelabeldata{\@currentcounter}%<--- was missing
+          \fi}
+\makeatother
+
 \crefname{subsubsubappendix}{Appendix}{Appendices}
 \crefname{sublisting}{Listing}{Listings}
 \crefname{sequencei}{step}{steps}
