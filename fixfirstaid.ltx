@@ -1,0 +1,9 @@
+\RemoveFromHook{label}[firstaid/cleveref]
+\makeatletter
+\AddToHook{label}[firstaid/cleveref]
+          {\ifx
+           \@currentcounter\@empty
+          \else
+           \firstaid@cref@updatelabeldata{\@currentcounter}%<--- was missing
+          \fi}
+\makeatother
