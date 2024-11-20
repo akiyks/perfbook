@@ -38,6 +38,13 @@ then
 	exit 1
 fi
 
+# check if firstaid is buggy
+firstaid_external=`kpsewhich latex2e-first-aid-for-external-files.ltx`
+if [ "$firstaid_external" != "" ]
+then
+	firstaid_external_buggy=`grep -c -F "FirstAidVersion{v1.1g}" $firstaid_external`
+fi
+
 # check if we are in git repository
 if ! test -e .git
 then
@@ -132,4 +139,9 @@ env printf '%% tcolorbox version: %s\n' $tcbversion >> $fn
 if [ $(echo $tcbversion $tcbold | awk '{if ($1 > $2) print 1;}') ] ;
 then
 	env printf '\\tcbsetforeverylayer{autoparskip}\n' >> $fn
+fi
+if [ $firstaid_external_buggy -ne 0 ] ;
+then
+	env printf '%% firstaid buggy\n' >> $fn
+	env printf '\\setboolean{buggyfirstaid}{true}\n' >> $fn
 fi
