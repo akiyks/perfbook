@@ -69,6 +69,8 @@ iterate_latex () {
 	perl utilities/adjustindexformat.pl $basename.idx > $basename-adjust.idx
 	cp -f $basename-adjust.idx $basename.idx
 	makeindex $basename.idx > /dev/null 2>&1
+	perl utilities/adjustindexformat-api.pl $basename-ppl.idx > $basename-ppl-adjust.idx
+	cp -f $basename-ppl-adjust.idx $basename-ppl.idx
 	makeindex $basename-ppl.idx > /dev/null 2>&1
 	perl utilities/adjustindexformat-api.pl $basename-api.idx > $basename-api-adjust.idx
 	cp -f $basename-api-adjust.idx $basename-api.idx

@@ -23,5 +23,6 @@ open(my $fh, '<:encoding(UTF-8)', $ARGV[0])
 
 while($line = <$fh>) {
     $line =~ s/\|DF\}/\|hyperindexformat\{\\DF\}\}/ ;
+    $line =~ s/\|EP\}/\|hyperindexformat\{\\EP\}\}/ ;
     print $line ;
 }

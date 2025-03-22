@@ -7,7 +7,7 @@
 \OriginallyPublished{chp:Advanced Synchronization: Memory Ordering}{Advanced Synchronization: Memory Ordering}{Linux Weekly News}{JadeAlglave2017LWN-LKMM-1,JadeAlglave2017LWN-LKMM-2}
 \OriginallyPublished{chp:Advanced Synchronization: Memory Ordering}{Advanced Synchronization: Memory Ordering}{ASPLOS '18}{Alglave:2018:FSC:3173162.3177156}
 %
-\Epigraph{The art of progress is to preserve order amid change and to preserve change amid order.}{Alfred North Whitehead}
+\Epigraph{The art of progress is to preserve order amid change and to preserve change amid order.}{\pplEPmdl{Alfred North}{Whitehead}}
 
 Causality and sequencing are deeply intuitive, and hackers often
 have a strong grasp of these concepts.
@@ -84,7 +84,7 @@ follows up with more detail on a few representative hardware platforms.
 %
 \epigraph{Almost all people are intelligent.
 	  It is method that they lack.}
-	 {F. W. Nichol}
+	 {\pplEPmdl{F. W.}{Nichol}}
 
 This section is for people who would like to avoid learning all the
 details of the \IXalthmr{Linux-kernel memory model (\acr{lkmm})}
@@ -637,7 +637,7 @@ references and some of the things that you can do about it.
 %
 \epigraph{Nothing is orderly till people take hold of it.
 	  Everything in creation lies around loose.}
-	 {Henry Ward Beecher, updated}
+	 {\pplEPmdl{Henry Ward}{Beecher}, updated}
 
 One motivation for memory ordering can be seen in the trivial-seeming
 litmus test in
@@ -1461,7 +1461,7 @@ and traps.
 \label{sec:memorder:Tricks and Traps}
 %
 \epigraph{Knowing where the trap is---that's the first step in evading it.}
-	 {Duke Leto Atreides, \emph{Dune}, Frank Herbert}
+	 {Duke Leto Atreides, \emph{Dune}, \pplEP{Frank}{Herbert}}
 
 Now that you know that hardware can reorder memory accesses and that you
 can prevent it from doing so, the next step is to get you to admit
@@ -3565,7 +3565,7 @@ Or perhaps more accurately, destroy some counter-productive intuitions.
 \label{sec:memorder:Compile-Time Consternation}
 %
 \epigraph{Science increases our power in proportion as it lowers our pride.}
-	 {Claude Bernard}
+	 {\pplEP{Claude}{Bernard}}
 
 Most languages, including C, were developed on uniprocessor systems
 by people with little or no parallel-programming experience.
@@ -4415,7 +4415,7 @@ special attention to your memory references and dependencies.
 \label{sec:memorder:Higher-Level Primitives}
 %
 \epigraph{Method will teach you to win time.}
-	 {Johann Wolfgang von Goethe}
+	 {\pplEPmdl{Johann Wolfgang von}{G\"othe}}
 
 The answer to one of the quick quizzes in
 \cref{sec:formal:Axiomatic Approaches and Locking}
@@ -5325,7 +5325,7 @@ and model checking.
 \label{sec:memorder:Hardware Specifics}
 \OriginallyPublished{sec:memorder:Hardware Specifics}{Memory-Barrier Instructions For Specific CPUs}{Linux Journal}{PaulMcKenney2005i,PaulMcKenney2005j}
 %
-\epigraph{Rock beats paper!}{Derek Williams}
+\epigraph{Rock beats paper!}{\pplEP{Derek}{Williams}}
 
 Each CPU family has its own peculiar approach to memory ordering, which
 can make portability a challenge, as you can see in

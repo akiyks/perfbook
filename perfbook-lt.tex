@@ -293,10 +293,15 @@
 \newcommand{\apialtc}[2]{\hlindex{\co{#1}}\sindex[api]{#2@\co{#2}\categapi{c}}}
 \newcommand{\apialtg}[2]{\hlindex{\co{#1}}\sindex[api]{#2@\co{#2}\categapi{g}}}
 \newcommand{\apialtk}[2]{\hlindex{\co{#1}}\sindex[api]{#2@\co{#2}\categapi{k}}}
+\newcommand{\EP}[1]{\underline{#1}}
 \newcommand{\ppl}[2]{\hlindex{#1 #2}\sindex[ppl]{#2, #1}} % forename surname in text, "surname, forename" into ppl index
 \newcommand{\pplmdl}[2]{\hlindex{#1~#2}\sindex[ppl]{#2, #1}} % for abbreviated middle name
 \newcommand{\pplsur}[2]{\hlindex{#2}\sindex[ppl]{#2, #1}} % surname in text, "surname, givenname" into ppl index
 \newcommand{\pplalt}[2]{\hlindex{#1}\sindex[ppl]{#2}} % put 1st arg in text, put 2nd arg into ppl index
+\newcommand{\pplEP}[2]{\hlindex{#1 #2}\sindex[ppl]{#2, #1|EP}}
+\newcommand{\pplEPmdl}[2]{\hlindex{#1~#2}\sindex[ppl]{#2, #1|EP}}
+\newcommand{\pplEPalt}[2]{\hlindex{#1}\sindex[ppl]{#2|EP}}
+\newcommand{\pplEPraw}[1]{\hlindex{#1}\sindex[ppl]{#1|EP}}
 
 \IfTwoColumn{}{
   \setboolean{colorlinks}{true}
@@ -752,7 +757,12 @@
 }
 \printindex
 \phantomsection
-\setindexprenote{% empty for now
+\setindexprenote{%
+  \hfill\begin{minipage}{1in}
+    \footnotesize%
+    \EP{Underline}: Epigraph.
+    \vspace*{1ex}
+  \end{minipage}
 }
 \printindex[ppl]
 \phantomsection
