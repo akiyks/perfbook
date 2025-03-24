@@ -308,7 +308,8 @@ indicating the domain of the right-hand
 lock, and purple (with no stripes) indicating overlapping domains.
 Although it is possible to create an algorithm that works this way,
 perhaps using a dummy element similar to the two-lock queue
-presented by Michael and Scott~\cite{MichaelScott96},
+presented by \pplsur{Maged M.}{Michael} and
+\pplsur{Michael L.}{Scott}~\cite{MichaelScott96},
 the fact that it has no fewer than five special cases should raise
 a big red flag, especially given that concurrent activity at the other
 end of the list can shift the queue from one special case to another
@@ -721,7 +722,7 @@ is 2x scalability, as at most two threads can be holding the
 dequeue's locks concurrently.
 This limitation also applies to algorithms based on \IXacrl{nbs},
 such as the compare-and-swap-based dequeue algorithm of
-Michael~\cite{DBLP:conf/europar/Michael03}.\footnote{
+\pplsur{Maged M.}{Michael}~\cite{DBLP:conf/europar/Michael03}.\footnote{
 	This paper is interesting in that it showed that special
 	double-compare-and-swap (DCAS) instructions are not needed
 	for lock-free implementations of double-ended queues.

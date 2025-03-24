@@ -1166,14 +1166,15 @@ From this viewpoint, one might characterize RCU readers as ``instant
 release'', but this is a property that causes RCU readers to behave in
 a decidedly non-STM manner.
 
-Hammond et al.~\cite{LanceHammond2004a}
+\pplsur{Lance}{Hammond} et al.~\cite{LanceHammond2004a}
 advise using small transactions, which does reduce contention-manager
 complexity, but which also fails to deliver on the full STM promise
 of automated concurrency.
 This paper also introduced annotations to identify different types of
 transactions.
 
-Scherer and Scott~\cite{WilliamNSchererIII2005}
+\pplsur{William N. III}{Scherer} and
+\pplsur{Michael L.}{Scott}~\cite{WilliamNSchererIII2005}
 describe a number of STM contention-management strategies.
 This paper defined ``visible'' and ``invisible'' readers for
 extra-transactional accesses, and discuss a number of contention-management
@@ -1205,7 +1206,7 @@ strategies, including:
 This 2005 paper thus gave an early indication of the complexity inherent
 in contention management.
 
-Porter and Witchel~\cite{DonaldEPorter2007TRANSACT,Ramadan:2008:DTM:1521747.1521799}
+\pplsur{Donald E.}{Porter} and \pplsur{Emmett}{Witchel}~\cite{DonaldEPorter2007TRANSACT,Ramadan:2008:DTM:1521747.1521799}
 considered loosening STM consistency requirements in order to simplify
 contention management.
 They noted RCU as a case in which an update will cause concurrent reads
