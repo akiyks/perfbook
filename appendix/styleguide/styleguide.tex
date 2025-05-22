@@ -393,7 +393,7 @@ They are defined in the preamble as shown below:
 \begin{fcvlabel}[ln:app:styleguide:LaTeX Source of Sample Code Snippet (Current)]
 \VerbatimInput{appendix/styleguide/samplecodesnippetfcv.tex}
 \end{fcvlabel}
-\vspace*{-9pt}
+\vspaceafterverbatiminput{}
 \caption{\LaTeX\ Source of Sample Code Snippet (Current)}
 \label{lst:app:styleguide:LaTeX Source of Sample Code Snippet (Current)}
 \end{listing}
@@ -470,7 +470,7 @@ top level \path{Makefile} and a script to generate dependencies
 \begin{listing*}
 \fvset{fontsize=\scriptsize,numbers=left,numbersep=5pt,xleftmargin=9pt,obeytabs=true,tabsize=8}
 \VerbatimInput{appendix/styleguide/samplecodesnippet.c}
-\vspace*{-9pt}
+\vspaceafterverbatiminput{}
 \caption{Source of Code Sample with ``snippet'' Meta Command}
 \label{lst:app:styleguide:Source of Code Sample}
 \end{listing*}
@@ -677,7 +677,7 @@ and is typeset as shown in
 \fvset{fontsize=\scriptsize,numbers=left,numbersep=5pt,xleftmargin=9pt,commandchars=\%\@\$}
 \VerbatimInput{appendix/styleguide/samplecodesnippetlstlbl.tex}
 \end{fcvlabel}
-\vspace*{-9pt}
+\vspaceafterverbatiminput{}
 \caption{\LaTeX\ Source of Sample Code Snippet (Obsolete)}
 \label{lst:app:styleguide:LaTeX Source of Sample Code Snippet (Obsolete)}
 \end{listing}
@@ -1322,7 +1322,7 @@ exists (1:r2=2 /\ 1:r3=0)
 \subfloat[Enforcing Order]{%
   \theverbbox
   \label{sublst:app:styleguide:Enforcing Order}
-}\hspace*{\fill}%
+}\hspace*{\fill}\vspace*{-9pt}
 \end{listing*}
 
 There are a few areas yet to be attempted in perfbook

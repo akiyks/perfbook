@@ -439,6 +439,11 @@
 {numbers=left,numbersep=3pt,xleftmargin=5pt,xrightmargin=5pt,frame=single}
 \DefineVerbatimEnvironment{VerbatimU}{Verbatim}%
 {numbers=none,xleftmargin=5pt,xrightmargin=5pt,samepage=true,frame=single}
+\IfParSkip{
+  \newcommand{\vspaceafterverbatiminput}{}
+}{
+  \newcommand{\vspaceafterverbatiminput}{\vspace*{-9pt}}
+}
 
 \IfLmttForCode{
 \AtBeginEnvironment{verbatim}{\renewcommand{\ttdefault}{lmtt}}
