@@ -83,12 +83,12 @@ Readers can then snapshot the value before and after each access.
 If either snapshot has an odd value, or if the two snapshots differ,
 there has been a concurrent update, and the reader must discard
 the results of the access and then retry it.
-Readers therefore use the \co{read_seqbegin()} and \co{read_seqretry()}
+Readers therefore use the \apik{read_seqbegin()} and \apik{read_seqretry()}
 functions shown in \cref{lst:defer:Sequence-Locking Reader}
 when accessing data protected by a sequence lock.
 Writers must increment the value before and after each update,
 and only one writer is permitted at a given time.
-Writers therefore use the \co{write_seqlock()} and \co{write_sequnlock()}
+Writers therefore use the \apik{write_seqlock()} and \apik{write_sequnlock()}
 functions shown in \cref{lst:defer:Sequence-Locking Writer}
 when updating data protected by a sequence lock.
 
@@ -108,24 +108,24 @@ A simple implementation of sequence locks is shown in
 \cref{lst:defer:Sequence-Locking Implementation}
 (\path{seqlock.h}).
 \begin{fcvref}[ln:defer:seqlock:impl:typedef]
-The \co{seqlock_t} data structure is shown on
+The \apik{seqlock_t} data structure is shown on
 \clnrefrange{b}{e}, and contains
 the sequence number along with a lock to serialize writers.
 \end{fcvref}
 \begin{fcvref}[ln:defer:seqlock:impl:init]
-\Clnrefrange{b}{e} show \co{seqlock_init()}, which, as the name indicates,
+\Clnrefrange{b}{e} show \apik{seqlock_init()}, which, as the name indicates,
 initializes a \co{seqlock_t}.
 \end{fcvref}
 
 \begin{fcvref}[ln:defer:seqlock:impl:read_seqbegin]
-\Clnrefrange{b}{e} show \co{read_seqbegin()}, which begins a sequence-lock
+\Clnrefrange{b}{e} show \apik{read_seqbegin()}, which begins a sequence-lock
 \IXh{read-side}{critical section}.
 \Clnref{fetch} takes a snapshot of the sequence counter, and
 \clnref{mb} orders
 this snapshot operation before the caller's critical section.
 Finally, \clnref{ret} returns the value of the snapshot (with the least-significant
 bit cleared), which the caller
-will pass to a later call to \co{read_seqretry()}.
+will pass to a later call to \apik{read_seqretry()}.
 \end{fcvref}
 
 \QuickQuiz{
@@ -178,7 +178,7 @@ will pass to a later call to \co{read_seqretry()}.
 }\QuickQuizEnd
 
 \begin{fcvref}[ln:defer:seqlock:impl:read_seqretry]
-\Clnrefrange{b}{e} show \co{read_seqretry()}, which returns \co{true} if there
+\Clnrefrange{b}{e} show \apik{read_seqretry()}, which returns \co{true} if there
 was at least one writer since the time of the corresponding
 call to \co{read_seqbegin()}.
 \Clnref{mb} orders the caller's prior critical section before \clnref{fetch}'s
@@ -241,12 +241,12 @@ smp_store_release(&slp->seq, READ_ONCE(slp->seq) + 1);
 }
 
 \begin{fcvref}[ln:defer:seqlock:impl:write_seqlock]
-\Clnrefrange{b}{e} show \co{write_seqlock()}, which simply acquires the lock,
+\Clnrefrange{b}{e} show \apik{write_seqlock()}, which simply acquires the lock,
 increments the sequence number, and executes a memory barrier to ensure
 that this increment is ordered before the caller's critical section.
 \end{fcvref}
 \begin{fcvref}[ln:defer:seqlock:impl:write_sequnlock]
-\Clnrefrange{b}{e} show \co{write_sequnlock()}, which executes a memory barrier
+\Clnrefrange{b}{e} show \apik{write_sequnlock()}, which executes a memory barrier
 to ensure that the caller's critical section is ordered before the
 increment of the sequence number on \clnref{inc}, then releases the lock.
 \end{fcvref}
