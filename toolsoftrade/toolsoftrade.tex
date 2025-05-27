@@ -536,16 +536,18 @@ primitives.
 	\cref{lst:toolsoftrade:Demonstration of Exclusive Locks}
 	because only the variable \co{x} is accessed.
 
-	For more information on \co{READ_ONCE()} and \co{WRITE_ONCE()},
+	For more information on \apik{READ_ONCE()} and \apik{WRITE_ONCE()},
 	please see
 	\cref{sec:toolsoftrade:Atomic Operations (gcc Classic)}.
 	For more information on ordering accesses to multiple variables
 	by multiple threads, please see
 	\cref{chp:Advanced Synchronization: Memory Ordering}.
 	In the meantime, \co{READ_ONCE(x)} has much in common with
-	the \GCC\  intrinsic \co{__atomic_load_n(&x, __ATOMIC_RELAXED)}
+	the \GCC\  intrinsic
+	\apialtg{__atomic_load_n(&x, __ATOMIC_RELAXED)}{__atomic_load_n()}
 	and \co{WRITE_ONCE(x, v)} has much in common with the \GCC\
-	intrinsic \co{__atomic_store_n(&x, v, __ATOMIC_RELAXED)}.
+	intrinsic \apialtg{__atomic_store_n(&x, v, __ATOMIC_RELAXED)}
+	{__atomic_store_n()}.
 }\QuickQuizEndE
 }
 
@@ -1060,24 +1062,24 @@ operations, as discussed in
 \cref{chp:Advanced Synchronization: Memory Ordering}.
 In some cases, it is sufficient to constrain the compiler's ability
 to reorder operations, while allowing the CPU free rein, in which
-case the \apik{barrier()} primitive may be used.
+case the \apiDk{barrier()} primitive may be used.
 \begin{fcvref}[ln:toolsoftrade:lock:reader_writer:reader]
 In some cases, it is only necessary to ensure that the compiler
 avoids optimizing away a given memory read, in which case the
-\apik{READ_ONCE()} primitive may be used, as it was on \clnref{read_x} of
+\apiDk{READ_ONCE()} primitive may be used, as it was on \clnref{read_x} of
 \cref{lst:toolsoftrade:Demonstration of Exclusive Locks}.
 \end{fcvref}
-Similarly, the \apik{WRITE_ONCE()} primitive may be used to prevent the
+Similarly, the \apiDk{WRITE_ONCE()} primitive may be used to prevent the
 compiler from optimizing away a given memory write.
 These last three primitives are not provided directly by \GCC,
 but may be implemented straightforwardly as shown in
 \cref{lst:toolsoftrade:Compiler Barrier Primitive (for GCC)},
 and all three are discussed at length in
 \cref{sec:toolsoftrade:Accessing Shared Variables}.
-Alternatively, \apialtk{READ_ONCE(x)}{READ_ONCE()} has much in common with
+Alternatively, \co{READ_ONCE(x)} has much in common with
 the \GCC\  intrinsic
 \apialtg{__atomic_load_n(&x, __ATOMIC_RELAXED)}{__atomic_load_n()}
-and \apik{WRITE_ONCE()} has much in common with the \GCC\ 
+and \co{WRITE_ONCE(x, v)} has much in common with the \GCC\
 intrinsic \apialtg{__atomic_store_n(&x, v, __ATOMIC_RELAXED)}{__atomic_store_n()}.
 
 \begin{listing}
@@ -1131,7 +1133,7 @@ Without memory-order arguments, all the atomic operations are
 fully ordered, and the arguments permit weaker orderings.
 For example, ``\apialtc{atomic_load_explicit(&a, memory_order_relaxed)}
 {atomic_load_explicit()}''
-is vaguely similar to the Linux kernel's ``\apik{READ_ONCE()}''.\footnote{
+is vaguely similar to the Linux kernel's ``\co{READ_ONCE()}''.\footnote{
 	Memory ordering is described in more detail in
 	\cref{chp:Advanced Synchronization: Memory Ordering} and
 	\cref{chp:app:whymb:Why Memory Barriers?}.}
@@ -1214,7 +1216,7 @@ and some historical primitives used by this book's sample code.
 \label{sec:toolsoftrade:Organization and Initialization}
 
 Although many environments do not require any special initialization
-code, the code samples in this book start with a call to \apipf{smp_init()},
+code, the code samples in this book start with a call to \apiDpf{smp_init()},
 which initializes a mapping from \apipx{pthread_t} to consecutive integers.
 The userspace RCU library\footnote{
 	See \cref{sec:defer:Read-Copy Update (RCU)} for more information
@@ -1235,15 +1237,15 @@ initialization code.
 \label{sec:toolsoftrade:Thread Creation; Destruction; and Control}
 
 The Linux kernel uses
-\apik{struct task_struct} pointers to track kthreads,
-\apik{kthread_create()} to create them,
-\apik{kthread_should_stop()} to externally suggest that they stop
+\apiDk{struct task_struct} pointers to track kthreads,
+\apiDk{kthread_create()} to create them,
+\apiDk{kthread_should_stop()} to externally suggest that they stop
 (which has no POSIX equivalent),\footnote{
 	POSIX environments can work around the lack of
-	\apik{kthread_should_stop()} by using a properly synchronized
+	\co{kthread_should_stop()} by using a properly synchronized
 	boolean flag in conjunction with \co{pthread_join()}.}
-\apik{kthread_stop()} to wait for them to stop, and
-\apik{schedule_timeout_interruptible()} for a timed wait.
+\apiDk{kthread_stop()} to wait for them to stop, and
+\apiDk{schedule_timeout_interruptible()} for a timed wait.
 There are quite a few additional kthread-management APIs, but this
 provides a good start, as well as good search terms.
 
@@ -1253,7 +1255,7 @@ control.\footnote{
 	``process'', ``task'', ``fiber'', ``event'', ``execution agent'',
 	and so on.
 	Similar design principles apply to all of them.}
-Each such thread has an identifier of type \apipf{thread_id_t},
+Each such thread has an identifier of type \apiDpf{thread_id_t},
 and no two threads running at a given time will have the same
 identifier.
 Threads share everything except for per-thread local state,\footnote{
@@ -1411,7 +1413,7 @@ void spin_unlock(spinlock_t *sp);
 
 \item[\apiDtk{spin_lock_init()}]
 The \co{spin_lock_init()} primitive initializes the specified
-\apik{spinlock_t} variable, and must be invoked before
+\apiDk{spinlock_t} variable, and must be invoked before
 this variable is passed to any other spinlock primitive.
 
 \item[\apiDtk{spin_lock()}]
@@ -2003,7 +2005,7 @@ For example, consider
 \Clnref{load:p} fetches \co{p}, but the \qco{if} statement on
 \clnref{if} also tells the compiler that the developer thinks that
 \co{p} is usually zero.\footnote{
-	The \apik{unlikely()} function provides this hint to the compiler,
+	The \apiDk{unlikely()} function provides this hint to the compiler,
 	and different compilers provide different ways of implementing
 	\co{unlikely()}.}
 The \apik{barrier()} statement on \clnref{barrier} forces the compiler
@@ -2458,28 +2460,28 @@ Examples of many of these data-race-avoidance patterns are presented in
 \label{sec:toolsoftrade:Atomic Operations}
 
 The Linux kernel provides a wide variety of \IX{atomic} operations, but
-those defined on type \apik{atomic_t} provide a good start.
+those defined on type \apiDk{atomic_t} provide a good start.
 Normal non-tearing reads and stores are provided by
-\apik{atomic_read()} and \apik{atomic_set()}, respectively.
-\IX{Acquire load} is provided by \apik{smp_load_acquire()} and
-\IX{release store} by \apik{smp_store_release()}.
+\apiDk{atomic_read()} and \apiDk{atomic_set()}, respectively.
+\IX{Acquire load} is provided by \apiDk{smp_load_acquire()} and
+\IX{release store} by \apiDk{smp_store_release()}.
 
 Non-value-returning fetch-and-add operations are provided by
-\apik{atomic_add()}, \apik{atomic_sub()}, \apik{atomic_inc()}, and
-\apik{atomic_dec()}, among others.
+\apiDk{atomic_add()}, \apiDk{atomic_sub()}, \apiDk{atomic_inc()}, and
+\apiDk{atomic_dec()}, among others.
 An atomic decrement that returns a reached-zero indication is provided
-by both \apik{atomic_dec_and_test()} and \apik{atomic_sub_and_test()}.
+by both \apiDk{atomic_dec_and_test()} and \apiDk{atomic_sub_and_test()}.
 An atomic add that returns the new value is provided by
-\apik{atomic_add_return()}.
-Both \apik{atomic_add_unless()} and \apik{atomic_inc_not_zero()} provide
+\apiDk{atomic_add_return()}.
+Both \apiDk{atomic_add_unless()} and \apiDk{atomic_inc_not_zero()} provide
 conditional atomic operations, where nothing happens unless the
 original value of the atomic variable is different than the value
 specified (these are very handy for managing
 \IXalt{reference counters}{reference count}, for example).
 
-An atomic exchange operation is provided by \apik{atomic_xchg()}, and
+An atomic exchange operation is provided by \apiDk{atomic_xchg()}, and
 the celebrated \acrmf{cas} operation is provided by
-\apik{atomic_cmpxchg()}.
+\apiDk{atomic_cmpxchg()}.
 Both of these return the old value.
 Many additional atomic RMW primitives are available in the Linux kernel,
 see the \path{Documentation/atomic_t.txt} file in the Linux-kernel
@@ -2492,9 +2494,9 @@ This book's CodeSamples API closely follows that of the Linux kernel.
 \subsection{Per-CPU Variables}
 \label{sec:toolsoftrade:Per-CPU Variables}
 
-The Linux kernel uses \apik{DEFINE_PER_CPU()} to define a per-CPU variable,
-\apik{this_cpu_ptr()} to form a reference to this CPU's instance of a
-given per-CPU variable, \apik{per_cpu()} to access a specified CPU's
+The Linux kernel uses \apiDk{DEFINE_PER_CPU()} to define a per-CPU variable,
+\apiDk{this_cpu_ptr()} to form a reference to this CPU's instance of a
+given per-CPU variable, \apiDk{per_cpu()} to access a specified CPU's
 instance of a given per-CPU variable, along with many other special-purpose
 per-CPU operations.
 
@@ -2541,28 +2543,28 @@ init_per_thread(name, v)
 \subsubsection{API Members}
 
 \begin{description}[style=nextline]
-\item[\tco{DEFINE_PER_THREAD()}]
+\item[\apiDtpf{DEFINE_PER_THREAD()}]
 
-The \apipf{DEFINE_PER_THREAD()} primitive defines a per-thread variable.
+The \co{DEFINE_PER_THREAD()} primitive defines a per-thread variable.
 Unfortunately, it is not possible to provide an initializer in the way
-permitted by the Linux kernel's \apik{DEFINE_PER_CPU()} primitive,
-but there is an \apipf{init_per_thread()} primitive that permits easy
+permitted by the Linux kernel's \co{DEFINE_PER_CPU()} primitive,
+but there is an \co{init_per_thread()} primitive that permits easy
 runtime initialization.
 
-\item[\tco{DECLARE_PER_THREAD()}]
-The \apipf{DECLARE_PER_THREAD()} primitive is a declaration in the C sense,
+\item[\apiDtpf{DECLARE_PER_THREAD()}]
+The \co{DECLARE_PER_THREAD()} primitive is a declaration in the C sense,
 as opposed to a definition.
-Thus, a \apipf{DECLARE_PER_THREAD()} primitive may be used to access
+Thus, a \co{DECLARE_PER_THREAD()} primitive may be used to access
 a per-thread variable defined in some other file.
 
-\item[\tco{per_thread()}]
-The \apipf{per_thread()} primitive accesses the specified thread's variable.
+\item[\apiDtpf{per_thread()}]
+The \co{per_thread()} primitive accesses the specified thread's variable.
 
-\item[\tco{__get_thread_var()}]
-The \apipf{__get_thread_var()} primitive accesses the current thread's variable.
+\item[\apiDtpf{__get_thread_var()}]
+The \co{__get_thread_var()} primitive accesses the current thread's variable.
 
-\item[\tco{init_per_thread()}]
-The \apipf{init_per_thread()} primitive sets all threads' instances of
+\item[\apiDtpf{init_per_thread()}]
+The \co{init_per_thread()} primitive sets all threads' instances of
 the specified variable to the specified value.
 The Linux kernel accomplishes this via normal C initialization,
 relying in clever use of linker scripts and code executed during
