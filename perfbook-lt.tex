@@ -280,9 +280,12 @@
 \newcommand{\apipx}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{px}}}
 \newcommand{\apik}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{k}}}
 \newcommand{\apitk}[1]{\hlindex{\tco{#1}}\sindex[api]{#1@\co{#1}\categapi{k}}}
+\newcommand{\DF}[1]{\underline{#1}}
+\newcommand{\apiDtk}[1]{\hlindex{\tco{#1}}\sindex[api]{#1@\co{#1}\categapi{k}|DF}}
 \newcommand{\apikh}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{kh}}}
 \newcommand{\apipf}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{pf}}}
 \newcommand{\apitpf}[1]{\hlindex{\tco{#1}}\sindex[api]{#1@\co{#1}\categapi{pf}}}
+\newcommand{\apiDtpf}[1]{\hlindex{\tco{#1}}\sindex[api]{#1@\co{#1}\categapi{pf}|DF}}
 \newcommand{\apiur}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{ur}}}
 \newcommand{\api}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}}}
 \newcommand{\apialtc}[2]{\hlindex{\co{#1}}\sindex[api]{#2@\co{#2}\categapi{c}}}
@@ -756,6 +759,12 @@
     \footnotesize (c):~Cxx standard, (g):~GCC extension,
     (k):~Linux kernel, (kh):~Linux kernel historic, (pf):~perfbook CodeSamples,
     (px):~POSIX, (ur):~userspace RCU\@.
+    \vspace*{2ex}
+  \end{minipage}
+
+  \hfill\begin{minipage}{1.1in}
+    \footnotesize%
+    \DF{Underline}: Definition.
     \vspace*{1ex}
   \end{minipage}
 }

@@ -1280,55 +1280,55 @@ void wait_all_threads(void)
 \subsubsection{API Members}
 
 \begin{description}[style=nextline]
-\item[\tco{create_thread()}]
-The \apipf{create_thread()} primitive creates a new thread,
+\item[\apiDtpf{create_thread()}]
+The \co{create_thread()} primitive creates a new thread,
 starting the new thread's execution
-at the function \co{func} specified by \apipf{create_thread()}'s
+at the function \co{func} specified by \co{create_thread()}'s
 first argument, and passing it the argument specified by
-\apipf{create_thread()}'s second argument.
+\co{create_thread()}'s second argument.
 This newly created thread will terminate when it returns from the
 starting function specified by \co{func}.
-The \apipf{create_thread()} primitive returns the \apipf{thread_id_t}
+The \co{create_thread()} primitive returns the \co{thread_id_t}
 corresponding to the newly created child thread.
 
-This primitive will abort the program if more than \apipf{NR_THREADS}
+This primitive will abort the program if more than \co{NR_THREADS}
 threads are created, counting the one implicitly created by running
 the program.
-\apipf{NR_THREADS} is a compile-time constant that may be modified,
+\co{NR_THREADS} is a compile-time constant that may be modified,
 though some systems may have an upper bound for the allowable number
 of threads.
 
-\item[\tco{smp_thread_id()}]
-Because the \apipf{thread_id_t} returned from \apipf{create_thread()} is
-system-dependent, the \apipf{smp_thread_id()} primitive returns a thread
+\item[\apiDtpf{smp_thread_id()}]
+Because the \co{thread_id_t} returned from \co{create_thread()} is
+system-dependent, the \co{smp_thread_id()} primitive returns a thread
 index corresponding to the thread making the request.
 This index is guaranteed to be less than the maximum number of threads
 that have been in existence since the program started,
 and is therefore useful for bitmasks, array indices, and
 the like.
 
-\item[\tco{for_each_thread()}]
-The \apipf{for_each_thread()} macro loops through all threads that exist,
+\item[\apiDtpf{for_each_thread()}]
+The \co{for_each_thread()} macro loops through all threads that exist,
 including all threads that \emph{would} exist if created.
 This macro is useful for handling the per-thread variables
 introduced in \cref{sec:toolsoftrade:Per-Thread Variables}.
 
-\item[\tco{for_each_running_thread()}]
-The \apipf{for_each_running_thread()}
+\item[\apiDtpf{for_each_running_thread()}]
+The \co{for_each_running_thread()}
 macro loops through only those threads that currently exist.
 It is the caller's responsibility to synchronize with thread
 creation and deletion if required.
 
-\item[\tco{wait_thread()}]
-The \apipf{wait_thread()} primitive waits for completion of the thread
+\item[\apiDtpf{wait_thread()}]
+The \co{wait_thread()} primitive waits for completion of the thread
 specified by the \co{thread_id_t} passed to it.
 This in no way interferes with the execution of the specified thread;
 instead, it merely waits for it.
-Note that \apipf{wait_thread()} returns the value that was returned by
+Note that \co{wait_thread()} returns the value that was returned by
 the corresponding thread.
 
-\item[\tco{wait_all_threads()}]
-The \apipf{wait_all_threads()}
+\item[\apiDtpf{wait_all_threads()}]
+The \co{wait_all_threads()}
 primitive waits for completion of all currently running threads.
 It is the caller's responsibility to synchronize with thread creation
 and deletion if required.
@@ -1343,11 +1343,11 @@ a run, so such synchronization is normally not needed.
 shows an example hello-world-like child thread.
 As noted earlier, each thread is allocated its own stack, so
 each thread has its own private \co{arg} argument and \co{myarg} variable.
-Each child simply prints its argument and its \apipf{smp_thread_id()}
+Each child simply prints its argument and its \co{smp_thread_id()}
 before exiting.
 Note that the \co{return} statement on
 \clnrefr{ln:intro:threadcreate:thread_test:return} terminates the thread,
-returning a \co{NULL} to whoever invokes \apipf{wait_thread()} on this
+returning a \co{NULL} to whoever invokes \co{wait_thread()} on this
 thread.
 
 \begin{listing}
@@ -1366,7 +1366,7 @@ and announces its presence on \clnref{announce}.
 It creates the specified number of child threads on
 \clnrefrange{create:b}{create:e},
 and waits for them to complete on \clnref{wait}.
-Note that \apipf{wait_all_threads()} discards the threads return values,
+Note that \co{wait_all_threads()} discards the threads return values,
 as in this case they are all \co{NULL}, which is not very interesting.
 \end{fcvref}
 
@@ -1409,13 +1409,13 @@ void spin_unlock(spinlock_t *sp);
 
 \begin{description}[style=nextline]
 
-\item[\tco{spin_lock_init()}]
-The \apik{spin_lock_init()} primitive initializes the specified
+\item[\apiDtk{spin_lock_init()}]
+The \co{spin_lock_init()} primitive initializes the specified
 \apik{spinlock_t} variable, and must be invoked before
 this variable is passed to any other spinlock primitive.
 
-\item[\tco{spin_lock()}]
-The \apik{spin_lock()} primitive acquires the specified spinlock,
+\item[\apiDtk{spin_lock()}]
+The \co{spin_lock()} primitive acquires the specified spinlock,
 if necessary, waiting until the spinlock becomes available.
 In some environments, such as pthreads, this waiting will involve
 blocking, while in others, such as the Linux kernel, it might involve
@@ -1424,14 +1424,14 @@ a CPU-bound spin loop.
 The key point is that only one thread may hold a spinlock at any
 given time.
 
-\item[\tco{spin_trylock()}]
-The \apik{spin_trylock()} primitive acquires the specified spinlock,
+\item[\apiDtk{spin_trylock()}]
+The \co{spin_trylock()} primitive acquires the specified spinlock,
 but only if it is immediately available.
 It returns \co{true} if it was able to acquire the spinlock and
 \co{false} otherwise.
 
-\item[\tco{spin_unlock()}]
-The \apik{spin_unlock()} primitive releases the specified spinlock,
+\item[\apiDtk{spin_unlock()}]
+The \co{spin_unlock()} primitive releases the specified spinlock,
 allowing other threads to acquire it.
 
 \end{description}
@@ -1469,7 +1469,7 @@ STORE r0,counter
 	than before, despite two threads each incrementing it.
 }\QuickQuizEnd
 
-However, the \apik{spin_lock()} and \apik{spin_unlock()} primitives
+However, the \co{spin_lock()} and \co{spin_unlock()} primitives
 do have performance consequences, as will be seen in
 \cref{chp:Data Structures}.
 
@@ -2523,8 +2523,8 @@ init_per_thread(name, v)
 	API on systems that do not provide it?
 }\QuickQuizAnswer{
 	One approach would be to create an array indexed by
-	\apipf{smp_thread_id()}, and another would be to use a hash
-	table to map from \apipf{smp_thread_id()} to an array
+	\co{smp_thread_id()}, and another would be to use a hash
+	table to map from \co{smp_thread_id()} to an array
 	index---which is in fact what this
 	set of APIs does in pthread environments.
 

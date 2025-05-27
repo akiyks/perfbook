@@ -5495,26 +5495,26 @@ Therefore,
 Linux provides a carefully chosen least-common-denominator
 set of memory-ordering primitives, which are as follows:
 \begin{description}
-\item	[\apitk{smp_mb()}] (\IXh{full}{memory barrier}) that orders both loads and
+\item	[\apiDtk{smp_mb()}] (\IXh{full}{memory barrier}) that orders both loads and
 	stores.
 	This means that loads and stores preceding the memory barrier
 	will be committed to memory before any loads and stores
 	following the memory barrier.
-\item	[\apitk{smp_rmb()}] (\IXh{read}{memory barrier}) that orders only loads.
-\item	[\apitk{smp_wmb()}] (\IXh{write}{memory barrier}) that orders only stores.
-\item	[\apitk{smp_mb__before_atomic()}] that forces ordering of accesses
+\item	[\apiDtk{smp_rmb()}] (\IXh{read}{memory barrier}) that orders only loads.
+\item	[\apiDtk{smp_wmb()}] (\IXh{write}{memory barrier}) that orders only stores.
+\item	[\apiDtk{smp_mb__before_atomic()}] that forces ordering of accesses
 	preceding the \co{smp_mb__before_atomic()} against accesses following
 	a later RMW atomic operation.
 	This is a noop on systems that fully order atomic RMW operations.
-\item	[\apitk{smp_mb__after_atomic()}] that forces ordering of accesses
+\item	[\apiDtk{smp_mb__after_atomic()}] that forces ordering of accesses
 	preceding an earlier RMW atomic operation against accesses
 	following the \co{smp_mb__after_atomic()}.
 	This is also a noop on systems that fully order atomic RMW operations.
-\item	[\apitk{smp_mb__after_spinlock()}] that forces ordering of accesses
+\item	[\apiDtk{smp_mb__after_spinlock()}] that forces ordering of accesses
 	preceding a lock acquisition against accesses
 	following the \co{smp_mb__after_spinlock()}.
 	This is also a noop on systems that fully order lock acquisitions.
-\item	[\apitk{mmiowb()}] that forces ordering on MMIO writes that are guarded
+\item	[\apiDtk{mmiowb()}] that forces ordering on MMIO writes that are guarded
 	by global spinlocks, and is more thoroughly described
 	in a 2016 LWN article on MMIO~\cite{PaulEMcKenney2016LinuxKernelMMIO}.
 \end{description}
