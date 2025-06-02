@@ -402,6 +402,13 @@
 \captionsetup[listing]{hangindent=20pt}
 
 \usepackage[capitalise,noabbrev,nosort]{cleveref}
+% work around a wack-a-mole behavior of cleveref as of LaTeX2e <2025-06-01>
+\ifdefined\IfPackageAtLeastTF
+  \IfPackageAtLeastTF{amsmath}{2025/01/19}{
+  \input{hotfix-cleveref.ltx}
+  }{}
+\fi
+
 \crefname{subsubsubappendix}{Appendix}{Appendices}
 \crefname{sublisting}{Listing}{Listings}
 \crefname{sequencei}{step}{steps}
