@@ -1981,10 +1981,10 @@ gives the maximum value that may be held in either half of
 function, which,
 when given the underlying \co{int} from the
 \co{atomic_t counterandmax} variable, splits it into its
-\co{counter} (\co{c})
+\co{counter}~(\co{c})
 and \co{countermax} (\co{cm}) components.
 \Clnref{msh} isolates the most-significant half of this \co{int},
-placing the result as specified by argument \co{c},
+placing the result as specified by argument~\co{c},
 and \clnref{lsh} isolates the least-significant half of this \co{int},
 placing the result as specified by argument \co{cm}.
 \end{fcvref}
@@ -2012,7 +2012,7 @@ it on \clnref{split_int}.
 \Clnrefrange{b}{e} show the \co{merge_counterandmax()} function, which
 can be thought of as the inverse of \co{split_counterandmax()}.
 \Clnref{merge} merges the \co{counter} and \co{countermax}
-values passed in \co{c} and \co{cm}, respectively, and returns
+values passed in~\co{c} and \co{cm}, respectively, and returns
 the result.
 \end{fcvref}
 
@@ -2045,7 +2045,7 @@ the \apik{atomic_cmpxchg()} primitive on
 \clnrefrange{atmcmpex}{loop:e} performing the
 actual CAS\@.
 \Clnref{split} splits the current thread's \co{counterandmax} variable into its
-\co{counter} (in \co{c}) and \co{countermax} (in \co{cm}) components,
+\co{counter} (in~\co{c}) and \co{countermax} (in \co{cm}) components,
 while placing the underlying \co{int} into \co{old}.
 \Clnref{check} checks whether the amount \co{delta} can be accommodated
 locally (taking care to avoid integer overflow), and if not,
@@ -2204,7 +2204,7 @@ to the global counters.
 \Clnref{atmxchg} atomically fetches the current thread's state
 while replacing it with zero.
 \Clnref{split} splits this state into its \co{counter}
-(in local variable \co{c})
+(in local variable~\co{c})
 and \co{countermax} (in local variable \co{cm}) components.
 \Clnref{glbcnt} adds this thread's \co{counter} to \co{globalcount}, while
 \clnref{glbrsv} subtracts this thread's \co{countermax} from \co{globalreserve}.
