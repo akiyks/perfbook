@@ -187,14 +187,16 @@ The angular-degree symbol (\textdegree) does not require any space in front
 of it.
 NIST style guide clearly states so.
 
-The symbol of degree can also be typeset easily by the help of the siunitx
-package.
+This convention can be followed easily by using commands from \co{siunitx},
+\co{\\qty} and \co{\\degree}.
 
 Example:
 
 \begin{VerbatimU}
   \qty{60}{\degree}
 \end{VerbatimU}
+
+Result:
 
 \begin{quote}
   \qty{60}{\degree}
@@ -203,11 +205,24 @@ Example:
 \subsubsection{Percent Symbol}
 \label{sec:app:styleguide:Percent Symbol}
 
-NIST style guide treats the percent symbol (\%) as the same as SI unit
-symbols.
+The NIST style guide treats the percent symbol (\unit{\percent}) in the
+same way as SI unit symbols.
 
 \begin{quote}
-  50\pct\ possibility, rather than 50\% possibility.
+  ``50\pct\ possibility'', rather than ``50\% possibility''.
+\end{quote}
+
+Again, the \co{siunitx} package provides a macro, \co{\\percent}, which can
+be used as follows if you want to mark it up explicitly:
+
+\begin{VerbatimU}
+  \qty{50}{\percent}
+\end{VerbatimU}
+
+Result:
+
+\begin{quote}
+  \qty{50}{\percent}
 \end{quote}
 
 \subsubsection{Font Style}
