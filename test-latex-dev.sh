@@ -1,10 +1,18 @@
 #! /bin/bash -f
+# Say "NODEV=1 ./test-latex-dev.sh" if pdflatex-dev doesn't work.
 
 NPROC=`nproc --all`
+
 PDFLATEX_CMD=`command -v pdflatex`
-PDFLATEX_DEV_CMD=`command -v pdflatex-dev`
 LUALATEX_CMD=`command -v lualatex`
-LUALATEX_DEV_CMD=`command -v lualatex-dev`
+
+if [ "x$NODEV" = "x" ] ; then
+	PDFLATEX_DEV_CMD=`command -v pdflatex-dev`
+	LUALATEX_DEV_CMD=`command -v lualatex-dev`
+else
+	PDFLATEX_DEV_CMD=
+	LUALATEX_DEV_CMD=
+fi
 #
 make -j $NPROC contrib.tex origpub.tex sub_qqz
 #
