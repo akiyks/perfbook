@@ -1,0 +1,84 @@
+# Test build with pdflatex and lualatex and its -dev variants
+
+# Fall back to "command -v" when "which" is unavailable
+WHICH = $(shell which which 2>/dev/null)
+ifndef WHICH
+  WHICH = command -v
+endif
+# Say NODEV=1 if -dev builds don't work under your setup
+NODEV ?= 0
+
+PDFLATEX_CMD := $(shell $(WHICH) pdflatex 2>/dev/null)
+LUALATEX_CMD := $(shell $(WHICH) lualatex 2>/dev/null)
+XELATEX_CMD  := $(shell $(WHICH) xelatex 2>/dev/null)
+
+ifneq ($(NODEV),1)
+    PDFLATEX_DEV_CMD := $(shell $(WHICH) pdflatex-dev 2>/dev/null)
+    LUALATEX_DEV_CMD := $(shell $(WHICH) lualatex-dev 2>/dev/null)
+    XELATEX_DEV_CMD  := $(shell $(WHICH) xelatex-dev 2>/dev/null)
+endif
+
+ifeq ($(PDFLATEX_CMD),)
+    $(error pdflatex not found!)
+else
+    PDFLATEX = pdflatex
+endif
+
+ifeq ($(PDFLATEX_DEV_CMD),)
+    PDFLATEX_DEV = $(PDFLATEX)
+else
+    PDFLATEX_DEV = pdflatex-dev
+endif
+
+ifeq ($(LUALATEX_CMD),)
+    LUALATEX = $(PDFLATEX)
+else
+    LUALATEX = lualatex
+endif
+
+ifeq ($(LUALATEX_DEV_CMD),)
+    LUALATEX_DEV = $(LUALATEX)
+else
+    LUALATEX_DEV = lualatex-dev
+endif
+
+ifeq ($(XELATEX_CMD),)
+    XELATEX = $(PDFLATEX)
+else
+    XELATEX = xelatex
+endif
+
+ifeq ($(XELATEX_DEV_CMD),)
+    XELATEX_DEV = $(XELATEX)
+else
+    XELATEX_DEV = xelatex-dev
+endif
+
+TEST_PDFS = perfbook.pdf perfbook-1c.pdf \
+            perfbook-eb.pdf perfbook-ebsf.pdf \
+            perfbook-ebsfnq.pdf perfbook-nq.pdf
+
+PREREQ_SOURCES := $(TEST_PDFS:%.pdf=%.tex) contrib.tex origpub.tex sub_qqz
+
+all: $(TEST_PDFS)
+
+prereq:
+	$(MAKE) figs
+	make -j1 $(PREREQ_SOURCES)
+
+perfbook.pdf: LATEX=$(PDFLATEX)
+
+perfbook-1c.pdf: LATEX=$(PDFLATEX_DEV)
+
+perfbook-eb.pdf: LATEX=$(LUALATEX)
+
+perfbook-ebsf.pdf: LATEX=$(LUALATEX_DEV)
+
+perfbook-ebsfnq.pdf: LATEX=$(XELATEX)
+
+perfbook-nq.pdf: LATEX=$(XELATEX_DEV)
+
+$(TEST_PDFS): %: prereq
+	$(MAKE) LATEX=$(LATEX) $@
+
+.PHONY: all prereq
