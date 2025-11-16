@@ -7,6 +7,7 @@ ifndef WHICH
 endif
 # Say NODEV=1 if -dev builds don't work under your setup
 NODEV ?= 0
+PDFMAKEOPTS ?= --no-print-directory
 
 PDFLATEX_CMD := $(shell $(WHICH) pdflatex 2>/dev/null)
 LUALATEX_CMD := $(shell $(WHICH) lualatex 2>/dev/null)
@@ -79,6 +80,6 @@ perfbook-ebsfnq.pdf: LATEX=$(XELATEX)
 perfbook-nq.pdf: LATEX=$(XELATEX_DEV)
 
 $(TEST_PDFS): %: prereq
-	$(MAKE) LATEX=$(LATEX) $@
+	$(MAKE) LATEX=$(LATEX) $(PDFMAKEOPTS) $@
 
 .PHONY: all prereq
