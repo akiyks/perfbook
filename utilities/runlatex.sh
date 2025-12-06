@@ -120,12 +120,14 @@ pdfname=`env printf "%-19s" $basename.pdf`
 if ! test -r $basename-first.log
 then
 	echo "No need to update aux and bbl files."
-	echo "$LATEX 1 for $basename.pdf"
 	iter=1
+	latex_iter=`env printf '%-14s' "$LATEX $iter"`
+	env printf '%s for %s\n' "$latex_iter" "$pdfname"
 else
 	rm -f $basename-first.log
-	echo "$LATEX 2 for $pdfname # for possible bib update"
 	iter=2
+	latex_iter=`env printf '%-14s' "$LATEX $iter"`
+	env printf '%s for %s\n' "$latex_iter" "$pdfname # for possible bib update"
 fi
 iterate_latex
 min_iter=2
@@ -141,7 +143,8 @@ do
 		break
 	fi
 	iter=`expr $iter + 1`
-	echo "$LATEX $iter for $pdfname # remaining undefined refs"
+	latex_iter=`env printf '%-14s' "$LATEX $iter"`
+	env printf '%s for %s\n' "$latex_iter" "$pdfname # remaining undefined refs"
 	undefined_refs=1
 	iterate_latex
 done
@@ -153,7 +156,8 @@ do
 		break
 	fi
 	iter=`expr $iter + 1`
-	echo "$LATEX $iter for $pdfname # label(s) may have changed"
+	latex_iter=`env printf '%-14s' "$LATEX $iter"`
+	env printf '%s for %s\n' "$latex_iter" "$pdfname # label(s) may have changed"
 	iterate_latex
 done
 excerpt_warnings
