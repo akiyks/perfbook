@@ -106,7 +106,7 @@
 \newcommand{\QuickQuizAnswerM}[1]{\QuickQuizAnswer{#1}}
 \newcommand{\QuickQuizAnswerE}[1]{\QuickQuizAnswer{#1}}
 \newcommand{\EQuickQuizAnswer}[1]{%
-	\hyperref[QQA.\thechapter.\thequickquizctrP]{\rule{7pt}{7pt}}%
+	\hyperref[QQA.\thechapter.\thequickquizctrP]{\ding{110}}%
 	\phantomsection\label{QQE.\thechapter.\thequickquizctrP}%
 	\end{tcolorbox}
 }
@@ -125,7 +125,7 @@
 	{#1}
 }
 \newcommand{\QuickQuizAnswer}[1]{%
-	\hyperref[QQA.\thechapter.\thequickquizctr]{\rule{7pt}{7pt}}%
+	\hyperref[QQA.\thechapter.\thequickquizctr]{\ding{110}}%
 	\phantomsection\label{QQE.\thechapter.\thequickquizctr}
 	\end{tcolorbox}
 }
@@ -136,7 +136,7 @@
 	\QuickQHeading{QQ}{QQA}{\thechapter.\thequickquizctr}
 	{#1}}
 \newcommand{\QuickQuizAnswer}[1]{%
-	\hyperref[QQA.\thechapter.\thequickquizctr]{\rule{7pt}{7pt}}%
+	\hyperref[QQA.\thechapter.\thequickquizctr]{\ding{110}}%
 	\phantomsection\label{QQE.\thechapter.\thequickquizctr}}
 \newcommand{\QuickQuizEnd}{\goodbreak}
 }
@@ -250,7 +250,7 @@
 }
 
 \newcommand{\QuickA}[1]{%
-	\hyperref[QQ.\QuickQuizAnswerChapter.\thequickquizctrC]{\rule{7pt}{7pt}}
+	\hyperref[QQ.\QuickQuizAnswerChapter.\thequickquizctrC]{\ding{110}}
 	\end{tcolorbox}
 	\noindent\textbf{Answer:} \\ }
 }{\IfNoQqz{
@@ -261,7 +261,7 @@
 }
 
 \newcommand{\QuickQE}[1]{%
-	\hyperref[QQA.\thechapter.\thequickquizctr]{\rule{7pt}{7pt}}%
+	\hyperref[QQA.\thechapter.\thequickquizctr]{\ding{110}}%
 	\end{tcolorbox}
 }
 
@@ -272,7 +272,7 @@
 }
 
 \newcommand{\QuickA}[1]{%
-	\hyperref[QQ.\QuickQuizAnswerChapter.\thequickquizctrC]{\rule{7pt}{7pt}}
+	\hyperref[QQ.\QuickQuizAnswerChapter.\thequickquizctrC]{\ding{110}}
 	\end{tcolorbox}
 	\noindent\textbf{Answer:} \\ }
 }{
@@ -283,7 +283,7 @@
 	\QuickQHeadingPage{QQA}{QQ}{\QuickQuizAnswerChapter.\thequickquizctrC}\\}
 
 \newcommand{\QuickA}[1]{%
-	\hyperref[QQ.\QuickQuizAnswerChapter.\thequickquizctrC]{\rule{7pt}{7pt}}
+	\hyperref[QQ.\QuickQuizAnswerChapter.\thequickquizctrC]{\ding{110}}
 	\par\vspace{0.2\baselineskip plus .2ex minus .1ex}
 	\noindent\textbf{Answer:} \\ }
 }}
