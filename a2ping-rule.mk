@@ -38,10 +38,12 @@ endif
 ifeq ($(A2PING_GSCNFL),1)
 	$(error You need to update a2ping. See #7 in FAQ-BUILD.txt)
 endif
-	@cp $< $<i
-	@sh $(FIXANEPSFONTS) $<i
-	@a2ping --below --hires --bboxfrom=compute-gs $<i $@ > /dev/null 2>&1
-	@rm -f $<i
+	@TMP=`mktemp -d` && \
+	    cp $< $$TMP/$(notdir $<i) && \
+	    sh $(FIXANEPSFONTS) $$TMP/$(notdir $<i) && \
+	    a2ping --below --hires --bboxfrom=compute-gs $$TMP/$(notdir $<i) $$TMP/$(notdir $@) > /dev/null 2>&1 && \
+	    mv -f $$TMP/$(notdir $@) $@ && \
+	    rm -rf $$TMP
 
 $(PDFTARGETS_OF_TEX): %.pdf: %.eps
 	@echo "$< --> $(suffix $@) (by a2ping)"
@@ -52,11 +54,16 @@ ifeq ($(A2PING_GSCNFL),1)
 	$(error a2ping version conflict. See #7 in FAQ-BUILD.txt)
 endif
 ifeq ($(A2PING_GSCNFL),2)
-	@a2ping --below --gsextra=-dALLOWPSTRANSPARENCY $< $(basename $@)__.pdf > /dev/null 2>&1
-	@pdfcrop --hires $(basename $@)__.pdf $@ > /dev/null
-	@rm -f $(basename $@)__.pdf
+	@TMP=`mktemp -d` && cp $< $$TMP/$(notdir $<) && \
+	    a2ping --below --gsextra=-dALLOWPSTRANSPARENCY $$TMP/$(notdir $<) $$TMP/$(notdir $(basename $@)__.pdf) > /dev/null 2>&1 && \
+	    pdfcrop --hires $$TMP/$(notdir $(basename $@)__.pdf) $$TMP/$(notdir $@) > /dev/null && \
+	    mv -f $$TMP/$(notdir $@) $@ && \
+	    rm -rf $$TMP
 else
-	@a2ping --below --hires --bboxfrom=compute-gs $< $@ > /dev/null 2>&1
+	@TMP=`mktemp -d` && cp $< $$TMP/$(notdir $<) && \
+	    a2ping --below --hires --bboxfrom=compute-gs $$TMP/$(notdir $<) $$TMP/$(notdir $@) > /dev/null 2>&1 && \
+	    mv -f $$TMP/$(notdir $@) $@ && \
+	    rm -rf $$TMP
 endif
 
 $(PDFTARGETS_OF_EPSORIG_NOFIXFONTS) $(PDFTARGETS_OF_EPSOTHER): %.pdf: %.eps
@@ -67,4 +74,7 @@ endif
 ifeq ($(A2PING_GSCNFL),1)
 	$(error a2ping version conflict. See #7 in FAQ-BUILD.txt)
 endif
-	@a2ping --below --hires --bboxfrom=compute-gs $< $@ > /dev/null 2>&1
+	@TMP=`mktemp -d` && cp $< $$TMP/$(notdir $<) && \
+	    a2ping --below --hires --bboxfrom=compute-gs $$TMP/$(notdir $<) $$TMP/$(notdir $@) > /dev/null 2>&1 && \
+	    mv -f $$TMP/$(notdir $@) $@ && \
+	    rm -rf $$TMP
