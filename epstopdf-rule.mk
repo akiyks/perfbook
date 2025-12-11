@@ -14,11 +14,14 @@ $(PDFTARGETS_OF_GNUPLOT_NEEDFIXFONTS): %.pdf: %.eps
 ifndef EPSTOPDF
 	$(error $< --> $@: epstopdf not found. Please install it)
 endif
-	@TMP=`mktemp -d` && \
-	    sh $(FIXFONTS) < $< > $$TMP/$(notdir $(basename $<)__.eps) && \
-	    eps2eps $$TMP/$(notdir $(basename $<)__.eps) $$TMP/$(notdir $(basename $<)___.eps) && \
-	    epstopdf $(GS_OPT) $$TMP/$(notdir $(basename $<)___.eps) $$TMP/$(notdir $@) && \
-	    mv -f $$TMP/$(notdir $@) $@ && \
+	@TMP=`mktemp -d`&& \
+	    TMP1=$$TMP/$(notdir $(basename $<)__.eps) && \
+	    TMP2=$$TMP/$(notdir $(basename $<)___.eps) && \
+	    TMPDST=$$TMP/$(notdir $@) && \
+	    sh $(FIXFONTS) < $< > $$TMP1 && \
+	    eps2eps $$TMP1 $$TMP2 && \
+	    epstopdf $(GS_OPT) $$TMP2 $$TMPDST && \
+	    mv -f $$TMPDST $@ && \
 	    rm -rf $$TMP
 
 $(PDFTARGETS_OF_TEX): %.pdf: %.eps
@@ -28,17 +31,23 @@ ifndef EPSTOPDF
 endif
 ifeq ($(GS_953_OR_LATER),1)
 	@TMP=`mktemp -d` && \
-	    cp $< $$TMP/$(notdir $<) && \
-	    eps2eps -dALLOWPSTRANSPARENCY $$TMP/$(notdir $<) $$TMP/$(notdir $(basename $<)__.eps) && \
-	    epstopdf --gsopt=-dALLOWPSTRANSPARENCY $(GS_OPT) $$TMP/$(notdir $(basename $<)__.eps) $$TMP/$(notdir $@) && \
-	    mv -f $$TMP/$(notdir $@) $@ && \
+	    TMPSRC=$$TMP/$(notdir $<) && \
+	    TMP1=$$TMP/$(notdir $(basename $<)__.eps) && \
+	    TMPDST=$$TMP/$(notdir $@) && \
+	    cp $< $$TMPSRC && \
+	    eps2eps -dALLOWPSTRANSPARENCY $$TMPSRC $$TMP1 && \
+	    epstopdf --gsopt=-dALLOWPSTRANSPARENCY $(GS_OPT) $$TMP1 $$TMPDST && \
+	    mv -f $$TMPDST $@ && \
 	    rm -rf $$TMP
 else
 	@TMP=`mktemp -d` && \
-	    cp $< $$TMP/$(notdir $<) && \
-	    eps2eps -dNOSAFER $$TMP/$(notdir $<) $$TMP/$(notdir $(basename $<)__.eps) && \
-	    epstopdf --nosafer $(GS_OPT) $$TMP/$(notdir $(basename $<)__.eps) $$TMP/$(notdir $@) && \
-	    mv -f $$TMP/$(notdir $@) $@ && \
+	    TMPSRC=$$TMP/$(notdir $<) && \
+	    TMP1=$$TMP/$(notdir $(basename $<)__.eps) && \
+	    TMPDST=$$TMP/$(notdir $@) && \
+	    cp $< $$TMPSRC && \
+	    eps2eps -dNOSAFER $$TMPSRC $$TMP1 && \
+	    epstopdf --nosafer $(GS_OPT) $$TMP1 $$TMPDST && \
+	    mv -f $$TMPDST $@ && \
 	    rm -rf $$TMP
 endif
 
@@ -48,8 +57,11 @@ ifndef EPSTOPDF
 	$(error $< --> $@: epstopdf not found. Please install it)
 endif
 	@TMP=`mktemp -d` && \
-	    cp $< $$TMP/$(notdir $<) && \
-	    eps2eps $$TMP/$(notdir $<) $$TMP/$(notdir $(basename $<)__.eps) && \
-	    epstopdf $(GS_OPT) $$TMP/$(notdir $(basename $<)__.eps) $$TMP/$(notdir $@) && \
-	    mv -f $$TMP/$(notdir $@) $@ && \
-	    rm -f $$TMP/$(basename $<)__.eps
+	    TMPSRC=$$TMP/$(notdir $<) && \
+	    TMP1=$$TMP/$(notdir $(basename $<)__.eps) && \
+	    TMPDST=$$TMP/$(notdir $@) && \
+	    cp $< $$TMPSRC && \
+	    eps2eps $$TMPSRC $$TMP1 && \
+	    epstopdf $(GS_OPT) $$TMP1 $$TMPDST && \
+	    mv -f $$TMPDST $@ && \
+	    rm -rf $$TMP
