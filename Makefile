@@ -358,6 +358,7 @@ perfbook-hb.tex: perfbook-lt.tex
 
 perfbook-eb.tex: perfbook-lt.tex
 	sed -e 's/setboolean{ebooksize}{false}/setboolean{ebooksize}{true}/' \
+	    -e 's/setboolean{figcptop}{false}/setboolean{figcptop}{true}/' \
 	    -e 's/setboolean{twocolumn}{true}/setboolean{twocolumn}{false}/' < $< > $@
 
 perfbook-msns.tex: $(PERFBOOK_BASE)

@@ -143,6 +143,9 @@
 \newboolean{tblcptop}
 \setboolean{tblcptop}{true}
 \newcommand{\IfTblCpTop}[2]{\ifthenelse{\boolean{tblcptop}}{#1}{#2}}
+\newboolean{figcptop}
+\setboolean{figcptop}{false}
+\newcommand{\IfFigCpTop}[2]{\ifthenelse{\boolean{figcptop}}{#1}{#2}}
 \newboolean{nimbusavail}
 \setboolean{nimbusavail}{false}
 \newcommand{\IfNimbusAvail}[2]{\ifthenelse{\boolean{nimbusavail}}{#1}{#2}}
@@ -400,9 +403,22 @@
 \IfTblCpTop{
 \floatstyle{plaintop}
 \restylefloat{table}
-\addtolength{\abovecaptionskip}{-2.5pt}
-\setlength{\abovetopsep}{-2pt}
 }{}
+
+\IfFigCpTop{
+\floatstyle{plaintop}
+\restylefloat{figure}
+}{}
+
+\IfTblCpTop{
+  \addtolength{\abovecaptionskip}{-2.5pt}
+  \setlength{\abovetopsep}{-2pt}
+}{
+  \IfFigCpTop{
+    \addtolength{\abovecaptionskip}{-2.5pt}
+    \setlength{\abovetopsep}{-2pt}
+ }{}
+}
 \captionsetup{hangindent=20pt}
 \captionsetup[listing]{hangindent=20pt}
 
