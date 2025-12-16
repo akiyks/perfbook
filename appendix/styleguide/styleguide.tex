@@ -1232,21 +1232,25 @@ which controls the behavior of \co{\\toprule}.
 
 \begin{figure*}\centering
 \ebresizewidth{
-\begin{minipage}[t][][t]{2.1in}
+\begin{subcaptionblock}[t][][t]{2.1in}\centering
 \resizebox{2.1in}{!}{\includegraphics{cartoons/1kHz}}
-\end{minipage}
+\caption{At 1\,kHz}
+\label{fig:app:styleguide:At 1kHz}
+\end{subcaptionblock}
 \qquad
-\begin{minipage}[t][][t]{2.3in}
+\begin{subcaptionblock}[t][][t]{2.3in}\centering
 \resizebox{2.3in}{!}{\includegraphics{cartoons/100kHz}}
-\end{minipage}
+\caption{At 100\,kHz}
+\label{fig:app:styleguide:At 100kHz}
+\end{subcaptionblock}
 }
-\caption{Timer Wheel at 1\,kHz (left) and 100\,kHz (right)}
-\label{fig:app:styleguide:Timer Wheel at 1kHz and 100kHz}
+\caption{Timer Wheels (subcaption)}
+\label{fig:app:styleguide:Timer Wheels (subcaption)}
 \end{figure*}
 
 \begin{listing*}%
-\caption{Message-Passing Litmus Test (by subfig)}%
-\label{lst:app:styleguide:Message-Passing Litmus Test (subfig)}%
+\caption{Message-Passing Litmus Test (subcaption)}%
+\label{lst:app:styleguide:Message-Passing Litmus Test (subcaption)}%
 {\scriptsize%
 \begin{verbbox}[\LstLineNo]
 C C-MP+o-wmb-o+o-o.litmus
@@ -1278,9 +1282,8 @@ exists (1:r2=2 /\ 1:r3=0)
 }
 \centering
 \hspace*{\fill}
-\subfloat[Not Enforcing Order]{
+\subcaptionbox{Not Enforcing Order\label{sublst:app:styleguide:Not Enforcing Order}}{
   \theverbbox
-  \label{sublst:app:styleguide:Not Enforcing Order}
 }
 \hspace{\fill}
 {\scriptsize%
@@ -1312,9 +1315,8 @@ P1(int* x0, int* x1) {
 exists (1:r2=2 /\ 1:r3=0)
 \end{verbbox}
 }%
-\subfloat[Enforcing Order]{%
+\subcaptionbox{Enforcing Order\label{sublst:app:styleguide:Enforcing Order}}{
   \theverbbox
-  \label{sublst:app:styleguide:Enforcing Order}
 }\hspace*{\fill}%
 \end{listing*}
 
@@ -1328,41 +1330,30 @@ This section lists such candidates.
 To prevent a pair of closely related figures or listings
 from being placed in different pages, it is desirable to group
 them into a single floating object.
-The ``subfig'' package provides the features to do so.\footnote{
+The ``subcaption'' package provides the features to do so.\footnote{
   One problem of grouping figures might be the complexity in
   \LaTeX\ source.}
 
 Two floating objects can be placed side by side by using
-\co{\\parbox} or \co{minipage}.
+\co{\\parbox}, \co{minipage}, or \co{subcaptionblock}.
 For example,
 \cref{fig:advsync:Timer Wheel at 1kHz,fig:advsync:Timer Wheel at 100kHz}
-can be grouped together by using a pair of \co{minipage}s
+can be grouped together by using a pair of \co{subcaptionblock}s
 as shown in
-\cref{fig:app:styleguide:Timer Wheel at 1kHz and 100kHz}.
+\cref{fig:app:styleguide:Timer Wheels (subcaption)}.
 
-By using subfig package,
-\cref{lst:memorder:Message-Passing Litmus Test (No Ordering),%
+\Cref{lst:memorder:Message-Passing Litmus Test (No Ordering),%
 lst:memorder:Enforcing Order of Message-Passing Litmus Test}
-can be grouped together as shown in
-\cref{lst:app:styleguide:Message-Passing Litmus Test (subfig)}
-with sub\-/captions (with a minor change of blank line).
+can also be grouped together by using the \co{\\subcaptionbox} macro,
+as shown in
+\cref{lst:app:styleguide:Message-Passing Litmus Test (subcaption)}.
 
-Note that they can not be grouped in the same way as
-\cref{fig:app:styleguide:Timer Wheel at 1kHz and 100kHz}
-because the ``ruled'' style prevents their captions
-from being properly typeset.
-
-The sub\-/caption can be cited by combining a \verb|\cref{}| macro
-and a \verb|\subref{}| macro, for example,
-``\cref{lst:app:styleguide:Message-Passing Litmus Test (subfig)}\,%
-\subref{sublst:app:styleguide:Not Enforcing Order}''.
-
-It can also be cited by a \verb|\cref{}| macro, for example,
+The sub\-/caption can be cited by a \verb|\cref{}| macro, for example,
 ``\cref{sublst:app:styleguide:Enforcing Order}''.
 Note the difference in the resulting format.
 For the citing by a \verb|\cref{}| to work, you need to place
 the \verb|\label{}| macro of the combined floating object
-ahead of the definition of subfloats.
+ahead of the definition of sub-listings.
 Otherwise, the resulting caption number would be off by one
 from the actual number.
 
