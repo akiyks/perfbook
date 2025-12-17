@@ -26,9 +26,11 @@ SUB_QQZ := qqzhowto.tex qqzintro.tex qqzcpu.tex qqztoolsoftrade.tex \
 	qqztogether.tex	qqzadvsync.tex qqzmemorder.tex qqzeasy.tex \
 	qqzfuture.tex qqzquestions.tex qqztoyrcu.tex qqzwhymb.tex
 
-LATEXGENERATED = autodate.tex qqz.tex contrib.tex origpub.tex sub_qqz
+AUTODATE := autodate.tex subcaption_version.tex
+LATEXGENERATED = autodate qqz.tex contrib.tex origpub.tex sub_qqz
 # Note: Empty target "sub_qqz" is used on behalf of $(SUB_QQZ) to prevent
 # parallel runs of divideqqz.pl.
+# "autodate" is used in the same way for $(AUTODATE) files.
 
 TWOCOLTARGETS := mstx msr msn msnt sf nq sfnq ix df
 EBTARGETS := $(foreach v,nq sf sfnq ix df,eb$(v))
@@ -299,13 +301,14 @@ ifeq ($(LATEX_CMD),)
 endif
 	LATEX=$(LATEX) sh utilities/runfirstlatex.sh $(basename $@)
 
-autodate.tex: $(LATEXSOURCES) $(BIBSOURCES) $(LST_SOURCES) \
+autodate: $(LATEXSOURCES) $(BIBSOURCES) $(LST_SOURCES) \
     $(PDFTARGETS_OF_EPS) $(PDFTARGETS_OF_SVG) $(PDFTARGETS_OF_SVG_CROP) \
     $(FCVSNIPPETS) $(FCVSNIPPETS_VIA_LTMS) \
     $(GITREFSTAGS) utilities/autodate.sh
 	sh utilities/autodate.sh
+	@touch autodate
 
-perfbook_flat.tex: autodate.tex
+perfbook_flat.tex: autodate
 ifndef LATEXPAND
 	$(error --> $@: latexpand not found. Please install it)
 endif
@@ -658,8 +661,7 @@ clean:
 		-o -name '*.qqz' -o -name '*.toc' -o -name '*.bbl' \
 		-o -name '*.pdfp' -o -name '*.pdfq' | xargs rm -f
 	rm -f perfbook_flat.tex perfbook*.out $(GENERATED_MAIN)
-	rm -f $(LATEXGENERATED)
-	rm -f qqz*.tex
+	rm -f $(LATEXGENERATED) $(AUTODATE) $(SUB_QQZ)
 	rm -f perfbook*.idx perfbook*.ind perfbook*.ilg perfbook*.ist
 	rm -f perfbook*.acn perfbook*.acr perfbook*.alg
 	rm -f perfbook*.glg perfbook*.glo perfbook*.gls perfbook*.glsdefs

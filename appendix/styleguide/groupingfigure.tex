@@ -1,0 +1,32 @@
+\begin{figure*}\centering
+\ebresizewidth{
+\begin{subcaptionblock}[t][][t]{2.1in}\centering
+\resizebox{2.1in}{!}{\includegraphics{cartoons/1kHz}}
+\caption{At 1\,kHz}
+\label{fig:app:styleguide:At 1kHz}
+\end{subcaptionblock}
+\qquad
+\begin{subcaptionblock}[t][][t]{2.3in}\centering
+\resizebox{2.3in}{!}{\includegraphics{cartoons/100kHz}}
+\caption{At 100\,kHz}
+\label{fig:app:styleguide:At 100kHz}
+\end{subcaptionblock}
+}
+\caption{Timer Wheels (subcaption)}
+\label{fig:app:styleguide:Timer Wheels (subcaption)}
+\end{figure*}
+
+To prevent a pair of closely related figures or listings
+from being placed in different pages, it is desirable to group
+them into a single floating object.
+The ``subcaption'' package provides the features to do so.\footnote{
+  One problem of grouping figures might be the complexity in
+  \LaTeX\ source.}
+
+Two floating objects can be placed side by side by using
+\co{\\parbox}, \co{minipage}, or \co{subcaptionblock}.
+For example,
+\cref{fig:advsync:Timer Wheel at 1kHz,fig:advsync:Timer Wheel at 100kHz}
+can be grouped together by using a pair of \co{subcaptionblock}s
+as shown in
+\cref{fig:app:styleguide:Timer Wheels (subcaption)}.

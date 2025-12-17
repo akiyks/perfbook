@@ -75,6 +75,11 @@
 \usepackage{fancyvrb}
 \usepackage{fvextra}[2016/09/02]
 \usepackage[bottom]{footmisc} % place footnotes under floating figures/tables
+\newboolean{subcaptiongood}
+\newboolean{footmiscgood}
+\input{subcaption_version}
+\newcommand{\IfSubcaptionGood}[2]{\ifthenelse{\boolean{subcaptiongood}}{#1}{#2}}
+\newcommand{\IfFootmiscGood}[2]{\ifthenelse{\boolean{footmiscgood}}{#1}{#2}}
 \usepackage{tabularx}
 \usepackage[hyphens]{url}
 \usepackage{threeparttable}
