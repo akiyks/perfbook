@@ -1657,8 +1657,8 @@ Given a CPU $N$ running a CPU-bound usermode thread, the
 commands shown in
 \cref{lst:advsync:Locating Sources of OS Jitter}
 will produce a list of all the times that this CPU entered the kernel.
-Of course, the \co{N} on \clnref{cat} must be replaced with the
-number of the CPU in question, and the \co{1} on \clnref{echo1} may be
+Of course, the~\co{N} on \clnref{cat} must be replaced with the
+number of the CPU in question, and the~\co{1} on \clnref{echo1} may be
 increased
 to show additional levels of function call within the kernel.
 The resulting trace can help track down the source of the OS jitter.
@@ -1967,7 +1967,7 @@ it must happen within a few minutes.
 The program is to use a global pointer imaginatively named \co{cur_cal}
 that normally references \co{default_cal}, which is a statically allocated
 and initialized structure that contains the default calibration values
-in fields imaginatively named \co{a}, \co{b}, and \co{c}.
+in fields imaginatively named~\co{a}, \co{b}, and~\co{c}.
 Otherwise, \co{cur_cal} points to a dynamically allocated
 structure providing the current calibration values.
 

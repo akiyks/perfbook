@@ -148,9 +148,9 @@ The pseudocode for \co{maze_try_visit_cell()} is shown on
 \clnrefrange{b}{e}
 of \cref{lst:SMPdesign:SEQ Helper Pseudocode}
 (\path{maze.c}).
-\Clnref{chk:adj} checks to see if cells \co{c} and \co{t} are
+\Clnref{chk:adj} checks to see if cells~\co{c} and~\co{t} are
 adjacent and connected,
-while \clnref{chk:not:visited} checks to see if cell \co{t} has
+while \clnref{chk:not:visited} checks to see if cell~\co{t} has
 not yet been visited.
 The \co{celladdr()} function returns the address of the specified cell.
 If either check fails, \clnref{ret:failure} returns failure.
@@ -574,7 +574,7 @@ parallelism via co-routines, for example, manually switching context
 between threads on each pass through the main do-while loop in
 \cref{lst:SMPdesign:Partitioned Parallel Solver Pseudocode}.
 This context switching is straightforward because the context
-consists only of the variables \co{c} and \co{vi}:
+consists only of the variables~\co{c} and \co{vi}:
 Of the numerous ways to achieve the effect, this is a good tradeoff
 between context-switch overhead and visit percentage.
 As can be seen in

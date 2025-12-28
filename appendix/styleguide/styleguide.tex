@@ -83,7 +83,7 @@ answers to Akira's questions regarding perfbook's punctuation policy.
 Following is a convention regarding punctuation in \LaTeX\ sources.
 
 \begin{itemize}
-\item Place a newline after a colon (\co{:}) and the end of a sentence.
+\item Place a newline after a colon~(\co{:}) and the end of a sentence.
   This avoids the whole one-space/two-space food fight and also has
   the advantage of more clearly showing changes to single sentences
   in the middle of long paragraphs.
@@ -549,14 +549,14 @@ Once one of them appears in a litmus test, comments should be of
 OCaml style (\qco{(* ... *)}).
 Those tokens keep the same meaning even when they appear in comments!
 
-The pair of characters \qco{\{} and \qco{\}} also have special
+The pair of characters~\qco{\{} and~\qco{\}} also have special
 meaning in the C flavour tests.
 They are used to separate portions in a litmus test.
 
-First pair of \qco{\{} and \qco{\}} encloses initialization part.
+First pair of~\qco{\{} and~\qco{\}} encloses initialization part.
 Comments in this part should also be in the ocaml form.
 
-You can't use \qco{\{} and \qco{\}} in comments in litmus tests, either.
+You can't use~\qco{\{} and~\qco{\}} in comments in litmus tests, either.
 
 Examples of disallowed comments in a litmus test are shown below:
 
@@ -707,7 +707,7 @@ their names are free of escaping in \LaTeX\ source.
 It is convenient to search them in source files.
 Also, \verb|\co{}| macro has a capability to permit line breaks
 at particular sequences of letters.
-Current definition permits a line break at an underscore (\tco{_}),
+Current definition permits a line break at an underscore~(\tco{_}),
 two consecutive underscores (\tco{__}), a white space, or an
 operator \tco{->}.
 
@@ -741,7 +741,7 @@ For path names, we use ``\verb|\path{}|'' command.
 It won't generate hyper references.
 
 Both \verb|\url{}| and \verb|\path{}| permit line breaks
-at \qco{/}, \qco{-}, and \qco{.}.\footnote{
+at~\qco{/}, \qco{-}, and~\qco{.}.\footnote{
   Overfill can be a problem if the URL or the path name contains
   long runs of unbreakable characters.
 }
@@ -773,8 +773,8 @@ lists such limitations.
 While \verb|\co{}| requires some characters to be escaped,
 it can contain any character.
 
-On the other hand, \verb|\tco{}| can not handle
-\qco{\%}, \qco{\{}, \qco{\}}, nor \qco{\\} properly.
+On the other hand, \verb|\tco{}| can not handle~\qco{\%},
+\qco{\{}, \qco{\}}, nor~\qco{\\} properly.
 If they are escaped by a~\qco{\\},
 they appear in the end result with the escape character.
 The \qco{\\verb} command can be used in running text if you
