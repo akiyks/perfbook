@@ -8,7 +8,7 @@
 	  Order in the court!}
 	 {Unknown}
 
-So what possessed CPU designers to cause them to inflict \IXBpl{memory barrier}
+So what possessed CPU designers to cause them to inflict \IXB{memory barrier}s
 on poor unsuspecting SMP software designers?
 
 In short, because reordering memory references allows much better performance,
@@ -62,7 +62,7 @@ and can typically be accessed in a few cycles.\footnote{
 \end{figure}
 
 Data flows among the CPUs' caches and memory in fixed-length blocks
-called ``\IXpl{cache line}'', which are normally a power of two in size,
+called ``\IX{cache line}s'', which are normally a power of two in size,
 ranging from 16 to 256 bytes.
 When a given data item is first accessed by a given CPU, it will
 be absent from that CPU's cache, meaning that a ``cache miss''
@@ -235,7 +235,7 @@ described in the next section.
 \section{Cache-Coherence Protocols}
 \label{sec:app:whymb:Cache-Coherence Protocols}
 
-\IXpl{Cache-coherence protocol} manage cache-line states so as to prevent
+\IX{Cache-coherence protocol}s manage cache-line states so as to prevent
 inconsistent or lost data.
 These protocols can be quite complex, with many tens
 of states,\footnote{
@@ -548,7 +548,7 @@ The transition arcs in this figure are as follows:
 
 Let's now look at this from the perspective of a couple of cache lines' worth
 of data, initially residing in memory at address~0 and~8,
-as they travel through the various single-line \IXhpl{direct-mapped}{cache}
+as they travel through the various single-line \IXh{direct-mapped}{cache}s
 in a four-CPU system.
 \Cref{tab:app:whymb:Cache Coherence Example}
 shows this flow of data, with the first column showing the steps
@@ -1101,7 +1101,7 @@ involve lots of complex steps in silicon.
 Unfortunately, each store buffer must be relatively small, which means
 that a CPU executing a modest sequence of stores can fill its store
 buffer (for example, if all of them result in cache misses).
-At that point, the CPU must once again wait for \IXpl{invalidation} to complete
+At that point, the CPU must once again wait for \IX{invalidation}s to complete
 in order to drain its store buffer before it can continue executing.
 This same situation can arise immediately after a memory barrier, when
 \emph{all} subsequent store instructions must wait for invalidations to

@@ -602,7 +602,7 @@ element being freed and reallocated as the same type of structure
 while they are referencing it, but must prohibit a change in type.
 This guarantee, called ``\IX{type-safe memory}'' in
 academic literature~\cite{Cheriton96a},
-is weaker than the \IXpl{existence guarantee} discussed
+is weaker than the \IX{existence guarantee}s discussed
 in \cref{sec:defer:Existence Guarantee},
 and is therefore quite a bit harder to work with.
 Type-safe memory algorithms in the Linux kernel make use of slab caches,
@@ -691,7 +691,7 @@ the slab allocator's deferred reclamation specified by the
 \label{sec:defer:Existence Guarantee}
 
 Gamsa et al.~\cite{Gamsa99}
-discuss \IXpl{existence guarantee} and describe how a mechanism
+discuss \IX{existence guarantee}s and describe how a mechanism
 resembling RCU can be used to provide these existence guarantees
 (see Section~5 on page~7 of the PDF), and
 \cref{sec:locking:Lock-Based Existence Guarantees}
@@ -2118,7 +2118,7 @@ for read-write
 workloads where consistent data is required, although usually in
 conjunction with a number of other synchronization primitives.
 For example, the directory-entry cache in recent Linux kernels uses RCU in
-conjunction with sequence locks, per-CPU locks, and per-data-structure
+conjunction with \IXh{sequence}{lock}s, per-CPU locks, and per-data-structure
 locks to allow lockless traversal of pathnames in the common case.
 Although RCU can be very beneficial in this read-write case, the
 corresponding code is often more complex than that of the read-mostly

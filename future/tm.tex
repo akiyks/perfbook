@@ -5,7 +5,7 @@
 \section{Transactional Memory}
 \label{sec:future:Transactional Memory}
 \epigraph{Everything should be as simple as it can be, but not simpler.}
-	 {Albert Einstein, by way of Louis Zukofsky}
+	 {\pplEP{Albert}{Einstein}, by way of \pplEP{Louis}{Zukofsky}}
 
 The idea of using transactions outside of databases goes back many
 decades~\cite{DBLomet1977SIGSOFT,Knight:1986:AMF:319838.319854,Herlihy93a},
@@ -14,13 +14,14 @@ database and non-database transactions being that non-database transactions
 drop the ``D'' in the ``ACID''\footnote{
 	Atomicity, consistency, isolation, and durability.}
 properties defining database transactions.
-The idea of supporting memory-based transactions, or ``transactional memory''
-(TM), in hardware
+The idea of supporting memory-based transactions, or
+\IXBacrfst{tm}, in hardware
 is more recent~\cite{Herlihy93a}, but unfortunately, support for such
 transactions in commodity hardware was not immediately forthcoming,
 despite other somewhat similar proposals being put forward~\cite{JMStone93}.
-Not long after, Shavit and Touitou proposed a software-only implementation
-of transactional memory (STM) that was capable of running on commodity
+Not long after, \pplsur{Nir}{Shavit} and \pplsur{Dan}{Touitou} proposed
+a software-only implementation
+of transactional memory (\IXacr{stm}) that was capable of running on commodity
 hardware, give or take memory-ordering issues~\cite{Shavit95}.
 This proposal languished for many years, perhaps due to the fact that
 the research community's attention was absorbed by \IXacrl{nbs}
@@ -1155,7 +1156,7 @@ A full exposition on contention managers is beyond the scope of this section.
 This section will therefore limit itself to a few seminal papers
 in this area.
 
-Herlihy et al.~\cite{HerlihyLMS03}
+\pplsur{Maurice P.}{Herlihy} et al.~\cite{HerlihyLMS03}
 have writing transactions unconditionally abort reading transactions,
 which has the virtue of simplicity, but which can result in reader
 starvation.
@@ -1165,14 +1166,15 @@ From this viewpoint, one might characterize RCU readers as ``instant
 release'', but this is a property that causes RCU readers to behave in
 a decidedly non-STM manner.
 
-Hammond et al.~\cite{LanceHammond2004a}
+\pplsur{Lance}{Hammond} et al.~\cite{LanceHammond2004a}
 advise using small transactions, which does reduce contention-manager
 complexity, but which also fails to deliver on the full STM promise
 of automated concurrency.
 This paper also introduced annotations to identify different types of
 transactions.
 
-Scherer and Scott~\cite{WilliamNSchererIII2005}
+\pplsur{William N. III}{Scherer} and
+\pplsur{Michael L.}{Scott}~\cite{WilliamNSchererIII2005}
 describe a number of STM contention-management strategies.
 This paper defined ``visible'' and ``invisible'' readers for
 extra-transactional accesses, and discuss a number of contention-management
@@ -1204,7 +1206,7 @@ strategies, including:
 This 2005 paper thus gave an early indication of the complexity inherent
 in contention management.
 
-Porter and Witchel~\cite{DonaldEPorter2007TRANSACT,Ramadan:2008:DTM:1521747.1521799}
+\pplsur{Donald E.}{Porter} and \pplsur{Emmett}{Witchel}~\cite{DonaldEPorter2007TRANSACT,Ramadan:2008:DTM:1521747.1521799}
 considered loosening STM consistency requirements in order to simplify
 contention management.
 They noted RCU as a case in which an update will cause concurrent reads
@@ -1230,7 +1232,7 @@ in \cref{sec:future:Conflict Handling,sec:future:Aborts and Rollbacks}.
 	    Sequence Locking}
 \label{sec:future:Case Study: Sequence Locking}
 
-Sequence locking, described in
+\IXh{Sequence}{lock}ing, described in
 \cref{sec:defer:Sequence Locks},
 is sometimes thought of as a trivial form of STM\@.
 The sequence-locking read-side critical section is normally restricted

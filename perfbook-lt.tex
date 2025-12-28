@@ -233,17 +233,13 @@
 
 \newcommand{\IX}[1]{\ucindex{#1}\hlindex{#1}} % put with first letter capitalized into general index
 \newcommand{\IXr}[1]{\index{#1}\hlindex{#1}} % put as is into general index
-\newcommand{\IXpl}[1]{\ucindex{#1}\hlindex{#1s}} % put with first letter capitalized into general index for plural
-\newcommand{\IXplr}[1]{\index{#1}\hlindex{#1s}} % put as is into general index for plural
-\newcommand{\IXplx}[2]{\ucindex{#1}\hlindex{#1#2}} % put as is into general index for plural of exeptional form
+\newcommand{\IXplx}[3]{\ucindex{#1#3}\hlindex{#1#2}} % put as is into general index for plural of exeptional form
 \newcommand{\IXalt}[2]{\ucindex{#2}\hlindex{#1}} % put alternative with first letter capitalized into general index
 \newcommand{\IXaltr}[2]{\index{#2}\hlindex{#1}} % put alternative as is into general index
 \newcommand{\IXh}[2]{\indexh{#1 #2}{#2}{#1}\hlindex{#1 #2}}
-\newcommand{\IXhpl}[2]{\indexh{#1 #2}{#2}{#1}\hlindex{#1 #2s}}
+\newcommand{\IXhplx}[4]{\indexh{#1 #2#4}{#2#4}{#1}\hlindex{#1 #2#3}}
 \newcommand{\IXhr}[2]{\indexhr{#1 #2}{#2}{#1}\hlindex{#1 #2}}
-\newcommand{\IXhrpl}[2]{\indexhr{#1 #2}{#2}{#1}\hlindex{#1 #2s}}
 \newcommand{\IXhmr}[2]{\indexhmr{#1 #2}{#2}{#1}\hlindex{#1 #2}}
-\newcommand{\IXhmrpl}[2]{\indexhmr{#1 #2}{#2}{#1}\hlindex{#1 #2s}}
 \newcommand{\IXhy}[2]{\indexhy{#1#2}{#2}{#1}\hlindex{#1#2}}
 \newcommand{\IXalth}[3]{\indexh{#1}{#3}{#2}\hlindex{#1}}
 \newcommand{\IXalthy}[3]{\indexhy{#1}{#3}{#2}\hlindex{#1}}
@@ -252,18 +248,14 @@
 % page number in bold face
 \newcommand{\BF}[1]{\textbf{#1}}
 \newcommand{\IXB}[1]{\ucindex{#1|BF}\hlindex{#1}} % put with first letter capitalized into general index
+\newcommand{\IXBplx}[3]{\ucindex{#1#3|BF}\hlindex{#1#2}}
 \newcommand{\IXBr}[1]{\index{#1|BF}\hlindex{#1}} % put as is into general index
-\newcommand{\IXBpl}[1]{\ucindex{#1|BF}\hlindex{#1s}} % put with first letter capitalized into general index for plural
-\newcommand{\IXBplr}[1]{\index{#1|BF}\hlindex{#1s}} % put as is into general index for plural
-\newcommand{\IXBplx}[2]{\ucindex{#1|BF}\hlindex{#1#2}} % put as is into general index for plural of exeptional form
 \newcommand{\IXBalt}[2]{\ucindex{#2|BF}\hlindex{#1}} % put alternative with first letter capitalized into general index
 \newcommand{\IXBaltr}[2]{\index{#2|BF}\hlindex{#1}} % put alternative as is into general index
 \newcommand{\IXBh}[2]{\indexh{#1 #2|BF}{#2|BF}{#1}\hlindex{#1 #2}}
-\newcommand{\IXBhpl}[2]{\indexh{#1 #2|BF}{#2|BF}{#1}\hlindex{#1 #2s}}
+\newcommand{\IXBhplx}[4]{\indexh{#1 #2#4|BF}{#2#4|BF}{#1}\hlindex{#1 #2#3}}
 \newcommand{\IXBhr}[2]{\indexhr{#1 #2|BF}{#2|BF}{#1}\hlindex{#1 #2}}
-\newcommand{\IXBhrpl}[2]{\indexhr{#1 #2|BF}{#2|BF}{#1}\hlindex{#1 #2s}}
 \newcommand{\IXBhmr}[2]{\indexhmr{#1 #2|BF}{#2|BF}{#1}\hlindex{#1 #2}}
-\newcommand{\IXBhmrpl}[2]{\indexhmr{#1 #2|BF}{#2|BF}{#1}\hlindex{#1 #2s}}
 \newcommand{\IXBhy}[2]{\indexhy{#1#2|BF}{#2|BF}{#1}\hlindex{#1#2}}
 \newcommand{\IXBalth}[3]{\indexh{#1|BF}{#3|BF}{#2}\hlindex{#1}}
 \newcommand{\IXBalthy}[3]{\indexhy{#1|BF}{#3|BF}{#2}\hlindex{#1}}
@@ -273,17 +265,11 @@
 \newcommand{\GL}[1]{\underline{#1}}
 \newcommand{\IXG}[1]{\ucindex{#1|GL}\hlindex{#1}} % put with first letter capitalized into general index
 \newcommand{\IXGr}[1]{\index{#1|GL}\hlindex{#1}} % put as is into general index
-\newcommand{\IXGpl}[1]{\ucindex{#1|GL}\hlindex{#1s}} % put with first letter capitalized into general index for plural
-\newcommand{\IXGplr}[1]{\index{#1|GL}\hlindex{#1s}} % put as is into general index for plural
-\newcommand{\IXGplx}[2]{\ucindex{#1|GL}\hlindex{#1#2}} % put as is into general index for plural of exeptional form
 \newcommand{\IXGalt}[2]{\ucindex{#2|GL}\hlindex{#1}} % put alternative with first letter capitalized into general index
 \newcommand{\IXGaltr}[2]{\index{#2|GL}\hlindex{#1}} % put alternative as is into general index
 \newcommand{\IXGh}[2]{\indexh{#1 #2|GL}{#2|GL}{#1}\hlindex{#1 #2}}
-\newcommand{\IXGhpl}[2]{\indexh{#1 #2|GL}{#2|GL}{#1}\hlindex{#1 #2s}}
 \newcommand{\IXGhr}[2]{\indexhr{#1 #2|GL}{#2|GL}{#1}\hlindex{#1 #2}}
-\newcommand{\IXGhrpl}[2]{\indexhr{#1 #2|GL}{#2|GL}{#1}\hlindex{#1 #2s}}
 \newcommand{\IXGhmr}[2]{\indexhmr{#1 #2|GL}{#2|GL}{#1}\hlindex{#1 #2}}
-\newcommand{\IXGhmrpl}[2]{\indexhmr{#1 #2|GL}{#2|GL}{#1}\hlindex{#1 #2s}}
 \newcommand{\IXGhy}[2]{\indexhy{#1#2|GL}{#2|GL}{#1}\hlindex{#1#2}}
 \newcommand{\IXGalth}[3]{\indexh{#1|GL}{#3|GL}{#2}\hlindex{#1}}
 \newcommand{\IXGalthy}[3]{\indexhy{#1|GL}{#3|GL}{#2}\hlindex{#1}}
@@ -294,17 +280,29 @@
 \newcommand{\apig}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{g}}}
 \newcommand{\apipx}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{px}}}
 \newcommand{\apik}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{k}}}
+\newcommand{\apiDk}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{k}|DF}}
+\newcommand{\apitk}[1]{\hlindex{\tco{#1}}\sindex[api]{#1@\co{#1}\categapi{k}}}
+\newcommand{\DF}[1]{\underline{#1}}
+\newcommand{\apiDtk}[1]{\hlindex{\tco{#1}}\sindex[api]{#1@\co{#1}\categapi{k}|DF}}
 \newcommand{\apikh}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{kh}}}
 \newcommand{\apipf}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{pf}}}
+\newcommand{\apiDpf}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{pf}|DF}}
+\newcommand{\apitpf}[1]{\hlindex{\tco{#1}}\sindex[api]{#1@\co{#1}\categapi{pf}}}
+\newcommand{\apiDtpf}[1]{\hlindex{\tco{#1}}\sindex[api]{#1@\co{#1}\categapi{pf}|DF}}
 \newcommand{\apiur}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}\categapi{ur}}}
 \newcommand{\api}[1]{\hlindex{\co{#1}}\sindex[api]{#1@\co{#1}}}
 \newcommand{\apialtc}[2]{\hlindex{\co{#1}}\sindex[api]{#2@\co{#2}\categapi{c}}}
 \newcommand{\apialtg}[2]{\hlindex{\co{#1}}\sindex[api]{#2@\co{#2}\categapi{g}}}
 \newcommand{\apialtk}[2]{\hlindex{\co{#1}}\sindex[api]{#2@\co{#2}\categapi{k}}}
+\newcommand{\EP}[1]{\underline{#1}}
 \newcommand{\ppl}[2]{\hlindex{#1 #2}\sindex[ppl]{#2, #1}} % forename surname in text, "surname, forename" into ppl index
 \newcommand{\pplmdl}[2]{\hlindex{#1~#2}\sindex[ppl]{#2, #1}} % for abbreviated middle name
 \newcommand{\pplsur}[2]{\hlindex{#2}\sindex[ppl]{#2, #1}} % surname in text, "surname, givenname" into ppl index
 \newcommand{\pplalt}[2]{\hlindex{#1}\sindex[ppl]{#2}} % put 1st arg in text, put 2nd arg into ppl index
+\newcommand{\pplEP}[2]{\hlindex{#1 #2}\sindex[ppl]{#2, #1|EP}}
+\newcommand{\pplEPmdl}[2]{\hlindex{#1~#2}\sindex[ppl]{#2, #1|EP}}
+\newcommand{\pplEPalt}[2]{\hlindex{#1}\sindex[ppl]{#2|EP}}
+\newcommand{\pplEPraw}[1]{\hlindex{#1}\sindex[ppl]{#1|EP}}
 
 \IfTwoColumn{}{
   \setboolean{colorlinks}{true}
@@ -760,7 +758,12 @@
 }
 \printindex
 \phantomsection
-\setindexprenote{% empty for now
+\setindexprenote{%
+  \hfill\begin{minipage}{1in}
+    \footnotesize%
+    \EP{Underline}: Epigraph.
+    \vspace*{1ex}
+  \end{minipage}
 }
 \printindex[ppl]
 \phantomsection
@@ -769,6 +772,12 @@
     \footnotesize (c):~Cxx standard, (g):~GCC extension,
     (k):~Linux kernel, (kh):~Linux kernel historic, (pf):~perfbook CodeSamples,
     (px):~POSIX, (ur):~userspace RCU\@.
+    \vspace*{2ex}
+  \end{minipage}
+
+  \hfill\begin{minipage}{1.1in}
+    \footnotesize%
+    \DF{Underline}: Definition.
     \vspace*{1ex}
   \end{minipage}
 }

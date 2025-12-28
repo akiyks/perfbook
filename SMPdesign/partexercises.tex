@@ -8,7 +8,7 @@
 \epigraph{Whenever a theory appears to you as the only possible one,
 	  take this as a sign that you have neither understood the theory
 	  nor the problem which it was intended to solve.}
-	  {Karl Popper}
+	  {\pplEP{Karl}{Popper}}
 
 Although partitioning is more widely understood than it was in the early
 2000s, its value is still underappreciated.
@@ -308,7 +308,8 @@ indicating the domain of the right-hand
 lock, and purple (with no stripes) indicating overlapping domains.
 Although it is possible to create an algorithm that works this way,
 perhaps using a dummy element similar to the two-lock queue
-presented by Michael and Scott~\cite{MichaelScott96},
+presented by \pplsur{Maged M.}{Michael} and
+\pplsur{Michael L.}{Scott}~\cite{MichaelScott96},
 the fact that it has no fewer than five special cases should raise
 a big red flag, especially given that concurrent activity at the other
 end of the list can shift the queue from one special case to another
@@ -721,7 +722,7 @@ is 2x scalability, as at most two threads can be holding the
 dequeue's locks concurrently.
 This limitation also applies to algorithms based on \IXacrl{nbs},
 such as the compare-and-swap-based dequeue algorithm of
-Michael~\cite{DBLP:conf/europar/Michael03}.\footnote{
+\pplsur{Maged M.}{Michael}~\cite{DBLP:conf/europar/Michael03}.\footnote{
 	This paper is interesting in that it showed that special
 	double-compare-and-swap (DCAS) instructions are not needed
 	for lock-free implementations of double-ended queues.
@@ -767,7 +768,7 @@ This indicates that the strict FIFO property is not all that valuable
 in concurrent programs, and in fact, Kirsch et al.\ present less-strict
 queues that provide improved performance and
 scalability~\cite{ChristophMKirsch2012FIFOisntTR}.\footnote{
-	Nir Shavit produced relaxed stacks for roughly the same
+	\ppl{Nir}{Shavit} produced relaxed stacks for roughly the same
 	reasons~\cite{Shavit:2011:DSM:1897852.1897873}.
 	This situation leads some to believe that the linearization
 	points are useful to theorists rather than developers, and

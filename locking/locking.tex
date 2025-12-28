@@ -7,12 +7,12 @@
 \Epigraph{Locking is the worst general-purpose synchronization mechanism
 	  except for all those other mechanisms that
 	  have been tried from time to time.}{With apologies
-	  to the memory of Winston Churchill and to whoever he was
+	  to the memory of \pplEP{Winston}{Churchill} and to whoever he was
 	  quoting}
 
 In recent concurrency research, locking often plays the role of villain.
 \IX{Locking} stands accused of inciting deadlocks, convoying, \IX{starvation},
-\IX{unfairness}, \IXpl{data race}, and all manner of other concurrency sins.
+\IX{unfairness}, \IX{data race}s, and all manner of other concurrency sins.
 Interestingly enough, the role of workhorse in production-quality
 shared-memory parallel software is also played by locking.
 This chapter will look into this dichotomy between villain and
@@ -96,7 +96,7 @@ more serious sins.
 \section{Staying Alive}
 \label{sec:locking:Staying Alive}
 %
-\epigraph{I work to stay alive.}{Bette Davis}
+\epigraph{I work to stay alive.}{\pplEP{Bette}{Davis}}
 
 Given that locking stands accused of deadlock and starvation,
 one important concern for shared-memory parallel developers is
@@ -1158,7 +1158,7 @@ shuttle between CPUs~0 and~1, bypassing CPUs~2--7.
 \subsection{Inefficiency}
 \label{sec:locking:Inefficiency}
 
-Locks are implemented using atomic instructions and \IXpl{memory barrier},
+Locks are implemented using atomic instructions and \IX{memory barrier}s,
 and often involve cache misses.
 As we saw in \cref{chp:Hardware and its Habits},
 these instructions are quite expensive, roughly two
@@ -1203,7 +1203,7 @@ Too coarse a granularity will limit scalability, while too fine a
 granularity will result in excessive synchronization overhead.
 
 Acquiring a lock might be expensive, but once held, the CPU's caches
-are an effective performance booster, at least for large \IXpl{critical section}.
+are an effective performance booster, at least for large \IX{critical section}s.
 In addition, once a lock is held, the data protected by that lock can
 be accessed by the lock holder without interference from other threads.
 
@@ -1253,7 +1253,7 @@ to other locking use cases.
 %
 \epigraph{Only locks in life are what you think you know, but don't.
 	  Accept your ignorance and try something new.}
-	 {Dennis Vickers}
+	 {\pplEP{Dennis}{Vickers}}
 
 There are a surprising number of types of locks, more than this
 short chapter can possibly do justice to.
@@ -1266,7 +1266,7 @@ and scoped locking (\cref{sec:locking:Scoped Locking}).
 \subsection{Exclusive Locks}
 \label{sec:locking:Exclusive Locks}
 
-\IXhpl{Exclusive}{lock} are what they say they are:
+\IXh{Exclusive}{lock}s are what they say they are:
 Only one thread may hold the lock at a time.
 The holder of such a lock thus has exclusive access to all data protected
 by that lock, hence the name.
@@ -1470,7 +1470,7 @@ systems designed to avoid contention might not need fairness at all.
 \subsection{Reader-Writer Locks}
 \label{sec:locking:Reader-Writer Locks}
 
-\IXhpl{Reader-writer}{lock}~\cite{Courtois71}
+\IXh{Reader-writer}{lock}s~\cite{Courtois71}
 permit any number of readers to hold the lock
 concurrently on the one hand or a single writer to hold the lock
 on the other.
@@ -1506,7 +1506,7 @@ and memory-barrier overhead---multiplied by the number of threads.
 In short, reader-writer locks can be quite useful in a number of
 situations, but each type of implementation does have its drawbacks.
 The canonical use case for reader-writer locking involves very long
-\IXhpl{read-side}{critical section}, preferably measured in hundreds of microseconds
+\IXh{read-side}{critical section}s, preferably measured in hundreds of microseconds
 or even milliseconds.
 
 As with exclusive locks, a reader-writer lock acquisition cannot complete
@@ -1868,7 +1868,7 @@ be required for the foreseeable future.
 \epigraph{When you translate a dream into reality, it's never a full
 	  implementation.
 	  It is easier to dream than to do.}
-	 {Shai Agassi}
+	 {\pplEP{Shai}{Agassi}}
 
 Developers are almost always best-served by using whatever locking
 primitives are provided by the system, for example, the POSIX
@@ -1972,7 +1972,8 @@ mechanisms have been used extensively as pure spinlocks in production.
 
 There are a great many other possible implementations of locking based
 on atomic instructions, many of which are reviewed in the classic paper
-by Mellor-Crummey and Scott~\cite{MellorCrummey91a}.
+by \pplsur{John M.}{Mellor-Crummey} and
+\pplsur{Michael L.}{Scott}~\cite{MellorCrummey91a}.
 These implementations represent different points in a multi-dimensional
 design tradeoff~\cite{Guerraoui:2019:LPA:3319851.3301501,HugoGuirouxPhD,McKenney96a}.
 For example,
@@ -2037,7 +2038,8 @@ steps to avoid
 starvation~\cite{McKenney02e,radovic03hierarchical,radovic02efficient,BenJackson02,McKenney02d}.
 Many of these can be thought of as analogous to the elevator algorithms
 traditionally used in scheduling disk I/O\@.
-Dice et al.~discuss use of local and global locks in order to transform
+\pplsur{David}{Dice} et al.\ discuss use of local and global locks
+in order to transform
 any architecture-oblivious lock into a local/global locking scheme
 that optimizes for the system's structure by providing (for example)
 per-socket locks along with a global
@@ -2046,13 +2048,15 @@ lock~\cite{DavidDice2012NUMAlock1,DavidDice2012NUMAlock2}.
 Unfortunately, the same scheduling logic that improves the \IX{efficiency}
 of queued locks at high contention also increases their overhead at
 low contention.
-Beng-Hong Lim and Anant Agarwal therefore combined a simple test-and-set
+\ppl{Beng-Hong}{Lim} and \ppl{Anant}{Agarwal} therefore combined
+a simple test-and-set
 lock with a queued lock, using the test-and-set lock at low levels of
 contention and switching to the queued lock at high levels of
 contention~\cite{BengHongLim94}, thus getting low overhead at low levels
 of contention and getting fairness and high throughput at high levels
 of contention.
-Browning et al.\ took a similar approach, but avoided the use of a separate
+\pplsur{Luke}{Browning} et al.\ took a similar approach,
+but avoided the use of a separate
 flag, so that the test-and-set fast path uses the same sequence of
 instructions that would be used in a simple test-and-set
 lock~\cite{LukeBrowning2005SimpleLockNUMAAware}.
@@ -2093,16 +2097,17 @@ scheduler-conscious synchronization was a mechanism called
 Interestingly enough, atomic instructions are not strictly needed to
 implement locks~\cite{Dijkstra65a,Lamport74a}.
 An excellent exposition of the issues surrounding locking implementations
-based on simple loads and stores may be found in Herlihy's and
-Shavit's textbook~\cite{HerlihyShavit2008Textbook,HerlihyShavit2020Textbook}.
+based on simple loads and stores may be found in \pplsur{Maurice P.}{Herlihy}'s
+and \pplsur{Nir}{Shavit}'s
+textbook~\cite{HerlihyShavit2008Textbook,HerlihyShavit2020Textbook}.
 The main point echoed here is that such implementations currently
 have little practical application, although a careful study of
 them can be both entertaining and enlightening.
 Nevertheless, with one exception described below, such study is left
 as an exercise for the reader.
 
-Gamsa et al.~\cite[Section 5.3]{Gamsa99} describe a token-based
-mechanism in which a token circulates among the CPUs.
+\pplsur{Ben}{Gamsa} et al.~\cite[Section 5.3]{Gamsa99} describe
+a token-based mechanism in which a token circulates among the CPUs.
 When the token reaches a given CPU, it has exclusive
 access to anything protected by that token.
 There are any number of schemes that may be used to implement
@@ -2184,7 +2189,8 @@ performance across the range of contention levels, the path has not
 always been smooth~\cite{CatalinMarinas2018qspinlockTLA,WillDeacon2018qspinlock}.
 As increasing numbers of people gain familiarity with parallel hardware
 and parallelize increasing amounts of code, we can continue to expect more
-special-purpose locking primitives to appear, see for example Guerraoui et
+special-purpose locking primitives to appear, see for example
+\pplsur{Rachid}{Guerraoui} et
 al.~\cite{Guerraoui:2019:LPA:3319851.3301501,HugoGuirouxPhD}.
 Nevertheless, you should carefully consider this important safety tip:
 Use the standard synchronization primitives whenever humanly possible.
@@ -2208,7 +2214,7 @@ roll-your-own efforts is that the standard primitives are typically
 %
 \epigraph{You either die a hero or you live long enough to see yourself
 	  become the villain.}
-	 {Aaron Eckhart \emph{as} Harvey Dent}
+	 {\pplEP{Aaron}{Eckhart} \emph{as} \pplEP{Harvey}{Dent}}
 
 As is often the case in real life, locking can be either hero or villain,
 depending on how it is used and on the problem at hand.
@@ -2634,7 +2640,7 @@ It is important to note that hardware transactional memory
 (discussed in
 \cref{sec:future:Hardware Transactional Memory})
 cannot help here unless the hardware transactional memory implementation
-provides \IXpl{forward-progress guarantee}, which few do.
+provides \IX{forward-progress guarantee}s, which few do.
 Other alternatives that appear to be quite practical (if less heavily
 hyped) include the methods discussed in
 \cref{sec:locking:Conditional Locking,sec:locking:Acquire Needed Locks First},

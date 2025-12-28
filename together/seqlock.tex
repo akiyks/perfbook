@@ -8,7 +8,7 @@
 \epigraph{The girl who can't dance says the band can't play.}
 	 {Yiddish proverb}
 
-This section looks at some special uses of sequence locks.
+This section looks at some special uses of \IXh{sequence}{lock}s.
 
 \subsection{Dueling Sequence Locks}
 \label{sec:together:Dueling Sequence Locks}
@@ -89,9 +89,9 @@ wedlock-consistent traversal of his database.
 One approach is to use sequence locks
 (see \cref{sec:defer:Sequence Locks}),
 so that wedlock-related updates are carried out under the
-protection of \co{write_seqlock()}, while reads requiring
+protection of \apik{write_seqlock()}, while reads requiring
 wedlock consistency are carried out within
-a \co{read_seqbegin()} / \co{read_seqretry()} loop.
+a \apik{read_seqbegin()} / \apik{read_seqretry()} loop.
 Note that sequence locks are not a replacement for RCU protection:
 Sequence locks protect against concurrent modifications, but RCU
 is still needed to protect against concurrent deletions.

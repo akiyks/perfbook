@@ -10,7 +10,7 @@
 Parallel programming has earned a reputation as one of the most
 difficult areas a hacker can tackle.
 Papers and textbooks warn of the perils of \IX{deadlock}, \IX{livelock},
-\IXpl{race condition}, non-determinism,
+\IX{race condition}s, non-determinism,
 \IXaltr{Amdahl's-Law}{Amdahl's Law} limits to scaling,
 and excessive realtime latencies.
 And these perils are quite real; we authors have accumulated uncounted
@@ -57,7 +57,7 @@ counter-examples in many fields of endeavor.
 %
 \epigraph{Not the power to remember, but its very opposite, the power to
 	  forget, is a necessary condition for our existence.}
-	 {Sholem Asch}
+	 {\pplEP{Sholem}{Asch}}
 
 As indicated by its title, this book takes a different approach.
 Rather than complain about the difficulty of parallel programming,
@@ -244,7 +244,7 @@ This topic is addressed in the next section.
 \label{sec:intro:Parallel Programming Goals}
 %
 \epigraph{If you don't know where you are going, you will end up somewhere
-	  else.}{Yogi Berra}
+	  else.}{\pplEP{Yogi}{Berra}}
 
 The three major goals of parallel programming (over and above those
 of sequential programming) are as follows:
@@ -709,7 +709,7 @@ it is not always the best tool for the job.
 \label{sec:intro:Alternatives to Parallel Programming}
 %
 \epigraph{Experiment is folly when experience shows the way.}
-	 {Roger M. Babson}
+	 {\pplEPmdl{Roger M.}{Babson}}
 
 In order to properly consider alternatives to parallel programming,
 you must first decide on what exactly you expect the parallelism
@@ -889,7 +889,7 @@ programming so difficult?''
 \label{sec:intro:What Makes Parallel Programming Hard?}
 %
 \epigraph{Real difficulties can be overcome; it is only the imaginary
-	  ones that are unconquerable.}{Theodore N.~Vail}
+	  ones that are unconquerable.}{\pplEPmdl{Theodore N.}{Vail}}
 
 \OriginallyPublished{sec:intro:What Makes Parallel Programming Hard?}{What Makes Parallel Programming Hard?}{a Portland State University Technical Report}{PaulEMcKenney2009ProgrammingHard}
 
@@ -1094,7 +1094,7 @@ parallelism, so much so that it is
 usually wise to begin parallelization by partitioning your write-intensive
 resources and replicating frequently accessed read-mostly resources.
 The resource in question is most frequently data, which might be
-partitioned over computer systems, mass-storage devices, \IXplr{NUMA node},
+partitioned over computer systems, mass-storage devices, \IXr{NUMA node}s,
 CPU cores (or dies or hardware threads), pages, cache lines, instances
 of synchronization primitives, or critical sections of code.
 For example, partitioning over locking primitives is termed
@@ -1317,7 +1317,7 @@ as parallel systems continue to become cheaper and more readily available.
 \label{sec:intro:Discussion}
 %
 \epigraph{Until you try, you don't know what you can't do.}
-	 {Henry James}
+	 {\pplEP{Henry}{James}}
 
 This section has given an overview of the difficulties with, goals of,
 and alternatives to parallel programming.

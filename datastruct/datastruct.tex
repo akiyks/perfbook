@@ -7,7 +7,7 @@
 \Epigraph{Bad programmers worry about the code.
 	  Good programmers worry about data structures and their
 	  relationships.}
-	 {Linus Torvalds}
+	 {\pplEP{Linus}{Torvalds}}
 
 Serious discussions of algorithms include time complexity of their
 data structures~\cite{ThomasHCorman2001Algorithms}.
@@ -69,7 +69,7 @@ presents a summary of this chapter.
 %
 \epigraph{The art of doing mathematics consists in finding that special
 	  case which contains all the germs of generality.}
-	 {David Hilbert}
+	 {\pplEP{David}{Hilbert}}
 
 We will use the Schr\"odinger's Zoo application to evaluate
 performance~\cite{McKenney:2013:SDS:2483852.2483867}.
@@ -98,7 +98,7 @@ traditional concurrent data structures.
 %
 \epigraph{Finding a way to live the simple life today is the most
 	  complicated task.}
-	 {Henry A. Courtney, updated}
+	 {\pplEPmdl{Henry A.}{Courtney}, updated}
 
 There are a huge number of data structures in use today, so much so
 that there are multiple textbooks covering them.
@@ -496,7 +496,7 @@ read-mostly situations.
 However, we can achieve both performance and scalability by using
 RCU, which was introduced in
 \cref{sec:defer:Read-Copy Update (RCU)}.
-Similar results can be achieved using \IXpl{hazard pointer}
+Similar results can be achieved using \IX{hazard pointer}s
 (\path{hazptr.c})~\cite{MagedMichael04a}, which will be included in
 the performance results shown in this
 section~\cite{McKenney:2013:SDS:2483852.2483867}.
@@ -704,7 +704,7 @@ Both show a change in slope at 224~CPUs, and this is due to hardware
 multithreading.
 At 224 and fewer CPUs, each thread has a core to itself.
 In this regime, RCU does better than does hazard pointers because the
-latter's read-side \IXpl{memory barrier} result in dead time within the core.
+latter's read-side \IX{memory barrier}s result in dead time within the core.
 In short, RCU is better able to utilize a core from a single hardware
 thread than is hazard pointers.
 
@@ -907,7 +907,8 @@ data structure represented by the pre-BSD routing table.
 \label{fig:datastruct:Read-Side Cat-Only RCU-Protected Hash-Table Performance For Schroedinger's Zoo at 64 CPUs}
 \end{figure}
 
-As noted earlier, Schr\"odinger is surprised by the popularity of his
+As noted earlier, \pplsur{Erwin}{Schr\"odinger}
+is surprised by the popularity of his
 cat~\cite{ErwinSchroedinger1935Cat}, but recognizes the need to reflect
 this popularity in his design.
 \Cref{fig:datastruct:Read-Side Cat-Only RCU-Protected Hash-Table Performance For Schroedinger's Zoo at 64 CPUs}
@@ -928,7 +929,7 @@ throughput.
 Of course, a great many applications have good load-spreading
 properties, and for these applications sharding works
 quite well.
-However, sharding does not handle ``\IXpl{hot spot}'' very well, with
+However, sharding does not handle ``\IX{hot spot}s'' very well, with
 the hot spot exemplified by Schr\"odinger's cat being but one case
 in point.
 
@@ -1111,7 +1112,7 @@ or all of the above.
 %
 \epigraph{Don't be afraid to take a big step if one is indicated.
 	  You can't cross a chasm in two small steps.}
-	 {David Lloyd George}
+	 {\pplEPmdl{David Lloyd}{George}}
 
 Fixed-size hash tables are perfectly partitionable, but resizable hash
 tables pose partitioning challenges when growing or shrinking, as
@@ -1962,7 +1963,7 @@ library~\cite{MathieuDesnoyers2009URCU}.
 %
 \epigraph{All life is an experiment.
 	  The more experiments you make the better.}
-	 {Ralph Waldo Emerson}
+	 {\pplEPmdl{Ralph Waldo}{Emerson}}
 
 The preceding sections have focused on data structures that enhance
 concurrency due to partitionability
@@ -2042,7 +2043,7 @@ produce novel algorithms with surprising properties.
 %
 \epigraph{There's only one thing more painful than learning from
 	  experience, and that is not learning from experience.}
-	 {Archibald MacLeish}
+	 {\pplEP{Archibald}{MacLeish}}
 
 This chapter has focused primarily on hash tables, including resizable
 hash tables, which are not fully partitionable.

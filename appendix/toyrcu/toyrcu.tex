@@ -5,7 +5,7 @@
 \QuickQuizChapter{chp:app:``Toy'' RCU Implementations}{``Toy'' RCU Implementations}{qqztoyrcu}
 %
 \Epigraph{The only difference between men and boys is the price of their toys.}
-	 {M. H\'ebert}
+	 {\pplEP{M.}{H\'ebert}}
 % https://www.ncbi.nlm.nih.gov/pubmed/11548147
 
 This appendix provides a series of RCU implementations in order of
@@ -66,7 +66,7 @@ with read-side overhead ranging from about 100~nanoseconds on a single \Power{5}
 CPU up to more than 17~\emph{microseconds} on a 64-CPU system.
 Worse yet,
 these same lock operations permit \co{rcu_read_lock()}
-to participate in \IXpl{deadlock cycle}.
+to participate in \IX{deadlock cycle}s.
 Furthermore, in absence of recursive locks,
 RCU read-side critical sections cannot be nested, and, finally,
 although concurrent RCU updates could in principle be satisfied by
@@ -277,7 +277,7 @@ Similarly, \co{rcu_read_unlock()} executes a memory barrier to
 confine the RCU read-side critical section, then atomically
 decrements the counter.
 The \co{synchronize_rcu()} primitive spins waiting for the reference
-counter to reach zero, surrounded by \IXpl{memory barrier}.
+counter to reach zero, surrounded by \IX{memory barrier}s.
 The \co{poll()} on \clnref{sync:poll} merely provides pure delay, and from
 a pure RCU-semantics point of view could be omitted.
 Again, once \co{synchronize_rcu()} returns, all prior
@@ -298,7 +298,7 @@ In happy contrast to the per-thread lock-based implementation shown in
 \cref{sec:app:toyrcu:Per-Thread Lock-Based RCU},
 it also allows them to be nested.
 In addition, the \co{rcu_read_lock()} primitive cannot possibly
-participate in \IXpl{deadlock cycle}, as it never spins nor blocks.
+participate in \IX{deadlock cycle}s, as it never spins nor blocks.
 
 \QuickQuiz{
 	But what if you hold a lock across a call to
@@ -1456,7 +1456,7 @@ overhead.
 \Cref{lst:app:toyrcu:Quiescent-State-Based RCU Read Side}
 (\path{rcu_qs.h})
 shows the read-side primitives used to construct a user-level
-implementation of RCU based on \IXpl{quiescent state}, with the data shown in
+implementation of RCU based on \IX{quiescent state}s, with the data shown in
 \cref{lst:app:toyrcu:Data for Quiescent-State-Based RCU}.
 As can be seen from \clnrefrange{lock:b}{unlock:e} in the listing,
 the \co{rcu_read_lock()}
