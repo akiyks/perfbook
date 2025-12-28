@@ -305,6 +305,14 @@ autodate.tex: $(LATEXSOURCES) $(BIBSOURCES) $(LST_SOURCES) \
     $(GITREFSTAGS) utilities/autodate.sh
 	sh utilities/autodate.sh
 
+ifdef LATEXPAND
+  LATEXPAND_OPTS = --empty-comments
+  LATEXPAND_NON_GLOBAL := $(shell latexpand --help | grep -c -e "--non-global")
+  ifneq ($(LATEXPAND_NON_GLOBAL),0)
+    LATEXPAND_OPTS += --non-global
+  endif
+endif
+
 perfbook_flat.tex: autodate.tex
 ifndef LATEXPAND
 	$(error --> $@: latexpand not found. Please install it)
@@ -328,7 +336,7 @@ endif
 	echo > qqz.tex
 	echo > contrib.tex
 	echo > origpub.tex
-	latexpand --empty-comments perfbook-lt.tex 1> $@ 2> /dev/null
+	latexpand $(LATEXPAND_OPTS) perfbook-lt.tex 1> $@ 2> /dev/null
 
 qqz.tex: perfbook_flat.tex
 	sh utilities/extractqqz.sh < $< | perl utilities/qqzreorder.pl > $@
@@ -453,10 +461,16 @@ perfbook-a4.tex:
 
 # Rules related to perfbook_html are removed as of May, 2016
 
+ifneq (,$(findstring -dev,$(LATEX)))
+  NONPDF_LATEX = latex-dev
+else
+  NONPDF_LATEX = latex
+endif
+
 $(EPSSOURCES_FROM_TEX): %.eps: %.tex
-	@echo "$< --> $(suffix $@)"
+	@echo "$< --> $(suffix $@) ($(NONPDF_LATEX))"
 	sh utilities/mpostcheck.sh
-	@latex -output-directory=$(shell dirname $<) $< > /dev/null 2>&1
+	@$(NONPDF_LATEX) -output-directory=$(shell dirname $<) -interaction=batchmode $< > /dev/null
 	@dvips -Pdownload35 -E $(patsubst %.tex,%.dvi,$<) -o $@ > /dev/null 2>&1
 
 $(EPSSOURCES_FROM_DOT): $(FIXANEPSFONTS) $(FIXFONTS)
