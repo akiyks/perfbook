@@ -121,14 +121,16 @@ For example,
 \end{quote}
 \end{itemize}
 
-The symbol of micro (\micro :$10^{-6}$) can be typeset easily by
-the help of ``gensymb'' \LaTeX\ package.
-A macro \qco{\\micro} can be used in both text and math modes.
-To typeset the symbol of ``microsecond'', you can do
-so by \qco{\\micro s}.
-For example,
+The symbol of micro ($10^{-6}$) can be typeset easily by
+the help of the ``siunitx'' \LaTeX\ package.
+The symbol of ``microsecond'' can be typeset as follows:
+
+\begin{VerbatimU}
+  \qty{10}{\us}
+\end{VerbatimU}
+
 \begin{quote}
-  10\,\micro s
+  \qty{10}{\us}
 \end{quote}
 
 Note that math mode \qco{\\mu} is italic by default and should not
@@ -181,28 +183,46 @@ These ambiguities should not be confusing in discussing approximate order.
 \subsubsection{Degree Symbol}
 \label{sec:app:styleguide:Degree Symbol}
 
-The angular-degree symbol (\degree) does not require any space in front
+The angular-degree symbol (\textdegree) does not require any space in front
 of it.
 NIST style guide clearly states so.
 
-The symbol of degree can also be typeset easily by the help of gensymb
-package.
-A macro \qco{\\degree} can be used in both text and math modes.
+This convention can be followed easily by using commands from \co{siunitx},
+\co{\\qty} and \co{\\degree}.
 
 Example:
 
+\begin{VerbatimU}
+  \qty{60}{\degree}
+\end{VerbatimU}
+
+Result:
+
 \begin{quote}
-  $45\degree$, rather than $45\,\degree$.
+  \qty{60}{\degree}
 \end{quote}
 
 \subsubsection{Percent Symbol}
 \label{sec:app:styleguide:Percent Symbol}
 
-NIST style guide treats the percent symbol (\%) as the same as SI unit
-symbols.
+The NIST style guide treats the percent symbol (\unit{\percent}) in the
+same way as SI unit symbols.
 
 \begin{quote}
-  50\pct\ possibility, rather than 50\% possibility.
+  ``50\pct\ possibility'', rather than ``50\% possibility''.
+\end{quote}
+
+Again, the \co{siunitx} package provides a macro, \co{\\percent}, which can
+be used as follows if you want to mark it up explicitly:
+
+\begin{VerbatimU}
+  \qty{50}{\percent}
+\end{VerbatimU}
+
+Result:
+
+\begin{quote}
+  \qty{50}{\percent}
 \end{quote}
 
 \subsubsection{Font Style}
@@ -388,7 +408,7 @@ They are defined in the preamble as shown below:
 \begin{fcvlabel}[ln:app:styleguide:LaTeX Source of Sample Code Snippet (Current)]
 \VerbatimInput{appendix/styleguide/samplecodesnippetfcv.tex}
 \end{fcvlabel}
-\vspace*{-9pt}
+\vspaceafterverbatiminput{}
 \caption{\LaTeX\ Source of Sample Code Snippet (Current)}
 \label{lst:app:styleguide:LaTeX Source of Sample Code Snippet (Current)}
 \end{listing}
@@ -465,7 +485,7 @@ top level \path{Makefile} and a script to generate dependencies
 \begin{listing*}
 \fvset{fontsize=\scriptsize,numbers=left,numbersep=5pt,xleftmargin=9pt,obeytabs=true,tabsize=8}
 \VerbatimInput{appendix/styleguide/samplecodesnippet.c}
-\vspace*{-9pt}
+\vspaceafterverbatiminput{}
 \caption{Source of Code Sample with ``snippet'' Meta Command}
 \label{lst:app:styleguide:Source of Code Sample}
 \end{listing*}
@@ -672,7 +692,7 @@ and is typeset as shown in
 \fvset{fontsize=\scriptsize,numbers=left,numbersep=5pt,xleftmargin=9pt,commandchars=\%\@\$}
 \VerbatimInput{appendix/styleguide/samplecodesnippetlstlbl.tex}
 \end{fcvlabel}
-\vspace*{-9pt}
+\vspaceafterverbatiminput{}
 \caption{\LaTeX\ Source of Sample Code Snippet (Obsolete)}
 \label{lst:app:styleguide:LaTeX Source of Sample Code Snippet (Obsolete)}
 \end{listing}
@@ -1317,7 +1337,7 @@ exists (1:r2=2 /\ 1:r3=0)
 \subfloat[Enforcing Order]{%
   \theverbbox
   \label{sublst:app:styleguide:Enforcing Order}
-}\hspace*{\fill}%
+}\hspace*{\fill}\vspace*{-9pt}
 \end{listing*}
 
 There are a few areas yet to be attempted in perfbook

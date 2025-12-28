@@ -35,6 +35,8 @@ perfbook*.out
 perfbook-*.tex
 perfbook.tex
 autodate.tex
+newtxversion.tex
+autodate
 /perfbook*.idx
 /perfbook*.ilg
 /perfbook*.ind

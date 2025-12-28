@@ -69,7 +69,8 @@ basename=`echo $1 | sed -e 's/\.tex$//'`
 
 : ${LATEX:=pdflatex}
 
-echo "$LATEX 1 for $basename.pdf"
+LATEX_ITER=`env printf '%-14s' "$LATEX 1"`
+env printf '%-14s for %s\n' "$LATEX_ITER" $basename.pdf
 $LATEX $LATEX_OPT $basename > /dev/null 2>&1 < /dev/null
 exitcode=$?
 ENCGUESS_CMD=`command -v encguess`
