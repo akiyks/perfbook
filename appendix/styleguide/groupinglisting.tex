@@ -1,0 +1,8 @@
+The sub\-/caption can be cited by a \verb|\cref{}| macro, for example,
+``\cref{sublst:app:styleguide:Enforcing Order}''.
+Note the difference in the resulting format.
+For the citing by a \verb|\cref{}| to work, you need to place
+the \verb|\label{}| macro of the combined floating object
+ahead of the definition of sub-listings.
+Otherwise, the resulting caption number would be off by one
+from the actual number.

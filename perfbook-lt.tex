@@ -40,11 +40,27 @@
 \floatname{listing}{Listing}
 \usepackage{lscape}
 \usepackage{epsfig}
-\usepackage{subfig}
-\newsubfloat{listing}
+%\usepackage{subfig}
+\usepackage{subcaption}
+%\newsubfloat{listing}
+\DeclareCaptionSubType*{listing}
+\renewcommand\thesublisting{\alph{sublisting}}
+\makeatletter
+\renewcommand\p@sublisting{\thelisting}
+\makeatother
 \captionsetup{labelfont=bf}
 \captionsetup[listing]{font=small,labelsep=colon}
-\captionsetup[subfloat]{font=small}
+% Define "boxedtop" float style
+\makeatletter
+\let\floatc@boxedtop=\floatc@boxed
+\newcommand\fs@boxedtop{\fs@boxed
+  \def\@fs@mid{\vspace\belowcaptionskip\relax}%
+  \let\@fs@iftopcapt\iftrue}
+\makeatother
+\floatstyle{plain}
+\newcommand\belowsubcapskip{0pt}
+\AtEndEnvironment{subcaptionblock}{\vspace*{\belowsubcapskip}}
+
 % \usepackage{breakurl}
 \usepackage{graphicx}
 \usepackage{rotating}
@@ -67,6 +83,11 @@
 \usepackage{fancyvrb}
 %\usepackage{fvextra}[2016/09/02]
 \usepackage[bottom]{footmisc} % place footnotes under floating figures/tables
+\newboolean{subcaptiongood}
+\newboolean{footmiscgood}
+\input{subcaption_version}
+\newcommand{\IfSubcaptionGood}[2]{\ifthenelse{\boolean{subcaptiongood}}{#1}{#2}}
+\newcommand{\IfFootmiscGood}[2]{\ifthenelse{\boolean{footmiscgood}}{#1}{#2}}
 \usepackage{tabularx}
 \usepackage[hyphens]{url}
 \usepackage{threeparttable}
@@ -168,6 +189,9 @@
 \newboolean{tblcptop}
 \setboolean{tblcptop}{true}
 \newcommand{\IfTblCpTop}[2]{\ifthenelse{\boolean{tblcptop}}{#1}{#2}}
+\newboolean{figcptop}
+\setboolean{figcptop}{false}
+\newcommand{\IfFigCpTop}[2]{\ifthenelse{\boolean{figcptop}}{#1}{#2}}
 \newboolean{nimbusavail}
 \setboolean{nimbusavail}{false}
 \newcommand{\IfNimbusAvail}[2]{\ifthenelse{\boolean{nimbusavail}}{#1}{#2}}
@@ -480,9 +504,23 @@
 \IfTblCpTop{
 \floatstyle{plaintop}
 \restylefloat{table}
-\addtolength{\abovecaptionskip}{-2.5pt}
-\setlength{\abovetopsep}{-2pt}
 }{}
+
+\IfFigCpTop{
+\floatstyle{boxedtop}
+\restylefloat{figure}
+\renewcommand*\belowsubcapskip{-9pt}
+}{}
+
+\IfTblCpTop{
+  \addtolength{\abovecaptionskip}{-2.5pt}
+  \setlength{\abovetopsep}{-2pt}
+}{
+  \IfFigCpTop{
+    \addtolength{\abovecaptionskip}{-2.5pt}
+    \setlength{\abovetopsep}{-2pt}
+ }{}
+}
 \captionsetup{hangindent=20pt}
 \captionsetup[listing]{hangindent=20pt}
 

@@ -1250,25 +1250,22 @@ which controls the behavior of \co{\\toprule}.
 \subsection{Improvement Candidates}
 \label{sec:app:styleguide:Improvement Candidates}
 
-\begin{figure*}\centering
-\ebresizewidth{
-\begin{minipage}[t][][t]{2.1in}
-\resizebox{2.1in}{!}{\includegraphics{cartoons/1kHz}}
-\caption{Timer Wheel at 1\,kHz}
-\label{fig:app:styleguide:Timer Wheel at 1kHz}
-\end{minipage}
-\qquad
-\begin{minipage}[t][][t]{2.3in}
-\resizebox{2.3in}{!}{\includegraphics{cartoons/100kHz}}
-\caption{Timer Wheel at 100\,kHz}
-\label{fig:app:styleguide:Timer Wheel at 100kHz}
-\end{minipage}
+There are a few areas yet to be attempted in perfbook
+which would further improve its appearance.
+This section lists such candidates.
+
+\subsubsection{Grouping Related Figures/Listings}
+\label{sec:app:styleguide:Grouping Related Figures/Listings}
+
+\IfSubcaptionGood{
+  \input{appendix/styleguide/groupingfigure}
+}{
+  \input{appendix/styleguide/groupingfigure-fallback}
 }
-\end{figure*}
 
 \begin{listing*}%
-\caption{Message-Passing Litmus Test (by subfig)}%
-\label{lst:app:styleguide:Message-Passing Litmus Test (subfig)}%
+\caption{Message-Passing Litmus Test (subcaption)}%
+\label{lst:app:styleguide:Message-Passing Litmus Test (subcaption)}%
 {\scriptsize%
 \begin{verbbox}[\LstLineNo]
 C C-MP+o-wmb-o+o-o.litmus
@@ -1300,9 +1297,8 @@ exists (1:r2=2 /\ 1:r3=0)
 }
 \centering
 \hspace*{\fill}
-\subfloat[Not Enforcing Order]{
+\subcaptionbox{Not Enforcing Order\label{sublst:app:styleguide:Not Enforcing Order}}{
   \theverbbox
-  \label{sublst:app:styleguide:Not Enforcing Order}
 }
 \hspace{\fill}
 {\scriptsize%
@@ -1334,61 +1330,22 @@ P1(int* x0, int* x1) {
 exists (1:r2=2 /\ 1:r3=0)
 \end{verbbox}
 }%
-\subfloat[Enforcing Order]{%
+\subcaptionbox{Enforcing Order\label{sublst:app:styleguide:Enforcing Order}}{
   \theverbbox
-  \label{sublst:app:styleguide:Enforcing Order}
-}\hspace*{\fill}\vspace*{-9pt}
+}\hspace*{\fill}%
 \end{listing*}
 
-There are a few areas yet to be attempted in perfbook
-which would further improve its appearance.
-This section lists such candidates.
-
-\subsubsection{Grouping Related Figures/Listings}
-\label{sec:app:styleguide:Grouping Related Figures/Listings}
-
-To prevent a pair of closely related figures or listings
-from being placed in different pages, it is desirable to group
-them into a single floating object.
-The ``subfig'' package provides the features to do so.\footnote{
-  One problem of grouping figures might be the complexity in
-  \LaTeX\ source.}
-
-Two floating objects can be placed side by side by using
-\co{\\parbox} or \co{minipage}.
-For example,
-\cref{fig:advsync:Timer Wheel at 1kHz,fig:advsync:Timer Wheel at 100kHz}
-can be grouped together by using a pair of \co{minipage}s
-as shown in
-\cref{fig:app:styleguide:Timer Wheel at 1kHz,%
-fig:app:styleguide:Timer Wheel at 100kHz}.
-
-By using subfig package,
-\cref{lst:memorder:Message-Passing Litmus Test (No Ordering),%
+\Cref{lst:memorder:Message-Passing Litmus Test (No Ordering),%
 lst:memorder:Enforcing Order of Message-Passing Litmus Test}
-can be grouped together as shown in
-\cref{lst:app:styleguide:Message-Passing Litmus Test (subfig)}
-with sub\-/captions (with a minor change of blank line).
+can also be grouped together by using the \co{\\subcaptionbox} macro,
+as shown in
+\cref{lst:app:styleguide:Message-Passing Litmus Test (subcaption)}.
 
-Note that they can not be grouped in the same way as
-\cref{fig:app:styleguide:Timer Wheel at 1kHz,%
-fig:app:styleguide:Timer Wheel at 100kHz}
-because the ``ruled'' style prevents their captions
-from being properly typeset.
-
-The sub\-/caption can be cited by combining a \verb|\cref{}| macro
-and a \verb|\subref{}| macro, for example,
-``\cref{lst:app:styleguide:Message-Passing Litmus Test (subfig)}\,%
-\subref{sublst:app:styleguide:Not Enforcing Order}''.
-
-It can also be cited by a \verb|\cref{}| macro, for example,
-``\cref{sublst:app:styleguide:Enforcing Order}''.
-Note the difference in the resulting format.
-For the citing by a \verb|\cref{}| to work, you need to place
-the \verb|\label{}| macro of the combined floating object
-ahead of the definition of subfloats.
-Otherwise, the resulting caption number would be off by one
-from the actual number.
+\IfFootmiscGood{
+  \input{appendix/styleguide/groupinglisting}
+}{
+  \input{appendix/styleguide/groupinglisting-fallback}
+}
 
 \subsubsection{Table Layout Experiment}
 \label{sec:app:styleguide:Table Layout Experiment}

@@ -36,6 +36,7 @@ perfbook-*.tex
 perfbook.tex
 autodate.tex
 newtxversion.tex
+subcaption_version.tex
 autodate
 /perfbook*.idx
 /perfbook*.ilg

@@ -26,11 +26,11 @@ SUB_QQZ := qqzhowto.tex qqzintro.tex qqzcpu.tex qqztoolsoftrade.tex \
 	qqztogether.tex	qqzadvsync.tex qqzmemorder.tex qqzeasy.tex \
 	qqzfuture.tex qqzquestions.tex qqztoyrcu.tex qqzwhymb.tex
 
-AUTODATE := autodate.tex newtxversion.tex
+AUTODATE := autodate.tex newtxversion.tex subcaption_version.tex
 LATEXGENERATED = autodate qqz.tex contrib.tex origpub.tex sub_qqz
 # Note: Empty target "sub_qqz" is used on behalf of $(SUB_QQZ) to prevent
 # parallel runs of divideqqz.pl.
-# "autodate" is used in the same way for autodate.tex and newtxversion.tex.
+# "autodate" is used in the same way for $(AUTODATE) files.
 
 TWOCOLTARGETS := mstx msr msn msnt sf nq sfnq ix df
 EBTARGETS := $(foreach v,nq sf sfnq ix df,eb$(v))
@@ -369,6 +369,7 @@ perfbook-hb.tex: perfbook-lt.tex
 
 perfbook-eb.tex: perfbook-lt.tex
 	sed -e 's/setboolean{ebooksize}{false}/setboolean{ebooksize}{true}/' \
+	    -e 's/setboolean{figcptop}{false}/setboolean{figcptop}{true}/' \
 	    -e 's/setboolean{twocolumn}{true}/setboolean{twocolumn}{false}/' < $< > $@
 
 perfbook-msns.tex: $(PERFBOOK_BASE)

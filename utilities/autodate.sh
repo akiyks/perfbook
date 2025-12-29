@@ -174,3 +174,78 @@ else
 fi
 env printf '\\setboolean'"{newtxtrueslanted}{$trueslanted}\n" >> $fn_newtx
 env printf '\\setboolean'"{newtxfontspec}{$fontspec}\n" >> $fn_newtx
+
+# subcaption and footmisc version info
+subcaption_sty=`kpsewhich subcaption.sty`
+if [ "$subcaption_sty" = "" ] ; then
+	echo "Error: package 'subcaption' not found. See #5 in FAQ-BUILD.txt." >& 2
+	exit 1
+fi
+
+fn_subcaption="subcaption_version.tex"
+subcaptionversion=`grep ProvidesPackage $subcaption_sty | grep -E -e 'v[0-9]+\.[0-9]+[a-z]?' | $SED -E -e 's/.*(v[0-9]+\.[0-9]+[a-z]?).*/\1/'`
+env printf '%% subcaption version: %s\n' $subcaptionversion > $fn_subcaption
+
+footmisc_sty=`kpsewhich footmisc.sty`
+if [ "$footmisc_sty" = "" ] ; then
+	echo "Error: package 'footmisc' not found. See #5 in FAQ-BUILD.txt." >& 2
+	exit 1
+fi
+
+footmiscversion=`grep -A5 ProvidesPackage $footmisc_sty | grep -E -e 'v[0-9]+\.[0-9]+[a-z]?' | $SED -E -e 's/.*(v[0-9]+\.[0-9]+[a-z]+).*/\1/'`
+env printf '%% footmisc version: %s\n' $footmiscversion >> $fn_subcaption
+
+# We need to know late2e release
+# if you need to test -dev, say
+#latex_ltx=`kpsewhich latex-dev/base/latex.ltx`
+latex_ltx=`kpsewhich latex.ltx`
+if [ "$latex_ltx" = "" ] ; then
+	echo "Error: LaTeX base file not found. See #5 in FAQ-BUILD.txt." >& 2
+	exit 1
+fi
+latex2e_version=`grep -A5 "fmtname{LaTeX2e}" $latex_ltx | grep -E -e '[0-9]+-[0-9]+-[0-9]+' | $SED -E -e 's/.*\{([0-9]+-[0-9]+-[0-9]+)\}.*/\1/'`
+latex2e_pl=`grep -A5 "fmtname{LaTeX2e}" $latex_ltx | grep -E -e 'patch@level' | $SED -E -e 's/.*level\{([0-9]+)\}.*/\1/'`
+latex2e_devel=`grep -c -e "{develop " $latex_ltx`
+if [ $latex2e_devel -ne 0 ] ; then
+    latex2e_pl=d$latex2e_pl
+else
+    latex2e_pl=p$latex2e_pl
+fi
+
+#echo "latexe2: $latex2e_version"
+#echo "PL: $latex2e_pl"
+env printf '%% latex2e release: %s PL %s\n' $latex2e_version $latex2e_pl >> $fn_subcaption
+
+subcaptiongoodver=v1.5
+if [ $(echo $subcaptionversion $subcaptiongoodver | awk '{if ($1 < $2) print 1;}') ] ; then
+	subcaptiongood=false
+else
+	subcaptiongood=true
+fi
+
+footmisc_goodver=v6.0g
+latex2e_goodver=2024-11-01
+latex2e_goodpl=p2
+if [ $(echo $footmiscversion $footmisc_goodver | awk '{if ($1 < $2) print 1;}') ] ;
+then
+	footmiscgood=false
+else
+  if [ $(echo $latex2e_version $latex2e_goodver | awk '{if ($1 < $2) print 1;}') ] ;
+  then
+	footmiscgood=false
+  else
+    if [ $(echo $latex2e_version $latex2e_goodver | awk '{if ($1 > $2) print 1;}') ] ;
+    then
+	footmiscgood=true
+    else
+      if [ $(echo $latex2e_pl $latex2e_goodpl | awk '{if ($1 < $2) print 1;}') ] ;
+      then
+	footmiscgood=false
+      else
+        footmiscgood=true
+      fi
+    fi
+  fi
+fi
+env printf '\\setboolean'"{subcaptiongood}{$subcaptiongood}\n" >> $fn_subcaption
+env printf '\\setboolean'"{footmiscgood}{$footmiscgood}\n" >> $fn_subcaption
