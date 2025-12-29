@@ -172,6 +172,8 @@ footmiscversion=`grep -A5 ProvidesPackage $footmisc_sty | grep -E -e 'v[0-9]+\.[
 env printf '%% footmisc version: %s\n' $footmiscversion >> $fn_subcaption
 
 # We need to know late2e release
+# if you need to test -dev, say
+#latex_ltx=`kpsewhich latex-dev/base/latex.ltx`
 latex_ltx=`kpsewhich latex.ltx`
 if [ "$latex_ltx" = "" ] ; then
 	echo "Error: LaTeX base file not found. See #5 in FAQ-BUILD.txt." >& 2
@@ -179,6 +181,13 @@ if [ "$latex_ltx" = "" ] ; then
 fi
 latex2e_version=`grep -A5 "fmtname{LaTeX2e}" $latex_ltx | grep -E -e '[0-9]+-[0-9]+-[0-9]+' | $SED -E -e 's/.*\{([0-9]+-[0-9]+-[0-9]+)\}.*/\1/'`
 latex2e_pl=`grep -A5 "fmtname{LaTeX2e}" $latex_ltx | grep -E -e 'patch@level' | $SED -E -e 's/.*level\{([0-9]+)\}.*/\1/'`
+latex2e_devel=`grep -c -e "{develop " $latex_ltx`
+if [ $latex2e_devel -ne 0 ] ; then
+    latex2e_pl=d$latex2e_pl
+else
+    latex2e_pl=p$latex2e_pl
+fi
+
 #echo "latexe2: $latex2e_version"
 #echo "PL: $latex2e_pl"
 env printf '%% latex2e release: %s PL %s\n' $latex2e_version $latex2e_pl >> $fn_subcaption
@@ -190,10 +199,10 @@ else
 	subcaptiongood=true
 fi
 
-footmiscgoodver=v6.0g
+footmisc_goodver=v6.0g
 latex2e_goodver=2024-11-01
-latex2e_gootpl=2
-if [ $(echo $footmiscversion $footmiscgoodver | awk '{if ($1 < $2) print 1;}') ] ;
+latex2e_goodpl=p2
+if [ $(echo $footmiscversion $footmisc_goodver | awk '{if ($1 < $2) print 1;}') ] ;
 then
 	footmiscgood=false
 else
@@ -201,11 +210,16 @@ else
   then
 	footmiscgood=false
   else
-    if [ $(echo $latex2e_pl $latex2e_goodpl | awk '{if ($1 < $2) print 1;}') ] ;
+    if [ $(echo $latex2e_version $latex2e_goodver | awk '{if ($1 > $2) print 1;}') ] ;
     then
-	footmiscgood=false
-    else
 	footmiscgood=true
+    else
+      if [ $(echo $latex2e_pl $latex2e_goodpl | awk '{if ($1 < $2) print 1;}') ] ;
+      then
+	footmiscgood=false
+      else
+        footmiscgood=true
+      fi
     fi
   fi
 fi
