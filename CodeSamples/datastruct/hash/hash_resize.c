@@ -276,7 +276,7 @@ void hashtab_del(struct ht_elem *htep,			//\lnlbl{del:b}
 }							//\lnlbl{del:e}
 //\end{snippet}
 
-//\begin{snippet}[labelbase=ln:datastruct:hash_resize:resize,commandchars=\\\@\$,tabsize=6,breaklines=true]
+//\begin{snippet}[labelbase=ln:datastruct:hash_resize:resize,commandchars=\\\@\$]
 /* Resize a hash table. */
 int hashtab_resize(struct hashtab *htp_master,
                    unsigned long nbuckets,
@@ -311,10 +311,14 @@ int hashtab_resize(struct hashtab *htp_master,
 	for (i = 0; i < htp->ht_nbuckets; i++) {	//\lnlbl{loop:b}
 		htbp = &htp->ht_bkt[i];			//\lnlbl{get_oldcur}
 		spin_lock(&htbp->htb_lock);		//\lnlbl{acq_oldcur}
-		cds_list_for_each_entry(htep, &htbp->htb_head, hte_next[idx]) { //\lnlbl{loop_list:b}
-			htbp_new = ht_get_bucket(htp_new, htp_new->ht_getkey(htep), &b, NULL);
+		cds_list_for_each_entry(htep, &htbp->htb_head, //\lnlbl{loop_list:b}
+		                        hte_next[idx]) {
+			htbp_new = ht_get_bucket(htp_new,
+			                         htp_new->ht_getkey(htep),
+			                         &b, NULL);
 			spin_lock(&htbp_new->htb_lock);
-			cds_list_add_rcu(&htep->hte_next[!idx], &htbp_new->htb_head);
+			cds_list_add_rcu(&htep->hte_next[!idx],
+			                 &htbp_new->htb_head);
 			spin_unlock(&htbp_new->htb_lock);
 		}					//\lnlbl{loop_list:e}
 		WRITE_ONCE(htp->ht_resize_cur, i);	//\lnlbl{update_resize}
