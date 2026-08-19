@@ -815,27 +815,20 @@ void *perftest_reader(void *arg)
 	return NULL;
 }
 
-/* Pre-load specified updater's portion of hash table. */
+/* Pre-load the first half of this updater's elements into the hash table. */
 void perftest_updater_init(int mylowkey, struct testhe *thep)
 {
 	long i;
-	long j;
 
-	i = j = 0;
-	while (j < elperupdater / 2) {
+	for (i = 0; i < elperupdater / 2; i++) {
 		thep[i].data = i + mylowkey;
 		thep[i].in_table = 0;
-		if (elperupdater / 2 - j <= elperupdater - i || random() % 2) {
-			perftest_add(&thep[i]);
-			BUG_ON(!perftest_lookup(thep[i].data));
-			j++;
-		}
-		i++;
+		perftest_add(&thep[i]);
+		BUG_ON(!perftest_lookup(thep[i].data));
 	}
-	while (i < elperupdater) {
+	for (i = elperupdater / 2; i < elperupdater; i++) {
 		thep[i].data = i + mylowkey;
 		thep[i].in_table = 0;
-		i++;
 	}
 }
 
@@ -1132,26 +1125,20 @@ void *zoo_reader(void *arg)
 	return NULL;
 }
 
-/* Pre-load specified updater's portion of hash table. */
+/* Pre-load the first half of this updater's elements into the hash table. */
 void zoo_updater_init(int mylowkey, struct zoo_he **zheplist)
 {
 	long i;
-	long j;
 	struct zoo_he *zhep;
 
-	i = j = 0;
-	while (j < elperupdater / 2) {
-		if (elperupdater / 2 - j <= elperupdater - i || random() % 2) {
-			zhep = malloc(sizeof(*zhep));
-			BUG_ON(!zhep);
-			strcpy(zhep->name,
-			       &zoo_names[ZOO_NAMELEN * (i + mylowkey)]);
-			zoo_add(zhep);
-			zheplist[i] = zhep;
-			BUG_ON(!zoo_lookup(zhep->name));
-			j++;
-		}
-		i++;
+	for (i = 0; i < elperupdater / 2; i++) {
+		zhep = malloc(sizeof(*zhep));
+		BUG_ON(!zhep);
+		strcpy(zhep->name,
+		       &zoo_names[ZOO_NAMELEN * (i + mylowkey)]);
+		zoo_add(zhep);
+		zheplist[i] = zhep;
+		BUG_ON(!zoo_lookup(zhep->name));
 	}
 }
 
