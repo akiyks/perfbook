@@ -55,9 +55,7 @@
 \usepackage{pifont} % symbols for qqz reference points and carriagereturn
 \usepackage{gensymb} % symbols for both text and math modes such as \degree and \micro
 \usepackage{verbatimbox}[2014/01/30] % for centering verbatim listing in figure environment
-\usepackage{amsmath} % lineno v5.0 (loaded via fvextra) needs amsmath in front
 \usepackage{fancyvrb}
-\usepackage{fvextra}[2016/09/02]
 \usepackage[bottom]{footmisc} % place footnotes under floating figures/tables
 \usepackage{tabularx}
 \usepackage[hyphens]{url}
@@ -110,9 +108,6 @@
 \newboolean{noqqz}
 \setboolean{noqqz}{false}
 \newcommand{\IfNoQqz}[2]{\ifthenelse{\boolean{noqqz}}{#1}{#2}}
-
-\newboolean{buggyfvextra}
-\setboolean{buggyfvextra}{false}
 
 \input{autodate} % need to input here to reflect tag state
 \usepackage{qqz}
@@ -388,11 +383,22 @@
 }{
 \fvset{tabsize=8}
 }
+
+\newlength{\myxleftmarginL}
+\newlength{\myxleftmarginLL}
+
+\IfTwoColumn{
+  \setlength{\myxleftmarginL}{4pt}
+  \setlength{\myxleftmarginLL}{3pt}
+}{
+  \setlength{\myxleftmarginL}{9pt}
+  \setlength{\myxleftmarginLL}{9pt}
+}
 \DefineVerbatimEnvironment{VerbatimL}{Verbatim}%
-{numbers=left,numbersep=5pt,xleftmargin=9pt}
+{numbers=left,numbersep=5pt,xleftmargin=\myxleftmarginL}
 \AfterEndEnvironment{VerbatimL}{\vspace*{-9pt}}
 \DefineVerbatimEnvironment{VerbatimLL}{Verbatim}% for snippet inside list
-{numbers=left,numbersep=5pt,xleftmargin=9pt}
+{numbers=left,numbersep=5pt,xleftmargin=\myxleftmarginLL}
 \AfterEndEnvironment{VerbatimLL}{\vspace*{-5pt}}
 \DefineVerbatimEnvironment{VerbatimN}{Verbatim}%
 {numbers=left,numbersep=3pt,xleftmargin=5pt,xrightmargin=5pt,frame=single}
@@ -643,10 +649,6 @@
 
 % Glossaries dictionary and custom settings
 \input{glsdict}
-
-\ifthenelse{\boolean{buggyfvextra}}{
-  \input{fixfvextra.ltx}
-}{}
 
 \newboolean{adjlabelpos}
 \IfPackageAtLeastTF{hyperref}{2026-04-24}{

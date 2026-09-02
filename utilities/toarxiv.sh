@@ -54,7 +54,7 @@ find */ -type d -print |
 	sh
 
 # Copy miscellaneous files
-cp ack.tex alphapf.bst autodate.tex fixfvextra.ltx glsdict.tex glossary.tex origpub.tex contrib.tex legal.tex qqz.tex summary.tex origpub.sty qqz.sty pfbook.cls pfhyphex.tex perfbook.bbl perfbook.acr perfbook.ind perfbook-api.ind indexsee.tex ${destdir}
+cp ack.tex alphapf.bst autodate.tex glsdict.tex glossary.tex origpub.tex contrib.tex legal.tex qqz.tex summary.tex origpub.sty qqz.sty pfbook.cls pfhyphex.tex perfbook.bbl perfbook.acr perfbook.ind perfbook-api.ind indexsee.tex ${destdir}
 cp `kpsewhich fvextra.sty` ${destdir}
 cp `kpsewhich epigraph.sty` ${destdir}
 
