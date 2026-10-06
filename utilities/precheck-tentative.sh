@@ -11,33 +11,10 @@ KPSEWHICH=`command -v kpsewhich`
 
 if [ "$KPSEWHICH" != "" ] ; then
 
-#### Is lineno.sty too young for LaTeX2e ?
-# LaTeX2e <2025-06-01> and later needs lineno.sty v5.7 or later.
-# This is a minor incompatibility observed only in twocolumn builds.
-#
-#   Symptom: chapter & section titles in header area are broken.
-
-lineno_sty=`kpsewhich lineno.sty`
-lineno_ver=`grep -F '\def\fileversion' $lineno_sty | \
-	sed -E -e 's/.*\{(v[0-9a-z\.]+)\}.*$/\1/'`
-LINENO_AT_LEAST=v5.7
-linenosince=`env printf "$LINENO_AT_LEAST\n$lineno_ver" | sort -V | head -n 1`
-
 latex_release=`kpsewhich latexrelease.sty`
 latex_ver=`grep -F -A1 -e '\edef\latexreleaseversion' $latex_release | \
 	grep -F '{' | \
 	sed -E -e 's/[ ]+\{([0-9\-]+)\}/<\1>/' -e 's/\//\-/g'`
-
-LATEX_SINCE="<2025-06-01>"
-latexsince=`env printf "$LATEX_SINCE\n$latex_ver" | sort | head -n 1`
-
-if [ "$latexsince" = "$LATEX_SINCE" ] ; then  # older
-    if [ "$linenosince" != "$LINENO_AT_LEAST" ] ; then
-	echo "lineno.sty $lineno_ver is too young for LaTeX2e $latex_ver."
-	echo "Upgrade lineno.sty to at least v5.7."
-        echo "Treat this as a minor issue and continue building nonetheless."
-    fi
-fi
 
 #### Is microtype.sty too young for recent hyperref (>=v7.01p) ?
 
