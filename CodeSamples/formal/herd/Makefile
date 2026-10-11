@@ -60,7 +60,8 @@ KLITMUS_READY = \
     C-MP+o-o-rcusync-o+o-o-rcusync-o+rl-o-o-rul \
     C-double-check-cas-2 \
     C-double-check-rcu-2 C-double-check-rcu-3 C-double-check-rcu-4 \
-    SRCU-fastpath-scan-before-anchor SRCU-fastpath-anchor-before-scan
+    SRCU-fastpath-scan-before-anchor SRCU-fastpath-anchor-before-scan \
+    hazptr-wildcard-flip-escape
 
 KLITMUS_TEST   := $(addsuffix .litmus,$(KLITMUS_READY))
 
