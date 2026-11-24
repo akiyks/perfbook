@@ -560,10 +560,11 @@ ifndef QPDF
 	$(error qpdf not found. Please install it)
 endif
 	@echo "checking page group in $@"
-	@qpdf --qdf $@ $@q
-	@./utilities/extpagegroup.pl < $@q > $@p
-	@diff -q -w $@p pagegroup
-	@rm -f $@q $@p
+	@TMP=`mktemp /tmp/qpdf-XXXXXXXX.pdf` && \
+	    qpdf $@ --qdf $$TMP && \
+	    ./utilities/extpagegroup.pl < $$TMP > $@p && \
+	    diff -q -w $@p pagegroup && \
+	    rm -f $$TMP $@p
 endif
 
 CodeSamples/snippets.d: $(SOURCES_OF_SNIPPET) $(GEN_SNIPPET_D)
